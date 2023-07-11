@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>	
+	<!-- Alias 설정 -->
+	<typeAliases>
+		<typeAlias alias="user" type="com.devfp.biz.user.UserVO" />
+		<typeAlias alias="project" type="com.devfp.biz.project.ProjectVO" />
+		<typeAlias alias="chat" type="com.devfp.biz.chat.ChatVO" />
+		<typeAlias alias="issue" type="com.devfp.biz.issue.IssueVO" />
+		<typeAlias alias="task" type="com.devfp.biz.task.TaskVO" />
+		<typeAlias alias="report" type="com.devfp.biz.report.ReportVO" />
+		
+	</typeAliases>
+	
+	<!-- Sql Mapper 설정 -->
+	<mappers>
+		<mapper resource="mappings/user-mapping.xml" />
+		<mapper resource="mappings/project-mapping.xml" />
+		<mapper resource="mappings/chat-mapping.xml" />
+		<mapper resource="mappings/issue-mapping.xml" />
+		<mapper resource="mappings/task-mapping.xml" />
+		<mapper resource="mappings/report-mapping.xml" />
+	</mappers>
+</configuration>
