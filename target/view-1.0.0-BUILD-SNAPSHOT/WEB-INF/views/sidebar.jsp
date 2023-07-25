@@ -14,14 +14,15 @@
 </head>
 <body>
 <div class="sidebar">
-    <p class="sidebar-title">개발자국 퍼블 템플릿</p>
-    <div>
+    <p class="sidebar-title">로고</p>
+    <div class="navigation">
         <ul>
-            <li><a href="index.html">홈</a></li>
-            <li><a href="button.html">버튼</a></li>
-            <li><a href="input.html">입력</a></li>
-            <li><a href="grid.html">그리드</a></li>
-            <li><a href="table.html">표</a></li>
+            <li><a href="index.html">프로젝트</a></li>
+            <li><a href="button.html">업무</a></li>
+            <li><a href="input.html">멤버</a></li>
+            <li><a href="grid.html">진행률</a></li>
+            <li><a href="table.html">이슈</a></li>
+            <li><a href="table.html">한 일</a></li>
         </ul>
     </div>
 </div>
