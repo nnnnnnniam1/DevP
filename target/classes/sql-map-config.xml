@@ -5,12 +5,12 @@
 <configuration>	
 	<!-- Alias 설정 -->
 	<typeAliases>
-		<typeAlias alias="user" type="com.devfp.biz.user.UserVO" />
-		<typeAlias alias="project" type="com.devfp.biz.project.ProjectVO" />
-		<typeAlias alias="chat" type="com.devfp.biz.chat.ChatVO" />
-		<typeAlias alias="issue" type="com.devfp.biz.issue.IssueVO" />
-		<typeAlias alias="task" type="com.devfp.biz.task.TaskVO" />
-		<typeAlias alias="report" type="com.devfp.biz.report.ReportVO" />
+		<typeAlias alias="user" type="com.devP.VO.UserVO" />
+		<typeAlias alias="project" type="com.devP.VO.ProjectVO" />
+		<typeAlias alias="chat" type="com.devP.VO.ChatVO" />
+		<typeAlias alias="issue" type="com.devP.VO.IssueVO" />
+		<typeAlias alias="task" type="com.devP.VO.TaskVO" />
+		<typeAlias alias="report" type="com.devP.VO.ReportVO" />
 		
 	</typeAliases>
 	
