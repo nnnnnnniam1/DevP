@@ -87,6 +87,8 @@ h1{
 }
 
 .main-grid{
+    padding-left: 426px;
+    padding-top: 200px;
     display: grid;
     grid-template-areas:
     "calender project-list project-list"
@@ -96,6 +98,7 @@ h1{
 }
 .main-grid > div{
     margin: 10px;
+    padding-right: 10px;
     color: white;
     background-color: #2574a8   ;
 }
@@ -128,6 +131,8 @@ h1{
 }
 .calender{
     grid-area: calender;
+    width: 584px;
+    height: 842px;
 }
 .project-list{
     grid-area: project-list;
