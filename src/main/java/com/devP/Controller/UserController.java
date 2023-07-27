@@ -18,6 +18,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailController mailController;
+
 
 
     @RequestMapping(value="/login.do", method= RequestMethod.GET)
@@ -31,7 +34,7 @@ public class UserController {
         UserVO user = userService.getUser(vo);
         if(user != null){
             session.setAttribute("name",user.getName());
-            session.setAttribute("id",user.getId());
+            session.setAttribute("id",user.getUserId());
             System.out.println((String)request.getParameter("saveId"));
             return "main";
         } else
@@ -48,14 +51,18 @@ public class UserController {
 
 
     @RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
-    public String searchId(UserVO vo, HttpServletRequest request){
+    public String searchId(UserVO vo, HttpServletRequest request) throws Exception {
         String email = request.getParameter("email-id")+"@"+request.getParameter("email");
         vo.setEmail(email);
         System.out.println(email);
-        UserVO user = userService.getUserId(vo);
-        if(user != null)
-            System.out.println(user.getId());
+        UserVO user = userService.getUserIdByEmail(vo);
+        if(user != null){
+            System.out.println(user.getUserId());
+            mailController.sendId(user.getUserId(),user.getEmail());
+        } else {
 
-        return "login";
+        }
+
+        return "searchLogin";
     }
 }
