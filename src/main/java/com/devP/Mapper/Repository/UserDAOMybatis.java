@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDAOMybatis{
-	
-	@Autowired
-	private SqlSessionTemplate mybatis;
+
+    @Autowired
+    private SqlSessionTemplate mybatis;
 
 //	public void insertUser(UserVO vo) {
 //		mybatis.insert("UserDAO.insertUser", vo);
@@ -18,4 +18,6 @@ public class UserDAOMybatis{
     public UserVO getUser(UserVO vo){
         return (UserVO) mybatis.selectOne("UserDAO.getUser", vo);
     }
+
+    public UserVO getUserId(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserId", vo); }
 }
