@@ -32,15 +32,15 @@
                     <div class="searchForm">
                         <form method="post" action="searchPw.do" id="login-form">
                             <label id="inputLabel">아이디<br>
-                            <input type="text" name="id"><br>
+                            <input type="text" name="userid"><br>
                             <label id="inputLabel">이메일<br>
-                            <input type="text" name="id">@<input type="text" name="email">
-                            <input type="button" value="이메일 인증"><br>
+                            <input type="text" name="email-id">@<input type="text" name="email">
+                        </form>
+                            <input type="submit" value="이메일 인증"><br>
                             <label id="inputLabel">인증번호 입력<br>
                             <input type="text" name="code">
                             <input type="button" value="인정번호 확인"><br>
                             <input type="submit" value="비밀번호 재설정">
-                        </form>
                     </div>
                 </li>
             </ul>
