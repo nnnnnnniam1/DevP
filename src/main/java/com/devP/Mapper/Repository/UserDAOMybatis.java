@@ -19,5 +19,5 @@ public class UserDAOMybatis{
         return (UserVO) mybatis.selectOne("UserDAO.getUser", vo);
     }
 
-    public UserVO getUserId(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserId", vo); }
+    public UserVO getUserIdByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserIdByEmail", vo); }
 }

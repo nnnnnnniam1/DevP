@@ -18,7 +18,7 @@
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 	<!-- DataSource 설정 -->
-	<context:property-placeholder location="classpath:config/database.properties" />
+	<context:property-placeholder order="1" ignore-unresolvable="true" location="classpath:config/database.properties" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		  destroy-method="close">
@@ -28,11 +28,12 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 	<!--  naver email 설정	-->
+	<context:property-placeholder order="2" ignore-unresolvable="true" location="classpath:config/mail.properties" />
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.naver.com" />	<!-- 메일서버 호스트 -->
 		<property name="port" value="465"/>
-		<property name="username" value="daggggg2" />
-		<property name="password" value="dkssudgktpdy11!" />
+		<property name="username" value="${mail.id}" />
+		<property name="password" value="${mail.password}" />
 		<property name="defaultEncoding" value="utf-8" />
 		<property name="javaMailProperties" >
 			<props>

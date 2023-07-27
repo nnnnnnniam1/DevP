@@ -7,7 +7,7 @@ public interface UserService {
     //	public void insertUser(UserVO vo);
     UserVO getUser(UserVO vo);
 
-    UserVO getUserId(UserVO vo);
+    UserVO getUserIdByEmail(UserVO vo);
 
 
 }
