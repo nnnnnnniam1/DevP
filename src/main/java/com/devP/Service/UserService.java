@@ -5,7 +5,9 @@ import com.devP.VO.UserVO;
 public interface UserService {
 
 //	public void insertUser(UserVO vo);
-    public UserVO getUser(UserVO vo);
+    UserVO getUser(UserVO vo);
+
+    UserVO getUserId(UserVO vo);
 
 	
 }

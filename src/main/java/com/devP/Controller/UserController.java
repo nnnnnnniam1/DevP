@@ -38,9 +38,24 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping(value="/searchLogin.do", method = RequestMethod.GET)
+    public String searchLoginView(){ return "searchLogin"; }
+
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:login.do";
+    }
+
+    @RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
+    public String searchId(UserVO vo, HttpServletRequest request){
+        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
+        vo.setEmail(email);
+        System.out.println(email);
+        UserVO user = userService.getUserId(vo);
+        if(user != null)
+            System.out.println(user.getId());
+
+        return "login";
     }
 }
