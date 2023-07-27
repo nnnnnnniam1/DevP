@@ -35,10 +35,9 @@ public class UserController {
         if(user != null){
             session.setAttribute("name",user.getName());
             session.setAttribute("id",user.getUserId());
-            System.out.println((String)request.getParameter("saveId"));
             return "main";
         } else
-        return "login";
+            return "login";
     }
 
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
@@ -59,10 +58,7 @@ public class UserController {
         if(user != null){
             System.out.println(user.getUserId());
             mailController.sendId(user.getUserId(),user.getEmail());
-        } else {
-
         }
-
         return "searchLogin";
     }
 }

@@ -11,21 +11,21 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.Random;
 
 @Controller
 public class MailController {
 
+
     @Autowired
     private JavaMailSender mailSender;
 
-    @RequestMapping(value = "sendId.do",method = RequestMethod.POST)
-    public String sendId(String id, String email) throws Exception {
+    private String from = "daggggg2@naver.com";
+    private String to;
+    private String subject;
+    private String body;
 
-        String from = "daggggg2@naver.com";
-        String to = email;
-        String subject = "[개발자국] 아이디 찾기 테스트";
-        String body = "당신의 아이디는 " + id + "입니다.";
-
+    public void sendMail(String from, String to, String subject, String body ) throws Exception{
         try {
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");  // true는 멀티파트 메세지를 사용
@@ -35,13 +35,40 @@ public class MailController {
             mailHelper.setText(body,true);   // html을 사용하겠다는 의미
 
             mailSender.send(mail);
-
-            return "success";
         } catch (Exception e){
             e.printStackTrace();
         }
-//        mailService.sendEmail(to,from,subject, body);
-        return "";
+    }
+
+    @RequestMapping(value = "sendId.do",method = RequestMethod.POST)
+    public void sendId(String id, String email) throws Exception {
+
+        to = email;
+        subject = "[개발자국] 아이디 찾기 테스트";
+        body = "당신의 아이디는 " + id + "입니다.";
+
+        sendMail(from,to,subject,body);
+    }
+
+    @RequestMapping(value="/sendCode", method = RequestMethod.POST)
+    public void sendCode(String id, String email) throws Exception {
+        Random random = new Random();
+        StringBuffer buffer = new StringBuffer();
+        int num = 0;
+        while (buffer.length() < 6) {
+            num = random.nextInt(10);
+            buffer.append(num);
+        }
+        String authKey = buffer.toString();
+        System.out.println(authKey);
+
+        //인증메일 보내기
+        to = email;
+        subject = "[개발자국] 비밀번호찾기 인증번호코드 ";
+        body = "인증번호는 <h2>" + authKey + "</h2>입니다.<br>" +
+                "<a href='localhost:8080/login.do'>로그인하러 가기";
+
+        sendMail(from,to,subject,body);
     }
 }
 

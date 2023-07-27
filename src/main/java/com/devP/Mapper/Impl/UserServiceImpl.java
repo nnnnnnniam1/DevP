@@ -23,5 +23,8 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getUserIdByEmail(vo);
 	}
 
+	@Override
+	public UserVO getUserPwByEmail(UserVO vo) { return userDAO.getUserPwByEmail(vo); }
+
 
 }
