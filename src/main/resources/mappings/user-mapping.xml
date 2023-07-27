@@ -8,9 +8,4 @@
     <select id="getUser" resultType="User">
         select * from user where id=#{id} and password=#{password}
     </select>
-
-    <!-- 아이디찾기 - 정보확인 -->
-    <select id="getUserId" resultType="User">
-        select * from user where name=#{name} and email=#{email}
-    </select>
 </mapper>
