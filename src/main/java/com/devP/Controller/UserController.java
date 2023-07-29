@@ -5,12 +5,15 @@ import com.devP.Service.UserService;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 @Controller
 @SessionAttributes("user")
@@ -58,6 +61,22 @@ public class UserController {
         if(user != null){
             System.out.println(user.getUserId());
             mailController.sendId(user.getUserId(),user.getEmail());
+        }
+        return "searchLogin";
+    }
+    @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
+    public String searchPw(UserVO vo, HttpServletRequest request, ModelAndView model) throws Exception {
+        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
+        vo.setEmail(email);
+        System.out.println(email);
+        UserVO user = userService.getUserPwByEmail(vo);
+        if (user != null) {
+            String authKey = mailController.sendCode(user.getEmail());
+            request.setAttribute(authKey, authKey);
+
+            model.addObject("authKey",authKey);
+        } else {
+            return "searchLogin";
         }
         return "searchLogin";
     }

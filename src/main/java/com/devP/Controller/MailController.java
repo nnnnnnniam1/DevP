@@ -51,7 +51,7 @@ public class MailController {
     }
 
     @RequestMapping(value="/sendCode", method = RequestMethod.POST)
-    public void sendCode(String id, String email) throws Exception {
+    public String sendCode(String email) throws Exception {
         Random random = new Random();
         StringBuffer buffer = new StringBuffer();
         int num = 0;
@@ -69,6 +69,8 @@ public class MailController {
                 "<a href='localhost:8080/login.do'>로그인하러 가기";
 
         sendMail(from,to,subject,body);
+
+        return authKey;
     }
 }
 
