@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -21,16 +23,15 @@ public class MailController {
     private JavaMailSender mailSender;
 
     private String from = "daggggg2@naver.com";
-    private String to;
     private String subject;
     private String body;
 
-    public void sendMail(String from, String to, String subject, String body ) throws Exception{
+    public void sendMail(String from, ArrayList<String> to, String subject, String body ) throws Exception{
         try {
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");  // true는 멀티파트 메세지를 사용
             mailHelper.setFrom(new InternetAddress(from,"개발자국","UTF-8"));
-            mailHelper.setTo(to);
+            mailHelper.setTo(to.toArray(new String[to.size()]));
             mailHelper.setSubject(subject);
             mailHelper.setText(body,true);   // html을 사용하겠다는 의미
 
@@ -42,10 +43,12 @@ public class MailController {
 
     @RequestMapping(value = "sendId.do",method = RequestMethod.POST)
     public void sendId(String id, String email) throws Exception {
-
-        to = email;
+        ArrayList<String> to= new ArrayList<>();
+        to.clear();
+        to.add(email);
         subject = "[개발자국] 아이디 찾기 테스트";
         body = "당신의 아이디는 " + id + "입니다.";
+
 
         sendMail(from,to,subject,body);
     }
@@ -62,12 +65,12 @@ public class MailController {
         String authKey = buffer.toString();
         System.out.println(authKey);
 
-        //인증메일 보내기
-        to = email;
-        subject = "[개발자국] 비밀번호찾기 인증번호코드 ";
-        body = "인증번호는 <h2>" + authKey + "</h2>입니다.<br>" +
-                "<a href='localhost:8080/login.do'>로그인하러 가기";
+        ArrayList<String> to= new ArrayList<>();
 
+        //인증메일 보내기
+        to.add(email);
+        subject = "[개발자국] 비밀번호찾기 인증번호코드 ";
+        body = "인증번호는 <h2>" + authKey + "</h2>입니다.<br>";
         sendMail(from,to,subject,body);
     }
 }
