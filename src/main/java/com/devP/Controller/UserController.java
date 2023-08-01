@@ -5,12 +5,15 @@ import com.devP.Service.UserService;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 @Controller
 @SessionAttributes("user")
@@ -77,4 +80,40 @@ public class UserController {
         }
         return "searchLogin";
     }
+    @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
+    public String searchPw(UserVO vo, HttpServletRequest request,HttpSession session, ModelAndView model) throws Exception {
+        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
+        vo.setEmail(email);
+        System.out.println(email);
+        UserVO user = userService.getUserPwByEmail(vo);
+        if (user != null) {
+            String authKey = mailController.sendCode(user.getEmail());
+//            request.setAttribute(authKey, authKey);
+
+            session.setAttribute("userId",user.getUserId());    // 비밀번호 재설정시 필요
+            session.setAttribute("authKey",authKey);
+        } else {
+            return "searchLogin";
+        }
+        return "searchLogin";
+    }
+    @RequestMapping(value = "/checkCode.do", method = RequestMethod.POST)
+    public String checkCode(HttpServletRequest request,HttpSession session, ModelAndView model){
+        String authKey = (String)session.getAttribute("authKey");
+        String inputCode = (String)request.getAttribute("input-code");
+
+        if(authKey.equals(inputCode)){
+            model.addObject("success",true);
+        } else {
+            model.addObject("success", false);
+        }
+        return "searchLogin";
+    }
+    @RequestMapping(value = "/changePw.do", method = RequestMethod.GET)
+    public String changePwView(){
+        return "changePw";
+    }
+
+
+
 }

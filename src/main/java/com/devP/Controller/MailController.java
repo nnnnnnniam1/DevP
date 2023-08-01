@@ -54,7 +54,7 @@ public class MailController {
     }
 
     @RequestMapping(value="/sendCode", method = RequestMethod.POST)
-    public void sendCode(String id, String email) throws Exception {
+    public String sendCode(String email) throws Exception {
         Random random = new Random();
         StringBuffer buffer = new StringBuffer();
         int num = 0;
@@ -72,6 +72,8 @@ public class MailController {
         subject = "[개발자국] 비밀번호찾기 인증번호코드 ";
         body = "인증번호는 <h2>" + authKey + "</h2>입니다.<br>";
         sendMail(from,to,subject,body);
+
+        return authKey;
     }
 }
 
