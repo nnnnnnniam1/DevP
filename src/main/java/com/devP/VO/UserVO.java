@@ -8,7 +8,8 @@ public class UserVO {
 	private String role;
 	private String email;
 
-	public String getUserId() { return id; }
+
+	public String getId() { return id; }
 
 	public void setId(String id) {
 		this.id = id;

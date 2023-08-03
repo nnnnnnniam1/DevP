@@ -35,16 +35,32 @@ public class UserController {
 
         UserVO user = userService.getUser(vo);
         if(user != null){
-            session.setAttribute("name",user.getName());
-            session.setAttribute("id",user.getUserId());
-            return "main";
-        } else
+            String saveId = request.getParameter("saveId");
+            System.out.println(saveId);
+//            session.setAttribute("name",user.getName());
+            session.setAttribute("id",user.getId());
+//            session.setAttribute("user", user);
+
+            if("on".equals(saveId)){
+                session.setAttribute("checked","checked");
+            } else {
+                session.removeAttribute("checked");
+            }
+
+            return "home";
+        } else {
             return "login";
+        }
     }
 
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
     public String logout(HttpSession session){
-        session.invalidate();
+        if(session.getAttribute("checked") != null){
+            System.out.println("아이디 저장임");
+        } else {
+            session.invalidate();
+            System.out.println("아이디 저장 안됨");
+        }
         return "redirect:login.do";
     }
     @RequestMapping(value="/searchLogin.do", method = RequestMethod.GET)
@@ -58,8 +74,8 @@ public class UserController {
         System.out.println(email);
         UserVO user = userService.getUserIdByEmail(vo);
         if(user != null){
-            System.out.println(user.getUserId());
-            mailController.sendId(user.getUserId(),user.getEmail());
+            System.out.println(user.getId());
+            mailController.sendId(user.getId(),user.getEmail());
         }
         return "searchLogin";
     }

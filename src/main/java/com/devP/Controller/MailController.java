@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -21,17 +23,15 @@ public class MailController {
     private JavaMailSender mailSender;
 
     private String from = "daggggg2@naver.com";
-    private String to;
     private String subject;
     private String body;
-    
-    //from 나 to 보낼 사람 subject 이메일 제목 body 내용
-    public void sendMail(String from, String to, String subject, String body ) throws Exception{
+
+    public void sendMail(String from, ArrayList<String> to, String subject, String body ) throws Exception{
         try {
             MimeMessage mail = mailSender.createMimeMessage();
-            MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");  // true�뒗 硫��떚�뙆�듃 硫붿꽭吏�瑜� �궗�슜
-            mailHelper.setFrom(new InternetAddress(from,"媛쒕컻�옄援�","UTF-8"));
-            mailHelper.setTo(to);
+            MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");  // true는 멀티파트 메세지를 사용
+            mailHelper.setFrom(new InternetAddress(from,"개발자국","UTF-8"));
+            mailHelper.setTo(to.toArray(new String[to.size()]));
             mailHelper.setSubject(subject);
             mailHelper.setText(body,true);   // html�쓣 �궗�슜�븯寃좊떎�뒗 �쓽誘�
 
@@ -43,10 +43,12 @@ public class MailController {
 
     @RequestMapping(value = "sendId.do",method = RequestMethod.POST)
     public void sendId(String id, String email) throws Exception {
+        ArrayList<String> to= new ArrayList<>();
+        to.clear();
+        to.add(email);
+        subject = "[개발자국] 아이디 찾기 테스트";
+        body = "당신의 아이디는 " + id + "입니다.";
 
-        to = email;
-        subject = "[媛쒕컻�옄援�] �븘�씠�뵒 李얘린 �뀒�뒪�듃";
-        body = "�떦�떊�쓽 �븘�씠�뵒�뒗 " + id + "�엯�땲�떎.";
 
         sendMail(from,to,subject,body);
     }
@@ -63,12 +65,12 @@ public class MailController {
         String authKey = buffer.toString();
         System.out.println(authKey);
 
-        //�씤利앸찓�씪 蹂대궡湲�
-        to = email;
-        subject = "[媛쒕컻�옄援�] 鍮꾨�踰덊샇李얘린 �씤利앸쾲�샇肄붾뱶 ";
-        body = "�씤利앸쾲�샇�뒗 <h2>" + authKey + "</h2>�엯�땲�떎.<br>" +
-                "<a href='localhost:8080/login.do'>濡쒓렇�씤�븯�윭 媛�湲�";
+        ArrayList<String> to= new ArrayList<>();
 
+        //인증메일 보내기
+        to.add(email);
+        subject = "[개발자국] 비밀번호찾기 인증번호코드 ";
+        body = "인증번호는 <h2>" + authKey + "</h2>입니다.<br>";
         sendMail(from,to,subject,body);
     }
 }
