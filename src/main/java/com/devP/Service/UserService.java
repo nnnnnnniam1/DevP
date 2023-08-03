@@ -10,6 +10,4 @@ public interface UserService {
     UserVO getUserIdByEmail(UserVO vo);
 
     UserVO getUserPwByEmail(UserVO vo);
-
-
 }
