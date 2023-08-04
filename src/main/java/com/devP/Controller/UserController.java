@@ -90,30 +90,44 @@ public class UserController {
             String authKey = mailController.sendCode(user.getEmail());
 //            request.setAttribute(authKey, authKey);
 
-            session.setAttribute("userId",user.getUserId());    // 비밀번호 재설정시 필요
+            session.setAttribute("userId",user.getId());    // 비밀번호 재설정시 필요
             session.setAttribute("authKey",authKey);
-        } else {
-            return "searchLogin";
         }
         return "searchLogin";
     }
     @RequestMapping(value = "/checkCode.do", method = RequestMethod.POST)
-    public String checkCode(HttpServletRequest request,HttpSession session, ModelAndView model){
+    public String checkCode(HttpServletRequest request,HttpSession session, Model model){
         String authKey = (String)session.getAttribute("authKey");
-        String inputCode = (String)request.getAttribute("input-code");
-
+        String inputCode = request.getParameter("input-code");
+        System.out.println(authKey+" "+inputCode);
         if(authKey.equals(inputCode)){
-            model.addObject("success",true);
+            model.addAttribute("success","success");
+            System.out.println("true");
         } else {
-            model.addObject("success", false);
+            model.addAttribute("success","false");
+            System.out.println("false");
+
         }
+        System.out.println();
         return "searchLogin";
     }
     @RequestMapping(value = "/changePw.do", method = RequestMethod.GET)
-    public String changePwView(){
+    public String changePwView(HttpSession session){
+        session.removeAttribute("authKey");
         return "changePw";
     }
 
+    @RequestMapping(value = "/changePw.do", method = RequestMethod.POST)
+    public String changePw(UserVO vo, HttpSession session, HttpServletRequest request){
+        vo.setId((String)session.getAttribute("userId"));
+        System.out.println(vo.getId()+""+vo.getPassword());
+        userService.updatePw(vo);
+        return "changePw";
+    }
+    @RequestMapping(value = "/changePwSuccess.do", method = RequestMethod.GET)
+    public String changePwSuccessView(){
+        return "changePwSuccess";
+    }
 
 
 }

@@ -22,4 +22,6 @@ public class UserDAOMybatis{
     public UserVO getUserIdByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserIdByEmail", vo); }
 
     public UserVO getUserPwByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserPwByEmail", vo); }
+
+    public void updatePw(UserVO vo){ mybatis.update("UserDAO.updatePw", vo); }
 }

@@ -26,5 +26,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO getUserPwByEmail(UserVO vo) { return userDAO.getUserPwByEmail(vo); }
 
+	@Override
+	public void updatePw(UserVO vo) { userDAO.updatePw(vo); }
+
 
 }

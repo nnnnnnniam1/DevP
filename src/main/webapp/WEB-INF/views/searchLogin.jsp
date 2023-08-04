@@ -42,12 +42,13 @@ ddd
                     </form>
                     <form class="codeForm" method="post" action="checkCode.do" id="login-form">
                         <label class="form-label" id="input">인증번호</label>
-                        <input type="hidden" id="authKey">${authKey}
+                        <input type="hidden" id="authKey" value="${authKey}">
                         <input class="form-input" type="text" name="input-code" id="input-code">
+                        <input type="hidden" id="success" value="${success}">
                         <input class="check-code" type="submit" value="인증번호 확인">
                         <p id="result"><p><br>
                     </form>
-                        <input type="button" onclick="changePw()" value="비밀번호 재설정">
+                        <input type="button" onclick="location.href='changePw.do'" value="비밀번호 재설정">
                 </div>
             </li>
         </ul>
@@ -121,38 +122,35 @@ ddd
     }
         
     // Call the function on page load
+    document.querySelector('.searchForm.find-pw .codeForm').addEventListener('submit', function (e) {
+        // Prevent the default form submission behavior
+        e.preventDefault();
+
+        // Assuming you are using jQuery for AJAX form submission
+        $.ajax({
+            type: 'POST',
+            url: 'checkCode.do',
+            data: $(this).serialize(),
+            success: function (response) {
+                var check = document.getElementById("success").value;
+
+                console.log(response.success);
+                if (check === "success") {
+                    $('#result').text("인증되었습니다.");
+                } else {
+                    $('#result').text("다시 입력해주세요");
+                }
+                showActiveTab();
+            },
+            error: function (error) {
+                console.log('Error: ' + error);
+                // Handle error case if needed
+            }
+        });
+    });
+
     showActiveTab();
 
-    document.querySelector('.searchForm.find-pw .codeForm').addEventListener('submit', function (e) {
-            // Prevent the default form submission behavior
-            e.preventDefault();
-
-            // Assuming you are using jQuery for AJAX form submission
-            $.ajax({
-                type: 'POST',
-                url: 'checkCode.do',
-                data: $(this).serialize(),
-                success: function (response) {
-                    // Update the activeTabIndex to the "비밀번호 찾기" tab
-                    activeTabIndex = 1;
-
-                    var success = response.success;
-
-                    if(success){
-                        ('#result').val("인증되었습니다.");
-                    } else {
-                        ('#result').val("다시 입력해주세요");
-                    }
-
-                    // Refresh the tab display
-                    showActiveTab();
-                },
-                error: function (error) {
-                    console.log('Error: ' + error);
-                    // Handle error case if needed
-                }
-            });
-        });
 
 
 </script>

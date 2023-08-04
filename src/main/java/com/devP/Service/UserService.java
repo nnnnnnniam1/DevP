@@ -11,5 +11,7 @@ public interface UserService {
 
     UserVO getUserPwByEmail(UserVO vo);
 
+    void updatePw(UserVO vo);
+
 
 }
