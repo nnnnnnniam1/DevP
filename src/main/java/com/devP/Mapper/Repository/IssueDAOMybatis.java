@@ -38,7 +38,7 @@ public class IssueDAOMybatis{
     	return mybatis.update("IssueDAO.countupIssue", issueId);
     }
     
-    public int solveIssue(int issueId) {
-    	return mybatis.update("IssueDAO.solveIssue", issueId);
+    public int changeIssueStatus(IssueVO vo) {
+    	return mybatis.update("IssueDAO.solveIssue", vo);
     }
 }

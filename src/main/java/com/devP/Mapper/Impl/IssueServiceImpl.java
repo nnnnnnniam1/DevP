@@ -40,7 +40,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public int solveIssue(int issueId) {
-		return issueDAO.solveIssue(issueId);
+	public int changeIssueStatus(IssueVO vo) {
+		return issueDAO.changeIssueStatus(vo);
 	}
 }

@@ -102,9 +102,9 @@ public class IssueController {
 	//이슈 해결
 	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
     public String solveIssue(@RequestBody IssueVO issue){
-		System.out.println("이슈 해결 호출");
+		issue.setStatus("해결");
 		try {
-			issueService.solveIssue(issue.getIssueId());
+			issueService.changeIssueStatus(issue);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
