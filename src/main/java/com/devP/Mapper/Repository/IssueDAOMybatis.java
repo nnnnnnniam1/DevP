@@ -37,7 +37,8 @@ public class IssueDAOMybatis{
     public int countupIssue(int issueId) {
     	return mybatis.update("IssueDAO.countupIssue", issueId);
     }
-//    public UserVO getUserIdByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserIdByEmail", vo); }
-//
-//    public UserVO getUserPwByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserPwByEmail", vo); }
+    
+    public int solveIssue(int issueId) {
+    	return mybatis.update("IssueDAO.solveIssue", issueId);
+    }
 }

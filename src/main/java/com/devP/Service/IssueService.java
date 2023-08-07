@@ -16,4 +16,6 @@ public interface IssueService {
 	IssueVO getIssue(int issueId);
 	
 	int countupIssue(int issueId);
+	
+	int solveIssue(int issueId);
 }

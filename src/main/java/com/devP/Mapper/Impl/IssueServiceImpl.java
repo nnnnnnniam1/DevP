@@ -38,4 +38,9 @@ public class IssueServiceImpl implements IssueService {
 	public int countupIssue(int issueId) {
 		return issueDAO.countupIssue(issueId);
 	}
+
+	@Override
+	public int solveIssue(int issueId) {
+		return issueDAO.solveIssue(issueId);
+	}
 }

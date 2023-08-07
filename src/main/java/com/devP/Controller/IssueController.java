@@ -70,7 +70,7 @@ public class IssueController {
 	@RequestMapping(value="/list.do", method= RequestMethod.GET)
     public String getIssuelist(@RequestParam int projectId, Model model){
 		model.addAttribute("issueList", issueService.getIssuelist(projectId));
-		String[] statusArray = {"논의중", "진행중", "완료"};
+		String[] statusArray = {"논의중", "진행중", "해결"};
 		model.addAttribute("statusarr", statusArray);
         return "issueList";
     }
@@ -88,7 +88,6 @@ public class IssueController {
 	//이슈 상세 - 추가 작업 댓글 추가 해야 됨
 	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
     public String getIssuedetail(@RequestParam int issueId, Model model){
-		System.out.println("이슈 상세 호출");
 		try {
 			//이슈 조회수 올리기 -추가 작업 동일 세션 아이디 중복 조회 제한
 			issueService.countupIssue(issueId);
@@ -99,5 +98,17 @@ public class IssueController {
 		}
 		System.out.println(model);
         return "issueDetail";
+	}
+	//이슈 해결
+	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
+    public String solveIssue(@RequestBody IssueVO issue){
+		System.out.println("이슈 해결 호출");
+		try {
+			issueService.solveIssue(issue.getIssueId());
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+        return "redirect:/list.do?projectId= " + issue.getProjectId();
 	}
 }

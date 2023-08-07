@@ -32,4 +32,10 @@
 		set count = count + 1
 		where issueId = #{issueId};
 	</update>
+	
+	<update id="solveIssue">
+		update issue
+		set status = "해결"
+		where issueId = #{issueId};
+	</update>
 </mapper>
