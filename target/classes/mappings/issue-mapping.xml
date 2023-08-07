@@ -33,9 +33,9 @@
 		where issueId = #{issueId};
 	</update>
 	
-	<update id="solveIssue">
+	<update id="changeIssueStatus">
 		update issue
-		set status = "해결"
-		where issueId = #{issueId};
+		set status = #{ status }
+		where issueId = #{ issueId };
 	</update>
 </mapper>

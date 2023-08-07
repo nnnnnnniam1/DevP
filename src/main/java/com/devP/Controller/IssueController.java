@@ -89,14 +89,22 @@ public class IssueController {
 	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
     public String getIssuedetail(@RequestParam int issueId, Model model){
 		try {
+			IssueVO issue = new IssueVO();
+			issue = issueService.getIssue(issueId);
+			System.out.println(issue.getStatus());
+			if ("대기".equals(issue.getStatus().toString())) {
+				issue.setStatus("검토");
+			}
+			System.out.println(issue.getStatus());
 			//이슈 조회수 올리기 -추가 작업 동일 세션 아이디 중복 조회 제한
 			issueService.countupIssue(issueId);
+			//이슈 상태 변경
+			issueService.changeIssueStatus(issue);
 			model.addAttribute("issue", issueService.getIssue(issueId));
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
 		}
-		System.out.println(model);
         return "issueDetail";
 	}
 	//이슈 해결
