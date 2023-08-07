@@ -83,6 +83,6 @@ public class IssueController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-        return "redirect:/list.do?projectId=5";
+        return "redirect:/list.do?projectId= " + issue.getProjectId();
     }	
 }
