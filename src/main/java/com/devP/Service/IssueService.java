@@ -10,4 +10,6 @@ public interface IssueService {
 	int insertIssue(IssueVO vo);
 	
 	List<IssueVO> getIssuelist(int projectId);
+	
+	int deleteIssue(int issueId);
 }

@@ -23,12 +23,9 @@ public class IssueServiceImpl implements IssueService {
 	public List<IssueVO> getIssuelist(int projectId) {
 		return issueDAO.getIssuelist(projectId);
 	}
-	/*	
-	 * @Override public UserVO getUserIdByEmail(UserVO vo) { return
-	 * userDAO.getUserIdByEmail(vo); }
-	 * 
-	 * @Override public UserVO getUserPwByEmail(UserVO vo) { return
-	 * userDAO.getUserPwByEmail(vo); }
-	 */
 
+	@Override
+	public int deleteIssue(int issueId) {
+		return issueDAO.deleteIssue(issueId);
+	}
 }

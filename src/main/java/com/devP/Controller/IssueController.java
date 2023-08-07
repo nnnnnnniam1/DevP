@@ -74,4 +74,15 @@ public class IssueController {
 		model.addAttribute("statusarr", statusArray);
         return "issueList";
     }
+	//¿ÃΩ¥ ªË¡¶
+	@RequestMapping(value="/delete.do", method= RequestMethod.POST)
+    public String deleteIssue(@RequestBody IssueVO issue){
+		System.out.println(issue.getIssueId());
+		try {
+			issueService.deleteIssue(issue.getIssueId());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+        return "main";
+    }	
 }

@@ -16,6 +16,10 @@
 		WHERE i.projectId = #{projectId};
 	</select>
 	
+	<delete id="deleteIssue">
+		delete from issue where issueId = #{issueId}
+	</delete>
+	
     <!-- 아이디찾기 - 정보확인 -->
     <!-- <select id="getUserIdByEmail" resultType="User">
         select * from user where name=#{name} and email=#{email}
