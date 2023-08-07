@@ -48,7 +48,7 @@ ddd
                         <input class="check-code" type="submit" value="인증번호 확인">
                         <p id="result"><p><br>
                     </form>
-                        <input type="button" onclick="location.href='changePw.do'" value="비밀번호 재설정">
+                        <input type="button" id="resetPwButton" value="비밀번호 재설정">
                 </div>
             </li>
         </ul>
@@ -87,7 +87,6 @@ ddd
         // Prevent the default form submission behavior
         e.preventDefault();
 
-        // Assuming you are using jQuery for AJAX form submission
         $.ajax({
             type: 'POST',
             url: 'searchPw.do',
@@ -109,7 +108,6 @@ ddd
         });
     });
 
-    // Function to show the active tab on page load or reload
     function showActiveTab() {
         for (let i = 0; i < tabList.length; i++) {
             if (i === activeTabIndex) {
@@ -121,29 +119,42 @@ ddd
         }
     }
         
-    // Call the function on page load
     document.querySelector('.searchForm.find-pw .codeForm').addEventListener('submit', function (e) {
         // Prevent the default form submission behavior
         e.preventDefault();
-
-        // Assuming you are using jQuery for AJAX form submission
-        $.ajax({
-            type: 'POST',
-            url: 'checkCode.do',
-            data: $(this).serialize(),
-            success: function (response) {
-                if (response === "success") {
-                    $('#result').text("인증되었습니다.");
-                } else {
-                    $('#result').text("다시 입력해주세요");
+        if(document.getElementById("authKey") === ""){
+            alert("인증번호를 입력하세요.");
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: 'checkCode.do',
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response === "success") {
+                        $('#result').text("인증되었습니다.");
+                        success = true;
+                    } else {
+                        $('#result').text("다시 입력해주세요");
+                        success = false
+                    }
+                    showActiveTab();
+                },
+                error: function (error) {
+                    console.log('Error: ' + error);
+                    // Handle error case if needed
                 }
-                showActiveTab();
-            },
-            error: function (error) {
-                console.log('Error: ' + error);
-                // Handle error case if needed
-            }
-        });
+            });
+        }
+    });
+
+    document.getElementById("resetPwButton").addEventListener('click', function() {
+        // successed 값이 "success"인 경우에만 비밀번호 재설정 페이지로 이동
+        if (success) {
+            location.href = 'changePw.do';
+        } else {
+            // successed 값이 "success"가 아닌 경우, 즉 인증이 안 된 경우에는 알림창을 띄움
+            alert("비밀번호 재설정을 위해서는 먼저 인증을 완료해주세요.");
+        }
     });
 
     showActiveTab();
