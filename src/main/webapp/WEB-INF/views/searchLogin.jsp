@@ -44,7 +44,7 @@ ddd
                         <label class="form-label" id="input">인증번호</label>
                         <input type="hidden" id="authKey" value="${authKey}">
                         <input class="form-input" type="text" name="input-code" id="input-code">
-                        <input type="hidden" id="success" value="${success}">
+                        <input type="hidden" id="successed" value="${success}">
                         <input class="check-code" type="submit" value="인증번호 확인">
                         <p id="result"><p><br>
                     </form>
@@ -132,10 +132,7 @@ ddd
             url: 'checkCode.do',
             data: $(this).serialize(),
             success: function (response) {
-                var check = document.getElementById("success").value;
-
-                console.log(response.success);
-                if (check === "success") {
+                if (response === "success") {
                     $('#result').text("인증되었습니다.");
                 } else {
                     $('#result').text("다시 입력해주세요");

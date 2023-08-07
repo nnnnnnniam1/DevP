@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -96,20 +97,18 @@ public class UserController {
         return "searchLogin";
     }
     @RequestMapping(value = "/checkCode.do", method = RequestMethod.POST)
-    public String checkCode(HttpServletRequest request,HttpSession session, Model model){
-        String authKey = (String)session.getAttribute("authKey");
+    @ResponseBody
+    public String checkCode(HttpServletRequest request, HttpSession session) {
+        String authKey = (String) session.getAttribute("authKey");
         String inputCode = request.getParameter("input-code");
-        System.out.println(authKey+" "+inputCode);
-        if(authKey.equals(inputCode)){
-            model.addAttribute("success","success");
+        System.out.println(authKey + " " + inputCode);
+        if (authKey.equals(inputCode)) {
             System.out.println("true");
+            return "success";
         } else {
-            model.addAttribute("success","false");
             System.out.println("false");
-
+            return "false";
         }
-        System.out.println();
-        return "searchLogin";
     }
     @RequestMapping(value = "/changePw.do", method = RequestMethod.GET)
     public String changePwView(HttpSession session){
