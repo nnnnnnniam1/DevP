@@ -12,4 +12,8 @@ public interface IssueService {
 	List<IssueVO> getIssuelist(int projectId);
 	
 	int deleteIssue(int issueId);
+	
+	IssueVO getIssue(int issueId);
+	
+	int countupIssue(int issueId);
 }

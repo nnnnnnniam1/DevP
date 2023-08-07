@@ -28,4 +28,14 @@ public class IssueServiceImpl implements IssueService {
 	public int deleteIssue(int issueId) {
 		return issueDAO.deleteIssue(issueId);
 	}
+
+	@Override
+	public IssueVO getIssue(int issueId) {
+		return issueDAO.getIssue(issueId);
+	}
+
+	@Override
+	public int countupIssue(int issueId) {
+		return issueDAO.countupIssue(issueId);
+	}
 }

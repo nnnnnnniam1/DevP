@@ -55,7 +55,7 @@ public class IssueController {
         for (String email : emailArray) {
             emailList.add(email);
         }
-		//이메일 알림 전송 구현해야 함
+		//이메일 알림 전송
 		try {
 			mailController.sendMail(from, emailList, issue.getUserId() + "(이)가 이슈 알림을 보냈습니다", issue.getContent());
 		} catch (Exception e) {
@@ -84,5 +84,20 @@ public class IssueController {
 			// TODO: handle exception
 		}
         return "redirect:/list.do?projectId= " + issue.getProjectId();
-    }	
+	}
+	//이슈 상세 - 추가 작업 댓글 추가 해야 됨
+	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
+    public String getIssuedetail(@RequestParam int issueId, Model model){
+		System.out.println("이슈 상세 호출");
+		try {
+			//이슈 조회수 올리기 -추가 작업 동일 세션 아이디 중복 조회 제한
+			issueService.countupIssue(issueId);
+			model.addAttribute("issue", issueService.getIssue(issueId));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		System.out.println(model);
+        return "issueDetail";
+	}
 }

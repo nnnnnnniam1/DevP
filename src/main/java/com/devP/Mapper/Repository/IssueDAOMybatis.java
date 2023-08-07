@@ -29,7 +29,14 @@ public class IssueDAOMybatis{
     public int deleteIssue(int issueId) {
     	return mybatis.delete("IssueDAO.deleteIssue", issueId);
     }
-
+    
+    public IssueVO getIssue(int issueId) {
+    	return mybatis.selectOne("IssueDAO.getIssue", issueId);
+    }
+    
+    public int countupIssue(int issueId) {
+    	return mybatis.update("IssueDAO.countupIssue", issueId);
+    }
 //    public UserVO getUserIdByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserIdByEmail", vo); }
 //
 //    public UserVO getUserPwByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserPwByEmail", vo); }
