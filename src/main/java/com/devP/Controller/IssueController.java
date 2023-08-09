@@ -58,12 +58,12 @@ public class IssueController {
 		//이메일 알림 전송
 		try {
 			mailController.sendMail(from, emailList, issue.getUserId() + "(이)가 이슈 알림을 보냈습니다", issue.getContent());
+			issueService.insertIssue(issue);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//---------------------
-		issueService.insertIssue(issue);
         return "main";
     }
 	//이슈 목록
@@ -113,6 +113,28 @@ public class IssueController {
 		issue.setStatus("해결");
 		try {
 			issueService.changeIssueStatus(issue);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+        return "redirect:/list.do?projectId= " + issue.getProjectId();
+	}
+	//이슈 수정
+	@RequestMapping(value="/modify.do", method= RequestMethod.POST)
+    public String modifyIssue(@RequestBody IssueVO issue, HttpSession session){
+		String emails = issue.getSendingEmail();
+		try {
+			//세션 아이디 정보 등록
+			issue.setUserId(session.getAttribute("id").toString());
+			// 구분자를 쉼표(,)로 지정하여 문자열을 나누고, 이메일 주소들을 ArrayList에 저장
+	        ArrayList<String> emailList = new ArrayList<>();
+	        String[] emailArray = emails.split(",");
+	        for (String email : emailArray) {
+	            emailList.add(email);
+	        }
+			//이메일 알림 전송
+			mailController.sendMail(from, emailList, issue.getUserId() + "(이)가 이슈 수정 알림을 보냈습니다", issue.getContent());
+			issueService.modifyIssue(issue);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);

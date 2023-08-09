@@ -43,4 +43,10 @@ public class IssueServiceImpl implements IssueService {
 	public int changeIssueStatus(IssueVO vo) {
 		return issueDAO.changeIssueStatus(vo);
 	}
+
+	@Override
+	public int modifyIssue(IssueVO vo) {
+		// TODO Auto-generated method stub
+		return issueDAO.modifyIssue(vo);
+	}
 }

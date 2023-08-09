@@ -18,4 +18,6 @@ public interface IssueService {
 	int countupIssue(int issueId);
 	
 	int changeIssueStatus(IssueVO vo);
+	
+	int modifyIssue(IssueVO vo);
 }
