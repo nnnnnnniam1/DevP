@@ -11,6 +11,7 @@
 		<typeAlias alias="issue" type="com.devP.VO.IssueVO" />
 		<typeAlias alias="task" type="com.devP.VO.TaskVO" />
 		<typeAlias alias="report" type="com.devP.VO.ReportVO" />
+		<typeAlias alias="reply" type="com.devP.VO.ReplyVO" />
 		
 	</typeAliases>
 	
@@ -22,5 +23,6 @@
 		<mapper resource="mappings/issue-mapping.xml" />
 		<mapper resource="mappings/task-mapping.xml" />
 		<mapper resource="mappings/report-mapping.xml" />
+		<mapper resource="mappings/reply-mapping.xml" />
 	</mappers>
 </configuration>
