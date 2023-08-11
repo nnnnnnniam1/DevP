@@ -33,7 +33,7 @@ public class MailController {
             mailHelper.setFrom(new InternetAddress(from,"개발자국","UTF-8"));
             mailHelper.setTo(to.toArray(new String[to.size()]));
             mailHelper.setSubject(subject);
-            mailHelper.setText(body,true);   // html을 사용하겠다는 의미
+            mailHelper.setText(body,true);   // html�쓣 �궗�슜�븯寃좊떎�뒗 �쓽誘�
 
             mailSender.send(mail);
         } catch (Exception e){
