@@ -4,6 +4,7 @@ package com.devP.Controller;
 import com.devP.Service.UserService;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
@@ -24,7 +27,6 @@ public class UserController {
 
     @Autowired
     private MailController mailController;
-
 
 
     @RequestMapping(value="/login.do", method= RequestMethod.GET)
@@ -42,7 +44,6 @@ public class UserController {
             session.setAttribute("name",user.getName());
             session.setAttribute("id",user.getId());
 //            session.setAttribute("user", user);
-
             if("on".equals(saveId)){
                 session.setAttribute("checked","checked");
             } else {
@@ -56,8 +57,8 @@ public class UserController {
     }
 
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
-    public String logout(HttpSession session){
-        if(session.getAttribute("checked") != null){
+    public String logout(HttpSession session) {
+        if (session.getAttribute("checked") != null) {
             System.out.println("아이디 저장임");
         } else {
             session.invalidate();

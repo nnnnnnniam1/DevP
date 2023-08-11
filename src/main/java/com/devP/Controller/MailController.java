@@ -34,15 +34,13 @@ public class MailController {
             mailHelper.setFrom(new InternetAddress(from,"개발자국","UTF-8"));
             mailHelper.setTo(to.toArray(new String[to.size()]));
             mailHelper.setSubject(subject);
-            mailHelper.setText(body,true);   // html을 사용하겠다는 의미
+            mailHelper.setText(body,true);   // html�쓣 �궗�슜�븯寃좊떎�뒗 �쓽誘�
 
             mailSender.send(mail);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
-
-    @RequestMapping(value = "sendId.do",method = RequestMethod.POST)
     public void sendId(String id, String email) throws Exception {
         to.clear();
         to.add(email);
@@ -53,7 +51,6 @@ public class MailController {
         sendMail(from,to,subject,body);
     }
 
-    @RequestMapping(value="/sendCode", method = RequestMethod.POST)
     public String sendCode(String email) throws Exception {
         Random random = new Random();
         StringBuffer buffer = new StringBuffer();
@@ -76,15 +73,14 @@ public class MailController {
         return authKey;
     }
 
-    @RequestMapping(value="/invitedMail", method = RequestMethod.POST)
-    public String sendInvitedMail(String leader, String project, String memberName, String email, String token){
+    public String sendInvitedMail(String leader, String project, String memberName, String email, String token) throws Exception {
         to.add(email);
         subject = "[개발자국] " + project + "초대";
         body = "<h3>" + memberName+"님, 안녕하세요</h3><br>"
                 + leader+"님에 의해 " + project+" 프로젝트에 초대되었습니다.<br>"
                 + "초대를 수락하신다면 "
                 + "<a href='http://localhost:8080/addProject/verify?token="+token+"'>초대 수락</a>";
-//        sendMail(from,to,subject,body);
+        sendMail(from,to,subject,body);
 
         return "";
     }
