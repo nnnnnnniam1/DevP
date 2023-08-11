@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LeaderDAO">
+
+    <!--  멤버리스트 불러오기  -->
+    <select id="getMemberList" resultType="Member">
+        SELECT u.name AS memberName, u.id AS memberId, u.email AS email,
+            pg.leader, pg.position, pg.role
+        FROM projectgroup AS pg
+        JOIN user AS u
+        ON pg.userId = u.id
+        WHERE pg.projectId = #{projectId};
+    </select>
+</mapper>
