@@ -16,7 +16,7 @@
             	<label id="inputLabel">프로젝트</label><input type = "text" name="projectTitle">
             	<br>
             	<label id="inputLabel">안건</label><input type = "text" name="category"><br>
-            	<label id="inputLabel">작성자</label><input type = "text" name="writer"><br>
+            	<label id="inputLabel">작성자</label><input type = "text" name="writer" value = "${ username }"><br>
             	<label id="inputLabel">제목</label><input type = "text" name="title"><br>
             	<label id="inputLabel">알림</label><input type = "text" name="sendingEmail"><br>
             	<label id="inputLabel">내용</label><input type = "text" name="content"><br>

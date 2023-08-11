@@ -37,10 +37,9 @@ public class UserController {
         if(user != null){
             String saveId = request.getParameter("saveId");
             System.out.println(saveId);
-//            session.setAttribute("name",user.getName());
+            session.setAttribute("name",user.getName());
             session.setAttribute("id",user.getId());
 //            session.setAttribute("user", user);
-
             if("on".equals(saveId)){
                 session.setAttribute("checked","checked");
             } else {
@@ -56,10 +55,10 @@ public class UserController {
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
     public String logout(HttpSession session){
         if(session.getAttribute("checked") != null){
-            System.out.println("아이디 저장임");
+            System.out.println("�븘�씠�뵒 ���옣�엫");
         } else {
             session.invalidate();
-            System.out.println("아이디 저장 안됨");
+            System.out.println("�븘�씠�뵒 ���옣 �븞�맖");
         }
         return "redirect:login.do";
     }
