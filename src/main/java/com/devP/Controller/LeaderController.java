@@ -41,14 +41,14 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
-    public String addMember(UserVO user, MemberVO vo, HttpSession session, Model model){
+    public String addMember(UserVO user, MemberVO vo, HttpSession session, Model model) throws Exception {
         String leader = (String) session.getAttribute("name");
         String project = (String) session.getAttribute("projectName");
         // 수락 상태를 확인할 token 발행
         String token = UUID.randomUUID().toString();
         UserVO member = userService.getUserDataEmail(user);
         if(member != null){
-            mailController.sendInvitedMail(leader,project,member.getName(), member.getEmail(), token);
+            mailController.sendInvitedMail(leader, project, member.getName(), member.getEmail(), token);
         }
         return "manageMember";
     }

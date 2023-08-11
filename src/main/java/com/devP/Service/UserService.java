@@ -13,6 +13,9 @@ public interface UserService {
 
     UserVO getUserDataEmail(UserVO vo);
 
+    UserVO getUserName(String userId);
+
+
 
 
 }
