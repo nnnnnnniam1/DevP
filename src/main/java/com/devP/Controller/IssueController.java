@@ -33,31 +33,31 @@ public class IssueController {
 
     private String from = "daggggg2@naver.com";	
 	
-	//ÀÌ½´ µî·Ï ÆäÀÌÁö
+	//ì´ìŠˆ ë“±ë¡ í˜ì´ì§€
 	@RequestMapping(value="/issue.do", method= RequestMethod.GET)
     public String issueView(HttpSession session, Model model){
 		model.addAttribute("username", session.getAttribute("name"));
         return "issue";
     }
 	
-	//ÀÌ½´ µî·Ï
+	//ì´ìŠˆ ë“±ë¡
 	@RequestMapping(value="/issue.do", method= RequestMethod.POST)
     public String issueInsert(@ModelAttribute IssueVO issue, HttpSession session){
 		String emails = issue.getSendingEmail();
-		//¼¼¼Ç ¾ÆÀÌµğ Á¤º¸ µî·Ï
+		//ì„¸ì…˜ ì•„ì´ë”” ì •ë³´ ë“±ë¡
 		issue.setUserId(session.getAttribute("id").toString());
-		//ÀÌ½´ »óÅÂ ÃÊ±â ¼³Á¤
-		issue.setStatus("ÁøÇàÁß");
+		//ì´ìŠˆ ìƒíƒœ ì´ˆê¸° ì„¤ì •
+		issue.setStatus("ì§„í–‰ì¤‘");
 		
-		// ±¸ºĞÀÚ¸¦ ½°Ç¥(,)·Î ÁöÁ¤ÇÏ¿© ¹®ÀÚ¿­À» ³ª´©°í, ÀÌ¸ŞÀÏ ÁÖ¼ÒµéÀ» ArrayList¿¡ ÀúÀå
+		// êµ¬ë¶„ìë¥¼ ì‰¼í‘œ(,)ë¡œ ì§€ì •í•˜ì—¬ ë¬¸ìì—´ì„ ë‚˜ëˆ„ê³ , ì´ë©”ì¼ ì£¼ì†Œë“¤ì„ ArrayListì— ì €ì¥
         ArrayList<String> emailList = new ArrayList<>();
         String[] emailArray = emails.split(",");
         for (String email : emailArray) {
             emailList.add(email);
         }
-		//ÀÌ¸ŞÀÏ ¾Ë¸² Àü¼Û ±¸ÇöÇØ¾ß ÇÔ
+		//ì´ë©”ì¼ ì•Œë¦¼ ì „ì†¡ êµ¬í˜„í•´ì•¼ í•¨
 		try {
-			mailController.sendMail(from, emailList, issue.getUserId() + "(ÀÌ)°¡ ÀÌ½´ ¾Ë¸²À» º¸³Â½À´Ï´Ù", issue.getContent());
+			mailController.sendMail(from, emailList, issue.getUserId() + "(ì´)ê°€ ì´ìŠˆ ì•Œë¦¼ì„ ë³´ëƒˆìŠµë‹ˆë‹¤", issue.getContent());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,11 +65,11 @@ public class IssueController {
 		issueService.insertIssue(issue);
         return "main";
     }
-	//ÀÌ½´ ¸ñ·Ï
+	//ì´ìŠˆ ëª©ë¡
 	@RequestMapping(value="/list.do", method= RequestMethod.GET)
     public String getIssuelist(@RequestParam int projectId, Model model){
 		model.addAttribute("issueList", issueService.getIssuelist(projectId));
-		String[] statusArray = {"³íÀÇÁß", "ÁøÇàÁß", "¿Ï·á"};
+		String[] statusArray = {"ë…¼ì˜ì¤‘", "ì§„í–‰ì¤‘", "ì™„ë£Œ"};
 		model.addAttribute("statusarr", statusArray);
         return "issueList";
     }
