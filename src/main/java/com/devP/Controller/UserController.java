@@ -6,14 +6,18 @@ import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 @Controller
 @SessionAttributes("user")
@@ -53,12 +57,12 @@ public class UserController {
     }
 
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
-    public String logout(HttpSession session){
-        if(session.getAttribute("checked") != null){
-            System.out.println("�븘�씠�뵒 ���옣�엫");
+    public String logout(HttpSession session) {
+        if (session.getAttribute("checked") != null) {
+            System.out.println("아이디 저장임");
         } else {
             session.invalidate();
-            System.out.println("�븘�씠�뵒 ���옣 �븞�맖");
+            System.out.println("아이디 저장 안됨");
         }
         return "redirect:login.do";
     }
@@ -71,11 +75,59 @@ public class UserController {
         String email = request.getParameter("email-id")+"@"+request.getParameter("email");
         vo.setEmail(email);
         System.out.println(email);
-        UserVO user = userService.getUserIdByEmail(vo);
+        UserVO user = userService.getUserByEmail(vo);
         if(user != null){
             System.out.println(user.getId());
             mailController.sendId(user.getId(),user.getEmail());
         }
         return "searchLogin";
     }
+    @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
+    public String searchPw(UserVO vo, HttpServletRequest request,HttpSession session, ModelAndView model) throws Exception {
+        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
+        vo.setEmail(email);
+        System.out.println(email);
+        UserVO user = userService.getUserByEmail(vo);
+        if (user != null) {
+            String authKey = mailController.sendCode(user.getEmail());
+//            request.setAttribute(authKey, authKey);
+
+            session.setAttribute("userId",user.getId());    // 비밀번호 재설정시 필요
+            session.setAttribute("authKey",authKey);
+        }
+        return "searchLogin";
+    }
+    @RequestMapping(value = "/checkCode.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String checkCode(HttpServletRequest request, HttpSession session) {
+        String authKey = (String) session.getAttribute("authKey");
+        String inputCode = request.getParameter("input-code");
+        System.out.println(authKey + " " + inputCode);
+        if (authKey.equals(inputCode)) {
+            System.out.println("true");
+            return "success";
+        } else {
+            System.out.println("false");
+            return "false";
+        }
+    }
+    @RequestMapping(value = "/changePw.do", method = RequestMethod.GET)
+    public String changePwView(HttpSession session){
+        session.removeAttribute("authKey");
+        return "changePw";
+    }
+
+    @RequestMapping(value = "/changePw.do", method = RequestMethod.POST)
+    public String changePw(UserVO vo, HttpSession session, HttpServletRequest request){
+        vo.setId((String)session.getAttribute("userId"));
+        System.out.println(vo.getId()+""+vo.getPassword());
+        userService.updatePw(vo);
+        return "changePw";
+    }
+    @RequestMapping(value = "/changePwSuccess.do", method = RequestMethod.GET)
+    public String changePwSuccessView(){
+        return "changePwSuccess";
+    }
+
+
 }
