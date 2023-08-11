@@ -11,20 +11,22 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAOMybatis userDAO;
 
-	//	public void insertUser(UserVO vo) {
-//		userDAO.insertUser(vo);
-//	}
 	public UserVO getUser(UserVO vo){
 		return userDAO.getUser(vo);
 	}
 
 	@Override
-	public UserVO getUserIdByEmail(UserVO vo) {
-		return userDAO.getUserIdByEmail(vo);
+	public UserVO getUserByEmail(UserVO vo) {
+		return userDAO.getUserByEmail(vo);
 	}
 
 	@Override
-	public UserVO getUserPwByEmail(UserVO vo) { return userDAO.getUserPwByEmail(vo); }
+	public void updatePw(UserVO vo) { userDAO.updatePw(vo); }
 
+	@Override
+	public UserVO getUserDataEmail(UserVO vo){ return userDAO.getUserDataEmail(vo); }
+
+	@Override
+	public UserVO getUserName(String userId){ return userDAO.getUserName(userId);}
 
 }
