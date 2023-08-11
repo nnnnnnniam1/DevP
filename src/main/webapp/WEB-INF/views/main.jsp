@@ -10,17 +10,19 @@
 <html>
 <head>
     <title>Title</title>
+<%--    <link rel="stylesheet" href="/resources/css/styles.css">--%>
+    <link rel="stylesheet" href="/resources/css/main.css">
+    <script src="script.js"></script>
 </head>
 <body>
-<h1>메인 그리드</h1>
-<hr>
-<div class="main-grid">
-    <div class="calender">달력</div>
-    <div class="project-list">프로젝트 리스트</div>
-    <div class="issue-form">이슈</div>
-    <div class="work-form">업무</div>
+<div class="container">
+    <div class="main-text">${title}</div>
+    <div class="calender">Item1</div>
+    <div class="project_list">
+        <div>진행 중인 프로젝트</div>
+    </div>
+    <div class="issue">Item3</div>
+    <div class="task">Item4</div>
 </div>
-
-<hr>
 </body>
 </html>
