@@ -22,7 +22,19 @@ public class ReplyController {
 	@RequestMapping(value="/register.do", method= RequestMethod.POST)
 	public String registerReply(@RequestBody ReplyVO vo){
 		try {
-			System.out.println(replyService.registerReply(vo));
+			replyService.registerReply(vo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		//임시 페이지 설정 / 추가-작업 : 이슈 페이지로 돌아가는 작업 추가
+	    return "main";
+	}
+	//댓글 조회
+	@RequestMapping(value="/getreply.do", method= RequestMethod.GET)
+	public String getReply(@RequestBody ReplyVO vo){
+		try {
+			ReplyVO reply = replyService.getReply(vo.getCommentId());
+			System.out.println(reply.getWriter());
 		} catch (Exception e) {
 			System.out.println(e);
 		}

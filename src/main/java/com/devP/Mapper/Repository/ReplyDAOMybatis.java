@@ -17,4 +17,9 @@ public class ReplyDAOMybatis{
     public int registerReply(ReplyVO vo){
         return mybatis.insert("ReplyDAO.registerReply", vo);
     }
+
+	public ReplyVO getReply(int commentId) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("ReplyDAO.getReply", commentId);
+	}
 }

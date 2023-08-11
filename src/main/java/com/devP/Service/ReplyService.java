@@ -6,4 +6,6 @@ import com.devP.VO.ReplyVO;
 public interface ReplyService {
 	
 	int registerReply(ReplyVO vo);
+	
+	ReplyVO getReply(int commentId);
 }

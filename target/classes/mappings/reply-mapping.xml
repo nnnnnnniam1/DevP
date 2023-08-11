@@ -9,4 +9,8 @@
 		insert into issuecomment (issueId, commentId ,writer, parent_id, content)
 		values (#{issueId}, #{commentId}, #{writer}, #{parent_id}, #{content});
 	</insert>
+	
+	<select id="getReply" resultType="Reply">
+		select * from issuecomment where commentId = #{ commentId };
+	</select>
 </mapper>

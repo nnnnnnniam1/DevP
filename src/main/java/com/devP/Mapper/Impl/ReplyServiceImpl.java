@@ -17,5 +17,11 @@ public class ReplyServiceImpl implements ReplyService{
 		// TODO Auto-generated method stub
 		return replyDAO.registerReply(vo);
 	}
+
+	@Override
+	public ReplyVO getReply(int commentId) {
+		// TODO Auto-generated method stub
+		return replyDAO.getReply(commentId);
+	}
 	
 }

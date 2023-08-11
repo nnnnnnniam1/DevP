@@ -5,7 +5,7 @@ import java.util.Date;
 //VO(Value Object)
 public class ReplyVO {
 	private int issueId;
-	private String commentId;
+	private int commentId;
 	private String writer;
 	private int parent_id;
 	private String content;
@@ -17,10 +17,10 @@ public class ReplyVO {
 	public void setIssueId(int issueId) {
 		this.issueId = issueId;
 	}
-	public String getCommentId() {
+	public int getCommentId() {
 		return commentId;
 	}
-	public void setCommentId(String commentId) {
+	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
 	public String getWriter() {
