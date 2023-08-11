@@ -3,8 +3,8 @@ package com.devP.VO;
 public class MemberVO {
 
     public int projectId;
-    public String memberName;
-    public String memberId;
+    public String userName;
+    public String userId;
 
     public String email;
     public String position;
@@ -14,10 +14,11 @@ public class MemberVO {
 
     public int getProjectId() {return projectId;}
     public void setProjectId(int projectId){this.projectId = projectId;}
-    public String getMemberName() {return memberName;}
-    public String getMemberId() {return memberId;}
-    public void setMemberId(String memberId) {this.memberId = memberId;}
-    public void setMemberName(String memberName) {this.memberName = memberName;}
+    public String getMemberName() {return userName;}
+    public void setUserName(String userName) {this.userName = userName;}
+
+    public String getUserId() {return userId;}
+    public void setUserId(String userId) {this.userId = userId;}
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
     public String getPosition() {return position;}

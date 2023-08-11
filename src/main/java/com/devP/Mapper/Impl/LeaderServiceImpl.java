@@ -20,7 +20,8 @@ public class LeaderServiceImpl implements LeaderService {
 		return leaderDAO.getMemberList(vo);
 	}
 
-
+	@Override
+	public void insertMember(MemberVO vo){ leaderDAO.insertMember(vo); }
 
 
 }

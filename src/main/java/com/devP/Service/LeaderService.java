@@ -7,4 +7,6 @@ import java.util.List;
 public interface LeaderService {
 
     List<MemberVO> getMemberList(MemberVO vo);
+
+    void insertMember(MemberVO vo);
 }

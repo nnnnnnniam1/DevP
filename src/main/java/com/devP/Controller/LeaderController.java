@@ -44,11 +44,20 @@ public class LeaderController {
     public String addMember(UserVO user, MemberVO vo, HttpSession session, Model model) throws Exception {
         String leader = (String) session.getAttribute("name");
         String project = (String) session.getAttribute("projectName");
+        int projectId = (int) session.getAttribute("projectId");
         // 수락 상태를 확인할 token 발행
         String token = UUID.randomUUID().toString();
+        System.out.println(token);
         UserVO member = userService.getUserDataEmail(user);
         if(member != null){
             mailController.sendInvitedMail(leader, project, member.getName(), member.getEmail(), token);
+            vo.setProjectId(projectId);
+            vo.setUserId(member.getId());
+//            vo.setPosition();
+//            vo.setRole();
+            vo.setStatus(token);
+            leaderService.insertMember(vo);
+
         }
         return "manageMember";
     }

@@ -17,4 +17,6 @@ public class LeaderDAOMybatis {
         return mybatis.selectList("LeaderDAO.getMemberList", vo);
     }
 
+    public void insertMember(MemberVO vo){ mybatis.insert("LeaderDAO.insertMember", vo); }
+
 }
