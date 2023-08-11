@@ -23,6 +23,7 @@ public class MailController {
     private JavaMailSender mailSender;
 
     private String from = "daggggg2@naver.com";
+    private ArrayList<String> to= new ArrayList<>();
     private String subject;
     private String body;
 
@@ -40,10 +41,7 @@ public class MailController {
             e.printStackTrace();
         }
     }
-
-    @RequestMapping(value = "sendId.do",method = RequestMethod.POST)
     public void sendId(String id, String email) throws Exception {
-        ArrayList<String> to= new ArrayList<>();
         to.clear();
         to.add(email);
         subject = "[개발자국] 아이디 찾기 테스트";
@@ -53,8 +51,7 @@ public class MailController {
         sendMail(from,to,subject,body);
     }
 
-    @RequestMapping(value="/sendCode", method = RequestMethod.POST)
-    public void sendCode(String id, String email) throws Exception {
+    public String sendCode(String email) throws Exception {
         Random random = new Random();
         StringBuffer buffer = new StringBuffer();
         int num = 0;
@@ -72,6 +69,22 @@ public class MailController {
         subject = "[개발자국] 비밀번호찾기 인증번호코드 ";
         body = "인증번호는 <h2>" + authKey + "</h2>입니다.<br>";
         sendMail(from,to,subject,body);
+
+        return authKey;
     }
+
+    public String sendInvitedMail(String leader, String project, String memberName, String email, String token) throws Exception {
+        to.add(email);
+        subject = "[개발자국] " + project + "초대";
+        body = "<h3>" + memberName+"님, 안녕하세요</h3><br>"
+                + leader+"님에 의해 " + project+" 프로젝트에 초대되었습니다.<br>"
+                + "초대를 수락하신다면 "
+                + "<a href='http://localhost:8080/addProject/verify?token="+token+"'>초대 수락</a>";
+        sendMail(from,to,subject,body);
+
+        return "";
+    }
+
+
 }
 
