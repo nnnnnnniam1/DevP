@@ -19,15 +19,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO getUserIdByEmail(UserVO vo) {
-		return userDAO.getUserIdByEmail(vo);
+	public UserVO getUserByEmail(UserVO vo) {
+		return userDAO.getUserByEmail(vo);
 	}
 
 	@Override
-	public UserVO getUserPwByEmail(UserVO vo) { return userDAO.getUserPwByEmail(vo); }
+	public void updatePw(UserVO vo) { userDAO.updatePw(vo); }
 
 	@Override
-	public void updatePw(UserVO vo) { userDAO.updatePw(vo); }
+	public UserVO getUserDataEmail(UserVO vo){ return userDAO.getUserDataEmail(vo); }
+
 
 
 }

@@ -22,10 +22,10 @@
     </div>
     <div  class="member-wrapper">
         <h3>현재 멤버</h3>
-        <table class="memberList">
+        <table>
             <tr>
-                <th>선택</th>
-                <th >이름</th>
+                <th width="50">선택</th>
+                <th>이름</th>
                 <th>이메일</th>
                 <th>직책</th>
                 <th>역할</th>
@@ -37,6 +37,8 @@
             		<td>${member.email}</td>
             		<td>${member.position}</td>
             		<td>${member.role}</td>
+            		<td>${member.progress}</td>
+            		<td>${member.status}</td>
             	</tr>
             </c:forEach>
         </table>

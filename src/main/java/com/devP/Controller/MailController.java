@@ -23,6 +23,7 @@ public class MailController {
     private JavaMailSender mailSender;
 
     private String from = "daggggg2@naver.com";
+    private ArrayList<String> to= new ArrayList<>();
     private String subject;
     private String body;
 
@@ -43,7 +44,6 @@ public class MailController {
 
     @RequestMapping(value = "sendId.do",method = RequestMethod.POST)
     public void sendId(String id, String email) throws Exception {
-        ArrayList<String> to= new ArrayList<>();
         to.clear();
         to.add(email);
         subject = "[개발자국] 아이디 찾기 테스트";
@@ -75,5 +75,20 @@ public class MailController {
 
         return authKey;
     }
+
+    @RequestMapping(value="/invitedMail", method = RequestMethod.POST)
+    public String sendInvitedMail(String leader, String project, String memberName, String email, String token){
+        to.add(email);
+        subject = "[개발자국] " + project + "초대";
+        body = "<h3>" + memberName+"님, 안녕하세요</h3><br>"
+                + leader+"님에 의해 " + project+" 프로젝트에 초대되었습니다.<br>"
+                + "초대를 수락하신다면 "
+                + "<a href='http://localhost:8080/addProject/verify?token="+token+"'>초대 수락</a>";
+//        sendMail(from,to,subject,body);
+
+        return "";
+    }
+
+
 }
 

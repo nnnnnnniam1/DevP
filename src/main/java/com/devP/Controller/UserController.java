@@ -39,7 +39,7 @@ public class UserController {
         if(user != null){
             String saveId = request.getParameter("saveId");
             System.out.println(saveId);
-//            session.setAttribute("name",user.getName());
+            session.setAttribute("name",user.getName());
             session.setAttribute("id",user.getId());
 //            session.setAttribute("user", user);
 
@@ -74,7 +74,7 @@ public class UserController {
         String email = request.getParameter("email-id")+"@"+request.getParameter("email");
         vo.setEmail(email);
         System.out.println(email);
-        UserVO user = userService.getUserIdByEmail(vo);
+        UserVO user = userService.getUserByEmail(vo);
         if(user != null){
             System.out.println(user.getId());
             mailController.sendId(user.getId(),user.getEmail());
@@ -86,7 +86,7 @@ public class UserController {
         String email = request.getParameter("email-id")+"@"+request.getParameter("email");
         vo.setEmail(email);
         System.out.println(email);
-        UserVO user = userService.getUserPwByEmail(vo);
+        UserVO user = userService.getUserByEmail(vo);
         if (user != null) {
             String authKey = mailController.sendCode(user.getEmail());
 //            request.setAttribute(authKey, authKey);

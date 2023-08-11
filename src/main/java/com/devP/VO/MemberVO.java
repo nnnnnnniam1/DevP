@@ -9,6 +9,8 @@ public class MemberVO {
     public String email;
     public String position;
     public String role;
+    private String status;
+    private float progress;
 
     public int getProjectId() {return projectId;}
     public void setProjectId(int projectId){this.projectId = projectId;}
@@ -22,4 +24,10 @@ public class MemberVO {
     public void setPosition(String position) {this.position = position;}
     public String getRole() {return role;}
     public void setRole(String role) {this.role = role;}
+
+    public String getStatus(){return status;}
+    public void setStatus(String status){this.status = status;}
+
+    public float getProgress(){return progress;}
+    public void setProgress(float progress){this.progress = progress;}
 }
