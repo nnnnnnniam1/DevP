@@ -58,6 +58,18 @@ public class LeaderController {
             vo.setStatus(token);
             leaderService.insertMember(vo);
         }
-        return "manageMember";
+        return "redirect:/project/manageMember.do";
     }
+
+    @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
+    public String addMember(MemberVO vo, HttpServletRequest request ) throws Exception {
+
+        vo.setUserId(request.getParameter("userId"));
+        vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+        System.out.println(vo.getUserId());
+        System.out.println("일단 넘어옴");
+
+        return  "";
+    }
+
 }

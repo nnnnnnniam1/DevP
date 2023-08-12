@@ -102,7 +102,7 @@ public class MailController {
         } else
             System.out.println("변경 실패");
 
-        return "addProjectSuccess";
+        return "redirect:login";
     }
 
 

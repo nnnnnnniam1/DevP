@@ -3,6 +3,8 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/resources/css/manageMemberStyles.css">
+<script src="/resources/js/manageMemberScript.js"></script>
+
 <%@include file="sidebar.jsp"%>
 <head>
     <title>멤버관리</title>
@@ -16,12 +18,12 @@
             <form class="addMember-wrapper" action="/project/addMember.do" method="post">
                 <label class="form-label"> 멤버추가</label>
                 <input type="email" placeholder="devp@devp.com" name="email">
-                <input type="submit" value="추가하기">
+                <input type="submit" value="send">
             </form>
         </div>
     </div>
     <div  class="member-wrapper">
-        <h3>현재 멤버</h3>
+        <h3>멤버 관리</h3>
         <table>
             <tr>
                 <th width="50">선택</th>
@@ -33,21 +35,23 @@
             <c:forEach items="${memberList}" var="member">
                 <tr>
             	    <td><input type="checkbox"></td>
-            		<td>${member.memberName}</td>
+            		<td>${member.userName}</td>
             		<td>${member.email}</td>
             		<td>${member.position}</td>
             		<td>${member.role}</td>
             		<td>${member.progress}</td>
-            		<td>${member.status}</td>
+            		<td>
+            		    <c:if test="${member.status != '0'}">
+            		    대기
+            		    </c:if>
+            		</td>
+            		<td>
+            		    <input type="button" value="삭제" onclick="deleteMember('${member.userId}','${projectName}', ${projectId})" />
+            		</td>
             	</tr>
             </c:forEach>
         </table>
     </div>
 </div>
-
-<hr>
-
-
-<hr>
 </body>
 </html>

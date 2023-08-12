@@ -6,7 +6,7 @@
 
     <!--  프로젝트 멤버리스트 불러오기  -->
     <select id="getMemberList" resultType="Member">
-        SELECT u.name AS memberName, u.id AS memberId, u.email,
+        SELECT u.name AS userName, u.id AS userId, u.email,
             pg.leader, pg.position, pg.role, pg.progress, pg.status
         FROM projectgroup AS pg
         JOIN user AS u
