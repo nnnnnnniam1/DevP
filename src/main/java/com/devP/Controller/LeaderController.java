@@ -11,14 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 //@SessionAttributes("leader")
@@ -32,6 +32,25 @@ public class LeaderController {
     @Autowired
     private MailController mailController;
 
+    @ModelAttribute("roleMap")
+    public Map<String, String> setRoleMap(){
+        Map<String, String> roleMap = new HashMap<String, String>();
+        roleMap.put("팀장","팀장");
+
+        return roleMap;
+    }
+
+    @ModelAttribute("positionMap")
+    public Map<String, String> setPositionMap(){
+        Map<String, String> positionMap = new HashMap<String, String>();
+        positionMap.put("FE", "FE");
+        positionMap.put("BE", "BE");
+        positionMap.put("Design", "Design");
+        positionMap.put("Server", "Server");
+
+        return positionMap;
+
+    }
 
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
     public String manageMemberView(HttpSession session, MemberVO vo, Model model){

@@ -37,8 +37,30 @@
             	    <td><input type="checkbox"></td>
             		<td>${member.userName}</td>
             		<td>${member.email}</td>
-            		<td>${member.position}</td>
-            		<td>${member.role}</td>
+            		<td>
+            		    <select name="setRole">
+            		        <option value="" <c:if test="${empty member.role}">selected</c:if>>선택</option>
+            		        <c:forEach items="${roleMap}" var="option">
+            		            <option value="${option.value}"
+                                    <c:if test="${option.value eq member.role}">
+                                        selected
+                                    </c:if>
+            		            >${option.key}
+            		        </c:forEach>
+            		    </select>
+            		</td>
+            		<td>
+            		    <select name="setPosition">
+            		        <option value="" <c:if test="${empty member.position}">selected</c:if>>선택</option>
+            		        <c:forEach items="${positionMap}" var="option">
+            		            <option value="${option.value}"
+                                    <c:if test="${option.value eq member.position}">
+                                        selected
+                                    </c:if>
+            		            >${option.key}
+            		        </c:forEach>
+            		    </select>
+            		</td>
             		<td>${member.progress}</td>
             		<td>
             		    <c:if test="${member.status != '0'}">
