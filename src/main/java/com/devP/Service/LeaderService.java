@@ -8,7 +8,11 @@ public interface LeaderService {
 
     List<MemberVO> getMemberList(MemberVO vo);
 
+    MemberVO findMember(MemberVO vo);
+
     void insertMember(MemberVO vo);
+
+    void reInvited(MemberVO vo);
 
     MemberVO getMemberByToken(String token);
 

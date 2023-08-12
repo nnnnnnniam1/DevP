@@ -14,11 +14,21 @@
         WHERE pg.projectId = #{projectId} AND NOT pg.status = "x";
     </select>
 
+    <!-- 프로젝트 멤버 존재여부 확인 -->
+    <select id="findMember" resultType="Member">
+        SELECT * FROM projectgroup WHERE projectId=#{projectId} AND userId=#{userId}
+    </select>
     <!-- 프로젝트 멤버추가   -->
     <insert id="insertMember">
         INSERT into projectgroup( projectId, userId, status)
         VALUES (#{projectId},#{userId},#{status})
     </insert>
+
+    <!-- 이전에 삭제된 멤버 다시 추가 -->
+    <update id="updateMemberToken">
+        UPDATE projectgroup SET status=#{status}
+        WHERE userId=#{userId} AND projectId=#{projectId}
+    </update>
 
     <!--  대기 중인 멤버 정보 가져오기  -->
     <select id="getMemberByToken" resultType="Member">

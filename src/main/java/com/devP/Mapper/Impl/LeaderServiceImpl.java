@@ -21,7 +21,12 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
+	public MemberVO findMember(MemberVO vo){ return leaderDAO.findMember(vo); }
+	@Override
 	public void insertMember(MemberVO vo){ leaderDAO.insertMember(vo); }
+
+	@Override
+	public void reInvited(MemberVO vo){ leaderDAO.reInvited(vo); }
 
 	@Override
 	public MemberVO getMemberByToken(String token){ return leaderDAO.getMemberByToken(token); }

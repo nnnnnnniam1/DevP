@@ -58,7 +58,11 @@ public class LeaderController {
 //            vo.setPosition();
 //            vo.setRole();
             vo.setStatus(token);
-            leaderService.insertMember(vo);
+            if(leaderService.findMember(vo) != null){
+                leaderService.reInvited(vo);
+            } else {
+                leaderService.insertMember(vo);
+            }
         }
         return "redirect:/project/manageMember.do";
     }
