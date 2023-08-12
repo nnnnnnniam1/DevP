@@ -57,7 +57,6 @@ public class LeaderController {
 //            vo.setRole();
             vo.setStatus(token);
             leaderService.insertMember(vo);
-
         }
         return "manageMember";
     }

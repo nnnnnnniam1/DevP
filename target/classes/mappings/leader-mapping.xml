@@ -4,7 +4,7 @@
 
 <mapper namespace="LeaderDAO">
 
-    <!--  멤버리스트 불러오기  -->
+    <!--  프로젝트 멤버리스트 불러오기  -->
     <select id="getMemberList" resultType="Member">
         SELECT u.name AS memberName, u.id AS memberId, u.email,
             pg.leader, pg.position, pg.role, pg.progress, pg.status
@@ -13,4 +13,20 @@
         ON pg.userId = u.id
         WHERE pg.projectId = #{projectId};
     </select>
+
+    <!-- 프로젝트 멤버추가   -->
+    <insert id="insertMember">
+        INSERT into projectgroup( projectId, userId, status)
+        VALUES (#{projectId},#{userId},#{status})
+    </insert>
+
+    <!--  대기 중인 멤버 정보 가져오기  -->
+    <select id="getMemberByToken" resultType="Member">
+        SELECT * FROM projectgroup WHERE status=#{status}
+    </select>
+
+    <!--  프로젝트 멤버 참가 상태 변경 -->
+    <update id="updateMemberStatus">
+        UPDATE projectgroup SET status="0" WHERE status=#{status}
+    </update>
 </mapper>

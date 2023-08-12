@@ -9,4 +9,8 @@ public interface LeaderService {
     List<MemberVO> getMemberList(MemberVO vo);
 
     void insertMember(MemberVO vo);
+
+    MemberVO getMemberByToken(String token);
+
+    void updateMemberStatus(MemberVO vo);
 }

@@ -19,4 +19,7 @@ public class LeaderDAOMybatis {
 
     public void insertMember(MemberVO vo){ mybatis.insert("LeaderDAO.insertMember", vo); }
 
+    public MemberVO getMemberByToken(String token){ return (MemberVO) mybatis.selectOne("LeaderDAO.getMemberByToken", token); }
+
+    public void updateMemberStatus(MemberVO vo){ mybatis.update("LeaderDAO.updateMemberStatus", vo); }
 }
