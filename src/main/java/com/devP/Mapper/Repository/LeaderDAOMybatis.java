@@ -22,4 +22,7 @@ public class LeaderDAOMybatis {
     public MemberVO getMemberByToken(String token){ return (MemberVO) mybatis.selectOne("LeaderDAO.getMemberByToken", token); }
 
     public void updateMemberStatus(MemberVO vo){ mybatis.update("LeaderDAO.updateMemberStatus", vo); }
+
+    public void deleteMember(MemberVO vo){ mybatis.update("LeaderDAO.deleteMember",vo); }
+
 }

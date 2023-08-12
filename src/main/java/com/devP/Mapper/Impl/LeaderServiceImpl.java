@@ -28,4 +28,7 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public void updateMemberStatus(MemberVO vo){ leaderDAO.updateMemberStatus(vo); }
+
+	@Override
+	public void deleteMember(MemberVO vo){ leaderDAO.deleteMember(vo);}
 }

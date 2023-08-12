@@ -3,8 +3,8 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/resources/css/manageMemberStyles.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/resources/js/manageMemberScript.js"></script>
-
 <%@include file="sidebar.jsp"%>
 <head>
     <title>멤버관리</title>

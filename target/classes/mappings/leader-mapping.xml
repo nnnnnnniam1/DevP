@@ -6,12 +6,12 @@
 
     <!--  프로젝트 멤버리스트 불러오기  -->
     <select id="getMemberList" resultType="Member">
-        SELECT u.name AS memberName, u.id AS memberId, u.email,
+        SELECT u.name AS userName, u.id AS userId, u.email,
             pg.leader, pg.position, pg.role, pg.progress, pg.status
         FROM projectgroup AS pg
         JOIN user AS u
         ON pg.userId = u.id
-        WHERE pg.projectId = #{projectId};
+        WHERE pg.projectId = #{projectId} AND NOT pg.status = "x";
     </select>
 
     <!-- 프로젝트 멤버추가   -->
@@ -28,5 +28,10 @@
     <!--  프로젝트 멤버 참가 상태 변경 -->
     <update id="updateMemberStatus">
         UPDATE projectgroup SET status="0" WHERE status=#{status}
+    </update>
+
+    <!--  프로젝트 멤버 삭제(상태 변경)  -->
+    <update id="deleteMember">
+        UPDATE projectgroup SET status="x" WHERE projectId=#{projectId} AND userId=#{userId}
     </update>
 </mapper>

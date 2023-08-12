@@ -7,6 +7,8 @@ import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,14 +64,17 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
-    public String addMember(MemberVO vo, HttpServletRequest request ) throws Exception {
+    public ResponseEntity<String> addMember(MemberVO vo, HttpServletRequest request ) throws Exception {
+        try {
+            vo.setUserId(request.getParameter("userId"));
+            vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+            leaderService.deleteMember(vo);
+            return ResponseEntity.ok("Member deleted successfully");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
 
-        vo.setUserId(request.getParameter("userId"));
-        vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
-        System.out.println(vo.getUserId());
-        System.out.println("일단 넘어옴");
+        }
 
-        return  "";
     }
 
 }

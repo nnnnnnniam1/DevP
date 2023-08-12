@@ -13,4 +13,6 @@ public interface LeaderService {
     MemberVO getMemberByToken(String token);
 
     void updateMemberStatus(MemberVO vo);
+
+    void deleteMember(MemberVO vo);
 }
