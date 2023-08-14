@@ -50,7 +50,7 @@ public class UserController {
                 session.removeAttribute("checked");
             }
 
-            return "home";
+            return "redirect:/";
         } else {
             return "login";
         }
