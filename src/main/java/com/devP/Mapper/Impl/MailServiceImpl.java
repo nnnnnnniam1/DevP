@@ -1,12 +1,16 @@
-package com.devP.Controller;
+package com.devP.Mapper.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.devP.Service.IssueService;
+import com.devP.Service.MailService;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -15,8 +19,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-@Controller
-public class MailController {
+@Service("mailService")
+public class MailServiceImpl implements MailService{
 
 
     @Autowired

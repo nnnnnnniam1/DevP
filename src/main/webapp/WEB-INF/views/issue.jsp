@@ -13,7 +13,7 @@ String username = (String) session.getAttribute("name");
 %>
 <div class="container">
     <div class="issue-wrapper">
-            <form method="post" action="issue.do" id="issue-form">
+            <form method="post" action="write.do" id="issue-form">
             	<input type = "text" name="projectId" value = "5">
             	<input type = "text" name="taskId" value = "1">
             	<label id="inputLabel">프로젝트</label><input type = "text" name="projectTitle">
