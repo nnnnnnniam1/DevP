@@ -35,8 +35,7 @@ public class IssueController {
 	
 	//이슈 등록 페이지
 	@RequestMapping(value="/issue.do", method= RequestMethod.GET)
-    public String issueView(HttpSession session, Model model){
-		model.addAttribute("username", session.getAttribute("name"));
+    public String issueView(){
         return "issue";
     }
 	

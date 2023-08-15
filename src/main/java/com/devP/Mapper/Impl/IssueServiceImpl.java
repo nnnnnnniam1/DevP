@@ -6,13 +6,23 @@ import com.devP.VO.IssueVO;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service("issueService")
 public class IssueServiceImpl implements IssueService {
 	@Autowired
 	private IssueDAOMybatis issueDAO;
+	@Autowired
+	private HttpSession session;
+	
+	@Override
+	public int getIssuePage() {
+		return 0;
+	}
 	
 	@Override
 	public int insertIssue(IssueVO vo){
@@ -30,5 +40,7 @@ public class IssueServiceImpl implements IssueService {
 	 * @Override public UserVO getUserPwByEmail(UserVO vo) { return
 	 * userDAO.getUserPwByEmail(vo); }
 	 */
+
+	
 
 }

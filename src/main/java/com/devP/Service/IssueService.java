@@ -7,6 +7,8 @@ import com.devP.VO.IssueVO;
 
 public interface IssueService {
 	
+	int getIssuePage();
+	
 	int insertIssue(IssueVO vo);
 	
 	List<IssueVO> getIssuelist(int projectId);
