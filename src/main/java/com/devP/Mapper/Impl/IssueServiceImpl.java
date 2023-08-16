@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service("issueService")
 public class IssueServiceImpl implements IssueService {
@@ -49,7 +50,10 @@ public class IssueServiceImpl implements IssueService {
 	}
 	
 	@Override
-	public List<IssueVO> getIssuelist(int projectId) {
-		return issueDAO.getIssuelist(projectId);
+	public int getIssuelist(int projectId, Model model) {
+		String[] statusArray = {"논의중", "진행중", "완료"};
+		model.addAttribute("issueList", issueDAO.getIssuelist(projectId));
+		model.addAttribute("statusarr", statusArray);
+		return 0;
 	}
 }

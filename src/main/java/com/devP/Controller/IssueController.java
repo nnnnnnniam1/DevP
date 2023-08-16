@@ -43,9 +43,7 @@ public class IssueController {
 	//이슈 목록
 	@RequestMapping(value="/list.do", method= RequestMethod.GET)
     public String getIssuelist(@RequestParam int projectId, Model model){
-		model.addAttribute("issueList", issueService.getIssuelist(projectId));
-		String[] statusArray = {"논의중", "진행중", "완료"};
-		model.addAttribute("statusarr", statusArray);
+		issueService.getIssuelist(projectId, model);
         return "issueList";
     }
 }
