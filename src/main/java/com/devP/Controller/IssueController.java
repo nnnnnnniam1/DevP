@@ -43,7 +43,7 @@ public class IssueController {
 		issueService.deleteIssue(issue);	
         return "redirect:/list.do?projectId=" + issue.getProjectId();
 	}
-	//이슈 상세 - 추가 작업 댓글 추가 해야 됨
+	//이슈 상세
 	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
     public String getIssuedetail(@RequestParam int issueId, Model model){
 		issueService.getIssue(issueId, model);

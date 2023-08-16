@@ -2,6 +2,7 @@ package com.devP.Mapper.Impl;
 
 import com.devP.Controller.MailController;
 import com.devP.Mapper.Repository.IssueDAOMybatis;
+import com.devP.Service.CommentService;
 import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.VO.IssueVO;
@@ -25,6 +26,8 @@ public class IssueServiceImpl implements IssueService {
 
 	@Autowired
     private MailService mailService;
+	@Autowired
+	private CommentService commentService;
 	
 	@Override
 	public int insertIssue(IssueVO issue){
@@ -59,22 +62,23 @@ public class IssueServiceImpl implements IssueService {
 	public int deleteIssue(IssueVO issue) {
 		return issueDAO.deleteIssue(issue.getIssueId());
 	}
-
+	//이슈 상세 - 추가 작업 댓글 추가 해야 됨
 	@Override
 	public int getIssue(int issueId, Model model) {
 		try {
 			IssueVO issue = new IssueVO();
 			issue = issueDAO.getIssue(issueId);
-			System.out.println(issue.getStatus());
 			if ("대기".equals(issue.getStatus().toString())) {
 				issue.setStatus("검토");
 			}
-			System.out.println(issue.getStatus());
 			//이슈 조회수 올리기 -추가 작업 동일 세션 아이디 중복 조회 제한
 			issueDAO.countupIssue(issueId);
 			//이슈 상태 변경
 			issueDAO.changeIssueStatus(issue);
 			model.addAttribute("issue", issue);
+			
+			
+			System.out.println(commentService.getComment(issue.getIssueId()).toString());
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);

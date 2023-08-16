@@ -13,6 +13,7 @@ public class IssueDAOMybatis{
 
     @Autowired
     private SqlSessionTemplate mybatis;
+    
     public int insertIssue(IssueVO vo){
         return mybatis.insert("IssueDAO.insertIssue", vo);
     }
