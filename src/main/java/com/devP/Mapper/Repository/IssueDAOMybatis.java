@@ -20,4 +20,8 @@ public class IssueDAOMybatis{
     public List<IssueVO> getIssuelist(int projectId) {
     	return mybatis.selectList("IssueDAO.issueList", projectId);
     }
+    
+    public int deleteIssue(int issueId) {
+    	return mybatis.delete("IssueDAO.deleteIssue", issueId);
+    }
 }

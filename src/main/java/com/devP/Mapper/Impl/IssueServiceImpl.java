@@ -21,7 +21,6 @@ public class IssueServiceImpl implements IssueService {
 	@Autowired
 	private HttpSession session;
 	
-	
     private String from = "daggggg2@naver.com";
 
 	@Autowired
@@ -30,19 +29,19 @@ public class IssueServiceImpl implements IssueService {
 	@Override
 	public int insertIssue(IssueVO issue){
 		String emails = issue.getSendingEmail();
-		//¼¼¼Ç ¾ÆÀÌµğ Á¤º¸ µî·Ï
+		//ì„¸ì…˜ ì•„ì´ë”” ì •ë³´ ë“±ë¡
 		issue.setUserId(session.getAttribute("id").toString());
-		//ÀÌ½´ »óÅÂ ÃÊ±â ¼³Á¤
-		issue.setStatus("ÁøÇàÁß");
+		//ì´ìŠˆ ìƒíƒœ ì´ˆê¸° ì„¤ì •
+		issue.setStatus("ì§„í–‰ì¤‘");
 		
-		// ±¸ºĞÀÚ¸¦ ½°Ç¥(,)·Î ÁöÁ¤ÇÏ¿© ¹®ÀÚ¿­À» ³ª´©°í, ÀÌ¸ŞÀÏ ÁÖ¼ÒµéÀ» ArrayList¿¡ ÀúÀå
+		// êµ¬ë¶„ìë¥¼ ì‰¼í‘œ(,)ë¡œ ì§€ì •í•˜ì—¬ ë¬¸ìì—´ì„ ë‚˜ëˆ„ê³ , ì´ë©”ì¼ ì£¼ì†Œë“¤ì„ ArrayListì— ì €ì¥
         ArrayList<String> emailList = new ArrayList<>();
         String[] emailArray = emails.split(",");
         for (String email : emailArray) {
             emailList.add(email);
         }
 		try {
-			mailService.sendMail(from, emailList, issue.getUserId() + "(ÀÌ)°¡ ÀÌ½´ ¾Ë¸²À» º¸³Â½À´Ï´Ù", issue.getContent());
+			mailService.sendMail(from, emailList, issue.getUserId() + "(ì´)ê°€ ì´ìŠˆ ì•Œë¦¼ì„ ë³´ëƒˆìŠµë‹ˆë‹¤", issue.getContent());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,9 +50,13 @@ public class IssueServiceImpl implements IssueService {
 	
 	@Override
 	public int getIssuelist(int projectId, Model model) {
-		String[] statusArray = {"³íÀÇÁß", "ÁøÇàÁß", "¿Ï·á"};
+		String[] statusArray = {"ë…¼ì˜ì¤‘", "ì§„í–‰ì¤‘", "ì™„ë£Œ"};
 		model.addAttribute("issueList", issueDAO.getIssuelist(projectId));
 		model.addAttribute("statusarr", statusArray);
 		return 0;
+	}
+	@Override
+	public int deleteIssue(int issueId) {
+		return issueDAO.deleteIssue(issueId);
 	}
 }
