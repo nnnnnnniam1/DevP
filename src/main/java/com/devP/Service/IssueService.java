@@ -14,4 +14,10 @@ public interface IssueService {
 	int getIssuelist(int projectId, Model model);
 	
 	int deleteIssue(IssueVO issue);
+	
+	int getIssue(int issueId, Model model);
+	
+	int countupIssue(int issueId);
+	
+	int changeIssueStatus(IssueVO vo);
 }

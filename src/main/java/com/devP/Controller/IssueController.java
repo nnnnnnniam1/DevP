@@ -42,5 +42,23 @@ public class IssueController {
     public String deleteIssue(@RequestBody IssueVO issue){
 		issueService.deleteIssue(issue);
         return "redirect:/list.do?projectId= " + issue.getProjectId();
-    }	
+	}
+	//이슈 상세 - 추가 작업 댓글 추가 해야 됨
+	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
+    public String getIssuedetail(@RequestParam int issueId, Model model){
+		issueService.getIssue(issueId, model);
+        return "issueDetail";
+	}
+	//이슈 해결
+	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
+    public String solveIssue(@RequestBody IssueVO issue){
+		issue.setStatus("해결");
+		try {
+			issueService.changeIssueStatus(issue);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+        return "redirect:/list.do?projectId= " + issue.getProjectId();
+	}
 }

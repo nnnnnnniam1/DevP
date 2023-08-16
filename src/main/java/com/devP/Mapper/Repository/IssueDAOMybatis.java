@@ -24,4 +24,15 @@ public class IssueDAOMybatis{
     public int deleteIssue(int issueId) {
     	return mybatis.delete("IssueDAO.deleteIssue", issueId);
     }
+    public IssueVO getIssue(int issueId) {
+    	return mybatis.selectOne("IssueDAO.getIssue", issueId);
+    }
+    
+    public int countupIssue(int issueId) {
+    	return mybatis.update("IssueDAO.countupIssue", issueId);
+    }
+    
+    public int changeIssueStatus(IssueVO vo) {
+    	return mybatis.update("IssueDAO.changeIssueStatus", vo);
+    }
 }
