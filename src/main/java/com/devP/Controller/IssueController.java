@@ -40,8 +40,8 @@ public class IssueController {
 	//이슈 삭제
 	@RequestMapping(value="/delete.do", method= RequestMethod.POST)
     public String deleteIssue(@RequestBody IssueVO issue){
-		issueService.deleteIssue(issue);
-        return "redirect:/list.do?projectId= " + issue.getProjectId();
+		issueService.deleteIssue(issue);	
+        return "redirect:/list.do?projectId=" + issue.getProjectId();
 	}
 	//이슈 상세 - 추가 작업 댓글 추가 해야 됨
 	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
@@ -53,12 +53,12 @@ public class IssueController {
 	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
     public String solveIssue(@RequestBody IssueVO issue){
 		issueService.solveIssue(issue);
-        return "redirect:/issue/list.do?projectId= " + issue.getProjectId();
+        return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 	//이슈 수정
 	@RequestMapping(value="/modify.do", method= RequestMethod.POST)
     public String modifyIssue(@RequestBody IssueVO issue){
 		issueService.modifyIssue(issue);
-        return "redirect:/list.do?projectId= " + issue.getProjectId();
+        return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 }

@@ -50,7 +50,7 @@ public class IssueServiceImpl implements IssueService {
 	
 	@Override
 	public int getIssuelist(int projectId, Model model) {
-		String[] statusArray = {"논의중", "진행중", "완료"};
+		String[] statusArray = {"대기", "검토", "해결"};
 		model.addAttribute("issueList", issueDAO.getIssuelist(projectId));
 		model.addAttribute("statusarr", statusArray);
 		return 0;
