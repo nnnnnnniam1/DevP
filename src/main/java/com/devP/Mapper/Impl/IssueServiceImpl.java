@@ -56,7 +56,7 @@ public class IssueServiceImpl implements IssueService {
 		return 0;
 	}
 	@Override
-	public int deleteIssue(int issueId) {
-		return issueDAO.deleteIssue(issueId);
+	public int deleteIssue(IssueVO issue) {
+		return issueDAO.deleteIssue(issue.getIssueId());
 	}
 }

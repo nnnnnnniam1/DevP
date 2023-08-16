@@ -13,5 +13,5 @@ public interface IssueService {
 	
 	int getIssuelist(int projectId, Model model);
 	
-	int deleteIssue(int issueId);
+	int deleteIssue(IssueVO issue);
 }

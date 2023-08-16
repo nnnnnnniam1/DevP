@@ -40,12 +40,7 @@ public class IssueController {
 	//이슈 삭제
 	@RequestMapping(value="/delete.do", method= RequestMethod.POST)
     public String deleteIssue(@RequestBody IssueVO issue){
-		System.out.println(issue.getIssueId());
-		try {
-			issueService.deleteIssue(issue.getIssueId());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		issueService.deleteIssue(issue);
         return "redirect:/list.do?projectId= " + issue.getProjectId();
     }	
 }
