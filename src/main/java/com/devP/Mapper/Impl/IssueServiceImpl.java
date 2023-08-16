@@ -92,4 +92,25 @@ public class IssueServiceImpl implements IssueService {
 		}
 		return 0;
 	}
+
+	@Override
+	public int modifyIssue(IssueVO issue) {
+		String emails = issue.getSendingEmail();
+		try {
+			//세션 아이디 정보 등록
+			issue.setUserId(session.getAttribute("id").toString());
+			// 구분자를 쉼표(,)로 지정하여 문자열을 나누고, 이메일 주소들을 ArrayList에 저장
+	        ArrayList<String> emailList = new ArrayList<>();
+	        String[] emailArray = emails.split(",");
+	        for (String email : emailArray) {
+	            emailList.add(email);
+	        }
+	        //이메일 알림 전송
+	        mailService.sendMail(from, emailList, issue.getUserId() + "(이)가 이슈 수정 알림을 보냈습니다", issue.getContent());
+			issueDAO.modifyIssue(issue);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return issueDAO.modifyIssue(issue);
+	}
 }

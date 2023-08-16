@@ -38,4 +38,10 @@
 		set status = #{ status }
 		where issueId = #{ issueId };
 	</update>
+	
+	<update id="modifyIssue">
+		update issue
+		set title = #{ title }, content = #{ content }, category = #{ category }
+		where issueId = #{ issueId };
+	</update> 
 </mapper>

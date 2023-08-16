@@ -55,4 +55,10 @@ public class IssueController {
 		issueService.solveIssue(issue);
         return "redirect:/issue/list.do?projectId= " + issue.getProjectId();
 	}
+	//이슈 수정
+	@RequestMapping(value="/modify.do", method= RequestMethod.POST)
+    public String modifyIssue(@RequestBody IssueVO issue){
+		issueService.modifyIssue(issue);
+        return "redirect:/list.do?projectId= " + issue.getProjectId();
+	}
 }
