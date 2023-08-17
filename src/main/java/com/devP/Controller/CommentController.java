@@ -10,17 +10,15 @@ import com.devP.Service.CommentService;
 import com.devP.VO.CommentVO;
 
 @Controller
-@RequestMapping("/reply")
-public class ReplyController {
-	
-	private String url = "/reply";
+@RequestMapping("/comment")
+public class CommentController {
 	
 	@Autowired
 	private CommentService commentService;
 	
 	//이슈 댓글 작성
 	@RequestMapping(value="/write.do", method= RequestMethod.POST)
-	public String registerReply(@RequestBody CommentVO vo){
+	public String registerComment(@RequestBody CommentVO vo){
 		commentService.registerComment(vo);
 		//임시 페이지 설정 / 추가-작업 : 이슈 페이지로 돌아가는 작업 추가
 	    return "main";
