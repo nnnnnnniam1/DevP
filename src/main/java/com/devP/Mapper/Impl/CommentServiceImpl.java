@@ -2,6 +2,8 @@ package com.devP.Mapper.Impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +15,12 @@ import com.devP.VO.CommentVO;
 public class CommentServiceImpl implements CommentService{
 	@Autowired
 	private CommentDAOMybatis CommentDAO;
+
+	@Autowired
+	private HttpSession session;
 	
 	@Override
 	public int registerComment(CommentVO vo) {
-		try {
-			CommentDAO.registerComment(vo);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
 		return CommentDAO.registerComment(vo);
 	}
 

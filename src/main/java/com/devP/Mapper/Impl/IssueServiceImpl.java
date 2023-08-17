@@ -5,6 +5,7 @@ import com.devP.Mapper.Repository.IssueDAOMybatis;
 import com.devP.Service.CommentService;
 import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
+import com.devP.Service.UserService;
 import com.devP.VO.IssueVO;
 
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class IssueServiceImpl implements IssueService {
     private MailService mailService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private UserService userService;
+	
 	
 	@Override
 	public int insertIssue(IssueVO issue){
@@ -76,9 +80,7 @@ public class IssueServiceImpl implements IssueService {
 			//이슈 상태 변경
 			issueDAO.changeIssueStatus(issue);
 			model.addAttribute("issue", issue);
-			
-			
-			System.out.println(commentService.getComment(issue.getIssueId()).toString());
+			model.addAttribute("commentList", commentService.getComment(issue.getIssueId()));
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
