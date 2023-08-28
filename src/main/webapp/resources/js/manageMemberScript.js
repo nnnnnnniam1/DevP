@@ -17,3 +17,32 @@ function deleteMember(userId, projectName, projectId){
         });
     }
 }
+
+function updateMembers(){
+    var memberDataList = [];
+    var projectId = '<%= session.getAttribute("projectId") %>';
+    console.log(projectId);
+
+    $("table tr").each(function(){
+        var member = {
+            projectId: (this).find("[name='projectId']").val(),
+            userId: $(this).find("[name='userId']").val(),
+            role: $(this).find("[name='role']").val(),
+            position: $(this).find("[name='position']").val(),
+        };
+        console.log(member.projectId)
+        memberDataList.push(member);
+    })
+
+    $.ajax({
+        type: 'POST',
+        url: '/project/updateMember.do',
+        data: {
+            memberDataList: JSON.stringify(memberDataList)  //json형태
+        }, success: function(response){
+            alert("수정되었습니다.");
+        }, error: function(error){
+            console.log("에러: ", error);
+        }
+    });
+}

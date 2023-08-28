@@ -34,7 +34,7 @@ public class MailController {
     private String subject;
     private String body;
 
-    public void sendMail(String from, ArrayList<String> to, String subject, String body ) throws Exception{
+    public void sendMail(String from, ArrayList<String> to, String subject, String body ) {
         try {
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");  // true는 멀티파트 메세지를 사용
@@ -48,7 +48,7 @@ public class MailController {
             e.printStackTrace();
         }
     }
-    public void sendId(String id, String email) throws Exception {
+    public void sendId(String id, String email) {
         to.clear();
         to.add(email);
         subject = "[개발자국] 아이디 찾기 테스트";
@@ -91,19 +91,19 @@ public class MailController {
         return "";
     }
 
-    @RequestMapping(value="project/addProject/verify", method = RequestMethod.GET)
-    public String invitedVerify(MemberVO vo, HttpSession session,  @RequestParam String token){
-        System.out.println(token);
-        vo = leaderService.getMemberByToken(token);
-        if (vo != null){
-            System.out.println(vo.getUserId());
-            leaderService.updateMemberStatus(vo);
-            System.out.println("변경 성공");
-        } else
-            System.out.println("변경 실패");
-
-        return "redirect:login";
-    }
+//    @RequestMapping(value="project/addProject/verify", method = RequestMethod.GET)
+//    public String invitedVerify(MemberVO vo, HttpSession session,  @RequestParam String token){
+//        System.out.println(token);
+//        vo = leaderService.getMemberByToken(token);
+//        if (vo != null){
+//            System.out.println(vo.getUserId());
+//            leaderService.updateMemberStatus(vo);
+//            System.out.println("변경 성공");
+//        } else
+//            System.out.println("변경 실패");
+//
+//        return "redirect:login";
+//    }
 
 
 }

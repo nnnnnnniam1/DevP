@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -36,7 +33,6 @@ public class LeaderController {
     public Map<String, String> setRoleMap(){
         Map<String, String> roleMap = new HashMap<String, String>();
         roleMap.put("팀장","팀장");
-
         return roleMap;
     }
 
@@ -63,26 +59,35 @@ public class LeaderController {
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
     public String addMember(UserVO user, MemberVO vo, HttpSession session, Model model) throws Exception {
-        String leader = (String) session.getAttribute("name");
-        String project = (String) session.getAttribute("projectName");
-        int projectId = (int) session.getAttribute("projectId");
-        // 수락 상태를 확인할 token 발행
-        String token = UUID.randomUUID().toString();
-        System.out.println(token);
-        UserVO member = userService.getUserDataEmail(user);
-        if(member != null){
-            mailController.sendInvitedMail(leader, project, member.getName(), member.getEmail(), token);
-            vo.setProjectId(projectId);
-            vo.setUserId(member.getId());
-//            vo.setPosition();
-//            vo.setRole();
-            vo.setStatus(token);
-            if(leaderService.findMember(vo) != null){
-                leaderService.reInvited(vo);
-            } else {
-                leaderService.insertMember(vo);
-            }
+        int result = leaderService.addMember(user, vo, session, model);
+        return "redirect:/project/manageMember.do";
+    }
+
+    @RequestMapping(value="project/addProject/verify", method = RequestMethod.GET)
+    public String invitedVerify(MemberVO vo, HttpSession session, @RequestParam String token){
+//        String code = token;
+//        System.out.println(token);
+        leaderService.invitedVerify(vo, session, token);
+
+        return "redirect:/login.do";
+
+    }
+
+    @RequestMapping(value="/project/updateMember.do", method = RequestMethod.POST)
+    public String updateMember(HttpServletRequest request){
+//        leaderService.updateMemberDatas(vo);
+        String[] selectedMembers = request.getParameterValues("memberDataList");
+        for(String userId : selectedMembers){
+            MemberVO vo = new MemberVO();
+            vo.setUserId(request.getParameter("userId"));
+            vo.setRole(request.getParameter("role"));
+            vo.setPosition(request.getParameter("position"));
+            vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+            System.out.println(vo.getProjectId());
+
+            leaderService.updateMemberDatas(vo);
         }
+
         return "redirect:/project/manageMember.do";
     }
 
@@ -99,5 +104,4 @@ public class LeaderController {
         }
 
     }
-
 }

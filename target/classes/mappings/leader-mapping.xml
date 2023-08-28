@@ -40,6 +40,13 @@
         UPDATE projectgroup SET status="0" WHERE status=#{status}
     </update>
 
+    <!--  프로젝트 멤버 데이터 변경 -->
+    <update id="updateMemberDatas">
+        UPDATE projectgroup
+        SET role=#{role},position=#{position}
+        WHERE projectId=#{projectId} AND userId=#{userId}
+    </update>
+
     <!--  프로젝트 멤버 삭제(상태 변경)  -->
     <update id="deleteMember">
         UPDATE projectgroup SET status="x" WHERE projectId=#{projectId} AND userId=#{userId}
