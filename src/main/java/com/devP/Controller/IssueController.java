@@ -1,15 +1,8 @@
 package com.devP.Controller;
 
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,60 +10,55 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.devP.Service.IssueService;
-import com.devP.Service.UserService;
 import com.devP.VO.IssueVO;
 
 @Controller
+@RequestMapping("/issue")
 public class IssueController {
-	private String url = "/issue";
+	
 	@Autowired
 	private IssueService issueService;
-	@Autowired
-    private MailController mailController;
 	
-	@Autowired
-    private JavaMailSender mailSender;
-
-    private String from = "daggggg2@naver.com";	
-	
-	//ÀÌ½´ µî·Ï ÆäÀÌÁö
-	@RequestMapping(value="/issue.do", method= RequestMethod.GET)
-    public String issueView(HttpSession session, Model model){
-		model.addAttribute("username", session.getAttribute("name"));
+	//ì´ìŠˆ ë“±ë¡ í˜ì´ì§€
+	@RequestMapping(value="/write.do", method= RequestMethod.GET)
+    public String issueView(){
         return "issue";
     }
 	
-	//ÀÌ½´ µî·Ï
-	@RequestMapping(value="/issue.do", method= RequestMethod.POST)
-    public String issueInsert(@ModelAttribute IssueVO issue, HttpSession session){
-		String emails = issue.getSendingEmail();
-		//¼¼¼Ç ¾ÆÀÌµğ Á¤º¸ µî·Ï
-		issue.setUserId(session.getAttribute("id").toString());
-		//ÀÌ½´ »óÅÂ ÃÊ±â ¼³Á¤
-		issue.setStatus("ÁøÇàÁß");
-		
-		// ±¸ºĞÀÚ¸¦ ½°Ç¥(,)·Î ÁöÁ¤ÇÏ¿© ¹®ÀÚ¿­À» ³ª´©°í, ÀÌ¸ŞÀÏ ÁÖ¼ÒµéÀ» ArrayList¿¡ ÀúÀå
-        ArrayList<String> emailList = new ArrayList<>();
-        String[] emailArray = emails.split(",");
-        for (String email : emailArray) {
-            emailList.add(email);
-        }
-		//ÀÌ¸ŞÀÏ ¾Ë¸² Àü¼Û ±¸ÇöÇØ¾ß ÇÔ
-		try {
-			mailController.sendMail(from, emailList, issue.getUserId() + "(ÀÌ)°¡ ÀÌ½´ ¾Ë¸²À» º¸³Â½À´Ï´Ù", issue.getContent());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		//---------------------
+	//ì´ìŠˆ ë“±ë¡
+	@RequestMapping(value="/write.do", method= RequestMethod.POST)
+    public String issueInsert(@ModelAttribute IssueVO issue){
 		issueService.insertIssue(issue);
         return "main";
     }
-	//ÀÌ½´ ¸ñ·Ï
+	//ì´ìŠˆ ëª©ë¡
 	@RequestMapping(value="/list.do", method= RequestMethod.GET)
     public String getIssuelist(@RequestParam int projectId, Model model){
-		model.addAttribute("issueList", issueService.getIssuelist(projectId));
-		String[] statusArray = {"³íÀÇÁß", "ÁøÇàÁß", "¿Ï·á"};
-		model.addAttribute("statusarr", statusArray);
+		issueService.getIssuelist(projectId, model);
         return "issueList";
     }
+	//ì´ìŠˆ ì‚­ì œ
+	@RequestMapping(value="/delete.do", method= RequestMethod.POST)
+    public String deleteIssue(@RequestBody IssueVO issue){
+		issueService.deleteIssue(issue);	
+        return "redirect:/list.do?projectId=" + issue.getProjectId();
+	}
+	//ì´ìŠˆ ìƒì„¸
+	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
+    public String getIssuedetail(@RequestParam int issueId, Model model){
+		issueService.getIssue(issueId, model);
+        return "issueDetail";
+	}
+	//ì´ìŠˆ í•´ê²°
+	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
+    public String solveIssue(@RequestBody IssueVO issue){
+		issueService.solveIssue(issue);
+        return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
+	}
+	//ì´ìŠˆ ìˆ˜ì •
+	@RequestMapping(value="/modify.do", method= RequestMethod.POST)
+    public String modifyIssue(@RequestBody IssueVO issue){
+		issueService.modifyIssue(issue);
+        return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
+	}
 }

@@ -13,11 +13,7 @@ public class IssueDAOMybatis{
 
     @Autowired
     private SqlSessionTemplate mybatis;
-
-//	public void insertUser(UserVO vo) {
-//		mybatis.insert("UserDAO.insertUser", vo);
-//	}
-
+    
     public int insertIssue(IssueVO vo){
         return mybatis.insert("IssueDAO.insertIssue", vo);
     }
@@ -25,8 +21,23 @@ public class IssueDAOMybatis{
     public List<IssueVO> getIssuelist(int projectId) {
     	return mybatis.selectList("IssueDAO.issueList", projectId);
     }
-
-//    public UserVO getUserIdByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserIdByEmail", vo); }
-//
-//    public UserVO getUserPwByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserPwByEmail", vo); }
+    
+    public int deleteIssue(int issueId) {
+    	return mybatis.delete("IssueDAO.deleteIssue", issueId);
+    }
+    public IssueVO getIssue(int issueId) {
+    	return mybatis.selectOne("IssueDAO.getIssue", issueId);
+    }
+    
+    public int countupIssue(int issueId) {
+    	return mybatis.update("IssueDAO.countupIssue", issueId);
+    }
+    
+    public int changeIssueStatus(IssueVO vo) {
+    	return mybatis.update("IssueDAO.changeIssueStatus", vo);
+    }
+    
+    public int modifyIssue(IssueVO vo) {
+    	return mybatis.update("IssueDAO.modifyIssue", vo);
+    }
 }
