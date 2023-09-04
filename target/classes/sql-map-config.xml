@@ -5,7 +5,7 @@
 <configuration>	
 	<!-- Alias 설정 -->
 	<typeAliases>
-		<typeAlias alias="Member" type="com.devP.VO.MemberVO" />
+		<typeAlias alias="member" type="com.devP.VO.MemberVO" />
 		<typeAlias alias="user" type="com.devP.VO.UserVO" />
 		<typeAlias alias="project" type="com.devP.VO.ProjectVO" />
 		<typeAlias alias="chat" type="com.devP.VO.ChatVO" />

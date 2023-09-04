@@ -1,7 +1,8 @@
 package com.devP.Service;
 
-public interface ProjectService {
-	
-	
+import org.springframework.ui.Model;
 
+
+public interface ProjectService {
+	void showCalendar(Model model, Integer year, Integer month);
 }
