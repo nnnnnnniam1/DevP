@@ -42,7 +42,17 @@ function updateMembers(){
         }, success: function(response){
             alert("수정되었습니다.");
         }, error: function(error){
+            alert("수정 실패!");
             console.log("에러: ", error);
         }
     });
+}
+
+function updateMember(){
+    var memberDatas = document.querySelectorAll('.manageForm table tr');
+    var updates = [];
+
+    memberDatas.forEach(function(data){
+        var userId = row.querySelector('input[name="')
+    })
 }
