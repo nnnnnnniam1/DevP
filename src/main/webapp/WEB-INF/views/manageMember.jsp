@@ -65,7 +65,7 @@
                                 </select>
                             </td>
                             <td>
-                                <c:if test="${member.status != '0'}">
+                                <c:if test="${member.status != '1'}">
                                 대기
                                 </c:if>
                             </td>
