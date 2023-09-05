@@ -23,7 +23,7 @@ public class IssueServiceImpl implements IssueService {
 	@Autowired
 	private HttpSession session;
 	
-    private String from = "daggggg2@naver.com";
+//    private String from = "daggggg2@naver.com";
 
 	@Autowired
     private MailService mailService;
@@ -48,7 +48,7 @@ public class IssueServiceImpl implements IssueService {
             emailList.add(email);
         }
 		try {
-			mailService.sendMail(from, emailList, issue.getUserId() + "(이)가 이슈 알림을 보냈습니다", issue.getContent());
+			mailService.sendMail(emailList, issue.getUserId() + "(이)가 이슈 알림을 보냈습니다", issue.getContent());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,7 +112,7 @@ public class IssueServiceImpl implements IssueService {
 	            emailList.add(email);
 	        }
 	        //이메일 알림 전송
-	        mailService.sendMail(from, emailList, issue.getUserId() + "(이)가 이슈 수정 알림을 보냈습니다", issue.getContent());
+	        mailService.sendMail(emailList, issue.getUserId() + "(이)가 이슈 수정 알림을 보냈습니다", issue.getContent());
 			issueDAO.modifyIssue(issue);
 		} catch (Exception e) {
 			System.out.println(e);

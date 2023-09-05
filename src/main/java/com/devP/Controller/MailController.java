@@ -1,15 +1,19 @@
 package com.devP.Controller;
 
+import com.devP.Service.LeaderService;
+import com.devP.VO.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -22,12 +26,15 @@ public class MailController {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private LeaderService leaderService;
+
     private String from = "daggggg2@naver.com";
     private ArrayList<String> to= new ArrayList<>();
     private String subject;
     private String body;
 
-    public void sendMail(String from, ArrayList<String> to, String subject, String body ) throws Exception{
+    public void sendMail(String from, ArrayList<String> to, String subject, String body ) {
         try {
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");  // true는 멀티파트 메세지를 사용
@@ -41,7 +48,7 @@ public class MailController {
             e.printStackTrace();
         }
     }
-    public void sendId(String id, String email) throws Exception {
+    public void sendId(String id, String email) {
         to.clear();
         to.add(email);
         subject = "[개발자국] 아이디 찾기 테스트";
@@ -79,11 +86,24 @@ public class MailController {
         body = "<h3>" + memberName+"님, 안녕하세요</h3><br>"
                 + leader+"님에 의해 " + project+" 프로젝트에 초대되었습니다.<br>"
                 + "초대를 수락하신다면 "
-                + "<a href='http://localhost:8080/addProject/verify?token="+token+"'>초대 수락</a>";
+                + "<a href='http://localhost:8080/project/addProject/verify?token="+token+"'>초대 수락</a>";
         sendMail(from,to,subject,body);
-
         return "";
     }
+
+//    @RequestMapping(value="project/addProject/verify", method = RequestMethod.GET)
+//    public String invitedVerify(MemberVO vo, HttpSession session,  @RequestParam String token){
+//        System.out.println(token);
+//        vo = leaderService.getMemberByToken(token);
+//        if (vo != null){
+//            System.out.println(vo.getUserId());
+//            leaderService.updateMemberStatus(vo);
+//            System.out.println("변경 성공");
+//        } else
+//            System.out.println("변경 실패");
+//
+//        return "redirect:login";
+//    }
 
 
 }
