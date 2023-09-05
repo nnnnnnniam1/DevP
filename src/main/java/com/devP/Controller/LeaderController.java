@@ -96,9 +96,9 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
-    public ResponseEntity<String> addMember(MemberVO vo, HttpServletRequest request ) throws Exception {
+    public ResponseEntity<String> deleteMember(MemberVO vo, HttpServletRequest request ) throws Exception {
         try {
-            String userId = request.getQueryString();
+            String userId = request.getParameter("userId");
             int projectId = Integer.parseInt(request.getParameter("projectId"));
 
             leaderService.deleteMember(vo, userId, projectId);
