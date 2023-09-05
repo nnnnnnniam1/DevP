@@ -12,7 +12,7 @@ public interface LeaderService {
 
     List<MemberVO> getMemberList(MemberVO vo);
 
-    int addMember(UserVO user, MemberVO vo, HttpSession session, Model model) throws Exception;
+    int addMember(UserVO user, MemberVO vo, Model model) throws Exception;
 
     MemberVO findMember(MemberVO vo);
 
@@ -20,14 +20,14 @@ public interface LeaderService {
 
     void reInvited(MemberVO vo);
 
-    int invitedVerify(MemberVO vo, HttpSession session, String token);
+    int invitedVerify(MemberVO vo, String token);
 
     MemberVO getMemberByToken(MemberVO vo);
 
     void updateMemberStatus(MemberVO vo);
 
-    void updateMemberDatas(MemberVO vo);
+    void updateMemberDatas(MemberVO vo, String[] selectedMembers, String userId, String role, String position, int projectId);
 
-    void deleteMember(MemberVO vo);
+    void deleteMember(MemberVO vo, String userId, int projectId);
 
 }

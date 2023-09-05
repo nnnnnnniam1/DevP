@@ -27,13 +27,16 @@ public class LeaderServiceImpl implements LeaderService {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private HttpSession session;
+
 	@Override
 	public List<MemberVO> getMemberList(MemberVO vo){
 		return leaderDAO.getMemberList(vo);
 	}
 
 	@Override
-	public int addMember(UserVO user, MemberVO vo, HttpSession session, Model model) throws Exception {
+	public int addMember(UserVO user, MemberVO vo, Model model) throws Exception {
 		String leader = (String) session.getAttribute("name");
 		String project = (String) session.getAttribute("projectName");
 		int projectId = (int) session.getAttribute("projectId");
@@ -65,7 +68,7 @@ public class LeaderServiceImpl implements LeaderService {
 	public void reInvited(MemberVO vo){ leaderDAO.reInvited(vo); }
 
 	@Override
-	public int invitedVerify(MemberVO vo, HttpSession session, String token){
+	public int invitedVerify(MemberVO vo, String token){
 		vo.setStatus(token);
 		System.out.println(vo.getStatus());
 		vo = getMemberByToken(vo);
@@ -88,9 +91,21 @@ public class LeaderServiceImpl implements LeaderService {
 	public void updateMemberStatus(MemberVO vo){ leaderDAO.updateMemberStatus(vo); }
 
 	@Override
-	public void updateMemberDatas(MemberVO vo){ leaderDAO.updateMemberDatas(vo); }
+	public void updateMemberDatas(MemberVO vo, String[] selectedMembers, String userId, String role, String position, int projectId){
+		for(String memId: selectedMembers){
+			vo.setUserId(userId);
+			vo.setRole(role);
+			vo.setPosition(position);
+			vo.setProjectId(projectId);
+		}
+		leaderDAO.updateMemberDatas(vo);
+	}
 
 	@Override
-	public void deleteMember(MemberVO vo){ leaderDAO.deleteMember(vo);}
+	public void deleteMember(MemberVO vo, String userId, int projectId){
+		vo.setUserId(userId);
+		vo.setProjectId(projectId);
+		leaderDAO.deleteMember(vo);
+	}
 
 }

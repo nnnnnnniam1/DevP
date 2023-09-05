@@ -58,35 +58,39 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
-    public String addMember(UserVO user, MemberVO vo, HttpSession session, Model model) throws Exception {
-        int result = leaderService.addMember(user, vo, session, model);
+    public String addMember(UserVO user, MemberVO vo, Model model) throws Exception {
+        int result = leaderService.addMember(user, vo, model);
         return "redirect:/project/manageMember.do";
     }
 
     @RequestMapping(value="project/addProject/verify", method = RequestMethod.GET)
-    public String invitedVerify(MemberVO vo, HttpSession session, @RequestParam String token){
+    public String invitedVerify(MemberVO vo, @RequestParam String token){
 //        String code = token;
 //        System.out.println(token);
-        leaderService.invitedVerify(vo, session, token);
+        leaderService.invitedVerify(vo, token);
 
         return "redirect:/login.do";
 
     }
 
     @RequestMapping(value="/project/updateMember.do", method = RequestMethod.POST)
-    public String updateMember(HttpServletRequest request){
-//        leaderService.updateMemberDatas(vo);
+    public String updateMember(MemberVO vo, HttpServletRequest request){
         String[] selectedMembers = request.getParameterValues("memberDataList");
-        for(String userId : selectedMembers){
-            MemberVO vo = new MemberVO();
-            vo.setUserId(request.getParameter("userId"));
-            vo.setRole(request.getParameter("role"));
-            vo.setPosition(request.getParameter("position"));
-            vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
-            System.out.println(vo.getProjectId());
+        String userId = request.getParameter("userId");
+        String role = request.getParameter("role");
+        String position = request.getParameter("position");
+        int projectId = Integer.parseInt(request.getParameter("projectId"));
 
-            leaderService.updateMemberDatas(vo);
-        }
+//        for(String userId : selectedMembers){
+//            MemberVO vo = new MemberVO();
+//            vo.setUserId(request.getParameter("userId"));
+//            vo.setRole(request.getParameter("role"));
+//            vo.setPosition(request.getParameter("position"));
+//            vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+//            System.out.println(vo.getProjectId());
+//        }
+        leaderService.updateMemberDatas(vo, selectedMembers, userId, role, position, projectId);
+
 
         return "redirect:/project/manageMember.do";
     }
@@ -94,9 +98,11 @@ public class LeaderController {
     @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
     public ResponseEntity<String> addMember(MemberVO vo, HttpServletRequest request ) throws Exception {
         try {
-            vo.setUserId(request.getParameter("userId"));
-            vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
-            leaderService.deleteMember(vo);
+            String userId = request.getQueryString();
+            int projectId = Integer.parseInt(request.getParameter("projectId"));
+
+            leaderService.deleteMember(vo, userId, projectId);
+
             return ResponseEntity.ok("Member deleted successfully");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
