@@ -16,8 +16,11 @@
 </head>
 <body>
 <div class="container">
-    <div class="main-text">${title}</div>
-    <div class="calender">Item1</div>
+    <div class="main-text">
+        ${title}
+        <button type="button" onclick="location.href='login.do'" >${login}</button>
+    </div>
+    <div class="calender"> Item1 </div>
     <div class="project_list">
         <div>진행 중인 프로젝트</div>
     </div>

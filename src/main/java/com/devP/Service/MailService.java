@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface MailService {
 
-    void sendMail(String from, ArrayList<String> to, String subject, String body) throws Exception;
+    void sendMail(ArrayList<String> to, String subject, String body) throws Exception;
 
     void sendId(String id, String email) throws Exception;
 
