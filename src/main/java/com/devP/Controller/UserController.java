@@ -35,14 +35,14 @@ public class UserController {
     public String login(UserVO vo, HttpSession session, HttpServletRequest request){
         String saveId = request.getParameter("saveId");
         int result = userService.getUser(vo,saveId);
-        if(result == 200){ return "main"; }
+        if(result == 200){ return "redirect:/"; }
         else { return "login"; }
     }
 
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
     public String logout() {
         int result = userService.logout();
-        return "redirect:login.do";
+        return "redirect:/login.do";
     }
     @RequestMapping(value="/searchLogin.do", method = RequestMethod.GET)
     public String searchLoginView(){ return "searchLogin"; }
