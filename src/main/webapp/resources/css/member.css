@@ -1,0 +1,41 @@
+.member-item {
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px
+}
+.item-label {
+    //flex: 1;
+}
+.tag {
+    display: flex; /* 부모 요소를 플렉스 컨테이너로 설정 */
+    width: 82px;
+    height: 30px;
+    border-radius: 20px;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    margin-left: 10px;
+}
+
+.chatting button{
+    float: right;
+}
+
+#leaderTag {
+    background: #951C47;
+    color: #fff;
+
+}
+#memberTag {
+    background: #152F47;
+    color: #fff;
+}
+#roleTag {
+    background : #E8DDD2;
+    color: #000;
+}
+#positionTag {
+     background : #F4EFC2;
+     color: #000;
+}
+
