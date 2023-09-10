@@ -32,10 +32,6 @@
             <input name="endDate">
         </label><br>
         <label>
-            진행률
-            <input name="progress" value="0">
-        </label><br>
-        <label>
             멤버 추가
         </label><br>
         <label>

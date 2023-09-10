@@ -21,6 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
     public int insertProject(ProjectVO vo) {
         String leader = session.getAttribute("id").toString();
         vo.setLeader(leader);
+        vo.setProgress(0);
 
         return projectDAO.insertProject(vo);
 

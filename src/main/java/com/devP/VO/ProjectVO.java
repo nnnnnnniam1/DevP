@@ -9,7 +9,7 @@ public class ProjectVO {
     private String endDate;
     private String wbsFile;
     private String planFile;
-    private String progress;
+    private int progress;
     private String leader;
     private String script;
 
@@ -29,11 +29,11 @@ public class ProjectVO {
         this.leader = leader;
     }
 
-    public String getProgress() {
+    public int getProgress() {
         return progress;
     }
 
-    public void setProgress(String progress) {
+    public void setProgress(int progress) {
         this.progress = progress;
     }
 
