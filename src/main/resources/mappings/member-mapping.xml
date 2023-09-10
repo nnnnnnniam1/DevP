@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="LeaderDAO">
+<mapper namespace="MemberDAO">
+
+    <!--  리더 - 멤버페이지  -->
 
     <!--  프로젝트 멤버리스트 불러오기  -->
     <select id="getMemberList" resultType="Member">
@@ -51,4 +53,15 @@
     <update id="deleteMember">
         UPDATE projectgroup SET status="x" WHERE projectId=#{projectId} AND userId=#{userId}
     </update>
+
+
+    <!--  프로젝트 - 멤버페이지  -->
+    <select id="getProjectMemberList" resultType="Member">
+        SELECT u.name AS userName, u.id AS userId, u.email,
+        pg.leader, pg.position, pg.role, pg.progress, pg.status
+        FROM projectgroup AS pg
+        JOIN user AS u
+        ON pg.userId = u.id
+        WHERE pg.projectId = #{projectId} AND pg.status = "1";
+    </select>
 </mapper>
