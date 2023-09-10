@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.internet.InternetAddress;
@@ -36,34 +33,15 @@ public class UserController {
 
     @RequestMapping(value="/login.do", method = RequestMethod.POST)
     public String login(UserVO vo, HttpSession session, HttpServletRequest request){
-
-        UserVO user = userService.getUser(vo);
-        if(user != null){
-            String saveId = request.getParameter("saveId");
-            System.out.println(saveId);
-            session.setAttribute("name",user.getName());
-            session.setAttribute("id",user.getId());
-//            session.setAttribute("user", user);
-            if("on".equals(saveId)){
-                session.setAttribute("checked","checked");
-            } else {
-                session.removeAttribute("checked");
-            }
-
-            return "redirect:/";
-        } else {
-            return "login";
-        }
+        String saveId = request.getParameter("saveId");
+        int result = userService.getUser(vo,saveId);
+        if(result == 200){ return "main"; }
+        else { return "login"; }
     }
 
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
-        if (session.getAttribute("checked") != null) {
-            System.out.println("아이디 저장임");
-        } else {
-            session.invalidate();
-            System.out.println("아이디 저장 안됨");
-        }
+    public String logout() {
+        int result = userService.logout();
         return "redirect:login.do";
     }
     @RequestMapping(value="/searchLogin.do", method = RequestMethod.GET)
@@ -73,43 +51,30 @@ public class UserController {
     @RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
     public String searchId(UserVO vo, HttpServletRequest request) throws Exception {
         String email = request.getParameter("email-id")+"@"+request.getParameter("email");
-        vo.setEmail(email);
-        System.out.println(email);
-        UserVO user = userService.getUserByEmail(vo);
-        if(user != null){
-            System.out.println(user.getId());
-            mailController.sendId(user.getId(),user.getEmail());
-        }
+        int result = userService.findId(vo, email);
+
         return "searchLogin";
     }
     @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
-    public String searchPw(UserVO vo, HttpServletRequest request,HttpSession session, ModelAndView model) throws Exception {
+    public String searchPw(UserVO vo, HttpServletRequest request) throws Exception {
         String email = request.getParameter("email-id")+"@"+request.getParameter("email");
-        vo.setEmail(email);
-        System.out.println(email);
-        UserVO user = userService.getUserByEmail(vo);
-        if (user != null) {
-            String authKey = mailController.sendCode(user.getEmail());
-//            request.setAttribute(authKey, authKey);
+        int result = userService.findPw(vo, email);
 
-            session.setAttribute("userId",user.getId());    // 비밀번호 재설정시 필요
-            session.setAttribute("authKey",authKey);
-        }
         return "searchLogin";
     }
     @RequestMapping(value = "/checkCode.do", method = RequestMethod.POST)
     @ResponseBody
     public String checkCode(HttpServletRequest request, HttpSession session) {
-        String authKey = (String) session.getAttribute("authKey");
         String inputCode = request.getParameter("input-code");
-        System.out.println(authKey + " " + inputCode);
-        if (authKey.equals(inputCode)) {
+        int result = userService.checkCode(inputCode);
+        if (result == 200) {
             System.out.println("true");
             return "success";
         } else {
             System.out.println("false");
             return "false";
         }
+
     }
     @RequestMapping(value = "/changePw.do", method = RequestMethod.GET)
     public String changePwView(HttpSession session){
@@ -118,16 +83,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/changePw.do", method = RequestMethod.POST)
-    public String changePw(UserVO vo, HttpSession session, HttpServletRequest request){
-        vo.setId((String)session.getAttribute("userId"));
-        System.out.println(vo.getId()+""+vo.getPassword());
-        userService.updatePw(vo);
+    public String changePw(UserVO vo){
+        int result = userService.changePw(vo);
         return "changePw";
     }
     @RequestMapping(value = "/changePwSuccess.do", method = RequestMethod.GET)
     public String changePwSuccessView(){
         return "changePwSuccess";
     }
-
 
 }
