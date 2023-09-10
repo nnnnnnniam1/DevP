@@ -18,8 +18,8 @@ public class ProjectController {
     private ProjectService projectService;
 
     @RequestMapping(value="/projectDetail/member.do", method = RequestMethod.GET)
-    public String manageMemberView(HttpSession session, ModelAndView mav){
-        int result = projectService.showProjectMemberList(mav);
+    public String manageMemberView(MemberVO vo, HttpSession session, Model model){
+        int result = projectService.showProjectMemberList(vo, model);
         return "member";
     }
 }
