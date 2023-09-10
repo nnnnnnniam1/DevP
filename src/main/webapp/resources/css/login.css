@@ -28,7 +28,9 @@ body{
     /*margin-bottom: 16px;
     border-radius: 6px;*/
 }
-
+.loginLabel {
+    size: 10px;
+}
 /*
 #login-form {
 }
