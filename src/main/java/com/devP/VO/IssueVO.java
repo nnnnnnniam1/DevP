@@ -1,11 +1,10 @@
 package com.devP.VO;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 //VO(Value Object)
 public class IssueVO {
-	private int issueId;
+	private Integer issueId;
 	private int projectId;
 	private String userId;
 	private int taskId;
@@ -30,7 +29,7 @@ public class IssueVO {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public int getIssueId() {
+	public Integer getIssueId() {
 		return issueId;
 	}
 	public void setIssueId(int issueId) {

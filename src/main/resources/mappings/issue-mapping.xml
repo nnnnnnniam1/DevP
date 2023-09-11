@@ -10,7 +10,7 @@
     </insert>
     <!--  이슈 목록 -->
 	<select id="issueList" resultType="Issue">
-		SELECT i.title, i.status, i.date, u.name
+		SELECT i.title, i.status, i.date, i.issueId, u.name
 		FROM issue i
 		JOIN user u ON i.userId = u.id
 		WHERE i.projectId = #{projectId};

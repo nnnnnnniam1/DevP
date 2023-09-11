@@ -108,15 +108,26 @@ ddd
         });
     });
 
-    function showActiveTab() {
-        for (let i = 0; i < tabList.length; i++) {
-            if (i === activeTabIndex) {
-                tabList[i].classList.add('is_on');
-                document.getElementById('searchTitle').innerText = (i === 0) ? "아이디 찾기" : "비밀번호 찾기";
+
+    for (let i = 0; i < tabList.length; i++) {
+        tabList[i].querySelector('.btn').addEventListener('click', function (e) {
+            if (i === 0) {
+                document.getElementById('searchTitle').innerText = "아이디 찾기";
+                for (var k = 0; k < findIdInputs.length; k++) {
+                    findIdInputs[k].value = ""; // 아이디 탭 클릭 시 해당 input 요소들의 값을 초기화
+                }
             } else {
-                tabList[i].classList.remove('is_on');
+                document.getElementById('searchTitle').innerText = "비밀번호 찾기";
+                for (var k = 0; k < findPwInputs.length; k++) {
+                    findPwInputs[k].value = ""; // 비밀번호 탭 클릭 시 해당 input 요소들의 값을 초기화
+                }
             }
-        }
+            e.preventDefault();
+            for (var j = 0; j < tabList.length; j++) {
+                tabList[j].classList.remove('is_on');
+            }
+            this.parentNode.classList.add('is_on');
+        });
     }
         
     document.querySelector('.searchForm.find-pw .codeForm').addEventListener('submit', function (e) {

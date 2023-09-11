@@ -1,11 +1,17 @@
 package com.devP.Service;
 
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectVO;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 public interface ProjectService {
+	
+	int insertProject(ProjectVO vo);
 
-    int showProjectMemberList(MemberVO vo, Model model);
+	int insertProjectView();
+
+	int showProjectMemberList(MemberVO vo, Model model);
 
 }

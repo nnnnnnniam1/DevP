@@ -22,26 +22,26 @@ public class IssueController {
 	//이슈 등록 페이지
 	@RequestMapping(value="/write.do", method= RequestMethod.GET)
     public String issueView(){
-        return "issue";
+        return "issueWrite";
     }
 	
 	//이슈 등록
 	@RequestMapping(value="/write.do", method= RequestMethod.POST)
     public String issueInsert(@ModelAttribute IssueVO issue){
 		issueService.insertIssue(issue);
-        return "main";
+        return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
     }
 	//이슈 목록
-	@RequestMapping(value="/list.do", method= RequestMethod.GET)
+	@RequestMapping(value="/list.do", method= RequestMethod.GET)	
     public String getIssuelist(@RequestParam int projectId, Model model){
 		issueService.getIssuelist(projectId, model);
         return "issueList";
     }
 	//이슈 삭제
 	@RequestMapping(value="/delete.do", method= RequestMethod.POST)
-    public String deleteIssue(@RequestBody IssueVO issue){
-		issueService.deleteIssue(issue);	
-        return "redirect:/list.do?projectId=" + issue.getProjectId();
+    public String deleteIssue(@ModelAttribute IssueVO issue){
+		issueService.deleteIssue(issue);
+        return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 	//이슈 상세
 	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
@@ -51,13 +51,20 @@ public class IssueController {
 	}
 	//이슈 해결
 	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
-    public String solveIssue(@RequestBody IssueVO issue){
+    public String solveIssue(@ModelAttribute IssueVO issue){
 		issueService.solveIssue(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
+	//이슈 수정 페이지
+	@RequestMapping(value="/modify.do", method= RequestMethod.GET)
+	public String getmodifyIssue(@RequestParam int issueId, Model model){
+		issueService.getIssue(issueId, model);
+	    return "issueModify";
+	}
 	//이슈 수정
 	@RequestMapping(value="/modify.do", method= RequestMethod.POST)
-    public String modifyIssue(@RequestBody IssueVO issue){
+    public String modifyIssue(@ModelAttribute IssueVO issue){
+		System.out.println(issue.getIssueId() + issue.getCategory() + issue.getContent() + issue.getTitle() + issue.getSendingEmail());
 		issueService.modifyIssue(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
