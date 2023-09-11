@@ -35,7 +35,7 @@ public class UserController {
     public String login(UserVO vo, HttpSession session, HttpServletRequest request){
         String saveId = request.getParameter("saveId");
         int result = userService.getUser(vo,saveId);
-        if(result == 200){ return "main"; }
+        if(result == 200){ return "redirect:/"; }
         else { return "login"; }
     }
 

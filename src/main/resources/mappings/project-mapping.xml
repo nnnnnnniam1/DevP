@@ -3,5 +3,10 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ProjectDAO">
-	
+
+    <!--  프로젝트 추가   -->
+    <insert id="insertProject">
+        insert into project (projectName, startDate, endDate, progress, script, leader)
+        values (#{projectName}, #{startDate}, #{endDate}, #{progress}, #{script}, #{leader});
+    </insert>
 </mapper>
