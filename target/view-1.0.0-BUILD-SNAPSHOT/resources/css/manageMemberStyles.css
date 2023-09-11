@@ -26,6 +26,9 @@ body{
     line-height: normal;
 }
 
+.member-wrapper h3 {
+    background-color: #E5D3D3;
+}
 .memberList tr td:first-child {
     width: 50;
 }

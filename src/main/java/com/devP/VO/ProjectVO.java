@@ -4,55 +4,93 @@ import java.util.Date;
 
 //VO(Value Object)
 public class ProjectVO {
-	private int projectId;
-	private String projectName;
-	private Date startDate;
-	private Date endDate;
-	private int wbsFileId;
-	private int planFileId;	
-	private int progress;	
-	
+    private String projectId;
+    private String projectName;
+    private String startDate;
+    private String endDate;
+    private String wbsFile;
+    private String planFile;
+    private int progress;
+    private String leader;
+    private String script;
 
-	public int getProjectId() {
-		return projectId;
-	}
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
-	}
-	public String getProjectName() {
-		return projectName;
-	}
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
-	public Date getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-	public int getWbsFileId() {
-		return wbsFileId;
-	}
-	public void setWbsFileId(int wbsFileId) {
-		this.wbsFileId = wbsFileId;
-	}
-	public int getPlanFileId() {
-		return planFileId;
-	}
-	public void setPlanFileId(int planFileId) {
-		this.planFileId = planFileId;
-	}
-	public int getProgress() {
-		return progress;
-	}
-	public void setProgress(int progress) {
-		this.progress = progress;
-	}
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    public String getLeader() {
+        return leader;
+    }
+
+    public void setLeader(String leader) {
+        this.leader = leader;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public String getPlanFile() {
+        return planFile;
+    }
+
+    public void setPlanFile(String planFile) {
+        this.planFile = planFile;
+    }
+
+    public String getWbsFile() {
+        return wbsFile;
+    }
+
+    public void setWbsFile(String wbsFile) {
+        this.wbsFile = wbsFile;
+    }
+
+
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
 }

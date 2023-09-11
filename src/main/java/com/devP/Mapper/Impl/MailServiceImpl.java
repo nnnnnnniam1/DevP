@@ -31,7 +31,7 @@ public class MailServiceImpl implements MailService{
     private String subject;
     private String body;
 
-    public void sendMail(String from, ArrayList<String> to, String subject, String body ) throws Exception{
+    public void sendMail(ArrayList<String> to, String subject, String body ) throws Exception{
         try {
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");  // true는 멀티파트 메세지를 사용
@@ -52,7 +52,7 @@ public class MailServiceImpl implements MailService{
         body = "당신의 아이디는 " + id + "입니다.";
 
 
-        sendMail(from,to,subject,body);
+        sendMail(to,subject,body);
     }
 
     public String sendCode(String email) throws Exception {
@@ -72,7 +72,7 @@ public class MailServiceImpl implements MailService{
         to.add(email);
         subject = "[개발자국] 비밀번호찾기 인증번호코드 ";
         body = "인증번호는 <h2>" + authKey + "</h2>입니다.<br>";
-        sendMail(from,to,subject,body);
+        sendMail(to,subject,body);
 
         return authKey;
     }
@@ -83,12 +83,10 @@ public class MailServiceImpl implements MailService{
         body = "<h3>" + memberName+"님, 안녕하세요</h3><br>"
                 + leader+"님에 의해 " + project+" 프로젝트에 초대되었습니다.<br>"
                 + "초대를 수락하신다면 "
-                + "<a href='http://localhost:8080/addProject/verify?token="+token+"'>초대 수락</a>";
-        sendMail(from,to,subject,body);
+                + "<a href='http://localhost:8080/project/addProject/verify?token="+token+"'>초대 수락</a>";
+
+        sendMail(to,subject,body);
 
         return "";
     }
-
-
 }
-

@@ -1,8 +1,14 @@
 package com.devP.Service;
 
+import com.devP.VO.ProjectVO;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.ui.Model;
 
-
 public interface ProjectService {
-	void showCalendar(Model model, Integer year, Integer month);
+	
+	int insertProject(ProjectVO vo);
+
+	int insertProjectView();
 }

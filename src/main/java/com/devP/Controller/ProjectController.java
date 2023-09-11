@@ -1,29 +1,63 @@
 package com.devP.Controller;
 
+import com.devP.Service.IssueService;
+import com.devP.Service.MailService;
+import com.devP.Service.ProjectService;
+import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.devP.Service.ProjectService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static java.lang.System.out;
 
 @Controller
-@RequestMapping("/project")
+@SessionAttributes("project")
+@RequestMapping("project")
 public class ProjectController {
-
-	@Autowired
-	private ProjectService projectService;
 	
-	//프로젝트 상세 페이지
-	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
-    public String showCalendar(Model model, @RequestParam(required = false) Integer year, @RequestParam(required = false) Integer month) {
+
+		@Autowired
+		private IssueService issueService;
 		
-		projectService.showCalendar(model, year, month);
-		
-        return "projectDetail";
-    }
-		
-		
+        @Autowired
+        private ProjectService projectService;
+
+        @Autowired
+        private MailController mailController;
+
+        @Autowired
+        private HttpSession session;
+
+        @RequestMapping(value = "/insert.do", method = RequestMethod.GET)
+        public String insertProjectView() {
+                if(projectService.insertProjectView() == 200) {
+                        return "insertProject";
+                }else if(projectService.insertProjectView() == 405){
+                        return "redirect:/login.do";
+                }else{
+                        return "redirect:/";
+                }
+        }
+        
+        //프로젝트 상세
+        @RequestMapping(value="/detail.do", method= RequestMethod.GET)
+  	    public String projectView(@RequestParam int projectId, Model model){
+  			issueService.getIssuelist(projectId, model);
+  	        return "projectDetail";
+      	}
+        
+        @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
+        public String insertProject(@ModelAttribute ProjectVO vo){
+                if(projectService.insertProject(vo) == 200) return "projectList";
+                else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
+                return null;
+        }
 }
