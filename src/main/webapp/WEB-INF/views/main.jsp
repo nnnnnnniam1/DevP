@@ -12,7 +12,6 @@
 <html>
 <head>
     <title>Title</title>
-<%--    <link rel="stylesheet" href="/resources/css/styles.css">--%>
     <link rel="stylesheet" href="/resources/css/main.css">
     <script src="script.js"></script>
 </head>
