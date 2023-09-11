@@ -16,7 +16,7 @@ String username = (String) session.getAttribute("name");
     <div class="issue-wrapper">
 		<div class="mt-5">
 	        <h1 class="mb-4">Moment 이슈 등록</h1>
-	        <form method="post" class="p-3" action="write.do" id="issue-form">
+	        <form method="post" class="p-3" action="/issue/write.do" id="issue-form">
             	 <input class = "issueInput" type = "hidden" name="projectId" value = "1"><br>
             	 <input class = "issueInput" type = "hidden" name="taskId" value = "1"><br>
 	             <div class="mb-3 row">

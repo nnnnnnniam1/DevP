@@ -23,7 +23,7 @@
     <hr>	
     <ul class="nav nav-pills flex-column mb-auto text-center ">
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark active">
+        <a href="/project/detail.do?projectId=1" class="nav-link link-dark active">
                      프로젝트
         </a>
       </li>
@@ -43,7 +43,7 @@
         </a>
       </li>
       <li>
-        <a href="/issue/list.do?projectId=3" class="nav-link link-dark">
+        <a href="/issue/list.do?projectId=1" class="nav-link link-dark">
           	이슈
         </a>
       </li>
