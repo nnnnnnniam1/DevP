@@ -16,21 +16,23 @@
     <div class="manage-wrapper">
         <div class="addMember">
             <form class="manageMemberWrapper" action="/project/addMember.do" method="post">
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label"> 멤버추가</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="email" placeholder="devp@devp.com" name="email">
+                <div class="addMemberLine row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label class="formLabel col-form-label"> 멤버추가</label>
                     </div>
-                    <div class="col-sm-2"><input class="btn btn-primary" type="submit" value="send"></div>
+                    <div class="col-auto">
+                        <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="email">
+                    </div>
+                    <div class="col-auto"><input class="form-control" type="submit" value="send"></div>
                 </div>
             </form>
         </div>
     </div>
     <div  class="member-wrapper">
-        <p class="manageMemberWrapper">멤버 관리</p>
+        <p class="manageMemberWrapper formLabel col-form-label">멤버 관리</p>
         <form class="manageForm" method="post" action="/project/updateMember.do">
             <table class="table" width=500px;>
-                <thread>
+                <thead>
                     <tr>
                         <th class="col-md-2" scope="col" width="10%">이름</th>
                         <th class="col-md-4" scope="col">이메일</th>
@@ -39,14 +41,14 @@
                         <th class="col-md-2" scope="col">상황</th>
                         <th class="col-md-2" scope="col">삭제</th>
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
                     <c:forEach items="${memberList}" var="member">
                         <tr>
-                            <th scope="row">${member.userName}</td>
+                            <td>${member.userName}</td>
                             <td>${member.email}</td>
                             <td>
-                                <select name="role">
+                                <select class="form-select" name="role">
                                     <option value="" <c:if test="${empty member.role}">selected</c:if>>선택</option>
                                     <c:forEach items="${roleMap}" var="option">
                                         <option value="${option.value}"
@@ -60,7 +62,7 @@
                             <input type="hidden" value="${projectId}" name="projectId">
                             <input type="hidden" value="${member.userId}" name="userId">
                             <td>
-                                <select name="position">
+                                <select class="form-select" name="position">
                                     <option value="" <c:if test="${empty member.position}">selected</c:if>>선택</option>
                                     <c:forEach items="${positionMap}" var="option">
                                         <option value="${option.value}"
@@ -77,13 +79,13 @@
                                 </c:if>
                             </td>
                             <td>
-                                <input type="button" value="삭제" onclick="deleteMember('${member.userId}','${projectName}', ${projectId})" />
+                                <input class="form-control" type="button" value="삭제" onclick="deleteMember('${member.userId}','${projectName}', ${projectId})" />
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-            <input type="button" onclick="updateMembers()" value="수정">
+            <!-- <input class="form-control" type="button" onclick="updateMembers()" value="수정"> -->
         </form>
     </div>
 </div>

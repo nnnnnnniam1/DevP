@@ -1,12 +1,40 @@
+body{
+    color: #717476;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: normal;
+}
+.container{
+    width: 80%;
+    height: 100%;
+    /*
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;*/
+    padding-top: 105px;
+}
+.projectName {
+    font-size: 35px;
+    font-style: normal;
+}
+.manageMemberWrapper {
+    width: 100%;
+    height: 50px;
+    display: flex; /* Flexbox를 사용합니다. */
+    align-items: center; /* 수직 가운데 정렬합니다. */
+    background-color: #E5D3D3;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+}
 .member-item {
     display: flex;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     padding: 10px
 }
-.item-label {
-    //flex: 1;
-}
+
 .tag {
     display: flex; /* 부모 요소를 플렉스 컨테이너로 설정 */
     width: 82px;
@@ -16,11 +44,6 @@
     align-items: center; /* 수직 가운데 정렬 */
     margin-left: 10px;
 }
-
-.chatting button{
-    float: right;
-}
-
 #leaderTag {
     background: #951C47;
     color: #fff;
@@ -38,4 +61,3 @@
      background : #F4EFC2;
      color: #000;
 }
-

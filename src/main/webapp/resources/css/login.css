@@ -13,47 +13,40 @@ body{
 }
 
 .login-wrapper {
-    width: 300px;
+    min-width: 350px;
+    width: 350px;
     padding: 6px;
 }
 .loginForm {
+    height: 380px;
+    padding: 10px;
+    // line-height: 2em;
 }
-
-.loginForm > a {
+.loginForm .form-control  {
+    width: 100%;
+}
+\
+.loginForm a {
     text-decoration: none;
     color: black;
+    font-size: 15px;
 }
 .loginForm > input{
     width: auto
-    /*margin-bottom: 16px;
-    border-radius: 6px;*/
 }
-.loginLabel {
-    size: 10px;
+input[type="checkbox"]{
+
+    width: 15px; /*Desired width*/
+
+    height: 15px; /*Desired height*/
+
+    cursor: pointer;
+
+    -webkit-appearance: none;
+
+    appearance: none;
+
 }
-/*
-#login-form {
+.saveIdLabel {
+    font-size: 15px;
 }
-#login-form > input{
-    width: 100%;
-    margin-bottom: 16px;
-    border-radius: 6px;
-}
-#login-form > input::placeholder{
-    color: #D2D2D2;
-}
-#login-form > input[type="submit"]{
-    color: #fff;
-    font-size: 16px;
-    margin-top: 20px;
-}
-#inputLabel  {
-    text-align: left;
-}
-#login-form > input[type="checkbox"]{
-    display: none;
-}
-#login-form > label{
-    color: #999999;
-}
-*/

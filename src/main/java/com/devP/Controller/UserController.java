@@ -50,15 +50,14 @@ public class UserController {
 
     @RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
     public String searchId(UserVO vo, HttpServletRequest request) throws Exception {
-        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
-        int result = userService.findId(vo, email);
+
+        int result = userService.findId(vo);
 
         return "searchLogin";
     }
     @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
     public String searchPw(UserVO vo, HttpServletRequest request) throws Exception {
-        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
-        int result = userService.findPw(vo, email);
+        int result = userService.findPw(vo);
 
         return "searchLogin";
     }

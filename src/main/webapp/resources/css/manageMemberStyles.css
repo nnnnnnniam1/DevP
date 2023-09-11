@@ -7,6 +7,7 @@ body{
 .container{
     width: 80%;
     height: 100%;
+    min-width: 1200px;
     /*
     display: flex;
     flex-direction: row;
@@ -32,34 +33,28 @@ body{
     border-radius: 10px;
     padding: 10px;
 }
+/*
+.manageForm table tr th {
+    background-color: #E5D3D3;
+}
+*/
+.table th {
+    border: none;
+}
+.table td {
+    border: none;
+}
+.table td {
+    border-top: 1px solid #dddddd; /* 데이터 행 위에 가로선을 추가하여 데이터 행 간 구분선으로 사용 */
+}
 .formLabel {
     font-size: 20px;
 }
-
-.customTable {
-    border-collapse: collapse; /* 테두리를 합칩니다. */
-    border: none; /* 모든 테두리를 제거합니다. */
-}
-th, td {
-    border: none;
-}
-.memberList tr:first-child {
-    // display: block;
-    // border-collapse: separate;
-    // border-spacing: 20px 0;
-    background-color: #E5D3D3;
+.memberList {
     border-radius: 10px;
-    height: 40px;
-    color: #5B5C5E;
-    font-family: Inter;
-    font-size: 24px;
-    font-style: normal;
-    line-height: normal;
 }
 
-.member-wrapper h3 {
-    background-color: #E5D3D3;
-}
+
 .memberList tr td:first-child {
     width: 50;
 }
