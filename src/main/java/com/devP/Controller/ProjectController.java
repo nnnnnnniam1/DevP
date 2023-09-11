@@ -5,10 +5,8 @@ import com.devP.Service.ProjectService;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +27,7 @@ public class ProjectController {
         @Autowired
         private HttpSession session;
 
+        //프로젝트 추가 화면
         @RequestMapping(value = "/insert.do", method = RequestMethod.GET)
         public String insertProjectView() {
                 if(projectService.insertProjectView() == 200) {
@@ -40,10 +39,18 @@ public class ProjectController {
                 }
         }
 
+        //프로젝트 추가
         @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
         public String insertProject(@ModelAttribute ProjectVO vo){
                 if(projectService.insertProject(vo) == 200) return "projectList";
                 else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
                 return null;
+        }
+
+        //프로젝트 목록
+        @RequestMapping(value = "/list.do", method = RequestMethod.GET)
+        public String projectList(@RequestParam int userId, Model model){
+                projectService.getProjectList(userId, model);
+                return "projectList";
         }
 }

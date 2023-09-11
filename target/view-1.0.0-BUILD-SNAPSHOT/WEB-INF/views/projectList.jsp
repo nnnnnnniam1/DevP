@@ -1,16 +1,25 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2023/09/10
-  Time: 11:48 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
+    <%@include file="sidebar.jsp"%>
 </head>
 <body>
-projectList.jsp
+<div>
+    <c:forEach var="project" items ="${projectList}">
+        <div class="item">
+            <p>${project.projectName}</p>
+            <p>${project.position}</p>
+            <p>${project.role}</p>
+            <p>${project.projectProgress}</p>
+            <p>${project.memberProgress}</p>
+        </div>
+    </c:forEach>
+</div>
 </body>
 </html>

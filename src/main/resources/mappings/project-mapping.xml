@@ -9,4 +9,13 @@
         insert into project (projectName, startDate, endDate, progress, script, leader)
         values (#{projectName}, #{startDate}, #{endDate}, #{progress}, #{script}, #{leader});
     </insert>
+
+    <!--  프로젝트 목록   -->
+    <select id="projectList" resultType="Project">
+        select p.projectId, p.projectName, p.progress, g.position, g.role, g.progress
+        from projectgroup g
+        join project p
+        on g.projectId = p.projectId
+        where g.userId = #{userId};
+    </select>
 </mapper>
