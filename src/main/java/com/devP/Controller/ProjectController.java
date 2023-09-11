@@ -3,6 +3,7 @@ package com.devP.Controller;
 import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
+import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,5 +60,12 @@ public class ProjectController {
                 if(projectService.insertProject(vo) == 200) return "projectList";
                 else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
                 return null;
+        }
+
+
+        @RequestMapping(value="/member.do", method = RequestMethod.GET)
+        public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
+                int result = projectService.showProjectMemberList(vo, model);
+                return "member";
         }
 }
