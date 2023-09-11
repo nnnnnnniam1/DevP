@@ -23,7 +23,7 @@
 		<mapper resource="mappings/issue-mapping.xml" />
 		<mapper resource="mappings/task-mapping.xml" />
 		<mapper resource="mappings/report-mapping.xml" />
-		<mapper resource="mappings/leader-mapping.xml" />
+		<mapper resource="mappings/member-mapping.xml" />
 		<mapper resource="mappings/comment-mapping.xml" />
 	</mappers>
 </configuration>

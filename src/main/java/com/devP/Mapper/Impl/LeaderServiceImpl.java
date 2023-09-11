@@ -1,12 +1,10 @@
 package com.devP.Mapper.Impl;
 
-import com.devP.Mapper.Repository.LeaderDAOMybatis;
+import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Service.LeaderService;
 import com.devP.Service.MailService;
-import com.devP.Service.ProjectService;
 import com.devP.Service.UserService;
 import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +17,7 @@ import java.util.UUID;
 @Service("LeaderService")
 public class LeaderServiceImpl implements LeaderService {
 	@Autowired
-	private LeaderDAOMybatis leaderDAO;
+	private MemberDAOMybatis memberDAO;
 
 	@Autowired
 	private MailService mailService;
@@ -32,7 +30,7 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public List<MemberVO> getMemberList(MemberVO vo){
-		return leaderDAO.getMemberList(vo);
+		return memberDAO.getMemberList(vo);
 	}
 
 	@Override
@@ -60,12 +58,12 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
-	public MemberVO findMember(MemberVO vo){ return leaderDAO.findMember(vo); }
+	public MemberVO findMember(MemberVO vo){ return memberDAO.findMember(vo); }
 	@Override
-	public void insertMember(MemberVO vo){ leaderDAO.insertMember(vo); }
+	public void insertMember(MemberVO vo){ memberDAO.insertMember(vo); }
 
 	@Override
-	public void reInvited(MemberVO vo){ leaderDAO.reInvited(vo); }
+	public void reInvited(MemberVO vo){ memberDAO.reInvited(vo); }
 
 	@Override
 	public int invitedVerify(MemberVO vo, String token){
@@ -85,10 +83,10 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
-	public MemberVO getMemberByToken(MemberVO vo){ return leaderDAO.getMemberByToken(vo); }
+	public MemberVO getMemberByToken(MemberVO vo){ return memberDAO.getMemberByToken(vo); }
 
 	@Override
-	public void updateMemberStatus(MemberVO vo){ leaderDAO.updateMemberStatus(vo); }
+	public void updateMemberStatus(MemberVO vo){ memberDAO.updateMemberStatus(vo); }
 
 	@Override
 	public void updateMemberDatas(MemberVO vo, String[] selectedMembers, String userId, String role, String position, int projectId){
@@ -98,14 +96,14 @@ public class LeaderServiceImpl implements LeaderService {
 			vo.setPosition(position);
 			vo.setProjectId(projectId);
 		}
-		leaderDAO.updateMemberDatas(vo);
+		memberDAO.updateMemberDatas(vo);
 	}
 
 	@Override
 	public void deleteMember(MemberVO vo, String userId, int projectId){
 		vo.setUserId(userId);
 		vo.setProjectId(projectId);
-		leaderDAO.deleteMember(vo);
+		memberDAO.deleteMember(vo);
 	}
 
 }
