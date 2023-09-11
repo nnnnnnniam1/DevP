@@ -12,8 +12,8 @@
 <body>
 <div class="container">
 <div class="main-text">${title}</div>
-    <div class="box">
-    <form method="post" action="insertProject.do" class="input-text">
+    <div>
+    <form method="post" action="/project/insert.do" class="input-text">
         <div><label class="input-border">프로젝트 아이디<input name="projectId" class="">
         </label></div><br>
         <label class="input-border">
@@ -36,7 +36,7 @@
             설명
             <br><textarea name="script" class=""></textarea>
         </label><br>
-        <button type="submit"> 프로젝트 추가</button>
+        <button type="submit" class=""> 프로젝트 추가</button>
     </form>
     </div>
 </div>

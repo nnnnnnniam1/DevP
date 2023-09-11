@@ -13,7 +13,7 @@
 <div class="container">
 <div class="main-text">${title}</div>
     <div>
-    <form method="post" action="insertProject.do" class="input-text">
+    <form method="post" action="/project/insert.do" class="input-text">
         <div><label class="input-border">프로젝트 아이디<input name="projectId" class="">
         </label></div><br>
         <label class="input-border">
