@@ -29,7 +29,7 @@
     <div class="calender"> Item1 </div>
     <div class="project_list">
         <div>진행 중인 프로젝트</div>
-        <button type="button" onclick="location.href='insertProject.do'">프로젝트 추가</button>
+        <button type="button" onclick="location.href='/project/insert.do'">프로젝트 추가</button>
     </div>
     <div class="issue">Item3</div>
     <div class="task">Item4</div>

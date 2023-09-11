@@ -6,6 +6,7 @@ import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Service("projectService")
@@ -17,13 +18,26 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private HttpSession session;
 
+
+
     @Override
     public int insertProject(ProjectVO vo) {
         String leader = session.getAttribute("id").toString();
-        vo.setLeader(leader);
-        vo.setProgress(0);
+        if(leader != "") {
+            vo.setLeader(leader);
+            vo.setProgress(0);
+            projectDAO.insertProject(vo);
+            return 200;
+        }
+        else{
+            return 405;
+        }
+    }
 
-        return projectDAO.insertProject(vo);
+    @Override
+    public int insertProjectView() {
+        if(session.getAttribute("id") != null) return 200;
+        else return 405;
 
     }
 }

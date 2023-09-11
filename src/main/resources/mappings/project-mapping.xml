@@ -6,7 +6,7 @@
 
     <!--  프로젝트 추가   -->
     <insert id="insertProject">
-        insert into project (projectId, projectName, startDate, endDate, progress, script, leader)
-        values (#{projectId}, #{projectName}, #{startDate}, #{endDate}, #{progress}, #{script}, #{leader});
+        insert into project (projectName, startDate, endDate, progress, script, leader)
+        values (#{projectName}, #{startDate}, #{endDate}, #{progress}, #{script}, #{leader});
     </insert>
 </mapper>
