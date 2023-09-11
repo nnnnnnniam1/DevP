@@ -15,20 +15,16 @@
     <div class="ml-auto project-form">
     <form method="post" action="/project/insert.do" >
 <%--        <div class="row mb-3">--%>
-<%--            <label class="col-sm-2 col-form-label input-border">프로젝트 아이디</label>--%>
-<%--            <input name="projectId" class="col-sm-10">--%>
+<%--            <label for="projectId" class="col-sm-2 col-form-label">프로젝트 아이디</label>--%>
+<%--            <div class="col-sm-10">--%>
+<%--                <input type="text" class="form-control" id="projectId">--%>
+<%--            </div>--%>
 <%--        </div>--%>
-        <div class="row mb-3">
-            <label for="projectId" class="col-sm-2 col-form-label">프로젝트 아이디</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="projectId">
-            </div>
-        </div>
         <br>
         <div class="row mb-3">
             <label for="projectName" class="col-sm-2 col-form-label">프로젝트</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="projectName">
+                <input name="projectName" type="text" class="form-control" id="projectName">
             </div>
         </div>
         <br>
@@ -36,13 +32,13 @@
         <div class="row mb-3">
             <label for="startDate" class="col-sm-2 col-form-label">시작일</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd" /> " id="startDate">
+                <input name="startDate" type="text" class="form-control" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd" /> " id="startDate">
             </div>
         </div>
         <div class="row mb-3">
             <label for="endDate" class="col-sm-2 col-form-label">종료일</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="endDate">
+                <input name="endDate" type="text" class="form-control" id="endDate">
             </div>
         </div>
         <br>
@@ -56,7 +52,7 @@
         <div class="row mb-3">
             <label for="script" class="col-sm-2 col-form-label">설명</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="script"></textarea>
+                <textarea name="script" class="form-control" id="script"></textarea>
             </div>
         </div>
         <br>
