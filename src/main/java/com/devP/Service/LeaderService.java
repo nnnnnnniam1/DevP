@@ -1,6 +1,7 @@
 package com.devP.Service;
 
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface LeaderService {
+
+    void getLeaderView(ProjectVO vo, Model model);
 
     List<MemberVO> getMemberList(MemberVO vo);
 

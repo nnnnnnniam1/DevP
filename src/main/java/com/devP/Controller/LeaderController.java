@@ -27,8 +27,12 @@ public class LeaderController {
     private LeaderService leaderService;
 
     @Autowired
+    private ProjectService projectService;
+
+    @Autowired
     private MailController mailController;
 
+    // 멤버페이지
     @ModelAttribute("roleMap")
     public Map<String, String> setRoleMap(){
         Map<String, String> roleMap = new HashMap<String, String>();
@@ -47,12 +51,19 @@ public class LeaderController {
         return positionMap;
 
     }
+    @RequestMapping(value="/project/leader.do", method=RequestMethod.GET)
+    public String leaderDetailView(ProjectVO vo, Model model){
+        vo.setProjectId(1);
+        leaderService.getLeaderView(vo, model);
+        // projectService.getProjectName(vo);
+        // projectService.getProjectProgress(vo);
+        return "leaderDetail";
+    }
+
 
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
     public String manageMemberView(HttpSession session, MemberVO vo, Model model){
         vo.setProjectId(1); //임시
-        session.setAttribute("projectId",vo.getProjectId());    //임시
-        session.setAttribute("projectName","임시임");  //임시 데이터
         model.addAttribute("memberList", leaderService.getMemberList(vo));
         return "manageMember";
     }
@@ -110,4 +121,5 @@ public class LeaderController {
         }
 
     }
+
 }

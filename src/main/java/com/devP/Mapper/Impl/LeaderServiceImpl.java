@@ -3,8 +3,10 @@ package com.devP.Mapper.Impl;
 import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Service.LeaderService;
 import com.devP.Service.MailService;
+import com.devP.Service.ProjectService;
 import com.devP.Service.UserService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +30,25 @@ public class LeaderServiceImpl implements LeaderService {
 	@Autowired
 	private HttpSession session;
 
+	@Autowired
+	private ProjectService projectService;
+
+	@Override
+	public void getLeaderView(ProjectVO vo, Model model){
+		//session.setAttribute("projectName", projectService.getProjectName(vo));
+		model.addAttribute("project", projectService.getProject(vo));
+		model.addAttribute("memberList",projectService.getProjectMemberList(vo.getProjectId()));
+
+	}
+
+
 	@Override
 	public List<MemberVO> getMemberList(MemberVO vo){
-		return memberDAO.getMemberList(vo);
+		vo.setProjectId(1);
+		ProjectVO project = new ProjectVO();		//임시
+		project.setProjectId(1);					//임시
+		projectService.getProjectName(project);		//임시
+		return memberDAO.getMemberList(vo.getProjectId());
 	}
 
 	@Override
