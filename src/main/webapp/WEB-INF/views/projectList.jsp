@@ -10,7 +10,8 @@
     <%@include file="sidebar.jsp"%>
 </head>
 <body>
-<div>
+<div class="container">
+    <div class="list">
     <c:forEach var="project" items ="${projectList}">
         <div class="item">
             <p>${project.projectName}</p>
@@ -20,6 +21,7 @@
             <p>${project.memberProgress}</p>
         </div>
     </c:forEach>
+    </div>
 </div>
 </body>
 </html>

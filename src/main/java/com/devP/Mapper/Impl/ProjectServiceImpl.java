@@ -43,8 +43,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int getProjectList(int userId, Model model){
+    public int getProjectList(Model model){
         if(session.getAttribute("id") != null) {
+            String userId = session.getAttribute("id").toString();
             model.addAttribute("projectList", projectDAO.getProjectList(userId));
             return 200;
         }else{

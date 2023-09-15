@@ -10,6 +10,6 @@ public interface ProjectService {
 	int insertProject(ProjectVO vo);
 
 	int insertProjectView();
-	int getProjectList(int userId, Model model);
+	int getProjectList(Model model);
 
 }

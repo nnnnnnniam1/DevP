@@ -16,5 +16,5 @@ public class ProjectDAOMybatis {
 
     public int insertProject(ProjectVO vo) {return mybatis.insert("ProjectDAO.insertProject", vo);}
 
-    public List<ProjectListVO> getProjectList(int userId) { return mybatis.selectList("ProjectListDAO.projectList", userId);}
+    public List<ProjectListVO> getProjectList(String userId) { return mybatis.selectList("ProjectDAO.projectList", userId);}
 }

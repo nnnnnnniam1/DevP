@@ -1,10 +1,8 @@
 package com.devP.Service;
 
 
-import java.util.List;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.devP.VO.IssueVO;
 
