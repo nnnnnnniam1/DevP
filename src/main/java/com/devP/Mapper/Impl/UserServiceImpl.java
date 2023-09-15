@@ -51,8 +51,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int findId(UserVO vo, String email) throws Exception {
-		vo.setEmail(email);
+	public int findId(UserVO vo) throws Exception {
 		UserVO user = getUserByEmail(vo);
 		if(user != null){
 			mailService.sendId(user.getId(), user.getEmail());
@@ -63,8 +62,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int findPw(UserVO vo, String email) throws Exception {
-		vo.setEmail(email);
+	public int findPw(UserVO vo) throws Exception {
 		UserVO user = getUserByEmail(vo);
 		if(user != null){
 			String authKey = mailService.sendCode(user.getEmail());

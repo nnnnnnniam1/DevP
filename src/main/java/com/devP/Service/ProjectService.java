@@ -1,5 +1,6 @@
 package com.devP.Service;
 
+import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.ui.Model;
 
@@ -11,5 +12,7 @@ public interface ProjectService {
 
 	int insertProjectView();
 	int getProjectList(Model model);
+
+	int showProjectMemberList(MemberVO vo, Model model);
 
 }

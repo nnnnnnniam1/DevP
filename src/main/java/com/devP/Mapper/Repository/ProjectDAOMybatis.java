@@ -14,7 +14,8 @@ public class ProjectDAOMybatis {
     @Autowired
     private SqlSessionTemplate mybatis;
 
-    public int insertProject(ProjectVO vo) {return mybatis.insert("ProjectDAO.insertProject", vo);}
+    public int insertProject(ProjectVO vo) {
+        return mybatis.insert("ProjectDAO.insertProject", vo);
+    }
 
-    public List<ProjectListVO> getProjectList(String userId) { return mybatis.selectList("ProjectDAO.projectList", userId);}
 }

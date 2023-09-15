@@ -3,6 +3,7 @@ package com.devP.Controller;
 import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
+import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,7 @@ public class ProjectController {
 
         //프로젝트 목록
         @RequestMapping(value = "/list.do", method = RequestMethod.GET)
-        public String projectList(Model model){
+        public String projectList(Model model) {
                 projectService.getProjectList(model);
                 return "projectList";
         }

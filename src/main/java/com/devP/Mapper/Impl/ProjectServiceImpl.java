@@ -1,7 +1,9 @@
 package com.devP.Mapper.Impl;
 
+import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Service.ProjectService;
+import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectDAOMybatis projectDAO;
+
+    @Autowired
+    private MemberDAOMybatis memberDAO;
 
     @Autowired
     private HttpSession session;
@@ -42,14 +47,20 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+
     @Override
     public int getProjectList(Model model){
         if(session.getAttribute("id") != null) {
             String userId = session.getAttribute("id").toString();
-            model.addAttribute("projectList", projectDAO.getProjectList(userId));
+            //model.addAttribute("projectList", projectDAO.getProjectList(userId));
             return 200;
-        }else{
+        }else {
             return 405;
         }
+    }
+
+    @Override
+    public int showProjectMemberList(MemberVO vo, Model model) {
+        return 0;
     }
 }
