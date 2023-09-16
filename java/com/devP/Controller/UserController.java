@@ -42,7 +42,7 @@ public class UserController {
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
     public String logout() {
         int result = userService.logout();
-        return "redirect:login.do";
+        return "redirect:/";
     }
     @RequestMapping(value="/searchLogin.do", method = RequestMethod.GET)
     public String searchLoginView(){ return "searchLogin"; }
@@ -50,15 +50,14 @@ public class UserController {
 
     @RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
     public String searchId(UserVO vo, HttpServletRequest request) throws Exception {
-        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
-        int result = userService.findId(vo, email);
+
+        int result = userService.findId(vo);
 
         return "searchLogin";
     }
     @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
     public String searchPw(UserVO vo, HttpServletRequest request) throws Exception {
-        String email = request.getParameter("email-id")+"@"+request.getParameter("email");
-        int result = userService.findPw(vo, email);
+        int result = userService.findPw(vo);
 
         return "searchLogin";
     }

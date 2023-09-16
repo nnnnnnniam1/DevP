@@ -5,8 +5,9 @@ public class MemberVO {
     public int projectId;
     public String userName;
     public String userId;
-
     public String email;
+    public String leader;
+
     public String position;
     public String role;
     private String status;
@@ -21,6 +22,9 @@ public class MemberVO {
     public void setUserId(String userId) {this.userId = userId;}
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
+
+    public String getLeader() {return leader;}
+    public void setLeader(String leader) {this.leader = leader;}
     public String getPosition() {return position;}
     public void setPosition(String position) {this.position = position;}
     public String getRole() {return role;}

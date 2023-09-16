@@ -5,14 +5,14 @@
 <configuration>	
 	<!-- Alias 설정 -->
 	<typeAliases>
-		<typeAlias alias="member" type="com.devP.VO.MemberVO" />
-		<typeAlias alias="user" type="com.devP.VO.UserVO" />
-		<typeAlias alias="project" type="com.devP.VO.ProjectVO" />
-		<typeAlias alias="chat" type="com.devP.VO.ChatVO" />
-		<typeAlias alias="issue" type="com.devP.VO.IssueVO" />
-		<typeAlias alias="task" type="com.devP.VO.TaskVO" />
-		<typeAlias alias="report" type="com.devP.VO.ReportVO" />
-		<typeAlias alias="reply" type="com.devP.VO.CommentVO" />
+		<typeAlias alias="Member" type="com.devP.VO.MemberVO" />
+		<typeAlias alias="User" type="com.devP.VO.UserVO" />
+		<typeAlias alias="Project" type="com.devP.VO.ProjectVO" />
+		<typeAlias alias="Chat" type="com.devP.VO.ChatVO" />
+		<typeAlias alias="Issue" type="com.devP.VO.IssueVO" />
+		<typeAlias alias="Task" type="com.devP.VO.TaskVO" />
+		<typeAlias alias="Report" type="com.devP.VO.ReportVO" />
+		<typeAlias alias="Reply" type="com.devP.VO.CommentVO" />
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
@@ -23,7 +23,8 @@
 		<mapper resource="mappings/issue-mapping.xml" />
 		<mapper resource="mappings/task-mapping.xml" />
 		<mapper resource="mappings/report-mapping.xml" />
-		<mapper resource="mappings/leader-mapping.xml" />
+		<mapper resource="mappings/member-mapping.xml" />
 		<mapper resource="mappings/comment-mapping.xml" />
+		<mapper resource="mappings/leader-mapping.xml" />
 	</mappers>
 </configuration>
