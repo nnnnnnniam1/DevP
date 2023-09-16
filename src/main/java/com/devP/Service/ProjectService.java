@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import org.springframework.ui.Model;
+
 public interface ProjectService {
 
 
@@ -23,6 +25,4 @@ public interface ProjectService {
 	int showProjectMemberList(MemberVO vo, Model model);
 
 	List<MemberVO> getProjectMemberList(int projectId);
-
-
 }

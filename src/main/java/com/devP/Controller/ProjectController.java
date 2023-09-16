@@ -61,8 +61,6 @@ public class ProjectController {
                 else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
                 return null;
         }
-
-
         @RequestMapping(value="/member.do", method = RequestMethod.GET)
         public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
                 int result = projectService.showProjectMemberList(vo, model);

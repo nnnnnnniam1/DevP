@@ -47,7 +47,8 @@ public class LeaderServiceImpl implements LeaderService {
 		vo.setProjectId(1);
 		ProjectVO project = new ProjectVO();		//임시
 		project.setProjectId(1);					//임시
-		projectService.getProjectName(project);		//임시
+
+		session.setAttribute("projectName",projectService.getProjectName(project));	//임시
 		return memberDAO.getMemberList(vo.getProjectId());
 	}
 
