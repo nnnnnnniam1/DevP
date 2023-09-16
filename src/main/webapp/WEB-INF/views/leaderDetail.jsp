@@ -45,21 +45,23 @@
                     <td>
                 </tr>
             </table>
-            <div class="progressBox">
-                <div class="projectProgress">
-                    <div><span>전체진행률</span></div>
-                    <div class="progress">
-                        <div style="width: ${project.progress}%;" class="progress-bar" />
-                    </div>
-                </div>
-                <c:forEach items="${memberList}" var="member">
-                    <div class="memberProgress">
-                        <div><span>${member.userName}</span></div>
+            <div class="progressWrapper">
+                <div class="progressBox">
+                    <div class="projectProgress">
+                        <span class="progressLabel">전체진행률</span>
                         <div class="progress">
-                            <div style="width:${member.progress}%;" class="progress-bar" />
+                            <div style="width: ${project.progress}%;" class="progress-bar" />
                         </div>
                     </div>
-                </c:forEach>
+                    <c:forEach items="${memberList}" var="member">
+                        <div class="memberProgress">
+                            <span>${member.userName}</span>
+                            <div class="progress">
+                                <div style="width:${member.progress}%;" class="progress-bar" />
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </div>
