@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<%@include file="sidebar.jsp" %>--%>
 <html>
 <head>
     <title>Title</title>
@@ -28,7 +27,7 @@
         }
 
         function handleExcelDataAll(sheet) {
-            handleExcelDataHtml(sheet); // html 형태
+            handleExcelDataHtml(sheet);
         }
 
         function handleExcelDataHtml(sheet) {
@@ -39,8 +38,7 @@
         function get_header_row(sheet) {
             var headers = [];
             var range = XLSX.utils.decode_range(sheet['!ref']);
-            var C, R = range.s.r; /* start in the first row */
-            /* walk every column in the range */
+            var C, R = range.s.r;
             for (C = range.s.c; C <= range.e.c; ++C) {
                 var cell = sheet[XLSX.utils.encode_cell({c: C, r: R})]
 
@@ -59,8 +57,8 @@
 <%--        <div class="mt-5 ml-4">--%>
         <div>
             파일 선택 : <input type="file" id="excelFile" onchange="excelExport(event)"/>
-<%--            <h1>HTML 형태로 보기</h1>--%>
-            <div id="displayExcelHtml"></div>
+<%--            <div id="displayExcelHtml"></div>--%>
+            <table class="table" id="displayExcelHtml"></table>
         </div>
     </div>
 </body>
