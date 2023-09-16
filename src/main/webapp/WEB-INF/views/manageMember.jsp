@@ -89,5 +89,6 @@
         </form>
     </div>
 </div>
+<script src="/resources/js/manageMemberScript.js"></script>
 </body>
 </html>
