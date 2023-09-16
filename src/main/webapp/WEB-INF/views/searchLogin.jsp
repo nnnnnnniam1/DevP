@@ -17,7 +17,7 @@
         <h2 id="searchTitle">아이디 찾기</h2>
         <p>회원가입 시 사용했던 정보를 입력해주세요.</p>
         <ul class="list">
-            <li class="is_on">
+            <li class="is_on" style="list-style: none;">
                 <a href="#" class="btn">아이디</a>
                 <div class="searchForm find-id">
                     <form class="findForm" method="post" action="searchId.do" id="login-form">
@@ -37,7 +37,7 @@
                     </form>
                 </div>
             </li>
-            <li>
+            <li style="list-style: none;">
                 <a href="#" class="btn">비밀번호</a>
                 <div class="searchForm find-pw row mb-3">
                     <div>
