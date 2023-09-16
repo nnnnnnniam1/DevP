@@ -111,7 +111,7 @@ public class LeaderController {
         try {
             String userId = request.getParameter("userId");
             int projectId = Integer.parseInt(request.getParameter("projectId"));
-
+            System.out.println(userId);
             leaderService.deleteMember(vo, userId, projectId);
 
             return ResponseEntity.ok("Member deleted successfully");
