@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
@@ -19,10 +19,29 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectDAOMybatis projectDAO;
 
     @Autowired
+    private HttpSession session;
+    @Autowired
     private MemberDAOMybatis memberDAO;
 
-    @Autowired
-    private HttpSession session;
+
+
+    @Override
+    public ProjectVO getProject(ProjectVO vo){
+        return projectDAO.getProject(vo);
+    }
+
+
+
+    @Override
+    public String getProjectName(ProjectVO vo){
+        return projectDAO.getProjectName(vo);
+    }
+
+    @Override
+    public int getProjectProgress(ProjectVO vo){
+        return projectDAO.getProjectProgress(vo);
+    }
+
 
 
 
@@ -49,11 +68,17 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public int showProjectMemberList(MemberVO vo, Model model){
         vo.setProjectId(1); //임시
-        vo.setUserId(session.getId());
+        //vo.setUserId(session.getId());
         //List<MemberVO> memberList =  memberDAO.getProjectMemberList(vo);
-        model.addAttribute("memberList", memberDAO.getProjectMemberList(vo));
-        System.out.println(memberDAO.getProjectMemberList(vo));
+        model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
         return 200;
 
     }
+
+    @Override
+    public List<MemberVO> getProjectMemberList(int projectId){
+        return memberDAO.getProjectMemberList(projectId);
+    }
+
+
 }

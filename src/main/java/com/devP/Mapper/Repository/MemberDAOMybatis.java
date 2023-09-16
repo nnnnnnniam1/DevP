@@ -14,9 +14,7 @@ public class MemberDAOMybatis {
     private SqlSessionTemplate mybatis;
 
     //leader - 멤버페이지
-    public List<MemberVO> getMemberList(MemberVO vo){
-        return mybatis.selectList("MemberDAO.getMemberList", vo);
-    }
+    public List<MemberVO> getMemberList(int projectId){ return mybatis.selectList("MemberDAO.getMemberList", projectId); }
 
     public MemberVO findMember(MemberVO vo){ return (MemberVO) mybatis.selectOne("MemberDAO.findMember",vo); }
     public void insertMember(MemberVO vo){ mybatis.insert("MemberDAO.insertMember", vo); }
@@ -30,5 +28,5 @@ public class MemberDAOMybatis {
 
 
     //project - 멤버페이지
-    public List<MemberVO> getProjectMemberList(MemberVO vo){ return mybatis.selectList("MemberDAO.getProjectMemberList", vo); }
+    public List<MemberVO> getProjectMemberList(int vo){ return mybatis.selectList("MemberDAO.getProjectMemberList", vo); }
 }
