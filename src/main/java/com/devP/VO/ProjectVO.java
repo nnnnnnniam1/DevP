@@ -4,7 +4,7 @@ import java.util.Date;
 
 //VO(Value Object)
 public class ProjectVO {
-    private String projectId;
+    private int projectId;
     private String projectName;
     private String startDate;
     private String endDate;
@@ -86,11 +86,11 @@ public class ProjectVO {
 
 
 
-    public String getProjectId() {
+    public int getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 }

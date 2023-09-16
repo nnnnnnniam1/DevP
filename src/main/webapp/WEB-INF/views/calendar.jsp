@@ -1,63 +1,66 @@
-<%@page import="java.io.Console"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@include file="sidebar.jsp"%>
 <head>
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+
+	
+      document.addEventListener('DOMContentLoaded', function() {
+   	  	 var request = $.ajax({
+             url: "/task/getTask.do", // 변경하기
+             method: "GET",
+             contentType: "application/json; charset=utf-8", // 요청의 문자 인코딩 설정
+           	 success: function(data) {
+               	 console.log(data);
+          	 	var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+             	  headerToolbar: {
+              	      start: 'custom1,custom2,custom3',
+              	      center: 'title',
+              	      end: 'prevYear,prev,next,nextYear'	
+              	  },
+              	  customButtons: {
+                   custom1: {
+                     text: '일',
+                     click: function() {
+                       calendar.changeView('timeGridDay');
+                     }
+                   },
+                   custom2: {
+                     text: '주',
+                     click: function() {
+                         calendar.changeView('timeGridWeek');
+                     }
+                   },
+                   custom3: {
+                       text: '월',
+                       click: function() {
+                           calendar.changeView('dayGridMonth');
+                       }
+                   }
+                 },
+                 initialView: 'dayGridMonth',
+                 locale: 'ko',
+                 themeSystem: 'bootstrap5',
+                     events: data
+               });
+               calendar.render();
+     	     },
+       	     error: function(jqXHR, textStatus, errorThrown) {
+       	         console.error("Error: " + textStatus, errorThrown);
+       	     }
+         });
+      });
+    </script>
 </head>
 <body>
-<%
-String username = (String) session.getAttribute("name");
-String userId = (String) session.getAttribute("userId");
-%>
-<div class="container">
-	<div class="issue-wrapper">
-		<div class="mt-5">
-	        <h1 class="mb-4">Moment 이슈</h1>
-	        <p class="h3">${ issue.title }</p>
-			<div class="d-flex">
-				<div class="flex-grow-1">
-					<small class="text-body-secondary">${ issue.category } | ${issue.date} | ${issue.name} | ${ issue.count }</small>
-				</div>
-				<c:if test = "${ issue.userId eq sessionScope.id}">
-		        <div class="d-flex flex-row-reverse">
-					<form id="solveForm" action="/issue/solve.do" method="post" class="my-0 mx-1">
-		  			  <input type="hidden" name="projectId" value = "1">
-		  			  <input type="hidden" name="issueId" value = "${ issue.issueId }">
-				      <button type="submit" id = "solveButton" class="btn btn-primary">해결</button>
-				    </form>
-				    <button type="button" onclick="location.href='/issue/modify.do?issueId=${issue.issueId}'" class="btn btn-primary">수정</button>
-			    </div>
-			    </c:if>
-		    </div>
-	        <div class="card text-bg-light mb-3">
-	        	<div class="card-body" style="min-height: 30vh">
-	        		${ issue.content }
-	        	</div>
-	       	</div>
-		</div>
-		<div class = "card text-bg-light">
-		  	<c:forEach items="${commentList}" var="comment">
-		  		<div class="item m-2">
-		  			<small class="text-body-secondary">${comment.date}</small>
-					<p><strong>${comment.writer}</strong> ${comment.content}</p>
-				</div>
-			</c:forEach>
-			<form method="post" action="../comment/write.do" id="commentForm" class = "p-2 my-0">
-	  			  <input type="hidden" id="issueId" name="issueId" value = "${ issue.issueId }">
-        		  <input type="hidden" id="writer" name= "writer" value="<%= username %>">
-	       		<div class="form-floating">
-				  <textarea class="form-control" name="content" placeholder="Leave a comment here" id="floatingcontent" style="height: 10vh"></textarea>
-				  <label for="floatingcontent">댓글</label>  
-				</div>
-		        <button type="submit" class="btn btn-primary m-3" style="float: right">등록</button>
-	    	</form>
-		</div>
-	</div>
-</div>
+<div id='calendar'></div>
 </body>
 </html>

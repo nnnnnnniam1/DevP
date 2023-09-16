@@ -60,4 +60,10 @@ public class ProjectController {
                 else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
                 return null;
         }
+        
+        //달력 보여주기
+        @RequestMapping(value="/calendar.do", method= RequestMethod.GET)
+  	    public String calendarView(){
+  	        return "calendar";
+      	}
 }
