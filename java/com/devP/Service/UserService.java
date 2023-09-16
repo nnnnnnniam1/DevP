@@ -11,9 +11,9 @@ public interface UserService {
 
     int logout();
 
-    int findId(UserVO vo, String email) throws Exception;
+    int findId(UserVO vo) throws Exception;
 
-    int findPw(UserVO vo, String email) throws Exception;
+    int findPw(UserVO vo) throws Exception;
 
     int checkCode(String inputCode);
 
