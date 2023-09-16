@@ -1,0 +1,63 @@
+body{
+    color: #717476;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: normal;
+}
+.container{
+    width: 80%;
+    height: 100%;
+    /*
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;*/
+    padding-top: 105px;
+}
+.projectName {
+    font-size: 35px;
+    font-style: normal;
+}
+.manageMemberWrapper {
+    width: 100%;
+    height: 50px;
+    display: flex; /* Flexbox를 사용합니다. */
+    align-items: center; /* 수직 가운데 정렬합니다. */
+    background-color: #E5D3D3;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+}
+.member-item {
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px
+}
+
+.tag {
+    display: flex; /* 부모 요소를 플렉스 컨테이너로 설정 */
+    width: 82px;
+    height: 30px;
+    border-radius: 20px;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    margin-left: 10px;
+}
+#leaderTag {
+    background: #951C47;
+    color: #fff;
+
+}
+#memberTag {
+    background: #152F47;
+    color: #fff;
+}
+#roleTag {
+    background : #E8DDD2;
+    color: #000;
+}
+#positionTag {
+     background : #F4EFC2;
+     color: #000;
+}

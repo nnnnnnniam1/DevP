@@ -19,5 +19,14 @@ public class UserDAOMybatis{
         return (UserVO) mybatis.selectOne("UserDAO.getUser", vo);
     }
 
-    public UserVO getUserIdByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserIdByEmail", vo); }
+    public UserVO getUserByEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserByEmail", vo); }
+
+    public void updatePw(UserVO vo){ mybatis.update("UserDAO.updatePw", vo); }
+
+    public UserVO getUserDataEmail(UserVO vo){ return (UserVO) mybatis.selectOne("UserDAO.getUserDataByEmail", vo); };
+
+    public UserVO getUserName(String userId) {return (UserVO) mybatis.selectOne("UserDAO.getUserName", userId);}
+
+
+
 }
