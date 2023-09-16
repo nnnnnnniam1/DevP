@@ -105,18 +105,8 @@ String userId = (String) session.getAttribute("userId");
 					<div class = "col-12">
 						<div class="card mt-4">
 							<div class="card-body">
-							    <h5 class="card-title">Member</h5>
-								    달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력
-								달력달력달력달력
+							    <h5 class="card-title">달력</h5>
+								<%@include file="calendar.jsp"%>
 							  </div>
 						</div>
 					</div>
