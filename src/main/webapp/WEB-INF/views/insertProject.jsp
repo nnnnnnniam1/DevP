@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="p-12 min-vw-90 min-vh-100 container">
-<div class="main-text">${title}</div>
+<div class="main-text">새로운 프로젝트</div>
     <div class="ml-auto project-form">
     <form method="post" action="/project/insert.do" >
         <br>
@@ -39,8 +39,19 @@
         <br>
         <div class="row mb-3">
             <label for="addMember" class="col-sm-2 col-form-label">멤버추가</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="addMember">
+            <form class="manageMemberWrapper" action="/project/addMember.do" method="post">
+                <div class="col-sm-10" id="addMember">
+                    <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="email">
+                </div>
+                <div class="col-auto"><input class="form-control" type="submit" value="send"></div>
+            </form>
+        </div>
+        <div class="manage-wrapper">
+            <div class="addMember">
+                <form class="manageMemberWrapper" action="/project/addMember.do" method="post">
+                    <div class="addMemberLine row g-3 align-items-center">
+                    </div>
+                </form>
             </div>
         </div>
         <br>
