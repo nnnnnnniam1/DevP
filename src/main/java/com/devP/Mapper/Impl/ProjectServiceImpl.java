@@ -44,7 +44,6 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 
-
     @Override
     public int insertProject(ProjectVO vo) {
         String leader = session.getAttribute("id").toString();
@@ -79,6 +78,4 @@ public class ProjectServiceImpl implements ProjectService {
     public List<MemberVO> getProjectMemberList(int projectId){
         return memberDAO.getProjectMemberList(projectId);
     }
-
-
 }
