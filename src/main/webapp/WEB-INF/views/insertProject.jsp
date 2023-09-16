@@ -14,12 +14,6 @@
 <div class="main-text">${title}</div>
     <div class="ml-auto project-form">
     <form method="post" action="/project/insert.do" >
-<%--        <div class="row mb-3">--%>
-<%--            <label for="projectId" class="col-sm-2 col-form-label">프로젝트 아이디</label>--%>
-<%--            <div class="col-sm-10">--%>
-<%--                <input type="text" class="form-control" id="projectId">--%>
-<%--            </div>--%>
-<%--        </div>--%>
         <br>
         <div class="row mb-3">
             <label for="projectName" class="col-sm-2 col-form-label">프로젝트</label>
@@ -55,6 +49,11 @@
             <div class="col-sm-10">
                 <textarea name="script" class="form-control" id="script"></textarea>
             </div>
+        </div>
+        <br>
+        <div class="row mb-3">
+            <label for="addMember" class="col-sm-2 col-form-label">일정 및 업무 분배</label>
+            <jsp:include page="/WEB-INF/views/wbs.jsp"/>
         </div>
         <br>
 <%--        <div class="col mb-3">--%>
