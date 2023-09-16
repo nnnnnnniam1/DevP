@@ -62,7 +62,7 @@ public class LeaderController {
 
 
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
-    public String manageMemberView(HttpSession session, MemberVO vo, Model model){
+    public String manageMemberView(MemberVO vo, Model model){
         vo.setProjectId(1); //임시
         model.addAttribute("memberList", leaderService.getMemberList(vo));
         return "manageMember";
