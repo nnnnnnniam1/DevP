@@ -31,7 +31,8 @@
     </div>
     <div  class="member-wrapper">
         <p class="manageMemberWrapper formLabel col-form-label">멤버 관리</p>
-        <form class="manageForm" modelAttribute="memberList" method="post" action="/project/updateMember.do">
+        <form:form class="manageForm" modelAttribute="MemberVO" name="dataForm" id="dataForm" method="post" action="/project/updateMember.do" >
+        <!-- <form class="manageForm" modelAttribute="members" method="post" action="/project/updateMember.do"> -->
             <table class="table" width=500px;>
                 <thead>
                     <tr>
@@ -46,12 +47,12 @@
                 <tbody>
                     <c:forEach items="${memberList}" var="member" varStatus="loop">
                         <tr>
-                            <input type="hidden" value="${projectId}" name="projectId">
-                            <input type="hidden" value="${member.userId}" name="userId">
+                            <input type="hidden" value="${projectId}" name="memberVOList[${loop.index}].projectId">
+                            <input type="hidden" value="${member.userId}" name="memberVOList[${loop.index}].userId">
                             <td>${member.userName}</td>
                             <td>${member.email}</td>
                             <td>
-                            <select class="form-select" name="position" id="roleSelect">
+                            <select class="form-select" name="memberVOList[${loop.index}].position" id="roleSelect">
                                 <option value="" <c:if test="${empty member.position}"> selected</c:if>>
                                 선택
                                 </option>
@@ -67,7 +68,7 @@
                             </td>
 
                             <td>
-                            <select class="form-select" name="role" id="roleSelect">
+                            <select class="form-select" name="memberVOList[${loop.index}].role" id="roleSelect">
                                 <option value="" <c:if test="${empty member.role}"> selected</c:if>>
                                 선택
                                 </option>
@@ -94,7 +95,7 @@
                 </tbody>
             </table>
             <input class="form-control" type="submit" value="수정">
-        </form>
+        </form:form>
     </div>
 </div>
 <script src="/resources/js/manageMemberScript.js"></script>
