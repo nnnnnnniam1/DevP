@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,13 +44,16 @@ public class LeaderServiceImpl implements LeaderService {
 
 
 	@Override
-	public List<MemberVO> getMemberList(MemberVO vo){
+	public int getMemberList(MemberVO vo, Model model){
 		vo.setProjectId(1);
 		ProjectVO project = new ProjectVO();		//임시
 		project.setProjectId(1);					//임시
 		session.setAttribute("projectId",project.getProjectId());	//임시
 		session.setAttribute("projectName",projectService.getProjectName(project));	//임시
-		return memberDAO.getMemberList(vo.getProjectId());
+		model.addAttribute("memberList", memberDAO.getMemberList(vo.getProjectId()));
+		//System.out.println(memberDAO.getMemberList(vo.getProjectId()).get(0).getRole());
+		if (memberDAO.getMemberList(vo.getProjectId()) != null) return 200;
+		else return 405;
 	}
 
 	@Override
@@ -108,14 +112,14 @@ public class LeaderServiceImpl implements LeaderService {
 	public void updateMemberStatus(MemberVO vo){ memberDAO.updateMemberStatus(vo); }
 
 	@Override
-	public void updateMemberDatas(MemberVO vo, String[] selectedMembers, String userId, String role, String position, int projectId){
-		for(String memId: selectedMembers){
-			vo.setUserId(userId);
-			vo.setRole(role);
-			vo.setPosition(position);
-			vo.setProjectId(projectId);
+	public int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model){
+
+		for(MemberVO vo : memberVOList){
+			memberDAO.updateMemberDatas(vo);
 		}
-		memberDAO.updateMemberDatas(vo);
+
+		return 200;
+
 	}
 
 	@Override

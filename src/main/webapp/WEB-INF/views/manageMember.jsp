@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,20 +18,20 @@
         <div class="addMember">
             <form class="manageMemberWrapper" action="/project/addMember.do" method="post">
                 <div class="addMemberLine row g-3 align-items-center">
-                    <div class="col-auto">
-                        <label class="formLabel col-form-label"> 멤버추가</label>
-                    </div>
-                    <div class="col-auto">
-                        <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="email">
-                    </div>
-                    <div class="col-auto"><input class="form-control" type="submit" value="send"></div>
+                <div class="col-auto">
+                    <label class="formLabel col-form-label"> 멤버추가</label>
+                </div>
+                <div class="col-auto">
+                    <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="email">
+                </div>
+                <div class="col-auto"><input class="form-control" type="submit" value="send"></div>
                 </div>
             </form>
         </div>
     </div>
     <div  class="member-wrapper">
         <p class="manageMemberWrapper formLabel col-form-label">멤버 관리</p>
-        <form class="manageForm" method="post" action="/project/updateMember.do">
+        <form class="manageForm" modelAttribute="memberList" method="post" action="/project/updateMember.do">
             <table class="table" width=500px;>
                 <thead>
                     <tr>
@@ -43,39 +44,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${memberList}" var="member">
+                    <c:forEach items="${memberList}" var="member" varStatus="loop">
                         <tr>
+                            <input type="hidden" value="${projectId}" name="projectId">
+                            <input type="hidden" value="${member.userId}" name="userId">
                             <td>${member.userName}</td>
                             <td>${member.email}</td>
                             <td>
-                                <select class="form-select" name="role">
-                                    <option value="" <c:if test="${empty member.role}">selected</c:if>>선택</option>
-                                    <c:forEach items="${roleMap}" var="option">
-                                        <option value="${option.value}"
-                                            <c:if test="${option.value eq member.role}">
-                                                    selected
-                                            </c:if>
-                                            >${option.key}
-                                    </c:forEach>
-                                </select>
+                            <select class="form-select" name="position" id="roleSelect">
+                                <option value="" <c:if test="${empty member.position}"> selected</c:if>>
+                                선택
+                                </option>
+                                <c:forEach items="${positionMap}" var="option">
+                                <option value="${option.value}"
+                                    <c:if test="${option.value eq member.position}">
+                                        selected
+                                    </c:if>
+                                >${option.key}
+                                </option>
+                                </c:forEach>
+                            </select>
                             </td>
-                            <input type="hidden" value="${projectId}" name="projectId">
-                            <input type="hidden" value="${member.userId}" name="userId">
+
                             <td>
-                                <select class="form-select" name="position">
-                                    <option value="" <c:if test="${empty member.position}">selected</c:if>>선택</option>
-                                    <c:forEach items="${positionMap}" var="option">
-                                        <option value="${option.value}"
-                                            <c:if test="${option.value eq member.position}">
-                                                    selected
-                                            </c:if>
-                                            >${option.key}
-                                    </c:forEach>
-                                </select>
+                            <select class="form-select" name="role" id="roleSelect">
+                                <option value="" <c:if test="${empty member.role}"> selected</c:if>>
+                                선택
+                                </option>
+                                <c:forEach items="${roleMap}" var="option">
+                                <option value="${option.value}"
+                                    <c:if test="${option.value eq member.role}">
+                                        selected
+                                     </c:if>
+                                >${option.key}
+                                </option>
+                                </c:forEach>
+                            </select>
                             </td>
                             <td>
                                 <c:if test="${member.status != '1'}">
-                                    대기
+                                대기
                                 </c:if>
                             </td>
                             <td>
@@ -85,7 +93,7 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <!-- <input class="form-control" type="button" onclick="updateMembers()" value="수정"> -->
+            <input class="form-control" type="submit" value="수정">
         </form>
     </div>
 </div>
