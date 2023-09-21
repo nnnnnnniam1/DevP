@@ -4,6 +4,7 @@ import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,9 +58,9 @@ public class ProjectController {
       	}
 
         @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
-        public String insertProject(@ModelAttribute ProjectVO vo){
-                if(projectService.insertProject(vo) == 200) return "projectList";
-                else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
+        public String insertProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+                if(projectService.insertProject(vo, vo2, vo3) == 200) return "projectList";
+                else if(projectService.insertProject(vo, vo2, vo3) == 405) return "redirect: /project/insertProject.do";
                 return null;
         }
 

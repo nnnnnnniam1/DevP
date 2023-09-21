@@ -3,7 +3,7 @@ package com.devP.VO;
 //VO(Value Object)
 public class ProjectVO {
 
-    private String projectId;
+    private int projectId;
     private String projectName;
     private String startDate;
     private String endDate;
@@ -12,6 +12,17 @@ public class ProjectVO {
     private int progress;
     private String leader;
     private String script;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
 
     public String getScript() {
         return script;
@@ -85,11 +96,11 @@ public class ProjectVO {
 
 
 
-    public String getProjectId() {
+    public int getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 

@@ -3,14 +3,19 @@ package com.devP.Mapper.Impl;
 import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Service.LeaderService;
 import com.devP.Service.MailService;
+import com.devP.Service.ProjectService;
 import com.devP.Service.UserService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
+import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +26,8 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private ProjectService projectService;
 
 	@Autowired
 	private UserService userService;
@@ -34,28 +41,66 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
-	public int addMember(UserVO user, MemberVO vo, Model model) throws Exception {
-		String leader = (String) session.getAttribute("name");
-		String project = (String) session.getAttribute("projectName");
-		int projectId = (int) session.getAttribute("projectId");
+	public int addMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+		//MemberVO vo2;
+		String leader = (String) session.getAttribute("id");
+		String project = vo.getProjectName();
 
-		// 수락 상태를 확인할 token 발행
-		String token = UUID.randomUUID().toString();
-		System.out.println(token);
-		UserVO member = userService.getUserDataEmail(user);
-		if(member != null){
+		int projectId = projectService.getProjectId(vo);
+		vo3.setProjectId(projectId);
+		String[] memberArr = members.split(",");
+		//ProjectGroupVO.setProjectId(projectId);
+
+		for(int i=0; i<memberArr.length; i++) {
+			//System.out.println(memberArr[0]);
+			//System.out.println(members);
+			// 수락 상태를 확인할 token 발행
+			UserVO vo4= new UserVO();
+			vo4.setEmail(memberArr[i]);
+			String token = UUID.randomUUID().toString();
+			System.out.println("토근발행 = " + token);
+
+			UserVO member = userService.getUserDataEmail(vo4);
+			System.out.println(member.getName());
 			mailService.sendInvitedMail(leader, project, member.getName(), member.getEmail(), token);
-			vo.setProjectId(projectId);
-			vo.setUserId(member.getId());
-			vo.setStatus(token);
-			if(findMember(vo) != null){
-				reInvited(vo);
-			} else {
-				insertMember(vo);
+			System.out.println(member.getName());
+
+				vo2.setProjectId(vo3.getProjectId());
+				vo2.setUserId(member.getId());
+				System.out.println(vo2.getUserId());
+				vo2.setStatus(token);
+
+			try{
+				if (findMember(vo2) != null) {
+					reInvited(vo2);
+				} else {
+					userService.insertMember(vo2);
+					insertMember(vo2);
+				}
+			}catch (BadSqlGrammarException e){
+				System.out.println("배드");
+			}catch (DuplicateKeyException e){
+				System.out.println("듀플키");
 			}
+
+
 		}
 		return 200;
 	}
+
+//	public int addMemberList(String members, MemberVO vo, Model model)throws Exception{
+//		String leader = (String) session.getAttribute("name");
+//		String project = (String) session.getAttribute("projectName");
+//		int projectId = (int) session.getAttribute("projectId");
+//
+//		// 수락 상태를 확인할 token 발행
+//		String token = UUID.randomUUID().toString();
+//		System.out.println(token);
+//
+//		if(members != null){
+//			for(members[0]; )
+//		}
+//	}
 
 	@Override
 	public MemberVO findMember(MemberVO vo){ return memberDAO.findMember(vo); }
@@ -102,6 +147,7 @@ public class LeaderServiceImpl implements LeaderService {
 	@Override
 	public void deleteMember(MemberVO vo, String userId, int projectId){
 		vo.setUserId(userId);
+
 		vo.setProjectId(projectId);
 		memberDAO.deleteMember(vo);
 	}

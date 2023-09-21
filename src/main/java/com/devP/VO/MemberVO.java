@@ -10,6 +10,7 @@ public class MemberVO {
 
     public String position;
     public String role;
+    public String getEmail;
     private String status;
     private float progress;
 

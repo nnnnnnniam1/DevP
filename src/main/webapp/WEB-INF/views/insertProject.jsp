@@ -39,18 +39,18 @@
         <br>
         <div class="row mb-3">
             <label for="addMember" class="col-sm-2 col-form-label">멤버추가</label>
-            <form class="manageMemberWrapper" action="/project/addMember.do" method="post">
+<%--            <form class="manageMemberWrapper" action="/project/addMember.do" method="post">--%>
                 <div class="col-sm-10" id="addMember">
-                    <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="email">
+                    <input class="formInput form-control" placeholder="devp@devp.com" name="email">
                 </div>
-                <div class="col-auto"><input class="form-control" type="submit" value="send"></div>
-            </form>
+<%--                <div class="col-auto"><input class="form-control" type="submit" value="send"></div>--%>
+<%--            </form>--%>
         </div>
         <div class="manage-wrapper">
             <div class="addMember">
-                <form class="manageMemberWrapper" action="/project/addMember.do" method="post">
+<%--                <form class="manageMemberWrapper" action="/project/addMember.do" method="post">--%>
                     <div class="addMemberLine row g-3 align-items-center">
-                    </div>
+<%--                    </div>--%>
                 </form>
             </div>
         </div>

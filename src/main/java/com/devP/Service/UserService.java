@@ -1,8 +1,7 @@
 package com.devP.Service;
 
+import com.devP.VO.MemberVO;
 import com.devP.VO.UserVO;
-
-import javax.servlet.http.HttpSession;
 
 public interface UserService {
 
@@ -26,6 +25,8 @@ public interface UserService {
     UserVO getUserDataEmail(UserVO vo);
 
     UserVO getUserName(String userId);
+
+    void insertMember(MemberVO vo);
 
 
 

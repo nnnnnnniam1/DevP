@@ -4,6 +4,7 @@ import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.UserService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,8 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
-    public String addMember(UserVO user, MemberVO vo, Model model) throws Exception {
-        int result = leaderService.addMember(user, vo, model);
+    public String addMember(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+        int result = leaderService.addMember(user, vo, vo2, vo3);
         return "redirect:/project/manageMember.do";
     }
 
