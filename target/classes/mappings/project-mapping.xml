@@ -18,4 +18,8 @@
         on g.projectId = p.projectId
         where g.userId = #{userId};
     </select>
+    <!--  프로젝트 아이디   -->
+    <select id="getProjectId" resultType="int">
+        select projectId from project where projectName = #{projectName};
+    </select>
 </mapper>
