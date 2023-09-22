@@ -4,6 +4,7 @@ import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class ProjectController {
         @Autowired
         private HttpSession session;
 
+        //프로젝트 추가 화면
         @RequestMapping(value = "/insert.do", method = RequestMethod.GET)
         public String insertProjectView() {
                 if(projectService.insertProjectView() == 200) {
@@ -54,16 +56,19 @@ public class ProjectController {
   			issueService.getIssuelist(projectId, model);
   	        return "projectDetail";
       	}
-        
+
         @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
-        public String insertProject(@ModelAttribute ProjectVO vo){
-                if(projectService.insertProject(vo) == 200) return "projectList";
-                else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
+        public String insertProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+                if(projectService.insertProject(vo, vo2, vo3) == 200) return "projectList";
+                else if(projectService.insertProject(vo, vo2, vo3) == 405) return "redirect: /project/insertProject.do";
                 return null;
         }
-        @RequestMapping(value="/member.do", method = RequestMethod.GET)
-        public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
-                int result = projectService.showProjectMemberList(vo, model);
-                return "member";
+
+        //프로젝트 목록
+        @RequestMapping(value = "/list.do", method = RequestMethod.GET)
+        public String projectList(Model model) {
+                projectService.getProjectList(model);
+                return "projectList";
+
         }
 }

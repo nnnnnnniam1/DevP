@@ -56,3 +56,8 @@ function updateMember(){
         var userId = row.querySelector('input[name="')
     })
 }
+
+//var roleSelect = document.getElementById('roleSelect');
+//if (!roleSelect.value) {
+//    roleSelect.selectedIndex = 0; // 첫 번째 옵션을 선택
+//}
