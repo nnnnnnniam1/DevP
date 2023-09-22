@@ -13,6 +13,8 @@
     <title>부트스트랩 사이드바 예시</title>
     <link rel="stylesheet" href="/resources/css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<style type="text/css">
+	</style>
 </head>
 <body>
 <div id = "sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light position-fixed" style="width: 20%; height: 100vh">

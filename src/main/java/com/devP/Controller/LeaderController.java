@@ -28,16 +28,20 @@ public class LeaderController {
     private LeaderService leaderService;
 
     @Autowired
+    private ProjectService projectService;
+
+    @Autowired
     private MailController mailController;
 
-    @ModelAttribute("roleMap")
+    // 멤버페이지
+    @ModelAttribute("positionMap")
     public Map<String, String> setRoleMap(){
         Map<String, String> roleMap = new HashMap<String, String>();
         roleMap.put("팀장","팀장");
         return roleMap;
     }
 
-    @ModelAttribute("positionMap")
+    @ModelAttribute("roleMap")
     public Map<String, String> setPositionMap(){
         Map<String, String> positionMap = new HashMap<String, String>();
         positionMap.put("FE", "FE");
@@ -49,13 +53,22 @@ public class LeaderController {
 
     }
 
+    @RequestMapping(value="/project/leader.do", method=RequestMethod.GET)
+    public String leaderDetailView(ProjectVO vo, Model model){
+        vo.setProjectId(1);
+        leaderService.getLeaderView(vo, model);
+        // projectService.getProjectName(vo);
+        // projectService.getProjectProgress(vo);
+        return "leaderDetail";
+    }
+
+
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
-    public String manageMemberView(HttpSession session, MemberVO vo, Model model){
+    public String manageMemberView(MemberVO vo, Model model){
         vo.setProjectId(1); //임시
-        session.setAttribute("projectId",vo.getProjectId());    //임시
-        session.setAttribute("projectName","임시임");  //임시 데이터
-        model.addAttribute("memberList", leaderService.getMemberList(vo));
-        return "manageMember";
+        int result = leaderService.getMemberList(vo, model);
+        if (result == 200) return "manageMember";
+        else return "redirect:/login.do";
     }
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
@@ -75,25 +88,18 @@ public class LeaderController {
     }
 
     @RequestMapping(value="/project/updateMember.do", method = RequestMethod.POST)
-    public String updateMember(MemberVO vo, HttpServletRequest request){
-        String[] selectedMembers = request.getParameterValues("memberDataList");
-        String userId = request.getParameter("userId");
-        String role = request.getParameter("role");
-        String position = request.getParameter("position");
-        int projectId = Integer.parseInt(request.getParameter("projectId"));
+    public String updateMember(@ModelAttribute MemberVO memberVO, Model model){
 
-//        for(String userId : selectedMembers){
-//            MemberVO vo = new MemberVO();
-//            vo.setUserId(request.getParameter("userId"));
-//            vo.setRole(request.getParameter("role"));
-//            vo.setPosition(request.getParameter("position"));
-//            vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
-//            System.out.println(vo.getProjectId());
+
+//        for(MemberVO vo: memberVO.getMemberVOList()){
+//            System.out.println(vo.getUserId());
 //        }
-        leaderService.updateMemberDatas(vo, selectedMembers, userId, role, position, projectId);
+//        if(memberVO.getMemberVOList() == null){ System.out.println("다시해");}
+//        System.out.println(memberVO.getMemberVOList());
+        int result = leaderService.updateMemberDatas(memberVO.getMemberVOList(), model);
 
-
-        return "redirect:/project/manageMember.do";
+        if(result == 200) return "redirect:/project/manageMember.do";
+        else return "redirect:/";
     }
 
     @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
@@ -101,7 +107,7 @@ public class LeaderController {
         try {
             String userId = request.getParameter("userId");
             int projectId = Integer.parseInt(request.getParameter("projectId"));
-
+            System.out.println(userId);
             leaderService.deleteMember(vo, userId, projectId);
 
             return ResponseEntity.ok("Member deleted successfully");
@@ -111,4 +117,5 @@ public class LeaderController {
         }
 
     }
+
 }

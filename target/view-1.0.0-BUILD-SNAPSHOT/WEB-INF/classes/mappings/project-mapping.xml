@@ -9,7 +9,6 @@
         insert into project (projectName, startDate, endDate, progress, script, leader)
         values (#{projectName}, #{startDate}, #{endDate}, #{progress}, #{script}, #{leader});
     </insert>
-
     <!--  프로젝트 목록   -->
     <select id="projectList" resultType="Project">
         select p.projectId, p.projectName, p.progress, g.position, g.role, g.progress
@@ -21,5 +20,14 @@
     <!--  프로젝트 아이디   -->
     <select id="getProjectId" resultType="int">
         select projectId from project where projectName = #{projectName};
+    </select>
+    <select id="getProject" resultType="Project">
+        SELECT * FROM project WHERE projectId=#{projectId};
+    </select>
+    <select id="getProjectName" resultType="String">
+        SELECT projectName FROM project WHERE projectId=#{projectId};
+    </select>
+    <select id="getProjectProgress" resultType="int">
+        SELECT progress FROM project WHERE projectId=#{projectId};
     </select>
 </mapper>

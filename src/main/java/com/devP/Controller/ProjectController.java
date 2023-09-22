@@ -69,5 +69,6 @@ public class ProjectController {
         public String projectList(Model model) {
                 projectService.getProjectList(model);
                 return "projectList";
+
         }
 }

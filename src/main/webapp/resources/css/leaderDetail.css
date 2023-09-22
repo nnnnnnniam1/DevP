@@ -1,0 +1,60 @@
+.topBar {
+    width: 80%;
+    min-width:1200px;
+    float: right;
+}
+.leaderWrapper {
+    width: 80%;
+}
+.projectName {
+    font-size: 35px;
+    font-style: normal;
+
+}
+.contentsWrapper{
+    display: flex;
+}
+
+.btnTable {
+    width: 400px;
+    height:
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+td {
+ padding: 10px;
+}
+
+.leaderBtn {
+    width: 400px;
+    height:150px;
+    border-radius: 10px;
+    background-color: lightGray;
+    position: relative;
+}
+.label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.progressWrapper {
+    width: 70%;
+}
+.progressBox {
+    width:800px;
+    height: 680px;
+    background-color: #FFF9FE;
+}
+
+.projectProgress {
+    // margin-right: 10px;
+    padding: 50px;
+    margin-bottom: 20px;
+
+}
+
+.progress-bar {
+    width: 80%;
+}

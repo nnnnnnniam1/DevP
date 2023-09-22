@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface LeaderService {
 
-    List<MemberVO> getMemberList(MemberVO vo);
+    void getLeaderView(ProjectVO vo, Model model);
+
+    int getMemberList(MemberVO vo, Model model);
 
     int addMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
 
@@ -28,7 +31,7 @@ public interface LeaderService {
 
     void updateMemberStatus(MemberVO vo);
 
-    void updateMemberDatas(MemberVO vo, String[] selectedMembers, String userId, String role, String position, int projectId);
+    int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model);
 
     void deleteMember(MemberVO vo, String userId, int projectId);
 }

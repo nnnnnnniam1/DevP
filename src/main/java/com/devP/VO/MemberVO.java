@@ -1,5 +1,8 @@
 package com.devP.VO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MemberVO {
 
     public int projectId;
@@ -14,6 +17,7 @@ public class MemberVO {
     private String status;
     private float progress;
 
+    private ArrayList<MemberVO> memberVOList;
     public int getProjectId() {return projectId;}
     public void setProjectId(int projectId){this.projectId = projectId;}
     public String getUserName() {return userName;}
@@ -36,4 +40,7 @@ public class MemberVO {
 
     public float getProgress(){return progress;}
     public void setProgress(float progress){this.progress = progress;}
+
+    public ArrayList<MemberVO> getMemberVOList() { return memberVOList; }
+    public void setMemberVOList(ArrayList<MemberVO> memberVOList) { this.memberVOList = memberVOList; }
 }

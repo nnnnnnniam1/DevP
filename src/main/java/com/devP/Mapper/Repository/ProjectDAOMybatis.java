@@ -20,8 +20,23 @@ public class ProjectDAOMybatis {
         return mybatis.insert("ProjectDAO.insertProject", vo);
     }
 
-    public int getProjectId(ProjectVO vo) { return mybatis.selectOne("ProjectDAO.getProjectId", vo);}
+    public int getProjectId(ProjectVO vo) {
+        return mybatis.selectOne("ProjectDAO.getProjectId", vo);
+    }
 
     public void insertProject(ProjectVO vo) {
     }
+
+    public ProjectVO getProject(ProjectVO vo) {
+        return mybatis.selectOne("ProjectDAO.getProject", vo);
+    }
+
+    public String getProjectName(ProjectVO vo) {
+        return mybatis.selectOne("ProjectDAO.getProjectName", vo);
+    }
+
+    public int getProjectProgress(ProjectVO vo) {
+        return mybatis.selectOne("ProjectDAO.getProjectProgress", vo);
+    }
 }
+

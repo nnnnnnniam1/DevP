@@ -42,7 +42,7 @@ public class UserController {
     @RequestMapping(value="/logout.do", method = RequestMethod.GET)
     public String logout() {
         int result = userService.logout();
-        return "redirect:/login.do";
+        return "redirect:/";
     }
     @RequestMapping(value="/searchLogin.do", method = RequestMethod.GET)
     public String searchLoginView(){ return "searchLogin"; }

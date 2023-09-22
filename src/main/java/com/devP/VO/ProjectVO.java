@@ -1,8 +1,9 @@
 package com.devP.VO;
+import java.util.Date;
+import org.apache.ibatis.session.ResultHandler;
 
 //VO(Value Object)
 public class ProjectVO {
-
     private int projectId;
     private String projectName;
     private String startDate;
@@ -103,8 +104,4 @@ public class ProjectVO {
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
-
-
-
-
 }
