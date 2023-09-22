@@ -80,7 +80,7 @@ public class LeaderServiceImpl implements LeaderService {
 			}catch (BadSqlGrammarException e){
 				System.out.println("배드");
 			}catch (DuplicateKeyException e){
-				System.out.println("듀플키");
+				System.out.println("듀플");
 			}
 
 
