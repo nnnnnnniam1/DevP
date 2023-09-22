@@ -1,6 +1,7 @@
 package com.devP.Service;
 
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ public interface LeaderService {
 
     int getMemberList(MemberVO vo, Model model);
 
-    int addMember(UserVO user, MemberVO vo, Model model) throws Exception;
+    int addMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
 
     MemberVO findMember(MemberVO vo);
 
@@ -33,5 +34,4 @@ public interface LeaderService {
     int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model);
 
     void deleteMember(MemberVO vo, String userId, int projectId);
-
 }

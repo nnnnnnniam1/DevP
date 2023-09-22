@@ -13,6 +13,17 @@ public class ProjectVO {
     private int progress;
     private String leader;
     private String script;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
 
     public String getScript() {
         return script;
