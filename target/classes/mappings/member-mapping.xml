@@ -55,6 +55,20 @@
         UPDATE projectgroup SET status="x" WHERE projectId=#{projectId} AND userId=#{userId}
     </update>
 
+    <!--  프로젝트 - 업무페이지  -->
+    <select id="getMyProjectData" resultType="Member">
+        SELECT
+            pg.projectId,
+            u.name AS userName,
+            u.id AS userId,
+            pg.position,
+            pg.role,
+            pg.progress,
+            pg.status
+        FROM projectgroup AS pg
+        JOIN user AS u ON pg.userId = u.id
+        WHERE pg.projectId = #{projectId} AND pg.status = '1' AND u.id = #{userId};
+    </select>
 
     <!--  프로젝트 - 멤버페이지  -->
     <select id="getProjectMemberList" resultType="Member">

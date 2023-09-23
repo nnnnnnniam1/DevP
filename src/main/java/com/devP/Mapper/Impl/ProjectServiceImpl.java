@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.List;
 
 @Service("projectService")
@@ -46,6 +47,8 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDAO.getProjectProgress(vo);
     }
 
+    @Override
+     public MemberVO getMyProjectData(MemberVO vo){return memberDAO.getMyProjectData(vo);}
     @Autowired
     private MailService mailService;
 
@@ -63,7 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
                 projectDAO.insertProject(vo, vo2, vo3);
                 //session.removeAttribute("projectName");
                 //session.setAttribute("projectName", vo.getProjectName());
-
+                vo3.setProjectId(getProjectId(vo));
                 leaderService.addMember(members, vo, vo2, vo3);
                 return 200;
             }
@@ -96,6 +99,26 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public int showTaskView(ProjectVO project, MemberVO member, Model model){
+        project.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
+        member.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
+        member.setUserId((String) session.getAttribute("id"));
+        project.setProgress(getProjectProgress(project));   // 프로젝트 진행률
+
+        System.out.println(member.getProjectId() + member.getUserId());
+
+
+
+        member = getMyProjectData(member);
+//        System.out.println(member.getProjectId() + member.getUserId());
+        System.out.println(member.getProgress());
+        model.addAttribute("project", project);
+        model.addAttribute("member", member);
+//        if(project != null && member != null) {return 200;}
+//        else {return 405;}
+        return  200;
+    }
+
     public int showProjectMemberList(MemberVO vo, Model model) {
         return 0;
     }

@@ -18,6 +18,8 @@ public interface ProjectService {
 	String getProjectName(ProjectVO vo);
 
 	int getProjectProgress(ProjectVO vo);
+
+	MemberVO getMyProjectData(MemberVO vo);
 	
 //	int insertProject(ProjectVO vo);
 
@@ -28,6 +30,8 @@ public interface ProjectService {
 
 	int showProjectMemberList(MemberVO vo, Model model);
 	int getProjectId(ProjectVO vo);
+
+	int showTaskView(ProjectVO project, MemberVO member, Model model) throws Exception ;
 
 	List<MemberVO> getProjectMemberList(int projectId);
 }
