@@ -53,6 +53,8 @@ public class ProjectController {
         //프로젝트 상세
         @RequestMapping(value="/detail.do", method= RequestMethod.GET)
   	    public String projectView(@RequestParam int projectId, Model model){
+                session.setAttribute("projectId", projectId);
+                System.out.println(session.getAttribute("projectId"));
   			issueService.getIssuelist(projectId, model);
   	        return "projectDetail";
       	}

@@ -3,6 +3,7 @@
 <%@ page session="false" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
