@@ -27,7 +27,7 @@
 <%--                            <c:if test="${issue.status eq status}">--%>
                                 <div class="">
                                     <div class="card wd-75 text-bg-light">
-<%--                                        <a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">--%>
+                                        <a href="/project/detail.do?projectId=${project.projectId}" class="text-reset text-decoration-none">
                                             <div class="card-header">${project.projectName}</div>
                                             <div class="card-body">
                                                 <small class="text-body-secondary">${project.role}</small>
@@ -45,7 +45,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-<%--                                        </a>--%>
+                                        </a>
                                     </div>
                                 </div>
                             <br>
