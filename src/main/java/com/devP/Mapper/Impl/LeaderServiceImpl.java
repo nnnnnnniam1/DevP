@@ -38,8 +38,6 @@ public class LeaderServiceImpl implements LeaderService {
 	@Autowired
 	private HttpSession session;
 
-//	@Autowired
-//	private ProjectService projectService;
 
 	@Override
 	public void getLeaderView(ProjectVO vo, Model model){
