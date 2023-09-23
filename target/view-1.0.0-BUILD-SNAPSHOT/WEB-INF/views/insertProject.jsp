@@ -35,6 +35,7 @@
                 <input name="startDate" type="text" class="form-control" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd" /> " id="startDate">
             </div>
         </div>
+        <br>
         <div class="row mb-3">
             <label for="endDate" class="col-sm-2 col-form-label">종료일</label>
             <div class="col-sm-10">

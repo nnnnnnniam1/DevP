@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.List;
 
 @Service("projectService")
@@ -42,6 +43,8 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDAO.getProjectProgress(vo);
     }
 
+    @Override
+     public MemberVO getMyProjectData(MemberVO vo){return memberDAO.getMyProjectData(vo);}
 
 
     @Override
@@ -72,6 +75,27 @@ public class ProjectServiceImpl implements ProjectService {
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
         return 200;
 
+    }
+
+    @Override
+    public int showTaskView(ProjectVO project, MemberVO member, Model model){
+        project.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
+        member.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
+        member.setUserId((String) session.getAttribute("id"));
+        project.setProgress(getProjectProgress(project));   // 프로젝트 진행률
+
+        System.out.println(member.getProjectId() + member.getUserId());
+
+
+
+        member = getMyProjectData(member);
+//        System.out.println(member.getProjectId() + member.getUserId());
+        System.out.println(member.getProgress());
+        model.addAttribute("project", project);
+        model.addAttribute("member", member);
+//        if(project != null && member != null) {return 200;}
+//        else {return 405;}
+        return  200;
     }
 
     @Override

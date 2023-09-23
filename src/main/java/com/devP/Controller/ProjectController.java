@@ -52,6 +52,8 @@ public class ProjectController {
         //프로젝트 상세
         @RequestMapping(value="/detail.do", method= RequestMethod.GET)
   	    public String projectView(@RequestParam int projectId, Model model){
+            session.setAttribute("projectId", projectId);
+            System.out.println(Integer.parseInt((session.getAttribute("projectId")).toString()));
   			issueService.getIssuelist(projectId, model);
   	        return "projectDetail";
       	}
@@ -68,6 +70,12 @@ public class ProjectController {
                 return "member";
         }
 
+        @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
+        public String myTaskView(ProjectVO project, MemberVO member, Model model) throws Exception {
+                int result = projectService.showTaskView(project, member,model);
+                if(result == 200) return "task";
+                else return "redirect:/login.do";
+        }
 
 
         @RequestMapping(value="/gant.do", method = RequestMethod.GET)
