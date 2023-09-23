@@ -1,9 +1,11 @@
 package com.devP.Mapper.Impl;
 
 import com.devP.Controller.MailController;
+import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Mapper.Repository.UserDAOMybatis;
 import com.devP.Service.MailService;
 import com.devP.Service.UserService;
+import com.devP.VO.MemberVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDAOMybatis userDAO;
+
+	@Autowired
+	private MemberDAOMybatis memberDAO;
 
 	@Autowired
 	private HttpSession session;
@@ -104,5 +109,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO getUserName(String userId){ return userDAO.getUserName(userId);}
-
+	@Override
+	public void insertMember(MemberVO vo){ memberDAO.insertMember(vo); }
 }

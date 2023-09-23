@@ -10,16 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-<div class="main-text">${title}</div>
+<div class="p-12 min-vw-90 min-vh-100 container">
+<div class="main-text">새로운 프로젝트</div>
     <div class="ml-auto project-form">
     <form method="post" action="/project/insert.do" >
-<%--        <div class="row mb-3">--%>
-<%--            <label for="projectId" class="col-sm-2 col-form-label">프로젝트 아이디</label>--%>
-<%--            <div class="col-sm-10">--%>
-<%--                <input type="text" class="form-control" id="projectId">--%>
-<%--            </div>--%>
-<%--        </div>--%>
         <br>
         <div class="row mb-3">
             <label for="projectName" class="col-sm-2 col-form-label">프로젝트</label>
@@ -45,8 +39,19 @@
         <br>
         <div class="row mb-3">
             <label for="addMember" class="col-sm-2 col-form-label">멤버추가</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="addMember">
+<%--            <form class="manageMemberWrapper" action="/project/addMember.do" method="post">--%>
+                <div class="col-sm-10" id="addMember">
+                    <input class="formInput form-control" placeholder="devp@devp.com" name="email">
+                </div>
+<%--                <div class="col-auto"><input class="form-control" type="submit" value="send"></div>--%>
+<%--            </form>--%>
+        </div>
+        <div class="manage-wrapper">
+            <div class="addMember">
+<%--                <form class="manageMemberWrapper" action="/project/addMember.do" method="post">--%>
+                    <div class="addMemberLine row g-3 align-items-center">
+<%--                    </div>--%>
+                </form>
             </div>
         </div>
         <br>
@@ -55,6 +60,11 @@
             <div class="col-sm-10">
                 <textarea name="script" class="form-control" id="script"></textarea>
             </div>
+        </div>
+        <br>
+        <div class="row mb-3">
+            <label for="addMember" class="col-sm-2 col-form-label">일정 및 업무 분배</label>
+            <jsp:include page="/WEB-INF/views/wbs.jsp"/>
         </div>
         <br>
 <%--        <div class="col mb-3">--%>

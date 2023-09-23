@@ -11,13 +11,12 @@ import javax.servlet.http.HttpSession;
 public class CommonController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainView(HttpServletRequest request) {
-
         HttpSession session = request.getSession();
-
         String userId = (String)session.getAttribute("id");
         session.setAttribute("title", logincheck(userId, request));
 
-        return "main";
+        if(session.getAttribute("id")!=null) return "main";
+        else return "login";
     }
 
 

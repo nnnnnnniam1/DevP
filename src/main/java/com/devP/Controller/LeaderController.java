@@ -4,6 +4,7 @@ import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.UserService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class LeaderController {
 
     @Autowired
     private MailController mailController;
+
+    @Autowired
+    private HttpSession session;
 
     // 멤버페이지
     @ModelAttribute("positionMap")
@@ -65,14 +69,16 @@ public class LeaderController {
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
     public String manageMemberView(MemberVO vo, Model model){
         vo.setProjectId(1); //임시
+        session.setAttribute("projectId", vo.getProjectId());
         int result = leaderService.getMemberList(vo, model);
         if (result == 200) return "manageMember";
         else return "redirect:/login.do";
     }
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
-    public String addMember(UserVO user, MemberVO vo, Model model) throws Exception {
-        int result = leaderService.addMember(user, vo, model);
+    public String addMember(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+        vo3.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+        int result = leaderService.addMember(user, vo, vo2, vo3);
         return "redirect:/project/manageMember.do";
     }
 

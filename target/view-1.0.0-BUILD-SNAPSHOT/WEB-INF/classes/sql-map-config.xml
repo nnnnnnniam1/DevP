@@ -8,6 +8,10 @@
 		<typeAlias alias="Member" type="com.devP.VO.MemberVO" />
 		<typeAlias alias="User" type="com.devP.VO.UserVO" />
 		<typeAlias alias="Project" type="com.devP.VO.ProjectVO" />
+<<<<<<< HEAD
+=======
+		<typeAlias alias="ProjectList" type="com.devP.VO.ProjectListVO" />
+>>>>>>> 47d561f8b8594f50c6f4b7a42139940011346c63
 		<typeAlias alias="Chat" type="com.devP.VO.ChatVO" />
 		<typeAlias alias="Issue" type="com.devP.VO.IssueVO" />
 		<typeAlias alias="Task" type="com.devP.VO.TaskVO" />
