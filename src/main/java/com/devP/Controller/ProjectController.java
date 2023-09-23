@@ -49,13 +49,14 @@ public class ProjectController {
                         return "redirect:/";
                 }
         }
+
         
         //프로젝트 상세
         @RequestMapping(value="/detail.do", method= RequestMethod.GET)
   	    public String projectView(@RequestParam int projectId, Model model){
-                if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
-                session.setAttribute("projectId", projectId);
-                System.out.println(session.getAttribute("projectId"));
+            if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
+            session.setAttribute("projectId", projectId);
+            System.out.println(session.getAttribute("projectId"));
   			issueService.getIssuelist(projectId, model);
   	        return "projectDetail";
       	}
@@ -76,5 +77,18 @@ public class ProjectController {
                         return "login";
                 }
                 return null;
+        }
+
+        @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
+        public String myTaskView(ProjectVO project, MemberVO member, Model model) throws Exception {
+                int result = projectService.showTaskView(project, member,model);
+                if(result == 200) return "task";
+                else return "redirect:/login.do";
+        }
+
+
+        @RequestMapping(value="/gant.do", method = RequestMethod.GET)
+        public String gantChartView(){
+                return "gantChart";
         }
 }

@@ -69,9 +69,10 @@ public class LeaderServiceImpl implements LeaderService {
 		String leader = (String) session.getAttribute("id");
 		String project = vo.getProjectName();
 
-		int projectId = projectService.getProjectId(vo);
-		vo3.setProjectId(projectId);
+//		int projectId = projectService.getProjectId(vo);
+//		vo3.setProjectId(projectId);
 		String[] memberArr = members.split(",");
+		System.out.println(memberArr[0]);
 		//ProjectGroupVO.setProjectId(projectId);
 
 		for(int i=0; i<memberArr.length; i++) {

@@ -33,6 +33,9 @@ public class LeaderController {
     @Autowired
     private MailController mailController;
 
+    @Autowired
+    private HttpSession session;
+
     // 멤버페이지
     @ModelAttribute("positionMap")
     public Map<String, String> setRoleMap(){
@@ -66,6 +69,7 @@ public class LeaderController {
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
     public String manageMemberView(MemberVO vo, Model model){
         vo.setProjectId(1); //임시
+        session.setAttribute("projectId", vo.getProjectId());
         int result = leaderService.getMemberList(vo, model);
         if (result == 200) return "manageMember";
         else return "redirect:/login.do";
@@ -73,6 +77,7 @@ public class LeaderController {
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
     public String addMember(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+        vo3.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         int result = leaderService.addMember(user, vo, vo2, vo3);
         return "redirect:/project/manageMember.do";
     }
