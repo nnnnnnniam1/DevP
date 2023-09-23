@@ -10,7 +10,7 @@
         values (#{projectName}, #{startDate}, #{endDate}, #{progress}, #{script}, #{leader});
     </insert>
     <!--  프로젝트 목록   -->
-    <select id="projectList" resultType="Project">
+    <select id="getProjectList" resultType="ProjectList">
         select p.projectId, p.projectName, p.progress, g.position, g.role, g.progress
         from projectgroup g
         join project p

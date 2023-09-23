@@ -1,9 +1,6 @@
 package com.devP.Mapper.Repository;
 
-import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectGroupVO;
-import com.devP.VO.ProjectListVO;
-import com.devP.VO.ProjectVO;
+import com.devP.VO.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,6 +34,10 @@ public class ProjectDAOMybatis {
 
     public int getProjectProgress(ProjectVO vo) {
         return mybatis.selectOne("ProjectDAO.getProjectProgress", vo);
+    }
+
+    public List<ProjectListVO> getProjectList(ProjectListVO vo) {
+        return mybatis.selectList("ProjectDAO.getProjectList", vo);
     }
 }
 

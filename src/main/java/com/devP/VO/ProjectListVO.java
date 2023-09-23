@@ -1,12 +1,20 @@
 package com.devP.VO;
 
 public class ProjectListVO {
+    private String userId;
     private String projectId;
     private String projectName;
     private String position;
     private String role;
     private String projectProgress;
     private String memberProgress;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getMemberProgress() {
         return memberProgress;

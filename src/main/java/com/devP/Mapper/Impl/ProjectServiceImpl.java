@@ -7,6 +7,7 @@ import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
 import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectGroupVO;
+import com.devP.VO.ProjectListVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,8 +83,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public int getProjectList(Model model){
         if(session.getAttribute("id") != null) {
+            ProjectListVO vo = new ProjectListVO();
             String userId = session.getAttribute("id").toString();
-            //model.addAttribute("projectList", projectDAO.getProjectList(userId));
+            vo.setUserId(userId);
+//            List<ProjectListVO> vo2 = projectDAO.getProjectList(vo);
+//            System.out.println(vo2.getProjectName());
+            model.addAttribute("projectList", projectDAO.getProjectList(vo));
             return 200;
         }else {
             return 405;

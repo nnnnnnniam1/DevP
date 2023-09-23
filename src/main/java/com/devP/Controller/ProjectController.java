@@ -67,8 +67,11 @@ public class ProjectController {
         //프로젝트 목록
         @RequestMapping(value = "/list.do", method = RequestMethod.GET)
         public String projectList(Model model) {
-                projectService.getProjectList(model);
-                return "projectList";
-
+                if(projectService.getProjectList(model) == 200){
+                        return "projectList";
+                } else if (projectService.getProjectList(model) == 405) {
+                        return "login";
+                }
+                return null;
         }
 }
