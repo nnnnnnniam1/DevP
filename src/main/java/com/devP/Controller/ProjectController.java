@@ -47,6 +47,7 @@ public class ProjectController {
                         return "redirect:/";
                 }
         }
+
         
         //프로젝트 상세
         @RequestMapping(value="/detail.do", method= RequestMethod.GET)
@@ -65,5 +66,12 @@ public class ProjectController {
         public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
                 int result = projectService.showProjectMemberList(vo, model);
                 return "member";
+        }
+
+
+
+        @RequestMapping(value="/gant.do", method = RequestMethod.GET)
+        public String gantChartView(){
+                return "gantChart";
         }
 }
