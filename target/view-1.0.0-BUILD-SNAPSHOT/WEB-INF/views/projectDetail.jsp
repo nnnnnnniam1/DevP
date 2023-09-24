@@ -39,11 +39,7 @@ String userId = (String) session.getAttribute("userId");
 			  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 		</div>
-<<<<<<< HEAD
 		<div class = "col-4" onclick="location.href='myTask.do'">
-=======
-		<div class = "col-4">
->>>>>>> 47d561f8b8594f50c6f4b7a42139940011346c63
 			<div class = "card">
 				<div class ="row">
 					<div class="col-10">

@@ -22,7 +22,8 @@
                     <label class="formLabel col-form-label"> 멤버추가</label>
                 </div>
                 <div class="col-auto">
-                    <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="email">
+                    <input type="hidden" value="${projectName}" name="projectName" />
+                    <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="user">
                 </div>
                 <div class="col-auto"><input class="form-control" type="submit" value="send"></div>
                 </div>

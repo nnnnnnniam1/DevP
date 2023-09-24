@@ -27,6 +27,8 @@ public class UserDAOMybatis{
 
     public UserVO getUserName(String userId) {return (UserVO) mybatis.selectOne("UserDAO.getUserName", userId);}
 
+    public UserVO getUserById(UserVO vo) { return (UserVO) mybatis.selectOne("UserDAO.getUserById", vo); }
+
 
 
 }
