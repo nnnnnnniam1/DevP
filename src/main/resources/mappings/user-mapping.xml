@@ -19,9 +19,13 @@
         select * from user where email=#{email}
     </select>
 
-
     <!--  비밀번호 변경  -->
     <update id="updatePw">
         update user set password=#{password} where id=#{id}
     </update>
+
+    <!-- 프로젝트에 추가할 리더 데이터 가져오기 -->
+    <select id="getUserById" resultType="User">
+        select * from user where id=#{id}
+    </select>
 </mapper>
