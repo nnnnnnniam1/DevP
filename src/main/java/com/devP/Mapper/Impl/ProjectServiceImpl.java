@@ -130,7 +130,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<MemberVO> getProjectMemberList(int projectId) {
-        return null;
+        return memberDAO.getProjectMemberList(projectId);
     }
 
 }
