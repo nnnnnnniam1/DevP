@@ -4,6 +4,7 @@ import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class ProjectController {
         @Autowired
         private HttpSession session;
 
+        //프로젝트 추가 화면
         @RequestMapping(value = "/insert.do", method = RequestMethod.GET)
         public String insertProjectView() {
                 if(projectService.insertProjectView() == 200) {
@@ -47,23 +49,46 @@ public class ProjectController {
                         return "redirect:/";
                 }
         }
+
         
         //프로젝트 상세
         @RequestMapping(value="/detail.do", method= RequestMethod.GET)
   	    public String projectView(@RequestParam int projectId, Model model){
+            if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
+            session.setAttribute("projectId", projectId);
+            System.out.println(session.getAttribute("projectId"));
   			issueService.getIssuelist(projectId, model);
   	        return "projectDetail";
       	}
-        
+
         @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
-        public String insertProject(@ModelAttribute ProjectVO vo){
-                if(projectService.insertProject(vo) == 200) return "projectList";
-                else if(projectService.insertProject(vo) == 405) return "redirect: /project/insertProject.do";
+        public String insertProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+                if(projectService.insertProject(vo, vo2, vo3) == 200) return "redirect: /project/list.do";
+                else if(projectService.insertProject(vo, vo2, vo3) == 405) return "redirect: /project/insertProject.do";
                 return null;
         }
-        @RequestMapping(value="/member.do", method = RequestMethod.GET)
-        public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
-                int result = projectService.showProjectMemberList(vo, model);
-                return "member";
+
+        //프로젝트 목록
+        @RequestMapping(value = "/list.do", method = RequestMethod.GET)
+        public String projectList(Model model) {
+                if(projectService.getProjectList(model) == 200){
+                        return "projectList";
+                } else if (projectService.getProjectList(model) == 405) {
+                        return "login";
+                }
+                return null;
+        }
+
+        @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
+        public String myTaskView(ProjectVO project, MemberVO member, Model model) throws Exception {
+                int result = projectService.showTaskView(project, member,model);
+                if(result == 200) return "task";
+                else return "redirect:/login.do";
+        }
+
+
+        @RequestMapping(value="/gant.do", method = RequestMethod.GET)
+        public String gantChartView(){
+                return "gantChart";
         }
 }

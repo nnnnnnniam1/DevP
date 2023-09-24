@@ -25,6 +25,10 @@ public class MemberDAOMybatis {
     public void updateMemberDatas(MemberVO vo){ mybatis.update("MemberDAO.updateMemberDatas", vo); }
     public void deleteMember(MemberVO vo){ mybatis.update("MemberDAO.deleteMember",vo); }
 
+    //업무페이지
+    public MemberVO getMyProjectData(MemberVO vo){ return mybatis.selectOne("MemberDAO.getMyProjectData", vo); }
+
+
 
 
     //project - 멤버페이지

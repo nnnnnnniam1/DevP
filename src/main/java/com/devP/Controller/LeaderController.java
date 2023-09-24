@@ -4,6 +4,7 @@ import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.UserService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,18 @@ public class LeaderController {
     @Autowired
     private MailController mailController;
 
+    @Autowired
+    private HttpSession session;
+
     // 멤버페이지
-    @ModelAttribute("roleMap")
+    @ModelAttribute("positionMap")
     public Map<String, String> setRoleMap(){
         Map<String, String> roleMap = new HashMap<String, String>();
         roleMap.put("팀장","팀장");
         return roleMap;
     }
 
-    @ModelAttribute("positionMap")
+    @ModelAttribute("roleMap")
     public Map<String, String> setPositionMap(){
         Map<String, String> positionMap = new HashMap<String, String>();
         positionMap.put("FE", "FE");
@@ -51,6 +55,7 @@ public class LeaderController {
         return positionMap;
 
     }
+
     @RequestMapping(value="/project/leader.do", method=RequestMethod.GET)
     public String leaderDetailView(ProjectVO vo, Model model){
         vo.setProjectId(1);
@@ -62,15 +67,18 @@ public class LeaderController {
 
 
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
-    public String manageMemberView(HttpSession session, MemberVO vo, Model model){
+    public String manageMemberView(MemberVO vo, Model model){
         vo.setProjectId(1); //임시
-        model.addAttribute("memberList", leaderService.getMemberList(vo));
-        return "manageMember";
+        session.setAttribute("projectId", vo.getProjectId());
+        int result = leaderService.getMemberList(vo, model);
+        if (result == 200) return "manageMember";
+        else return "redirect:/login.do";
     }
 
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
-    public String addMember(UserVO user, MemberVO vo, Model model) throws Exception {
-        int result = leaderService.addMember(user, vo, model);
+    public String addMember(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+        vo3.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+        int result = leaderService.addMember(user, vo, vo2, vo3);
         return "redirect:/project/manageMember.do";
     }
 
@@ -85,25 +93,18 @@ public class LeaderController {
     }
 
     @RequestMapping(value="/project/updateMember.do", method = RequestMethod.POST)
-    public String updateMember(MemberVO vo, HttpServletRequest request){
-        String[] selectedMembers = request.getParameterValues("memberDataList");
-        String userId = request.getParameter("userId");
-        String role = request.getParameter("role");
-        String position = request.getParameter("position");
-        int projectId = Integer.parseInt(request.getParameter("projectId"));
+    public String updateMember(@ModelAttribute MemberVO memberVO, Model model){
 
-//        for(String userId : selectedMembers){
-//            MemberVO vo = new MemberVO();
-//            vo.setUserId(request.getParameter("userId"));
-//            vo.setRole(request.getParameter("role"));
-//            vo.setPosition(request.getParameter("position"));
-//            vo.setProjectId(Integer.parseInt(request.getParameter("projectId")));
-//            System.out.println(vo.getProjectId());
+
+//        for(MemberVO vo: memberVO.getMemberVOList()){
+//            System.out.println(vo.getUserId());
 //        }
-        leaderService.updateMemberDatas(vo, selectedMembers, userId, role, position, projectId);
+//        if(memberVO.getMemberVOList() == null){ System.out.println("다시해");}
+//        System.out.println(memberVO.getMemberVOList());
+        int result = leaderService.updateMemberDatas(memberVO.getMemberVOList(), model);
 
-
-        return "redirect:/project/manageMember.do";
+        if(result == 200) return "redirect:/project/manageMember.do";
+        else return "redirect:/";
     }
 
     @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
@@ -111,7 +112,7 @@ public class LeaderController {
         try {
             String userId = request.getParameter("userId");
             int projectId = Integer.parseInt(request.getParameter("projectId"));
-
+            System.out.println(userId);
             leaderService.deleteMember(vo, userId, projectId);
 
             return ResponseEntity.ok("Member deleted successfully");
