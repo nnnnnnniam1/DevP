@@ -38,6 +38,11 @@
 			box-shadow: 2px 5px 20px #D3D3D3;
 			transform: translateY(-1px);
 		}
+		#logoLabel {
+            font-style: bold;
+            font-size: 24px;
+            padding-left: 5px;
+        }
 	</style>
 </head>
 <body>
@@ -45,6 +50,7 @@
 	<div class="align-items-center">
 		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" id="home">
     		<img src="/resources/image/dogfootprint.png" width="15%" height="100%">
+    		<span id="logoLabel">DevP</span>
 		</a>
 	</div>
 	<hr>

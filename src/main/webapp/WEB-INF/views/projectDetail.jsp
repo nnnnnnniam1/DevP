@@ -26,18 +26,25 @@ String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
 %>
 <div class="container">
-	<h1 class="my-5">Moment</h1>
+	<h1 class="my-5">${project.projectName}</h1>
 	<div class="row m-3">
 		<div class = "col-8">
 		<div class = "mb-1">
-			<span class="badge rounded-pill bg-dark">Member</span>
-			<span class="badge rounded-pill bg-light text-dark">BE</span>
+		    <c:choose>
+		        <c:when test="${empty myData.leader}">
+		            <span class="badge rounded-pill bg-dark">Member</span>
+		        </c:when>
+		        <c:otherwise>
+		            <span class="badge rounded-pill bg-dark">Leader</span>
+		        </c:otherwise>
+            </c:choose>
+			<span class="badge rounded-pill bg-light text-dark">${myData.role}</span>
 		</div>
 			<div class="progress mb-2">
-			  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+			  <div class="progress-bar bg-warning" role="progressbar" style="width: ${project.progress}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 			<div class="progress">
-			  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+			  <div class="progress-bar bg-warning" role="progressbar" style="width: ${myData.progress}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 		</div>
 		<div class = "col-4" onclick="location.href='/project/myTask.do'">

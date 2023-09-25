@@ -66,12 +66,19 @@ public class ProjectController {
         
         //프로젝트 상세
         @RequestMapping(value="/detail.do", method= RequestMethod.GET)
-  	    public String projectView(@RequestParam int projectId, Model model){
+  	    public String projectView(@RequestParam int projectId, ProjectVO vo, MemberVO member, Model model){
             if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
             session.setAttribute("projectId", projectId);
+            vo.setProjectId(projectId);
+            member.setProjectId(projectId);
+            member.setUserId(session.getAttribute("id").toString());
+
+            // 프로젝트 데이터 가져오기
             //이슈 리스트 가져오기
   			issueService.getIssuelist(projectId, model);
   			//멤버 리스트 가져오기
+            model.addAttribute("project",projectService.getProject(vo));
+            model.addAttribute("myData",projectService.getMyProjectData(member));
   			model.addAttribute("memberList", projectService.getProjectMemberList(projectId));
   			model.addAttribute("myTask", taskService.getTask());
   			taskService.getTaskCount(model);

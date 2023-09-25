@@ -93,7 +93,9 @@ public class ProjectServiceImpl implements ProjectService {
             vo.setUserId(userId);
 //            List<ProjectListVO> vo2 = projectDAO.getProjectList(vo);
 //            System.out.println(vo2.getProjectName());
+
             model.addAttribute("projectList", projectDAO.getProjectList(vo));
+
             return 200;
         }else {
             return 405;
