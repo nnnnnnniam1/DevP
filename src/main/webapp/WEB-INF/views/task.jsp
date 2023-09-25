@@ -68,7 +68,7 @@
                                         <td>${task.detail}</td>
                                         <td>${task.progress}</td>
                                         <td>
-                                            <input class="form-control" type="button" value="이슈" onclick="deleteMember('${member.userId}','${projectName}', ${projectId})" />
+                                            <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/write.do'" />
                                         </td>
                                     </tr>
                                 </c:forEach>
