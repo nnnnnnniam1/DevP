@@ -8,4 +8,11 @@
 		FROM task
 		WHERE userId = #{userId} AND projectId = #{projectId};
 	</select>
+	<select id="getTaskList" resultType="Task">
+		SELECT t.taskId, t.userId, t.category, t.detail, t.progress, t.startDate, t.endDate, p.projectName
+		FROM task t
+		JOIN project p
+		ON t.projectId = p.projectId
+		WHERE t.userId = #{userId};
+	</select>
 </mapper>

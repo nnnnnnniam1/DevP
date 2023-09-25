@@ -3,6 +3,7 @@ package com.devP.Mapper.Impl;
 
 import com.devP.Mapper.Repository.TaskDAOMybatis;
 import com.devP.Service.TaskService;
+import com.devP.VO.TaskListVO;
 import com.devP.VO.TaskVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,24 @@ public class TaskServiceImpl implements TaskService {
             resultList.add(result);
 		}
 		return resultList;
+	}
+
+	@Override
+	public int getUserTaskList(Model model){
+		if(session.getAttribute("id") != null) {
+			String userId = (String) session.getAttribute("id");
+			List<TaskListVO> vo = taskDAO.getUserTaskList(userId);
+
+			model.addAttribute("taskList", taskDAO.getUserTaskList(userId));
+			return 200;
+		}else{
+			return 405;
+		}
+	}
+
+	@Override
+	public List<TaskListVO> getTaskList(Model model) {
+		return null;
 	}
 
 
