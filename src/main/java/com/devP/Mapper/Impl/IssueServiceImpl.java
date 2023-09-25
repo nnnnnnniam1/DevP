@@ -34,13 +34,14 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public int insertIssue(IssueVO issue) {
+		System.out.println(issue.getTaskId());
 		String emails = issue.getSendingEmail();
 		// 세션 아이디 정보 등록
 		issue.setUserId(session.getAttribute("id").toString());
 		// 이슈 상태 초기 설정
 		System.out.println(issue.getIssueId());
 		issue.setStatus("대기");
-
+		
 		// 구분자를 쉼표(,)로 지정하여 문자열을 나누고, 이메일 주소들을 ArrayList에 저장
 		ArrayList<String> emailList = new ArrayList<>();
 		String[] emailArray = emails.split(",");
@@ -59,13 +60,9 @@ public class IssueServiceImpl implements IssueService {
 	public int getIssuelist(int projectId, Model model) {
 		String[] statusArray = { "대기", "검토", "해결" };
 		List<IssueVO> vo = issueDAO.getIssuelist(projectId);
-		/*
-		 * for (IssueVO issue : vo) {// 출력 형식 지정 SimpleDateFormat outputFormat = new
-		 * SimpleDateFormat("yyyy/MM/dd HH시 mm분"); String formattedDate =
-		 * outputFormat.format(issue.getDate()); issue.setDate(formattedDate); }
-		 */
 		model.addAttribute("issueList", issueDAO.getIssuelist(projectId));
 		model.addAttribute("statusarr", statusArray);
+		model.addAttribute("projectId", projectId);
 		return 0;
 	}
 

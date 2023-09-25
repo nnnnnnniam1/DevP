@@ -2,27 +2,18 @@ package com.devP.Mapper.Impl;
 
 import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Mapper.Repository.ProjectDAOMybatis;
-<<<<<<< HEAD
-import com.devP.Service.ProjectService;
-import com.devP.VO.MemberVO;
-=======
 import com.devP.Service.LeaderService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
 import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectListVO;
->>>>>>> upstream/master
 import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
-<<<<<<< HEAD
-=======
-import java.awt.*;
->>>>>>> upstream/master
 import java.util.List;
 
 @Service("projectService")
@@ -54,6 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
     public int getProjectProgress(ProjectVO vo){
         return projectDAO.getProjectProgress(vo);
     }
+
     @Override
      public MemberVO getMyProjectData(MemberVO vo){return memberDAO.getMyProjectData(vo);}
     @Autowired
@@ -139,4 +131,5 @@ public class ProjectServiceImpl implements ProjectService {
     public List<MemberVO> getProjectMemberList(int projectId) {
         return memberDAO.getProjectMemberList(projectId);
     }
+
 }

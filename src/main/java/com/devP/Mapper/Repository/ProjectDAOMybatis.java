@@ -40,5 +40,3 @@ public class ProjectDAOMybatis {
         return mybatis.selectList("ProjectDAO.getProjectList", vo);
     }
 }
-
->>>>>>> upstream/master

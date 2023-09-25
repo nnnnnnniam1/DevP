@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
    	  	 var request = $.ajax({
-             url: "/task/getTask.do", // 변경하기
+             url: "/task/getTask.do",
              method: "GET",
              contentType: "application/json; charset=utf-8", // 요청의 문자 인코딩 설정
            	 success: function(data) {

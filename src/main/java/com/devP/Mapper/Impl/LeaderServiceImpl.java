@@ -6,28 +6,19 @@ import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.UserService;
 import com.devP.VO.MemberVO;
-<<<<<<< HEAD
-import com.devP.VO.ProjectVO;
-import com.devP.VO.UserVO;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.BadSqlGrammarException;
->>>>>>> upstream/master
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
-<<<<<<< HEAD
-=======
 
 import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
->>>>>>> upstream/master
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +37,7 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Autowired
 	private HttpSession session;
+
 
 	@Override
 	public void getLeaderView(ProjectVO vo, Model model){
@@ -112,9 +104,12 @@ public class LeaderServiceImpl implements LeaderService {
 			}catch (DuplicateKeyException e){
 				System.out.println("듀플");
 			}
+
+
 		}
 		return 200;
 	}
+
 //	public int addMemberList(String members, MemberVO vo, Model model)throws Exception{
 //		String leader = (String) session.getAttribute("name");
 //		String project = (String) session.getAttribute("projectName");
@@ -128,6 +123,7 @@ public class LeaderServiceImpl implements LeaderService {
 //			for(members[0]; )
 //		}
 //	}
+
 	@Override
 	public MemberVO findMember(MemberVO vo){ return memberDAO.findMember(vo); }
 	@Override
@@ -167,11 +163,13 @@ public class LeaderServiceImpl implements LeaderService {
 		}
 
 		return 200;
+
 	}
 
 	@Override
 	public void deleteMember(MemberVO vo, String userId, int projectId){
 		vo.setUserId(userId);
+
 		vo.setProjectId(projectId);
 		memberDAO.deleteMember(vo);
 	}

@@ -6,6 +6,6 @@
 	<select id="getTask" resultType="Task">
 		SELECT *
 		FROM task
-		WHERE userId = #{userId};
+		WHERE userId = #{userId} AND projectId = #{projectId};
 	</select>
 </mapper>

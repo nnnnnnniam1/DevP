@@ -7,9 +7,11 @@ import com.devP.VO.TaskVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,23 +33,51 @@ public class TaskServiceImpl implements TaskService {
 		List<TaskVO> voList = new ArrayList<TaskVO>();
     	List<Map<String, Object>> resultList = new ArrayList<>();
     	try {
-    		voList = taskDAO.getTask(session.getAttribute("id").toString());
+    		TaskVO task = new TaskVO();
+    		task.setUserId(session.getAttribute("id").toString());
+    		task.setProjectId((int) session.getAttribute("projectId"));
+    		voList = taskDAO.getTask(task);
     	}catch (Exception e) {
 			// TODO: handle exception
     		System.out.println(e);
 		}
-		System.out.println(session.getAttribute("id").toString());
     	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     	for (TaskVO vo : voList) {
         	Map<String, Object> result = new HashMap<>();
     		String formattedstartDate = dateFormat.format(vo.getStartdate());
     		String formattedendDate = dateFormat.format(vo.getEnddate());
+            result.put("taskId", vo.getTaskId());
             result.put("title", vo.getDetail());
+            result.put("progress", vo.getProgress());
             result.put("start", formattedstartDate);
             result.put("end", formattedendDate);
             result.put("allday", true);
             resultList.add(result);
 		}
 		return resultList;
+	}
+
+
+	@Override
+	public void getTaskCount(Model model) {
+		int progresscount = 0, completedcount = 0, pastcount = 0;
+		List<TaskVO> voList = new ArrayList<TaskVO>();
+		TaskVO task = new TaskVO();
+		task.setUserId(session.getAttribute("id").toString());
+		task.setProjectId((int) session.getAttribute("projectId"));
+		voList = taskDAO.getTask(task);
+		for (TaskVO vo: voList) {
+			if(vo.getEnddate().compareTo(new Date()) > 0){
+				pastcount++;
+			}
+			else if(vo.getProgress() >= 0 && vo.getProgress() < 100) {
+				progresscount++;
+			}else if(vo.getProgress() == 100){
+				completedcount++;
+			}
+		}
+		model.addAttribute("pasttaskcount", pastcount);
+		model.addAttribute("progresstaskcount", progresscount);
+		model.addAttribute("completedtaskcount", completedcount);
 	}
 }
