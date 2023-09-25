@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>부트스트랩 사이드바 예시</title>
+    <title></title>
     <link rel="stylesheet" href="/resources/css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -55,12 +55,12 @@
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu2">
+        <a href="/project/myTask.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu2">
           <i class="bi bi-list-task mx-3"></i></i>업무
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu3">
+        <a href="/project/member.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu3">
           <i class="bi bi-people-fill mx-3"></i>멤버
         </a>
       </li>
