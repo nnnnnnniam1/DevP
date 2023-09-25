@@ -66,7 +66,7 @@ String userId = (String) session.getAttribute("userId");
 	</div>
 	<div class = "row m-3">
 			<div class = "col-4 d-flex">
-				<div class="card w-100">
+				<div class="card w-100" onclick="location.href='myTask.do'">
 					<div class="card-body">	
 					    <h5 class="card-title">Todo</h5>
 					    <c:forEach items="${myTask}" var="task">
