@@ -11,7 +11,7 @@
     </insert>
     <!--  프로젝트 목록   -->
     <select id="getProjectList" resultType="ProjectList">
-        select p.projectId, p.projectName, p.progress, g.position, g.role, g.progress
+        select g.userId, p.projectId, p.projectName, p.progress AS projectProgress, g.position, g.role, g.progress AS memberProgress
         from projectgroup g
         join project p
         on g.projectId = p.projectId
