@@ -26,7 +26,11 @@ String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
 %>
 <div class="container">
-	<h1 class="my-5">${project.projectName}</h1>
+	<h1 class="my-5">${project.projectName}
+	    <c:if test="${not empty myData.leader}">
+            <button class="btn btn-outline-success" type="button" onclick="location.href='/project/leader.do?projectId=${project.projectId}'">leader</button>
+        </c:if>
+	</h1>
 	<div class="row m-3">
 		<div class = "col-8">
 		<div class = "mb-1">
@@ -39,9 +43,6 @@ String userId = (String) session.getAttribute("userId");
 		        </c:otherwise>
             </c:choose>
 			<span class="badge rounded-pill bg-light text-dark">${myData.role}</span>
-			<c:if test="${not empty myData.leader}">
-                <div onclick="location.href='/project/leader.do?projectId=${project.projectId}'">Leader</div>
-			</c:if>
 		</div>
 			<div class="progress mb-2">
 			  <div class="progress-bar bg-warning" role="progressbar" style="width: ${project.progress}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
