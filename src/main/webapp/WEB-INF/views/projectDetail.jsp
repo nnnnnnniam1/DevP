@@ -39,7 +39,7 @@ String userId = (String) session.getAttribute("userId");
 			  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 		</div>
-		<div class = "col-4 taskBox" onclick="location.href='/project/myTask.do'">
+		<div class = "col-4" onclick="location.href='/project/myTask.do'">
 			<div class = "card">
 				<div class ="row">
 					<div class="col-10">
@@ -66,7 +66,7 @@ String userId = (String) session.getAttribute("userId");
 	<div class = "row m-3">
 			<div class = "col-4 d-flex">
 				<div class="card w-100">
-					<div class="card-body">	
+					<div class="card-body">
 					    <h5 class="card-title">Todo</h5>
 					    <a href="#" class="	">Card link</a><br>
 					    

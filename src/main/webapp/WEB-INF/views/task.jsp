@@ -14,7 +14,7 @@
     <title>멤버관리</title>
 </head>
 <body>
-<div class="container">
+<div class="mv-100 container">
     <p class="projectName">${project.projectName}</p>
     <p class="semiTitle">업무</p>
     <div class="contentsBox">

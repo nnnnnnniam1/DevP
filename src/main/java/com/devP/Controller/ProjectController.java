@@ -89,8 +89,8 @@ public class ProjectController {
         @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
         public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
                 int result = projectService.showTaskView(project, member, task, model);
-
-                return "task";
+                if(result == 200) return "task";
+                else return "man";
         }
 
         @RequestMapping(value="/getTask.do", method = RequestMethod.GET)
@@ -108,6 +108,8 @@ public class ProjectController {
         @RequestMapping(value="/member.do", method = RequestMethod.GET)
         public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
                 int result = projectService.showProjectMemberList(vo, model);
-                return "member";
+
+                if(result  == 200)  return "member";
+                else return "main";
         }
 }
