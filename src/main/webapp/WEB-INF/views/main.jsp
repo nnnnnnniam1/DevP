@@ -6,6 +6,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" href="/resources/css/member.css">
     <script src="script.js"></script>
 </head>
 <body>
@@ -18,15 +19,25 @@
             ${login}
         </button>
     </div>
-    <div class="calender"> Item1 </div>
+    <div class="calender">
+        <c:forEach items="${taskList}" var="task">
+            <div class="text-bg-light">
+<%--                <a href="/task/detail.do?taskId=${task.taskId}" class="text-reset text-decoration-none">--%>
+<%--                    <div class="">${task.projectName}</div>--%>
+                    <div class="">
+                        <small>${task.category}</small>
+                        <smail>${task.detail}</smail>
+                    </div>
+<%--                </a>--%>
+            </div>
+        </c:forEach>
+    </div>
     <div class="project_list position-relative" onclick="location.href='/project/list.do'">
         <div>진행 중인 프로젝트</div>
         <a href='/project/insert.do' class="btn btn-outline-dark position-absolute top-50 start-50">프로젝트 추가</a>
     </div>
     <div class="issue">
         <c:forEach items="${issueList}" var="issue">
-<%--            <c:if test="${issue.status ne 해결}">--%>
-<%--                <div class="item card-body">--%>
                     <div class="text-bg-light">
                         <a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">
                             <div class="">${issue.title}</div>
@@ -35,8 +46,6 @@
                             </div>
                         </a>
                     </div>
-<%--                </div>--%>
-<%--            </c:if>--%>
         </c:forEach>
     </div>
     <div class="task">

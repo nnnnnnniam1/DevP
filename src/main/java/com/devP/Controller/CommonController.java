@@ -1,6 +1,7 @@
 package com.devP.Controller;
 
 import com.devP.Service.IssueService;
+import com.devP.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ public class CommonController {
 
     @Autowired
     private IssueService issueService;
+    @Autowired
+    private TaskService taskService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainView(HttpServletRequest request, Model model) {
@@ -25,7 +28,10 @@ public class CommonController {
 
         if(session.getAttribute("id")!=null) {
             issueService.getUserIssueList(model);
-            return "main";
+            if(taskService.getUserTaskList(model) == 200) {
+                return "main";
+            }
+            return null;
         }
         else return "login";
     }
