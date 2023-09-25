@@ -68,6 +68,14 @@ public class IssueServiceImpl implements IssueService {
 		model.addAttribute("statusarr", statusArray);
 		return 0;
 	}
+	@Override
+	public int getUserIssueList(Model model){
+		String userId = (String)session.getAttribute("id");
+		List<IssueVO> vo = issueDAO.getUserIssuelist(userId);
+
+		model.addAttribute("issueList", issueDAO.getUserIssuelist(userId));
+		return 0;
+	}
 
 	@Override
 	public int deleteIssue(IssueVO issue) {
