@@ -5,27 +5,30 @@ import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Service.LeaderService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
-import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectGroupVO;
-import com.devP.VO.ProjectListVO;
-import com.devP.VO.ProjectVO;
+import com.devP.Service.TaskService;
+import com.devP.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
-    private ProjectDAOMybatis projectDAO;
-
-    @Autowired
     private HttpSession session;
     @Autowired
+    private ProjectDAOMybatis projectDAO;
+    @Autowired
     private MemberDAOMybatis memberDAO;
+
+    @Autowired
+    private TaskService taskService;
 
 
 
@@ -98,28 +101,40 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int showTaskView(ProjectVO project, MemberVO member, Model model){
+    public int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
+        // 프로젝트 및 본인 진행률 가져오기
         project.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
         member.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
         member.setUserId((String) session.getAttribute("id"));
         project.setProgress(getProjectProgress(project));   // 프로젝트 진행률
+        project.setProjectName(getProjectName(project));
 
-        System.out.println(member.getProjectId() + member.getUserId());
+        // 업무가져오기
+        task.setProjectId(project.getProjectId());
+        task.setUserId(member.getUserId());
 
-
-
-        member = getMyProjectData(member);
-//        System.out.println(member.getProjectId() + member.getUserId());
-        System.out.println(member.getProgress());
         model.addAttribute("project", project);
-        model.addAttribute("member", member);
-//        if(project != null && member != null) {return 200;}
+        model.addAttribute("member", getMyProjectData(member));
+
+        List<TaskVO> taskVOList = taskService.getMyProjectTaskList(task);
+
+        System.out.println(taskVOList);
+
+        model.addAttribute("taskList",taskVOList);
+
+        return 200;
+
+//        if(member.getUserId() != null) {return 200;}
 //        else {return 405;}
-        return  200;
     }
 
-    public int showProjectMemberList(MemberVO vo, Model model) {
-        return 0;
+    @Override
+    public int showProjectMemberList(MemberVO vo, Model model){
+        vo.setProjectId(1); //임시
+        //List<MemberVO> memberList =  memberDAO.getProjectMemberList(vo);
+        model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
+        return 200;
+
     }
 
     @Override

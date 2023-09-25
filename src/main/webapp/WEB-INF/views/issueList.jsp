@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="mv-100 container">
 	<div class="mt-5">
 		<h1 class="mb-5">Moment 이슈 목록</h1>
 		<div class="d-flex flex-row-reverse">

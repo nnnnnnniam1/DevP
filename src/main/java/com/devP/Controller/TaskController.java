@@ -32,4 +32,8 @@ public class TaskController {
 	    public List<Map<String, Object>> getTask(){
 	    return taskService.getTask();
   	}
+
+	@RequestMapping(value="/getMyTasks.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<Map<String, Object>> getMyTask(){ return taskService.getMyTasks(); }
 }
