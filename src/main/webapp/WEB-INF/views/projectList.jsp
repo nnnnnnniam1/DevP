@@ -14,21 +14,15 @@
     <%@include file="sidebar.jsp"%>
 </head>
 <body>
-<div class="container">
-    <div class="">
+<div class="mw-100 container">
+    <div class="mx-4">
         <h1 class="">프로젝트 목록</h1>
         <div class="row">
-<%--            <c:forEach var="status" items="${statusarr}">--%>
-                <div class="col-md-4">
-<%--                    <div class = "m-2 card">--%>
-<%--                        <div class="card-header">--%>
-<%--                                ${status}--%>
-<%--                        </div>--%>
+                <div class="">
                         <c:forEach items="${projectList}" var="project">
-<%--                            <c:if test="${issue.status eq status}">--%>
                                 <div class="">
-                                    <div class="card wd-75 text-bg-light">
-                                        <a href="/project/detail.do?projectId=${project.projectId}" class="text-reset text-decoration-none">
+                                    <a href="/project/detail.do?projectId=${project.projectId}" class="text-reset text-decoration-none">
+                                        <div class="card wd-75 text-bg-light">
                                             <div class="card-header">${project.projectName}</div>
                                             <div class="card-body">
                                                 <small class="text-body-secondary">${project.role}</small>
@@ -39,37 +33,21 @@
                                                         <div style="width: ${project.projectProgress}%;" class="progress-bar" />
                                                     </div>
                                                 </div>
-                                                <div class="projectProgress">
+                                                <div class="memberProgress">
                                                     <span class="text-body-secondary">개인진행률</span>
                                                     <div class="progress">
                                                         <div style="width: ${project.memberProgress}%;" class="progress-bar" />
                                                     </div>
                                                 </div>
                                             </div>
-                                        </a>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                             <br>
-<%--                            </c:if>--%>
                         </c:forEach>
-<%--                    </div>--%>
                 </div>
-<%--            </c:forEach>--%>
         </div>
     </div>
 </div>
-<%--<div class="container">--%>
-<%--    <div class="list">--%>
-<%--    <c:forEach var="project" items ="${projectList}">--%>
-<%--        <div class="item">--%>
-<%--            <p>${project.projectName}</p>--%>
-<%--            <p>${project.position}</p>--%>
-<%--            <p>${project.role}</p>--%>
-<%--            <p>${project.projectProgress}</p>--%>
-<%--            <p>${project.memberProgress}</p>--%>
-<%--        </div>--%>
-<%--    </c:forEach>--%>
-<%--    </div>--%>
-<%--</div>--%>
 </body>
 </html>
