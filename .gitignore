@@ -178,4 +178,4 @@ mail.properties
 database.properties
 
 
-target/*
+target/
