@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <p class="projectName">${projectName}</p>
+        <p class="projectName">${project.projectName}</p>
         <div class="member-wrapper">
             <p class="manageMemberWrapper">멤버관리</p>
             <c:forEach items="${memberList}" var="member">

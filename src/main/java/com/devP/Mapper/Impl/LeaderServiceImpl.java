@@ -62,10 +62,8 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
-	public int addMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+	public int addLeader(MemberVO vo2, int projectId){
 		String leader = (String) session.getAttribute("id");
-		String project = vo.getProjectName();
-
 		UserVO leaderVO = new UserVO();
 		leaderVO.setId(leader);
 		leaderVO = userService.getUserById(leaderVO);
@@ -73,8 +71,15 @@ public class LeaderServiceImpl implements LeaderService {
 		vo2.setEmail(leaderVO.getEmail());
 		vo2.setUserId(leader);
 		vo2.setUserName(leaderVO.getName());
-		vo2.setProjectId(vo3.getProjectId());
+		vo2.setProjectId(projectId);
 		userService.insertMember(vo2);
+
+		return 200;
+	}
+	@Override
+	public int addMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+		String leader = (String) session.getAttribute("id");
+		String project = vo.getProjectName();
 
 		String[] memberArr = members.split(",");
 		System.out.println(memberArr[0]);
