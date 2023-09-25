@@ -19,9 +19,11 @@ public class IssueController {
 	@Autowired
 	private IssueService issueService;
 	
+	
 	//이슈 등록 페이지
 	@RequestMapping(value="/write.do", method= RequestMethod.GET)
-    public String issueView(){
+    public String issueView(@RequestParam int projectId, Model model){
+		model.addAttribute("projectId", projectId);
         return "issueWrite";
     }
 	
@@ -64,7 +66,7 @@ public class IssueController {
 	//이슈 수정
 	@RequestMapping(value="/modify.do", method= RequestMethod.POST)
     public String modifyIssue(@ModelAttribute IssueVO issue){
-		System.out.println(issue.getIssueId() + issue.getCategory() + issue.getContent() + issue.getTitle() + issue.getSendingEmail());
+		System.out.println(issue.getProjectId());
 		issueService.modifyIssue(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}

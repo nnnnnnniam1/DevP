@@ -26,7 +26,7 @@ String userId = (String) session.getAttribute("userId");
 				<c:if test = "${ issue.userId eq sessionScope.id}">
 		        <div class="d-flex flex-row-reverse">
 					<form id="solveForm" action="/issue/solve.do" method="post" class="my-0 mx-1">
-		  			  <input type="hidden" name="projectId" value = "1">
+		  			  <input type="hidden" name="projectId" value = "${ issue.projectId }">
 		  			  <input type="hidden" name="issueId" value = "${ issue.issueId }">
 				      <button type="submit" id = "solveButton" class="btn btn-primary">해결</button>
 				    </form>

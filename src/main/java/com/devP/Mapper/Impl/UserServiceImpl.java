@@ -111,4 +111,7 @@ public class UserServiceImpl implements UserService {
 	public UserVO getUserName(String userId){ return userDAO.getUserName(userId);}
 	@Override
 	public void insertMember(MemberVO vo){ memberDAO.insertMember(vo); }
+
+	@Override
+	public UserVO getUserById(UserVO vo){ return userDAO.getUserById(vo); }
 }

@@ -21,8 +21,6 @@ public interface ProjectService {
 	int getProjectProgress(ProjectVO vo);
 
 	MemberVO getMyProjectData(MemberVO vo);
-	
-//	int insertProject(ProjectVO vo);
 
 	int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
 

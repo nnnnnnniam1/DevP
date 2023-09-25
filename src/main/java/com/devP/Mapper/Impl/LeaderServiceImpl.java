@@ -63,34 +63,34 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int addMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
-		//MemberVO vo2;
 		String leader = (String) session.getAttribute("id");
 		String project = vo.getProjectName();
 
-//		int projectId = projectService.getProjectId(vo);
-//		vo3.setProjectId(projectId);
+		UserVO leaderVO = new UserVO();
+		leaderVO.setId(leader);
+		leaderVO = userService.getUserById(leaderVO);
+		vo2.setLeader(leader);
+		vo2.setEmail(leaderVO.getEmail());
+		vo2.setUserId(leader);
+		vo2.setUserName(leaderVO.getName());
+		vo2.setProjectId(vo3.getProjectId());
+		userService.insertMember(vo2);
+
 		String[] memberArr = members.split(",");
 		System.out.println(memberArr[0]);
-		//ProjectGroupVO.setProjectId(projectId);
 
 		for(int i=0; i<memberArr.length; i++) {
-			//System.out.println(memberArr[0]);
-			//System.out.println(members);
-			// 수락 상태를 확인할 token 발행
 			UserVO vo4= new UserVO();
 			vo4.setEmail(memberArr[i]);
 			String token = UUID.randomUUID().toString();
 			System.out.println("토근발행 = " + token);
 
 			UserVO member = userService.getUserDataEmail(vo4);
-			System.out.println(member.getName());
 			mailService.sendInvitedMail(leader, project, member.getName(), member.getEmail(), token);
-			System.out.println(member.getName());
 
-				vo2.setProjectId(vo3.getProjectId());
-				vo2.setUserId(member.getId());
-				System.out.println(vo2.getUserId());
-				vo2.setStatus(token);
+			vo2.setProjectId(vo3.getProjectId());
+			vo2.setUserId(member.getId());
+			vo2.setStatus(token);
 
 			try{
 				if (findMember(vo2) != null) {

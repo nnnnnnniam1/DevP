@@ -8,11 +8,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devP.Service.TaskService;
+import com.mysql.cj.Session;
 
 @Controller
 @RequestMapping("task")
@@ -27,4 +32,8 @@ public class TaskController {
 	    public List<Map<String, Object>> getTask(){
 	    return taskService.getTask();
   	}
+
+	@RequestMapping(value="/getMyTasks.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<Map<String, Object>> getMyTask(){ return taskService.getMyTasks(); }
 }

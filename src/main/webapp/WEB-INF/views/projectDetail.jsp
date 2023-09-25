@@ -4,6 +4,7 @@
 <%@ page session="true" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="sidebar.jsp"%>
@@ -14,9 +15,9 @@
     }
   </style>
   <script>
-    function sendGetRequest() {
+    /* function sendGetRequest() {
         window.location.href = '/issue/list.do?projectId=1';
-    }
+    } */
   </script>
 </head>
 <body>
@@ -46,18 +47,18 @@ String userId = (String) session.getAttribute("userId");
 						<small class="text-muted">지난 업무</small>
 					</div>
 					<div class="col-2">
-						<span>0</span>
+						<span>${pasttaskcount}</span>
 					</div>
 					<div class="col-10">
 						<small class="text-muted">진행 중인 업무</small>
 					</div>
 					<div class="col-2">
-						<span>0</span>
+						<span>${progresstaskcount}</span>
 					</div><div class="col-10">
 						<small class="text-muted">완료된 업무</small>
 					</div>
 					<div class="col-2">
-						<span>0</span>
+						<span>${completedtaskcount}</span>
 					</div>
 				</div>
 			</div>
@@ -65,25 +66,25 @@ String userId = (String) session.getAttribute("userId");
 	</div>
 	<div class = "row m-3">
 			<div class = "col-4 d-flex">
-				<div class="card w-100">
-					<div class="card-body">
+				<div class="card w-100" onclick="location.href='myTask.do'">
+					<div class="card-body">	
 					    <h5 class="card-title">Todo</h5>
-					    <a href="#" class="	">Card link</a><br>
-					    
-					    <a href="#" class="	">Card link</a><br>
-					    
-					    <a href="#" class="	">Card link</a><br>
+					    <c:forEach items="${myTask}" var="task">
+				                <div class="item">
+					                <small class="text-body-secondary">${task.title}</small>
+								</div>
+						</c:forEach>
 					  </div>
 				</div>
 			</div>
 			<div class = "col-8">
 				<div class = "row">
-					<a href="/issue/list.do?projectId=1" class="text-reset text-decoration-none">
-					</a>
 					<div class = "col-6 d-flex" style="min-height: 30vh">
 						<div class="card w-100" onclick="sendGetRequest()">
 								<div class="card-body">
-								    <h5 class="card-title">Issue</h5>
+									<a href="/issue/list.do?projectId=${projectId}" class="text-reset text-decoration-none">
+								    <h5 class="card-title">이슈</h5>
+									</a>
 								    <c:forEach items="${issueList}" var="issue">
 						                <div class="item">
 							                <a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">
@@ -97,8 +98,12 @@ String userId = (String) session.getAttribute("userId");
 					<div class = "col-6 d-flex">
 						<div class="card w-100">
 							<div class="card-body">
-							    <h5 class="card-title">Member</h5>
-							    <a href="#" class="card-link">Card link</a>
+							    <h5 class="card-title">멤버</h5>
+							    <c:forEach items="${memberList}" var="member">
+						                <div class="item">
+							                <small class="text-body-secondary">${member.userName} : ${member.role}</small>
+						                </div>
+							        </c:forEach>
 							  </div>
 						</div>
 					</div>

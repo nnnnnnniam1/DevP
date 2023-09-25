@@ -68,7 +68,7 @@
                                         <td>${task.detail}</td>
                                         <td>${task.progress}</td>
                                         <td>
-                                            <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/write.do'" />
+                                            <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/write.do?projectId=${project.projectId}'" />
                                         </td>
                                     </tr>
                                 </c:forEach>
