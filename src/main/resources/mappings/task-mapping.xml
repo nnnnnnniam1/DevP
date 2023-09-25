@@ -6,7 +6,7 @@
 	<select id="getTask" resultType="Task">
 		SELECT *
 		FROM task
-		WHERE userId = #{userId};
+		WHERE userId = #{userId} AND projectId = #{projectId};
 	</select>
 	<select id="getTaskList" resultType="Task">
 		SELECT t.taskId, t.userId, t.category, t.detail, t.progress, t.startDate, t.endDate, p.projectName

@@ -27,18 +27,15 @@
     </div>
   </div>
 </div>
-<%
-String username = (String) session.getAttribute("name");
-%>
 <div class="container">
 	<div class="issue-wrapper">
 		<div class="mt-5">
 	        <h1 class="mb-4">Moment 이슈 수정</h1>
 	        <form method="post" class="p-3" action="/issue/modify.do" id="issue-form">
-            	 <input class = "issueInput" type = "hidden" id="issueId" name="issueId" value = "${ issue.issueId }"><br>
-            	 <input class = "issueInput" type = "hidden" id="projectId" name="projectId" value = "1"><br>
-            	 <input class = "issueInput" type = "hidden" name="taskId" value = "${ issue.taskId }"><br>
-	             <div class="mb-3 row">
+            	 <input class = "issueInput" type = "hidden" id="issueId" name="issueId" value = "${issue.issueId}"><br>
+            	 <input class = "issueInput" type = "hidden" id="projectId" name="projectId" value = "${issue.projectId}"><br>
+            	 <%-- <input class = "issueInput" type = "text" name="taskId" value = "${ issue.taskId }"><br> --%>
+	             <div class="mb-3 row">	
 				    <label class="col-sm-2 col-form-label">프로젝트</label>
 				    <div class="col-sm-10">
 				      <input type="text" readonly class="form-control-plaintext" name="projectTitle" value="프로젝트">

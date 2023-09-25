@@ -3,9 +3,12 @@ package com.devP.Controller;
 import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
+import com.devP.Service.TaskService;
 import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
+import com.devP.VO.TaskVO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,11 @@ import javax.servlet.http.HttpSession;
 
 import static java.lang.System.out;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @SessionAttributes("project")
 @RequestMapping("project")
@@ -31,6 +39,9 @@ public class ProjectController {
 		
         @Autowired
         private ProjectService projectService;
+
+        @Autowired
+        private TaskService taskService;
 
         @Autowired
         private MailController mailController;
@@ -56,8 +67,12 @@ public class ProjectController {
   	    public String projectView(@RequestParam int projectId, Model model){
             if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
             session.setAttribute("projectId", projectId);
-            System.out.println(session.getAttribute("projectId"));
+            //이슈 리스트 가져오기
   			issueService.getIssuelist(projectId, model);
+  			//멤버 리스트 가져오기
+  			model.addAttribute("memberList", projectService.getProjectMemberList(projectId));
+  			model.addAttribute("myTask", taskService.getTask());
+  			taskService.getTaskCount(model);
   	        return "projectDetail";
       	}
 
@@ -90,5 +105,11 @@ public class ProjectController {
         @RequestMapping(value="/gant.do", method = RequestMethod.GET)
         public String gantChartView(){
                 return "gantChart";
+        }
+        
+        //멤버 가져오기
+        @RequestMapping(value="/getTeam.do", method = RequestMethod.GET)
+        public String getTeamView(){
+                return "member";
         }
 }

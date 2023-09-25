@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.util.List;
 
 @Service("projectService")

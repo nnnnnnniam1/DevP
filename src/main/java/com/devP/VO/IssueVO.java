@@ -7,7 +7,7 @@ public class IssueVO {
 	private Integer issueId;
 	private int projectId;
 	private String userId;
-	private int taskId;
+	private Integer taskId;
 	private String title;
 	private String category;
 	private String status;
@@ -47,7 +47,7 @@ public class IssueVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getTaskId() {
+	public Integer getTaskId() {
 		return taskId;
 	}
 	public void setTaskId(int taskId) {

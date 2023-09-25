@@ -15,11 +15,9 @@ public class TaskDAOMybatis {
 
     @Autowired
     private SqlSessionTemplate mybatis;
-
-    public int getTask(TaskVO vo) {return mybatis.selectOne("TaskDAO.getTask", vo);}
     
-    public List<TaskVO> getTask(String userId) {
-    	return mybatis.selectList("TaskDAO.getTask", userId);
+    public List<TaskVO> getTask(TaskVO task) {
+    	return mybatis.selectList("TaskDAO.getTask", task);
     }
 
     public List<TaskListVO> getUserTaskList(String userId){
