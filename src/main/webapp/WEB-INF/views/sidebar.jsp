@@ -50,12 +50,12 @@
 	<hr>
 	<ul class="navbar-nav flex-column mt-4">
       <li class="nav-item">
-        <a href="/project/detail.do?projectId=1" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu1">
+        <a href="/project/detail.do?projectId=" + ${ projectId } class="nav-link p-3 mb-2 sidebar-link link-dark" id="projectMenu">
 	          <i class="bi bi-receipt-cutoff mx-3"></i>프로젝트
         </a>
       </li>
       <li>
-        <a href="/project/myTask.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu2">
+        <a href="/project/myTask.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="taskMenu">
           <i class="bi bi-list-task mx-3"></i></i>업무
         </a>
       </li>
@@ -70,7 +70,7 @@
         </a>
       </li>
       <li>
-        <a href="/issue/list.do?projectId=1" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu5">
+        <a href="/issue/list.do?projectId=" + ${ projectId } class="nav-link p-3 mb-2 sidebar-link link-dark" id="issueMenu">
           <i class="bi bi-newspaper mx-3"></i>이슈
         </a>
       </li>
@@ -83,38 +83,23 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script>
-	//메뉴를 클릭할 때 호출되는 함수
-	function handleMenuClick(event) {
-	    const clickedMenuID = event.target.id; // 클릭된 메뉴의 ID
-	    Cookies.set('currentMenuID', clickedMenuID); // 클릭된 메뉴의 ID를 쿠키에 저장
-	
-	    // 모든 메뉴 항목에서 current 클래스 제거
-	    document.querySelectorAll('.nav-link').forEach(link => {
-	        link.classList.remove('current');
-	    });
-	
-	    // 클릭한 메뉴에 current 클래스 추가
-	    event.target.classList.add('current');
-	}
-	
+
+	console.log("${menuId}");
 	// 페이지가 로드될 때 호출
 	window.addEventListener('load', function () {
-	    // 저장된 메뉴 ID를 쿠키에서 읽어옴
-	    const savedMenuID = Cookies.get('currentMenuID');
-		
 	    // 저장된 메뉴 ID가 있을 경우 해당 메뉴에 current 클래스 추가
-	    if (savedMenuID) {
-	        const savedMenu = document.getElementById(savedMenuID);
+	    if ("${menuId}") {
+	        const savedMenu = document.getElementById("${menuId}");
 	        if (savedMenu) {
 	            savedMenu.classList.add('current');
 	        }
 	    }
-	
-	    // 메뉴 항목에 클릭 이벤트 리스너 추가
-	    document.querySelectorAll('.nav-link').forEach(link => {
-	        link.addEventListener('click', handleMenuClick);
-	    });
 	});
+	  var projectId = ${projectId}; // 서버에서 생성된 값으로 설정
+	  var link = "/project/detail.do?projectId=" + projectId;
+	  document.getElementById("projectMenu").href = link; // 링크 엘리먼트의 href 속성 설정
+	  var link = "/issue/list.do?projectId=" + projectId;
+	  document.getElementById("issueMenu").href = link; // 링크 엘리먼트의 href 속성 설정
     </script>
 </body>
 </html>

@@ -67,6 +67,7 @@ public class ProjectController {
         //프로젝트 상세
         @RequestMapping(value="/detail.do", method= RequestMethod.GET)
   	    public String projectView(@RequestParam int projectId, Model model){
+    		model.addAttribute("menuId", "projectMenu");
             if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
             session.setAttribute("projectId", projectId);
             //이슈 리스트 가져오기
@@ -80,7 +81,7 @@ public class ProjectController {
 
         @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
         public String insertProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
-                if(projectService.insertProject(vo, vo2, vo3) == 200) return "redirect: /project/list.do";
+    		    if(projectService.insertProject(vo, vo2, vo3) == 200) return "redirect: /project/list.do";
                 else if(projectService.insertProject(vo, vo2, vo3) == 405) return "redirect: /project/insertProject.do";
                 return null;
         }
@@ -88,7 +89,7 @@ public class ProjectController {
         //프로젝트 목록
         @RequestMapping(value = "/list.do", method = RequestMethod.GET)
         public String projectList(Model model) {
-                if(projectService.getProjectList(model) == 200){
+    		     if(projectService.getProjectList(model) == 200){
                         return "projectList";
                 } else if (projectService.getProjectList(model) == 405) {
                         return "login";
@@ -122,5 +123,4 @@ public class ProjectController {
         public String getTeamView(){
                 return "member";
         }
-
 }
