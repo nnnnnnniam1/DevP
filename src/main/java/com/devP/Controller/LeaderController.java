@@ -57,8 +57,8 @@ public class LeaderController {
     }
 
     @RequestMapping(value="/project/leader.do", method=RequestMethod.GET)
-    public String leaderDetailView(ProjectVO vo, Model model){
-        vo.setProjectId(1);
+    public String leaderDetailView(@RequestParam int projectId, ProjectVO vo, Model model){
+        vo.setProjectId(projectId);
         leaderService.getLeaderView(vo, model);
         // projectService.getProjectName(vo);
         // projectService.getProjectProgress(vo);

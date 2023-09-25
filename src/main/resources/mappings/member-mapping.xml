@@ -61,12 +61,16 @@
             pg.projectId,
             u.name AS userName,
             u.id AS userId,
+            CASE WHEN
+                p.leader = userId THEN 'Y'
+                ELSE '' END AS leader,
             pg.position,
             pg.role,
             pg.progress,
             pg.status
         FROM projectgroup AS pg
         JOIN user AS u ON pg.userId = u.id
+        JOIN project AS p ON pg.projectId = p.projectId
         WHERE pg.projectId = #{projectId} AND pg.status = '1' AND u.id = #{userId};
     </select>
 

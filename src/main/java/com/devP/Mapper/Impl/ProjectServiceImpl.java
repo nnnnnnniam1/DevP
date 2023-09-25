@@ -69,6 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
                 //session.removeAttribute("projectName");
                 //session.setAttribute("projectName", vo.getProjectName());
                 vo3.setProjectId(getProjectId(vo));
+                leaderService.addLeader(vo2,vo3.getProjectId());
                 leaderService.addMember(members, vo, vo2, vo3);
                 return 200;
             }
@@ -93,7 +94,9 @@ public class ProjectServiceImpl implements ProjectService {
             vo.setUserId(userId);
 //            List<ProjectListVO> vo2 = projectDAO.getProjectList(vo);
 //            System.out.println(vo2.getProjectName());
-            model.addAttribute("projectList", projectDAO.getProjectList(vo));
+
+            model.addAttribute("projectList", projectDAO.getProjectList(userId));
+
             return 200;
         }else {
             return 405;

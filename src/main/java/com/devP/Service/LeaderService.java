@@ -17,6 +17,8 @@ public interface LeaderService {
 
     int getMemberList(MemberVO vo, Model model);
 
+    int addLeader(MemberVO vo,int projectId);
+
     int addMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
 
     MemberVO findMember(MemberVO vo);

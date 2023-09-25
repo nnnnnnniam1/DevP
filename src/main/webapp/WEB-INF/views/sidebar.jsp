@@ -5,7 +5,9 @@
   Time: 3:09 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -38,6 +40,11 @@
 			box-shadow: 2px 5px 20px #D3D3D3;
 			transform: translateY(-1px);
 		}
+		#logoLabel {
+            font-style: bold;
+            font-size: 24px;
+            padding-left: 5px;
+        }
 	</style>
 </head>
 <body>
@@ -45,6 +52,7 @@
 	<div class="align-items-center">
 		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" id="home">
     		<img src="/resources/image/dogfootprint.png" width="15%" height="100%">
+    		<span id="logoLabel">DevP</span>
 		</a>
 	</div>
 	<hr>
@@ -60,7 +68,7 @@
         </a>
       </li>
       <li>
-        <a href="/project/member.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu3">
+        <a href="/project/member.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="memberMenu">
           <i class="bi bi-people-fill mx-3"></i>멤버
         </a>
       </li>
@@ -79,6 +87,15 @@
           <i class="bi bi-check-circle-fill mx-3"></i>한 일
         </a>
       </li>
+      <!--
+      <c:if test="${!empty myData.leader}">
+        <li>
+            <a href="/project/leader.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                <i class="bi bi-check-circle-fill mx-3"></i>리더
+            </a>
+        </li>
+      </c:if>
+      -->
     </ul>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
