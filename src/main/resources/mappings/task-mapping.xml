@@ -8,4 +8,14 @@
 		FROM task
 		WHERE userId = #{userId};
 	</select>
+	<!--  모든사람 프로젝트 업무리스트	-->
+	<select id="getProjectTaskList" resultType="Task">
+		SELECT * FROM task WHERE projectId = #{projectId};
+	</select>
+
+	<!--  해당프로젝트의 본인 업무 가져오기	-->
+	<select id="getMyProjectTaskList" resultType="Task">
+		SELECT * FROM task WHERE projectId = #{projectId} AND userId = #{userId};
+	</select>
+
 </mapper>

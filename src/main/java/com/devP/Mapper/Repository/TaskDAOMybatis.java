@@ -20,4 +20,8 @@ public class TaskDAOMybatis {
     public List<TaskVO> getTask(String userId) {
     	return mybatis.selectList("TaskDAO.getTask", userId);
     }
+
+    public List<TaskVO> getProjectTaskList(int projectId){ return mybatis.selectList("TaskDAO.getProjectTaskList",projectId); }
+
+    public List<TaskVO> getMyProjectTaskList(TaskVO vo) { return mybatis.selectList("TaskDAO.getMyProjectTaskList", vo); }
 }

@@ -9,4 +9,9 @@ import com.devP.VO.TaskVO;
 public interface TaskService {
 	
 	List<Map<String, Object>> getTask();
+
+	List<TaskVO> getProjectTaskList(int projectId);
+
+	List<TaskVO> getMyProjectTaskList(TaskVO vo);
+
 }

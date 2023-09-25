@@ -30,12 +30,12 @@
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-dark">
+        <a href="/project/myTask.do" class="nav-link link-dark">
           	업무
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-dark">
+        <a href="/project/member.do" class="nav-link link-dark">
           	멤버
         </a>
       </li>

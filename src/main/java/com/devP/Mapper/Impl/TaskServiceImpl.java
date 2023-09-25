@@ -50,4 +50,16 @@ public class TaskServiceImpl implements TaskService {
 		}
 		return resultList;
 	}
+
+	@Override
+	public List<TaskVO> getProjectTaskList(int projectId){
+		return taskDAO.getProjectTaskList(projectId);
+	}
+
+	@Override
+	public List<TaskVO> getMyProjectTaskList(TaskVO vo){
+		return taskDAO.getMyProjectTaskList(vo);
+	}
+
+
 }

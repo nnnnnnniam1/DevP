@@ -3,9 +3,11 @@ package com.devP.Controller;
 import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.ProjectService;
+import com.devP.Service.TaskService;
 import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
+import com.devP.VO.TaskVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
 
 import static java.lang.System.out;
 
@@ -31,6 +35,9 @@ public class ProjectController {
 		
         @Autowired
         private ProjectService projectService;
+
+        @Autowired
+        private TaskService taskService;
 
         @Autowired
         private MailController mailController;
@@ -80,15 +87,27 @@ public class ProjectController {
         }
 
         @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
-        public String myTaskView(ProjectVO project, MemberVO member, Model model) throws Exception {
-                int result = projectService.showTaskView(project, member,model);
-                if(result == 200) return "task";
-                else return "redirect:/login.do";
+        public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
+                int result = projectService.showTaskView(project, member, task, model);
+
+                return "task";
+        }
+
+        @RequestMapping(value="/getTask.do", method = RequestMethod.GET)
+        public List<TaskVO> getTaskList() {
+                List<TaskVO> result = taskService.getProjectTaskList(Integer.parseInt(session.getAttribute("projectId").toString()));
+                return result;
         }
 
 
         @RequestMapping(value="/gant.do", method = RequestMethod.GET)
         public String gantChartView(){
                 return "gantChart";
+        }
+
+        @RequestMapping(value="/member.do", method = RequestMethod.GET)
+        public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
+                int result = projectService.showProjectMemberList(vo, model);
+                return "member";
         }
 }
