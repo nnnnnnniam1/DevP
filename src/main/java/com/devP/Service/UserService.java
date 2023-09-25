@@ -28,6 +28,7 @@ public interface UserService {
 
     void insertMember(MemberVO vo);
 
+    UserVO getUserById(UserVO vo);
 
 
 
