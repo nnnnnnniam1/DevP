@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.util.List;
+
 import static java.lang.System.out;
 
 import java.text.SimpleDateFormat;
@@ -95,10 +97,10 @@ public class ProjectController {
         }
 
         @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
-        public String myTaskView(ProjectVO project, MemberVO member, Model model) throws Exception {
-                int result = projectService.showTaskView(project, member,model);
+        public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
+                int result = projectService.showTaskView(project, member, task, model);
                 if(result == 200) return "task";
-                else return "redirect:/login.do";
+                else return "man";
         }
 
 
@@ -106,10 +108,19 @@ public class ProjectController {
         public String gantChartView(){
                 return "gantChart";
         }
-        
+
+        @RequestMapping(value="/member.do", method = RequestMethod.GET)
+        public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
+                int result = projectService.showProjectMemberList(vo, model);
+
+                if (result == 200) return "member";
+                else return "main";
+        }
+
         //멤버 가져오기
         @RequestMapping(value="/getTeam.do", method = RequestMethod.GET)
         public String getTeamView(){
                 return "member";
         }
+
 }

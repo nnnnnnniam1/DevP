@@ -28,7 +28,34 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private HttpSession session;
 
-
+	@Override
+	public List<Map<String, Object>> getMyTasks() {
+		List<TaskVO> voList = new ArrayList<TaskVO>();
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		try {
+			TaskVO task = new TaskVO();
+			task.setUserId(session.getAttribute("id").toString());
+			task.setProjectId((int) session.getAttribute("projectId"));
+			voList = taskDAO.getMyTask(task);
+		}catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		for (TaskVO vo : voList) {
+			Map<String, Object> result = new HashMap<>();
+//    		String formattedstartDate = dateFormat.format(vo.getStartdate());
+//    		String formattedendDate = dateFormat.format(vo.getEnddate());
+			result.put("taskId", vo.getTaskId());
+			result.put("title", vo.getDetail());
+			result.put("progress", vo.getProgress());
+			result.put("start", vo.getStartdate());
+			result.put("end", vo.getEnddate());
+			result.put("allday", true);
+			resultList.add(result);
+		}
+		return resultList;
+	}
 	@Override
 	public List<Map<String, Object>> getTask() {
 		List<TaskVO> voList = new ArrayList<TaskVO>();
@@ -45,13 +72,13 @@ public class TaskServiceImpl implements TaskService {
     	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     	for (TaskVO vo : voList) {
         	Map<String, Object> result = new HashMap<>();
-    		String formattedstartDate = dateFormat.format(vo.getStartdate());
-    		String formattedendDate = dateFormat.format(vo.getEnddate());
+//    		String formattedstartDate = dateFormat.format(vo.getStartdate());
+//    		String formattedendDate = dateFormat.format(vo.getEnddate());
             result.put("taskId", vo.getTaskId());
             result.put("title", vo.getDetail());
             result.put("progress", vo.getProgress());
-            result.put("start", formattedstartDate);
-            result.put("end", formattedendDate);
+            result.put("start", vo.getStartdate());
+            result.put("end", vo.getEnddate());
             result.put("allday", true);
             resultList.add(result);
 		}
@@ -59,6 +86,14 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
+	public List<TaskVO> getProjectTaskList(int projectId){
+		return taskDAO.getProjectTaskList(projectId);
+	}
+
+	@Override
+	public List<TaskVO> getMyProjectTaskList(TaskVO vo){
+		return taskDAO.getMyProjectTaskList(vo);
+	}
 	public int getUserTaskList(Model model){
 		if(session.getAttribute("id") != null) {
 			String userId = (String) session.getAttribute("id");
@@ -71,10 +106,6 @@ public class TaskServiceImpl implements TaskService {
 		}
 	}
 
-	@Override
-	public List<TaskListVO> getTaskList(Model model) {
-		return null;
-	}
 
 
 	@Override
@@ -86,7 +117,7 @@ public class TaskServiceImpl implements TaskService {
 		task.setProjectId((int) session.getAttribute("projectId"));
 		voList = taskDAO.getTask(task);
 		for (TaskVO vo: voList) {
-			if(vo.getEnddate().compareTo(new Date()) > 0){
+			if(vo.getEnddate().compareTo(String.valueOf(new Date())) > 0){
 				pastcount++;
 			}
 			else if(vo.getProgress() >= 0 && vo.getProgress() < 100) {

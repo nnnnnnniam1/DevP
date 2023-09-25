@@ -52,7 +52,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <h5 class="card-title">달력</h5>
-                <%@include file="calendar.jsp"%>
+                <%@include file="mainCalendar.jsp"%>
             </div>
         </div>
     </div>
