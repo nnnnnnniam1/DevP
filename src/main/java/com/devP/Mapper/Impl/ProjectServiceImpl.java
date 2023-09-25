@@ -69,6 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
                 //session.removeAttribute("projectName");
                 //session.setAttribute("projectName", vo.getProjectName());
                 vo3.setProjectId(getProjectId(vo));
+                leaderService.addLeader(vo2,vo3.getProjectId());
                 leaderService.addMember(members, vo, vo2, vo3);
                 return 200;
             }

@@ -39,6 +39,9 @@ String userId = (String) session.getAttribute("userId");
 		        </c:otherwise>
             </c:choose>
 			<span class="badge rounded-pill bg-light text-dark">${myData.role}</span>
+			<c:if test="${not empty myData.leader}">
+                <div onclick="location.href='/project/leader.do?projectId=${project.projectId}'">Leader</div>
+			</c:if>
 		</div>
 			<div class="progress mb-2">
 			  <div class="progress-bar bg-warning" role="progressbar" style="width: ${project.progress}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>

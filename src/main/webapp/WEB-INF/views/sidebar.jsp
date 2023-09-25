@@ -5,7 +5,9 @@
   Time: 3:09 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -85,6 +87,15 @@
           <i class="bi bi-check-circle-fill mx-3"></i>한 일
         </a>
       </li>
+      <!--
+      <c:if test="${!empty myData.leader}">
+        <li>
+            <a href="/project/leader.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                <i class="bi bi-check-circle-fill mx-3"></i>리더
+            </a>
+        </li>
+      </c:if>
+      -->
     </ul>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
