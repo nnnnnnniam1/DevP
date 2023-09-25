@@ -21,7 +21,7 @@
     </div>
     <div class="calender">
         <c:forEach items="${taskList}" var="task">
-            <div class="text-bg-light">
+            <div class="mx-4 my-4">
 <%--                <a href="/task/detail.do?taskId=${task.taskId}" class="text-reset text-decoration-none">--%>
 <%--                    <div class="">${task.projectName}</div>--%>
                     <div class="">
@@ -38,7 +38,7 @@
     </div>
     <div class="issue">
         <c:forEach items="${issueList}" var="issue">
-                    <div class="text-bg-light">
+                    <div class="mx-4 my-4">
                         <a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">
                             <div class="">${issue.title}</div>
                             <div class="">
