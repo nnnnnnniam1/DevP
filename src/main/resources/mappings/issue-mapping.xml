@@ -15,6 +15,12 @@
 		JOIN user u ON i.userId = u.id
 		WHERE i.projectId = #{projectId};
 	</select>
+
+	<select id="userIssueList" resultType="Issue">
+		SELECT i.title, i.status, i.date, i.issueId
+		FROM issue i
+		WHERE i.userId = #{userId};
+	</select>
 	
 	<delete id="deleteIssue">
 		delete from issue where issueId = #{issueId}

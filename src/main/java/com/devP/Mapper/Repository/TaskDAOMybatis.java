@@ -1,6 +1,7 @@
 package com.devP.Mapper.Repository;
 
 import com.devP.VO.IssueVO;
+import com.devP.VO.TaskListVO;
 import com.devP.VO.TaskVO;
 
 import java.util.List;
@@ -17,5 +18,9 @@ public class TaskDAOMybatis {
     
     public List<TaskVO> getTask(TaskVO task) {
     	return mybatis.selectList("TaskDAO.getTask", task);
+    }
+
+    public List<TaskListVO> getUserTaskList(String userId){
+        return mybatis.selectList("TaskDAO.getTaskList", userId);
     }
 }

@@ -1,21 +1,38 @@
 package com.devP.Controller;
 
+import com.devP.Service.IssueService;
+import com.devP.Service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class CommonController {
+
+    @Autowired
+    private IssueService issueService;
+    @Autowired
+    private TaskService taskService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String mainView(HttpServletRequest request) {
+    public String mainView(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         String userId = (String)session.getAttribute("id");
         session.setAttribute("title", logincheck(userId, request));
 
-        if(session.getAttribute("id")!=null) return "main";
+        if(session.getAttribute("id")!=null) {
+            issueService.getUserIssueList(model);
+            if(taskService.getUserTaskList(model) == 200) {
+                return "main";
+            }
+            return null;
+        }
         else return "login";
     }
 
