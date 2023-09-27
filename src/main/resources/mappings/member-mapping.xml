@@ -63,7 +63,7 @@
             u.id AS userId,
             CASE WHEN
                 p.leader = userId THEN 'Y'
-                ELSE '' END AS leader,
+            ELSE '' END AS leader,
             pg.position,
             pg.role,
             pg.progress,
