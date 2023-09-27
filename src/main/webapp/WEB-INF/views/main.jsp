@@ -13,6 +13,7 @@
 <div class="mw-100 container">
     <div class="main-text">
         ${title}
+
         <button type="button" class="visually-hidden"
                 <c:if test="${login eq '로그인'}"> onclick="location.href='login.do'"</c:if>
                 <c:if test="${login eq '로그아웃'}"> onclick="location.href='logout.do'"</c:if>>
