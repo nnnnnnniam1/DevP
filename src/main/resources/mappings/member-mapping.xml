@@ -23,8 +23,8 @@
     </select>
     <!-- 프로젝트 멤버추가   -->
     <insert id="insertMember">
-        INSERT into projectgroup( projectId, userId, status)
-        VALUES (#{projectId},#{userId},#{status})
+        INSERT into projectgroup( projectId, userId, status, leader)
+        VALUES (#{projectId},#{userId},#{status},#{leader})
     </insert>
 
     <!-- 이전에 삭제된 멤버 다시 추가 -->
@@ -61,9 +61,7 @@
             pg.projectId,
             u.name AS userName,
             u.id AS userId,
-            CASE WHEN
-                p.leader = userId THEN 'Y'
-                ELSE '' END AS leader,
+            pg.leader,
             pg.position,
             pg.role,
             pg.progress,

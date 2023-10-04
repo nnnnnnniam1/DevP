@@ -68,8 +68,7 @@ public class LeaderController {
 
     @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
     public String manageMemberView(MemberVO vo, Model model){
-        vo.setProjectId(1); //임시
-        session.setAttribute("projectId", vo.getProjectId());
+        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         int result = leaderService.getMemberList(vo, model);
         if (result == 200) return "manageMember";
         else return "redirect:/login.do";
