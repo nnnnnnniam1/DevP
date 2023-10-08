@@ -68,8 +68,7 @@
             pg.status
         FROM projectgroup AS pg
         JOIN user AS u ON pg.userId = u.id
-        JOIN project AS p ON pg.projectId = p.projectId
-        WHERE pg.projectId = #{projectId} AND pg.status = '1' AND u.id = #{userId};
+        WHERE pg.projectId = #{projectId} AND u.id = #{userId};
     </select>
 
     <!--  프로젝트 - 멤버페이지  -->

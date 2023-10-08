@@ -27,7 +27,7 @@ String userId = (String) session.getAttribute("userId");
 %>
 <div class="container">
 	<h1 class="my-5">${project.projectName}
-	    <c:if test="${not empty myData.leader}">
+	    <c:if test="${myData.leader==myData.userId}">
             <button class="btn btn-outline-success" type="button" onclick="location.href='/project/leader.do?projectId=${project.projectId}'">leader</button>
         </c:if>
 	</h1>
