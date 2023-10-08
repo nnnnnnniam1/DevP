@@ -50,9 +50,9 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int getMemberList(MemberVO vo, Model model){
-		vo.setProjectId(1);
+		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
 		ProjectVO project = new ProjectVO();		//임시
-		project.setProjectId(1);					//임시
+		project.setProjectId(vo.getProjectId());					//임시
 		session.setAttribute("projectId",project.getProjectId());	//임시
 		session.setAttribute("projectName",projectService.getProjectName(project));	//임시
 		model.addAttribute("memberList", memberDAO.getMemberList(vo.getProjectId()));

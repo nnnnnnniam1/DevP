@@ -58,7 +58,6 @@
     <!--  프로젝트 - 업무페이지  -->
     <select id="getMyProjectData" resultType="Member">
         SELECT
-            pg.projectId,
             u.name AS userName,
             u.id AS userId,
             pg.leader,

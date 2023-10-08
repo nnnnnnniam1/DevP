@@ -73,14 +73,13 @@ public class ProjectController {
             vo.setProjectId(projectId);
             member.setProjectId(projectId);
             member.setUserId(session.getAttribute("id").toString());
-            member = projectService.getMyProjectData(member);
 
                 // 프로젝트 데이터 가져오기
             //이슈 리스트 가져오기
   			issueService.getIssuelist(projectId, model);
   			//멤버 리스트 가져오기
             model.addAttribute("project",projectService.getProject(vo));
-            model.addAttribute("myData",member);
+            model.addAttribute("myData",projectService.getMyProjectData(member));
   			model.addAttribute("memberList", projectService.getProjectMemberList(projectId));
   			model.addAttribute("myTask", taskService.getTask());
   			taskService.getTaskCount(model);

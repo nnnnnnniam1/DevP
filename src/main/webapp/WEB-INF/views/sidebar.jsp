@@ -45,6 +45,16 @@
             font-size: 24px;
             padding-left: 5px;
         }
+        .logoutBtn {
+            position: fixed;
+            bottom: 0;
+            left: 0; /* Optional: 위치를 왼쪽 끝에 고정하려면 추가 */
+            //width: 100%; /* Optional: 너비를 가득 채우려면 추가 */
+            //background-color: #333; /* 버튼 배경색 설정 */
+            //color: #fff; /* 버튼 텍스트 색 설정 */
+            padding: 10px 0; /* 버튼 패딩 설정 */
+            text-align: center; /* 버튼 텍스트 가운데 정렬 설정 */
+        }
 	</style>
 </head>
 <body>
@@ -97,6 +107,8 @@
       </c:if>
       -->
     </ul>
+    <button class="btn btn-outline-success logoutBtn" type="button" onclick="location.href='/logout.do'">Logout</button>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script>
