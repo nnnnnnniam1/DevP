@@ -66,8 +66,8 @@ public class ProjectServiceImpl implements ProjectService {
             if(vo.getEmail()!="") {
                 String members = vo.getEmail();
                 projectDAO.insertProject(vo, vo2, vo3);
-                //session.removeAttribute("projectName");
-                //session.setAttribute("projectName", vo.getProjectName());
+                session.removeAttribute("projectName");
+                session.setAttribute("projectName", vo.getProjectName());
                 vo3.setProjectId(getProjectId(vo));
                 leaderService.addLeader(vo2,vo3.getProjectId());
                 leaderService.addMember(members, vo, vo2, vo3);
