@@ -36,4 +36,7 @@ public class ProjectDAOMybatis {
     public List<ProjectListVO> getProjectList(String userId) {
         return mybatis.selectList("ProjectDAO.getProjectList", userId);
     }
+
+    public List<String> getMemberNames(int projectId){return mybatis.selectList("ProjectDAO.getMemberNames", projectId);}
+
 }

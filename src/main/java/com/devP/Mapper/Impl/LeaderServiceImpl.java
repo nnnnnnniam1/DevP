@@ -1,6 +1,8 @@
 package com.devP.Mapper.Impl;
 
 import com.devP.Mapper.Repository.MemberDAOMybatis;
+import com.devP.Mapper.Repository.ProjectDAOMybatis;
+import com.devP.Mapper.Repository.TaskDAOMybatis;
 import com.devP.Service.*;
 import com.devP.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,11 @@ import java.util.*;
 public class LeaderServiceImpl implements LeaderService {
 	@Autowired
 	private MemberDAOMybatis memberDAO;
+
+	@Autowired
+	private ProjectDAOMybatis projectDAO;
+	@Autowired
+	private TaskDAOMybatis taskDAO;
 
 	@Autowired
 	private MailService mailService;
@@ -181,7 +188,7 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int getTaskDatas(TaskVO vo, Model model){
-		List<String> memberList = memberDAO.getMemberNames(vo.getProjectId());
+		List<String> memberList = projectDAO.getMemberNames(vo.getProjectId());
 		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
 		vo.setUserId(session.getAttribute("id").toString());
 		model.addAttribute("taskList",taskService.getMyProjectTaskList(vo));
@@ -198,6 +205,16 @@ public class LeaderServiceImpl implements LeaderService {
 		vo.setUserId(session.getAttribute("id").toString());
 		taskService.addTask(vo);
 		return 200;
+	}
+	@Override
+	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
+
+		for(TaskVO vo : TaskVOList){
+			taskDAO.updateTaskDatas(vo);
+		}
+
+		return 200;
+
 	}
 
 }
