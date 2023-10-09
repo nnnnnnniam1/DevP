@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDAO">
+
+    <!-- 프로젝트참여멤버리스트 가져오기   -->
     <resultMap id="idAndNameResultMap" type="java.util.Map">
         <result property="idAndName" column="idAndName"/>
     </resultMap>
@@ -14,6 +16,7 @@
         ON t.userId = u.id
         WHERE t.projectId = #{projectId}
     </select>
+
 
     <!--  리더 - 멤버페이지  -->
 
@@ -34,8 +37,8 @@
     </select>
     <!-- 프로젝트 멤버추가   -->
     <insert id="insertMember">
-        INSERT into projectgroup( projectId, userId, status)
-        VALUES (#{projectId},#{userId},#{status})
+        INSERT into projectgroup( projectId, userId, status, leader)
+        VALUES (#{projectId},#{userId},#{status},#{leader})
     </insert>
 
     <!-- 이전에 삭제된 멤버 다시 추가 -->
@@ -69,20 +72,16 @@
     <!--  프로젝트 - 업무페이지  -->
     <select id="getMyProjectData" resultType="Member">
         SELECT
-            pg.projectId,
             u.name AS userName,
             u.id AS userId,
-            CASE WHEN
-                p.leader = u.id THEN 'Y'
-            ELSE '' END AS leader,
+            pg.leader,
             pg.position,
             pg.role,
             pg.progress,
             pg.status
         FROM projectgroup AS pg
         JOIN user AS u ON pg.userId = u.id
-        JOIN project AS p ON pg.projectId = p.projectId
-        WHERE pg.projectId = #{projectId} AND pg.status = '1' AND u.id = #{userId};
+        WHERE pg.projectId = #{projectId} AND u.id = #{userId};
     </select>
 
     <!--  프로젝트 - 멤버페이지  -->

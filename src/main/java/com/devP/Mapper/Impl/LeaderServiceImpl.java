@@ -67,14 +67,10 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int addLeader(MemberVO vo2, int projectId){
-		String leader = (String) session.getAttribute("id");
-		UserVO leaderVO = new UserVO();
-		leaderVO.setId(leader);
-		leaderVO = userService.getUserById(leaderVO);
+		String leader = session.getAttribute("id").toString();
+		vo2.setStatus("1");
 		vo2.setLeader(leader);
-		vo2.setEmail(leaderVO.getEmail());
 		vo2.setUserId(leader);
-		vo2.setUserName(leaderVO.getName());
 		vo2.setProjectId(projectId);
 		userService.insertMember(vo2);
 

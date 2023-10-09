@@ -21,9 +21,6 @@ public class ProjectDAOMybatis {
         return mybatis.selectOne("ProjectDAO.getProjectId", vo);
     }
 
-    public void insertProject(ProjectVO vo) {
-    }
-
     public ProjectVO getProject(ProjectVO vo) {
         return mybatis.selectOne("ProjectDAO.getProject", vo);
     }

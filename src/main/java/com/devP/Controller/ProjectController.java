@@ -74,10 +74,7 @@ public class ProjectController {
             member.setProjectId(projectId);
             member.setUserId(session.getAttribute("id").toString());
 
-            System.out.println(member);
-            System.out.println(projectService.getMyProjectData(member).getLeader());
-
-            // 프로젝트 데이터 가져오기
+                // 프로젝트 데이터 가져오기
             //이슈 리스트 가져오기
   			issueService.getIssuelist(projectId, model);
   			//멤버 리스트 가져오기
