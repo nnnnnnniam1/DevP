@@ -34,6 +34,5 @@ public class TaskDAOMybatis {
     public void insertTask(TaskVO vo){ mybatis.insert("TaskDAO.insertTask",vo);}
 
     public void updateTaskDatas(TaskVO vo){
-        System.out.println(vo.getStartdate());
         mybatis.update("TaskDAO.updateTaskDatas", vo); }
 }

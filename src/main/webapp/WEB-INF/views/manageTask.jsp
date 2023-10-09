@@ -15,6 +15,16 @@
     <p class="projectName">${projectName}</p>
     <p class="semiTitle">업무 수정</p>
     <div class="manage-wrapper">
+        <div class="manageMemberWrapper">
+            <div class="col-auto">
+                <label class="formLabel col-form-label">업무추가</label>
+            </div>
+            <div class="wbsWrapper">
+                <div id="chart_div"></div>
+            </div>
+        </div>
+    </div>
+    <div class="manage-wrapper">
         <div class="addMember">
             <div class="manageMemberWrapper">
                 <div class="col-auto">
@@ -95,6 +105,7 @@
                             <tbody>
                                 <c:forEach items="${taskList}" var="task" varStatus="loop">
                                     <td><input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}"></td>
+                                    <td><input type="hidden" name="taskVOList[${loop.index}].projectId" value="${task.projectId}"></td>
                                     <tr>
                                         <td>
                                             <select class="form-select" name="taskVOList[${loop.index}].category">
@@ -110,7 +121,7 @@
                                         <td><input class="form-control" type="text" name="taskVOList[${loop.index}].detail" value="${task.detail}"></td>
                                         <td><select class="form-select" name="taskVOList[${loop.index}].userId">
                                             <c:forEach items="${memberMap}" var="member">
-                                                <option value="${member.value}"
+                                                <option value="${member.key}"
                                                     <c:if test="${member.key eq task.userId}"> selected</c:if>
                                                 >${member.value}</option>
                                             </c:forEach>
