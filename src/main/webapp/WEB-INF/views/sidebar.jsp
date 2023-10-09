@@ -99,15 +99,14 @@
                         <i class="bi bi-check-circle-fill mx-3"></i>한 일
                     </a>
                 </li>
-                <!--
-                  <c:if test="${!empty myData.leader}">
+                  <c:if test="${myData.leader==myData.userId}">
                     <li>
                         <a href="/project/leader.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark">
-                            <i class="bi bi-check-circle-fill mx-3"></i>리더
+<%--                            <i class="bi bi-check-circle-fill mx-3"></i>리더--%>
+                            <i class="bi bi-key mx-3"></i>리더
                         </a>
                     </li>
                   </c:if>
-                  -->
             </ul>
         </c:when>
         <c:otherwise>
@@ -142,15 +141,6 @@
                         <i class="bi bi-check-circle-fill mx-3"></i>한 일
                     </a>
                 </li>
-                <!--
-                  <c:if test="${!empty myData.leader}">
-                    <li>
-                        <a href="/project/leader.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark">
-                            <i class="bi bi-check-circle-fill mx-3"></i>리더
-                        </a>
-                    </li>
-                  </c:if>
-                  -->
             </ul>
         </c:otherwise>
     </c:choose>
