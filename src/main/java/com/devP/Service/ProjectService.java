@@ -6,17 +6,14 @@ import com.devP.VO.ProjectVO;
 import com.devP.VO.TaskVO;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
-
-import org.springframework.ui.Model;
 
 public interface ProjectService {
 
 
 	ProjectVO getProject(ProjectVO vo);
 
-	String getProjectName(ProjectVO vo);
+	String getProjectName(int projectId);
 
 	int getProjectProgress(ProjectVO vo);
 

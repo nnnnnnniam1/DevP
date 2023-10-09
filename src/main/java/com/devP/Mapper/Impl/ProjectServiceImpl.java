@@ -37,11 +37,9 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDAO.getProject(vo);
     }
 
-
-
     @Override
-    public String getProjectName(ProjectVO vo){
-        return projectDAO.getProjectName(vo);
+    public String getProjectName(int projectId){
+        return projectDAO.getProjectName(projectId);
     }
 
     @Override
@@ -114,7 +112,7 @@ public class ProjectServiceImpl implements ProjectService {
         member.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
         member.setUserId((String) session.getAttribute("id"));
         project.setProgress(getProjectProgress(project));   // 프로젝트 진행률
-        project.setProjectName(getProjectName(project));
+        project.setProjectName(getProjectName(project.getProjectId()));
 
         // 업무가져오기
         task.setProjectId(project.getProjectId());

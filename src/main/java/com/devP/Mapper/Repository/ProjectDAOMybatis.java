@@ -25,8 +25,8 @@ public class ProjectDAOMybatis {
         return mybatis.selectOne("ProjectDAO.getProject", vo);
     }
 
-    public String getProjectName(ProjectVO vo) {
-        return mybatis.selectOne("ProjectDAO.getProjectName", vo);
+    public String getProjectName(int projectId) {
+        return mybatis.selectOne("ProjectDAO.getProjectName", projectId);
     }
 
     public int getProjectProgress(ProjectVO vo) {

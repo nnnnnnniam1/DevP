@@ -65,7 +65,7 @@ public class LeaderServiceImpl implements LeaderService {
 		ProjectVO project = new ProjectVO();		//임시
 		project.setProjectId(vo.getProjectId());					//임시
 		session.setAttribute("projectId",project.getProjectId());	//임시
-		session.setAttribute("projectName",projectService.getProjectName(project));	//임시
+		session.setAttribute("projectName",projectService.getProjectName(project.getProjectId()));	//임시
 		model.addAttribute("memberList", memberDAO.getMemberList(vo.getProjectId()));
 		//System.out.println(memberDAO.getMemberList(vo.getProjectId()).get(0).getRole());
 		if (memberDAO.getMemberList(vo.getProjectId()) != null) return 200;
@@ -190,8 +190,8 @@ public class LeaderServiceImpl implements LeaderService {
 	public int getTaskDatas(TaskVO vo, Model model){
 		List<String> memberList = projectDAO.getMemberNames(vo.getProjectId());
 		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-		vo.setUserId(session.getAttribute("id").toString());
-		model.addAttribute("taskList",taskService.getMyProjectTaskList(vo));
+		model.addAttribute("taskList",taskService.getProjectTaskList(Integer.parseInt(session.getAttribute("projectId").toString())));
+		model.addAttribute("projectName",projectService.getProjectName(Integer.parseInt(session.getAttribute("projectId").toString())));	//임시
 
 		model.addAttribute("memberMap",setMemberMap(memberList));
 
