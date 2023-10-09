@@ -76,9 +76,9 @@
         </div>
         <div class="row">
             <form class="manageTask"  method="post" action="/project/addTask.do">
-                <div id="box">
+                <div>
                     <div class="addForm">
-                        <table id="taskTbl" class="table" width=500px;>
+                        <table class="table" width=500px;>
                             <thead>
                                 <tr>
                                     <th class="" scope="col">Category</th>
@@ -96,7 +96,7 @@
                                 <c:forEach items="${taskList}" var="task" varStatus="status">
                                     <tr>
                                         <td>
-                                            <select class="form-select" name="category" id="categorySelect">
+                                            <select class="form-select" name="category">
                                                 <c:forEach items="${categoryMap}" var="category">
                                                     <option value="${category.value}"
                                                         <c:if test="${category.value eq task.category}"> selected</c:if>
@@ -107,7 +107,7 @@
                                         <td><input class="form-control" type="text" name="workPackage" value="${task.workPackage}"></td>
                                         <td><input class="form-control" type="text" name="depth" value="${task.depth}"></td>
                                         <td><input class="form-control" type="text" name="detail" value="${task.detail}"></td>
-                                        <td><select class="form-select" name="responsibility" id="responsibilitySelect">
+                                        <td><select class="form-select" name="responsibility">
                                             <option value="" disabled selected> 선택</option>
                                             <c:forEach items="${memberMap}" var="member">
                                                 <option value="${member.value}"
@@ -115,8 +115,8 @@
                                                 >${member.value}</option>
                                             </c:forEach>
                                         </select></td>
-                                        <td><input class="form-control" type="date"  name="startdate" id="startDate" value="${task.startdate}"/></td>
-                                        <td><input class="form-control" type="date"  name="enddate" id="endDate" value="${task.enddate}"/></td>
+                                        <td><input class="form-control" type="date"  name="startdate" value="${task.startdate}"/></td>
+                                        <td><input class="form-control" type="date"  name="enddate" value="${task.enddate}"/></td>
                                         <td><input class="form-control" type="text" name="status" value="${task.status}"></td>
                                         <td><input class="form-control" type="text" name="progress" value="${task.progress}"></td>
                                     </tr>
