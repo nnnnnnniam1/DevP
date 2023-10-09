@@ -30,32 +30,32 @@ public class TaskController {
 	private TaskService taskService;
 
 
-	private String toJson(Object object){
-		ObjectMapper objectMapper = new ObjectMapper();
-		try {
-			return objectMapper.writeValueAsString(object);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-			return "{}";
-		}
-	}
 
 	@ModelAttribute("categoryMap")
-	public Map<String, String> setCategoryMap(Model model){
-		Map<String,String> categoryMap = new HashMap<>();
+	public Map<String, String> setCategoryMap(Model model) {
+		Map<String, String> categoryMap = new HashMap<>();
 
-		categoryMap.put("1","기획");
-		categoryMap.put("2","디자인");
-		categoryMap.put("3","구현");
-		categoryMap.put("4","개발");
-		categoryMap.put("5","서버");
-		categoryMap.put("6","테스트");
-		categoryMap.put("7","완료");
+		categoryMap.put("1", "기획");
+		categoryMap.put("2", "디자인");
+		categoryMap.put("3", "구현");
+		categoryMap.put("4", "개발");
+		categoryMap.put("5", "서버");
+		categoryMap.put("6", "테스트");
+		categoryMap.put("7", "완료");
 
-		String categoryMapJson = toJson(categoryMap);
-		model.addAttribute("categoryMapJson", categoryMapJson);
 
 		return categoryMap;
+	}
+	@ModelAttribute("statusMap")
+	public Map<String, String> setStatusMap(Model model){
+		Map<String,String> statusMap = new HashMap<>();
+
+		statusMap.put("1","대기");
+		statusMap.put("2","진행중");
+		statusMap.put("3","검토");
+		statusMap.put("4","완료");
+
+		return statusMap;
 	}
 
 

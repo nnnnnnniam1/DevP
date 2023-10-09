@@ -1,5 +1,6 @@
 var cols = 0;
 var headers = ["category","workPackage","depth","detail","status","responsibility","startDate","endDate"];
+
 var categoryMap = JSON.parse('${categoryMapJson}');
 
 var categoryArray = [];

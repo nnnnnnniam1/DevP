@@ -35,6 +35,15 @@ public class LeaderController {
     @Autowired
     private HttpSession session;
 
+    private String toJson(Object object){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{}";
+        }
+    }
 
     // 멤버페이지
     @ModelAttribute("positionMap")
@@ -67,8 +76,22 @@ public class LeaderController {
         categoryMap.put("6","테스트");
         categoryMap.put("7","완료");
 
+        String categoryMapJson = toJson(categoryMap);
+        model.addAttribute("categoryMapJson", categoryMapJson);
+
 
         return categoryMap;
+    }
+    @ModelAttribute("statusMap")
+    public Map<String, String> setStatusMap(Model model){
+        Map<String,String> statusMap = new HashMap<>();
+
+        statusMap.put("1","대기");
+        statusMap.put("2","진행중");
+        statusMap.put("3","검토");
+        statusMap.put("4","완료");
+
+        return statusMap;
     }
 
 

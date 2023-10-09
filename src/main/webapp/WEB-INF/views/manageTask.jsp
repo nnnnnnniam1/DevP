@@ -4,7 +4,9 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="/resources/css/manageMemberStyles.css">
+<link rel="stylesheet" href="/resources/css/manageTask.css">
+<link rel="stylesheet" href="/resources/css/task.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
@@ -17,16 +19,8 @@
     <p class="projectName">${projectName}</p>
     <p class="semiTitle">업무 수정</p>
     <div class="manage-wrapper">
-        <div class="manageMemberWrapper">
-            <div class="col-auto">
-                <label class="formLabel col-form-label">업무추가</label>
-            </div>
-
-        </div>
-    </div>
-    <div class="manage-wrapper">
         <div class="addMember">
-            <div class="manageMemberWrapper">
+            <div class="manageTaskWrapper">
                 <div class="col-auto">
                     <label class="formLabel col-form-label">업무추가</label>
                 </div>
@@ -78,10 +72,20 @@
             </div>
         </div>
     </div>
-    <div  class="member-wrapper">
-        <div class="manageMemberWrapper">
+    <div class="manage-wrapper">
+        <div class="manageTaskWrapper">
             <div class="col-auto">
-                <label class="formLabel col-form-label">업무추가</label>
+                <label class="formLabel col-form-label">간트차트</label>
+            </div>
+            <div class="wbsBox col-auto">
+                <div id="chart_div"></div>
+            </div>
+        </div>
+    </div>
+    <div  class="member-wrapper">
+        <div class="manageTaskWrapper">
+            <div class="col-auto">
+                <label class="formLabel col-form-label">업무수정</label>
             </div>
         </div>
         <div class="row">
@@ -128,7 +132,15 @@
                                         </select></td>
                                         <td><input class="form-control" type="date"  name="taskVOList[${loop.index}].startdate" value="${task.startdate}"/></td>
                                         <td><input class="form-control" type="date"  name="taskVOList[${loop.index}].enddate" value="${task.enddate}"/></td>
-                                        <td><input class="form-control" type="text" name="taskVOList[${loop.index}].status" value="${task.status}"></td>
+                                        <td>
+                                            <select class="form-select" name="taskVOList[${loop.index}].status" id="statusSelect">
+                                                <c:forEach items="${statusMap}" var="status">
+                                                    <option value="${status.value}"
+                                                        <c:if test="${status.value eq task.status}"> selected</c:if>
+                                                    >${status.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
                                         <td><input class="form-control" type="text" name="taskVOList[${loop.index}].progress" value="${task.progress}"></td>
                                     </tr>
                                 </c:forEach>
@@ -139,7 +151,6 @@
                 </div>
             </form:form>
         </div>
-
     </div>
 </div>
 
@@ -157,9 +168,9 @@ function dateDifference(a, b){
     var endDate = new Date("${task.enddate}");
     var today = new Date();
     var daysDifference = dateDifference(startDate,endDate);
-    var dayPassed = dateDifference(startDate,today);
-    if(dayPassed>=0){
-        var dayPassed = (today-startDate+1)/(endDate-startDate+1);
+    var days = dateDifference(startDate,today);
+    if(days>=0){
+        var dayPassed = days/daysDifference;
         percentage = Math.round(dayPassed * 100);
     } else {
         percentage = 0;
@@ -192,7 +203,7 @@ function drawChart(){
     var options = {
         height: 400,
         gantt: {
-            trackHeight: 30
+            trackHeight: 50
         }
     };
 
