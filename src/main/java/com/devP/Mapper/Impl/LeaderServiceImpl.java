@@ -210,7 +210,7 @@ public class LeaderServiceImpl implements LeaderService {
 	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
 
 		for(TaskVO vo : TaskVOList){
-			taskDAO.updateTaskDatas(vo);
+			taskService.updateTask(vo);
 		}
 
 		return 200;

@@ -33,6 +33,6 @@ public class TaskDAOMybatis {
 
     public void insertTask(TaskVO vo){ mybatis.insert("TaskDAO.insertTask",vo);}
 
-    public void updateTaskDatas(TaskVO vo){
-        mybatis.update("TaskDAO.updateTaskDatas", vo); }
+    public void updateTask(TaskVO vo){ mybatis.update("TaskDAO.updateTask", vo); }
+    public void deleteTask(int taskId){mybatis.delete("TaskDAO.deleteTask", taskId);}
 }

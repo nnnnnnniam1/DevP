@@ -38,11 +38,15 @@
 	</insert>
 
 	<!--  프로젝트 업무 수정	-->
-	<update id="updateTaskDatas">
+	<update id="updateTask">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
 		startdate=#{startdate}, enddate=#{enddate}, status=#{status}
 		WHERE projectId=#{projectId} AND taskId=#{taskId}
 	</update>
+
+	<delete id="deleteTask">
+		DELETE FROM task WHERE taskId=#{taskId};
+	</delete>
 
 </mapper>

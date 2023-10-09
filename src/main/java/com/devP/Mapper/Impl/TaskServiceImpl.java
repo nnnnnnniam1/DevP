@@ -132,4 +132,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	public void addTask(TaskVO vo){taskDAO.insertTask(vo);}
+	public void updateTask(TaskVO vo){taskDAO.updateTask(vo);}
+
+	public void deleteTask(int taskId){taskDAO.deleteTask(taskId);}
 }

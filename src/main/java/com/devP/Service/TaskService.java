@@ -22,4 +22,8 @@ public interface TaskService {
 	void getTaskCount(Model model);
 
 	void addTask(TaskVO vo);
+
+	void updateTask(TaskVO vo);
+
+	void deleteTask(int taskId);
 }

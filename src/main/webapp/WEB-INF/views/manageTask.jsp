@@ -39,6 +39,7 @@
                                         <th class="" scope="col">담당자</th>
                                         <th class="" scope="col">시작일</th>
                                          <th class="" scope="col">종료일</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,8 +61,8 @@
                                                 <option value="${member.value}">${member.value}</option>
                                             </c:forEach>
                                         </select></td>
-                                        <td><input class="form-control" type="date"  name="startdate" id="startDate"/></td>
-                                        <td><input class="form-control" type="date"  name="enddate" id="endDate" /></td>
+                                        <td><input class="form-control startDate" type="date"  name="startdate" id="startDate"/></td>
+                                        <td><input class="form-control endDate" type="date"  name="enddate" id="endDate" /></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -92,7 +93,7 @@
             <form:form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/updateTask.do">
                 <div>
                     <div class="manageForm">
-                        <table class="table taskTbl" width=500px;>
+                        <table class="table taskTbl">
                             <thead>
                                 <tr>
                                     <th class="" scope="col">Category</th>
@@ -108,8 +109,8 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${taskList}" var="task" varStatus="loop">
-                                    <td><input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}"></td>
-                                    <td><input type="hidden" name="taskVOList[${loop.index}].projectId" value="${task.projectId}"></td>
+                                    <input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}">
+                                    <input type="hidden" name="taskVOList[${loop.index}].projectId" value="${task.projectId}">
                                     <tr>
                                         <td>
                                             <select class="form-select" name="taskVOList[${loop.index}].category">
@@ -130,8 +131,8 @@
                                                 >${member.value}</option>
                                             </c:forEach>
                                         </select></td>
-                                        <td><input class="form-control" type="date"  name="taskVOList[${loop.index}].startdate" value="${task.startdate}"/></td>
-                                        <td><input class="form-control" type="date"  name="taskVOList[${loop.index}].enddate" value="${task.enddate}"/></td>
+                                        <td><input class="form-control startDate" type="date"  name="taskVOList[${loop.index}].startdate" value="${task.startdate}"/></td>
+                                        <td><input class="form-control endDate" type="date"  name="taskVOList[${loop.index}].enddate" value="${task.enddate}"/></td>
                                         <td>
                                             <select class="form-select" name="taskVOList[${loop.index}].status" id="statusSelect">
                                                 <c:forEach items="${statusMap}" var="status">
@@ -142,6 +143,7 @@
                                             </select>
                                         </td>
                                         <td><input class="form-control" type="text" name="taskVOList[${loop.index}].progress" value="${task.progress}"></td>
+                                        <td><input class="form-control" type="button" value="삭제" onclick="deleteTask('${task.taskId}')" /></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -155,6 +157,23 @@
 </div>
 
 <script src="/resources/js/manageTask.js"></script>
+<script type="text/javascript">
+function getCurrentDate(){
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth()+1).padStart(2,'0');
+        const day = String(now.getDate()).padStart(2,'0');
+
+        return year+"-"+month+"-"+day;
+}
+$(document).ready(function(){
+    const currentDate = getCurrentDate();
+    document.getElementById('startDate').setAttribute('min', currentDate);
+    document.getElementById('startDate').setAttribute('value', currentDate);
+    document.getElementById('endDate').setAttribute('min', currentDate);
+    document.getElementById('endDate').setAttribute('value', currentDate);
+});
+</script>
 <script type="text/javascript">
 var dataArray = [];
 

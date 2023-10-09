@@ -2,6 +2,7 @@ package com.devP.Controller;
 
 import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
+import com.devP.Service.TaskService;
 import com.devP.Service.UserService;
 import com.devP.VO.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,6 +29,9 @@ public class LeaderController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private TaskService taskService;
 
     @Autowired
     private MailController mailController;
@@ -175,6 +179,19 @@ public class LeaderController {
 
         if(result == 200) return "redirect:/project/manageTask.do";
         else return "redirect:/";
+    }
+    @RequestMapping(value = "/project/deleteTask.do", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteTask(@RequestParam int taskId) throws Exception {
+        try {
+            System.out.println(taskId);
+            taskService.deleteTask(taskId);
+
+            return ResponseEntity.ok("Task deleted successfully");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+
+        }
+
     }
 
 }
