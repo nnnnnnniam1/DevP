@@ -3,6 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDAO">
+    <resultMap id="idAndNameResultMap" type="java.util.Map">
+        <result property="idAndName" column="idAndName"/>
+    </resultMap>
+
+    <select id="getMemberNames" resultType="String">
+        SELECT DISTINCT CONCAT(u.id, ',', u.name) AS idAndName
+        FROM user AS u
+        JOIN task AS t
+        ON t.userId = u.id
+        WHERE t.projectId = #{projectId}
+    </select>
 
     <!--  리더 - 멤버페이지  -->
 
@@ -62,7 +73,7 @@
             u.name AS userName,
             u.id AS userId,
             CASE WHEN
-                p.leader = userId THEN 'Y'
+                p.leader = u.id THEN 'Y'
             ELSE '' END AS leader,
             pg.position,
             pg.role,
