@@ -26,4 +26,7 @@ public interface TaskService {
 	void updateTask(TaskVO vo);
 
 	void deleteTask(int taskId);
+
+
+	Map<String,String> setCategoryMap();
 }

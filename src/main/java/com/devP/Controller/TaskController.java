@@ -31,32 +31,6 @@ public class TaskController {
 
 
 
-	@ModelAttribute("categoryMap")
-	public Map<String, String> setCategoryMap(Model model) {
-		Map<String, String> categoryMap = new HashMap<>();
-
-		categoryMap.put("1", "기획");
-		categoryMap.put("2", "디자인");
-		categoryMap.put("3", "구현");
-		categoryMap.put("4", "개발");
-		categoryMap.put("5", "서버");
-		categoryMap.put("6", "테스트");
-		categoryMap.put("7", "완료");
-
-
-		return categoryMap;
-	}
-	@ModelAttribute("statusMap")
-	public Map<String, String> setStatusMap(Model model){
-		Map<String,String> statusMap = new HashMap<>();
-
-		statusMap.put("1","대기");
-		statusMap.put("2","진행중");
-		statusMap.put("3","검토");
-		statusMap.put("4","완료");
-
-		return statusMap;
-	}
 
 
 	//업무 가져오기

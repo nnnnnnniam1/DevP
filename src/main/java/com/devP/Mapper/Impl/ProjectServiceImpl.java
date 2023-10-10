@@ -13,8 +13,7 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 
 @Service("projectService")
@@ -54,6 +53,16 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private LeaderService leaderService;
+
+    @Override
+    public Map<String, String> setMemberMap(List<String> members){
+        Map<String, String> memberMap = new HashMap<String, String>();
+        for(String member: members){
+            String[] m = member.split(",");
+            memberMap.put(m[0], m[1]);
+        }
+        return memberMap;
+    }
 
     @Override
     public int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {

@@ -40,14 +40,6 @@ public class LeaderServiceImpl implements LeaderService {
 	@Autowired
 	private HttpSession session;
 
-	public Map<String, String> setMemberMap(List<String> members){
-		Map<String, String> memberMap = new HashMap<String, String>();
-		for(String member: members){
-			String[] m = member.split(",");
-			memberMap.put(m[0], m[1]);
-		}
-		return memberMap;
-	}
 
 
 	@Override
@@ -193,7 +185,7 @@ public class LeaderServiceImpl implements LeaderService {
 		model.addAttribute("taskList",taskService.getProjectTaskList(Integer.parseInt(session.getAttribute("projectId").toString())));
 		model.addAttribute("projectName",projectService.getProjectName(Integer.parseInt(session.getAttribute("projectId").toString())));	//임시
 
-		model.addAttribute("memberMap",setMemberMap(memberList));
+		model.addAttribute("memberMap",projectService.setMemberMap(memberList));
 
 
 		return 200;

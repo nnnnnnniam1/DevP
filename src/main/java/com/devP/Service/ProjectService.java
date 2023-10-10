@@ -7,9 +7,11 @@ import com.devP.VO.TaskVO;
 import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProjectService {
 
+	Map<String, String> setMemberMap(List<String> members);
 
 	ProjectVO getProject(ProjectVO vo);
 
