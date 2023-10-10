@@ -22,6 +22,7 @@ public class CommonController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainView(HttpServletRequest request, Model model) {
+    	model.addAttribute("menuId", "");
         HttpSession session = request.getSession();
         String userId = (String)session.getAttribute("id");
         session.setAttribute("title", logincheck(userId, request));

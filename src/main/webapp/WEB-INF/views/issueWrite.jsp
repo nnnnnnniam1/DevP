@@ -12,7 +12,7 @@
 <div class="container">
     <div class="issue-wrapper">
 		<div class="mt-5">
-	        <h1 class="mb-4">Moment 이슈 등록 </h1>
+	        <h1 class="mb-4">${project.projectName} 이슈 등록 </h1>
 	        <form method="post" class="p-3" action="/issue/write.do" id="issue-form">
             	 <input type = "hidden" name="projectId" value = "${projectId}"><br>
             	 <%-- <input type = "hidden" name="taskId" value = "${ taskId }"><br> --%>
