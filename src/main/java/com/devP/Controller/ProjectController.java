@@ -1,6 +1,7 @@
 package com.devP.Controller;
 
 import com.devP.Service.IssueService;
+import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
 import com.devP.VO.MemberVO;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
-
+import java.util.List;
 
 
 @Controller
@@ -35,6 +36,9 @@ public class ProjectController {
 
         @Autowired
         private TaskService taskService;
+
+        @Autowired
+        private LeaderService leaderService;
 
         @Autowired
         private MailController mailController;
@@ -83,19 +87,38 @@ public class ProjectController {
             int result = projectService.insertProject(vo, vo2, vo3);
             if(result == 200) {
                 int projectId = projectService.getProjectId(vo);
-                return "redirect: /project/insertTask.do?projectId="+projectId;
+                session.setAttribute("projectId",projectId);
+                return "redirect: /project/insertTask.do";
             }
             else if(result == 405) return "redirect: /project/insertProject.do";
             return null;
         }
         @RequestMapping(value = "/insertTask.do", method = RequestMethod.GET)
-        public String insertTaskView(@RequestParam int projectId, Model model){
-                model.addAttribute("projectId",projectId);
-                model.addAttribute("projectName",projectService.getProjectName(projectId));
-                model.addAttribute("memberList",projectService.getProjectMemberList(projectId));
-                model.addAttribute("categoryMap", taskService.setCategoryMap());
-            return "insertTask";
+        public String insertTaskView(TaskVO vo, Model model){
+            vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+            List<String> nameList = projectService.getMemberNames(vo.getProjectId());
+
+            model.addAttribute("categoryMap", taskService.setCategoryMap());
+
+            int result = leaderService.getTaskDatas(vo, model);
+
+            if(result == 200) return "insertTask";
+            else {
+                session.removeAttribute("projectId");
+                return "redirect:/list.do";
+            }
         }
+
+        @RequestMapping(value = "/insertTask.do", method = RequestMethod.POST)
+        public String insertTask(TaskVO vo){
+            int result = leaderService.addTask(vo);
+            if(result == 200) return "redirect:/project/insertTask.do";
+            else {
+                session.removeAttribute("projectId");
+                return "redirect:/list.do";
+            }
+        }
+
 
         //프로젝트 목록
         @RequestMapping(value = "/list.do", method = RequestMethod.GET)

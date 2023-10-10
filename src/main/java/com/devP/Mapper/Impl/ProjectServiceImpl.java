@@ -161,4 +161,9 @@ public class ProjectServiceImpl implements ProjectService {
         return memberDAO.getProjectMemberList(projectId);
     }
 
+    @Override
+    public List<String> getMemberNames(int projectId){
+        return projectDAO.getMemberNames(projectId);
+    }
+
 }

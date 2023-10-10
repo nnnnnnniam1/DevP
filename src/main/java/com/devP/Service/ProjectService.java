@@ -32,4 +32,6 @@ public interface ProjectService {
 	int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception ;
 
 	List<MemberVO> getProjectMemberList(int projectId);
+
+	List<String> getMemberNames(int projectId);
 }
