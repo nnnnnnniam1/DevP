@@ -131,6 +131,7 @@
                                                 >${member.value}</option>
                                             </c:forEach>
                                         </select></td>
+
                                         <td><input class="form-control startDate" type="date"  name="taskVOList[${loop.index}].startdate" value="${task.startdate}"/></td>
                                         <td><input class="form-control endDate" type="date"  name="taskVOList[${loop.index}].enddate" value="${task.enddate}"/></td>
                                         <td>
