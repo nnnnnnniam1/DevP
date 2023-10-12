@@ -20,4 +20,13 @@ public interface TaskService {
 	int getUserTaskList(Model model);
 
 	void getTaskCount(Model model);
+
+	void addTask(TaskVO vo);
+
+	void updateTask(TaskVO vo);
+
+	void deleteTask(int taskId);
+
+
+	Map<String,String> setCategoryMap();
 }

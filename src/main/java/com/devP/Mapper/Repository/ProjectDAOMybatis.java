@@ -21,15 +21,12 @@ public class ProjectDAOMybatis {
         return mybatis.selectOne("ProjectDAO.getProjectId", vo);
     }
 
-    public void insertProject(ProjectVO vo) {
-    }
-
     public ProjectVO getProject(ProjectVO vo) {
         return mybatis.selectOne("ProjectDAO.getProject", vo);
     }
 
-    public String getProjectName(ProjectVO vo) {
-        return mybatis.selectOne("ProjectDAO.getProjectName", vo);
+    public String getProjectName(int projectId) {
+        return mybatis.selectOne("ProjectDAO.getProjectName", projectId);
     }
 
     public int getProjectProgress(ProjectVO vo) {
@@ -39,4 +36,7 @@ public class ProjectDAOMybatis {
     public List<ProjectListVO> getProjectList(String userId) {
         return mybatis.selectList("ProjectDAO.getProjectList", userId);
     }
+
+    public List<String> getMemberNames(int projectId){return mybatis.selectList("ProjectDAO.getMemberNames", projectId);}
+
 }

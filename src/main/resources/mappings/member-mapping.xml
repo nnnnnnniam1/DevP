@@ -4,6 +4,8 @@
 
 <mapper namespace="MemberDAO">
 
+
+
     <!--  리더 - 멤버페이지  -->
 
     <!--  프로젝트 멤버리스트 불러오기  -->
@@ -23,8 +25,8 @@
     </select>
     <!-- 프로젝트 멤버추가   -->
     <insert id="insertMember">
-        INSERT into projectgroup( projectId, userId, status)
-        VALUES (#{projectId},#{userId},#{status})
+        INSERT into projectgroup( projectId, userId, status, leader)
+        VALUES (#{projectId},#{userId},#{status},#{leader})
     </insert>
 
     <!-- 이전에 삭제된 멤버 다시 추가 -->
@@ -58,20 +60,16 @@
     <!--  프로젝트 - 업무페이지  -->
     <select id="getMyProjectData" resultType="Member">
         SELECT
-            pg.projectId,
             u.name AS userName,
             u.id AS userId,
-            CASE WHEN
-                p.leader = userId THEN 'Y'
-                ELSE '' END AS leader,
+            pg.leader,
             pg.position,
             pg.role,
             pg.progress,
             pg.status
         FROM projectgroup AS pg
         JOIN user AS u ON pg.userId = u.id
-        JOIN project AS p ON pg.projectId = p.projectId
-        WHERE pg.projectId = #{projectId} AND pg.status = '1' AND u.id = #{userId};
+        WHERE pg.projectId = #{projectId} AND u.id = #{userId};
     </select>
 
     <!--  프로젝트 - 멤버페이지  -->

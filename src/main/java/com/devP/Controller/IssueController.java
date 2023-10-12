@@ -1,5 +1,7 @@
 package com.devP.Controller;
 
+import com.devP.Service.ProjectService;
+import com.devP.VO.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class IssueController {
 	
 	@Autowired
 	private IssueService issueService;
+
+	@Autowired
+	private ProjectService projectService;
 	
 	
 	//이슈 등록 페이지
@@ -38,7 +43,10 @@ public class IssueController {
 	//이슈 목록
 	@RequestMapping(value="/list.do", method= RequestMethod.GET)	
     public String getIssuelist(@RequestParam int projectId, Model model){
+		ProjectVO projectVO = new ProjectVO();
+		projectVO.setProjectId(projectId);
 		model.addAttribute("menuId", "issueMenu");
+		model.addAttribute("project", projectService.getProject(projectVO));
 		issueService.getIssuelist(projectId, model);
         return "issueList";
     }

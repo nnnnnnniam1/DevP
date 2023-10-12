@@ -1,26 +1,20 @@
 package com.devP.Mapper.Impl;
 
 import com.devP.Mapper.Repository.MemberDAOMybatis;
-import com.devP.Service.LeaderService;
-import com.devP.Service.MailService;
-import com.devP.Service.ProjectService;
-import com.devP.Service.UserService;
-import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectGroupVO;
-import com.devP.VO.ProjectVO;
-import com.devP.VO.UserVO;
+import com.devP.Mapper.Repository.ProjectDAOMybatis;
+import com.devP.Mapper.Repository.TaskDAOMybatis;
+import com.devP.Service.*;
+import com.devP.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
-import java.util.DuplicateFormatFlagsException;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service("LeaderService")
 public class LeaderServiceImpl implements LeaderService {
@@ -28,15 +22,24 @@ public class LeaderServiceImpl implements LeaderService {
 	private MemberDAOMybatis memberDAO;
 
 	@Autowired
+	private ProjectDAOMybatis projectDAO;
+	@Autowired
+	private TaskDAOMybatis taskDAO;
+
+	@Autowired
 	private MailService mailService;
 	@Autowired
 	private ProjectService projectService;
+
+	@Autowired
+	private TaskService taskService;
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private HttpSession session;
+
 
 
 	@Override
@@ -50,11 +53,11 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int getMemberList(MemberVO vo, Model model){
-		vo.setProjectId(1);
+		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
 		ProjectVO project = new ProjectVO();		//임시
-		project.setProjectId(1);					//임시
+		project.setProjectId(vo.getProjectId());					//임시
 		session.setAttribute("projectId",project.getProjectId());	//임시
-		session.setAttribute("projectName",projectService.getProjectName(project));	//임시
+		session.setAttribute("projectName",projectService.getProjectName(project.getProjectId()));	//임시
 		model.addAttribute("memberList", memberDAO.getMemberList(vo.getProjectId()));
 		//System.out.println(memberDAO.getMemberList(vo.getProjectId()).get(0).getRole());
 		if (memberDAO.getMemberList(vo.getProjectId()) != null) return 200;
@@ -63,14 +66,10 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int addLeader(MemberVO vo2, int projectId){
-		String leader = (String) session.getAttribute("id");
-		UserVO leaderVO = new UserVO();
-		leaderVO.setId(leader);
-		leaderVO = userService.getUserById(leaderVO);
+		String leader = session.getAttribute("id").toString();
+		vo2.setStatus("1");
 		vo2.setLeader(leader);
-		vo2.setEmail(leaderVO.getEmail());
 		vo2.setUserId(leader);
-		vo2.setUserName(leaderVO.getName());
 		vo2.setProjectId(projectId);
 		userService.insertMember(vo2);
 
@@ -177,6 +176,37 @@ public class LeaderServiceImpl implements LeaderService {
 
 		vo.setProjectId(projectId);
 		memberDAO.deleteMember(vo);
+	}
+
+	@Override
+	public int getTaskDatas(TaskVO vo, Model model){
+		List<String> memberList = projectDAO.getMemberNames(vo.getProjectId());
+		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+		model.addAttribute("taskList",taskService.getProjectTaskList(Integer.parseInt(session.getAttribute("projectId").toString())));
+		model.addAttribute("projectName",projectService.getProjectName(Integer.parseInt(session.getAttribute("projectId").toString())));	//임시
+
+		model.addAttribute("memberMap",projectService.setMemberMap(memberList));
+
+
+		return 200;
+	}
+
+	@Override
+	public int addTask(TaskVO vo){
+		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+		vo.setUserId(session.getAttribute("id").toString());
+		taskService.addTask(vo);
+		return 200;
+	}
+	@Override
+	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
+
+		for(TaskVO vo : TaskVOList){
+			taskService.updateTask(vo);
+		}
+
+		return 200;
+
 	}
 
 }

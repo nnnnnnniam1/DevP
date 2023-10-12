@@ -19,6 +19,8 @@ public class CommonController {
     private IssueService issueService;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private HttpSession session;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainView(HttpServletRequest request, Model model) {
@@ -26,6 +28,7 @@ public class CommonController {
         HttpSession session = request.getSession();
         String userId = (String)session.getAttribute("id");
         session.setAttribute("title", logincheck(userId, request));
+        session.removeAttribute("projectName");
 
         if(session.getAttribute("id")!=null) {
             issueService.getUserIssueList(model);
