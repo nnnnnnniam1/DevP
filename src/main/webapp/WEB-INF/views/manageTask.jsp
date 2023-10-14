@@ -202,8 +202,10 @@ function dateDifference(a, b){
     dataArray.push(datas);
 </c:forEach>
 
-google.charts.load('current', {'packages':['gantt']});
-google.charts.setOnLoadCallback(drawChart);
+if(dataArray[0] !== null && dataArray.length>0){
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+}
 
 function drawChart(){
     console.log(dataArray);
