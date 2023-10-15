@@ -66,20 +66,17 @@ public class ProjectController {
         model.addAttribute("menuId", "projectMenu");
         if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
         session.setAttribute("projectId", projectId);
-        vo.setProjectId(projectId);
-        member.setProjectId(projectId);
+
+        vo.setProjectId(projectId); member.setProjectId(projectId);
         member.setUserId(session.getAttribute("id").toString());
 
-        // 프로젝트 데이터 가져오기
-        //이슈 리스트 가져오기
-        issueService.getIssuelist(projectId, model);
-        //멤버 리스트 가져오기
-        model.addAttribute("project",projectService.getProject(vo));
-        model.addAttribute("myData",projectService.getMyProjectData(member));
-        model.addAttribute("memberList", projectService.getProjectMemberList(projectId));
-        model.addAttribute("myTask", taskService.getTask());
-        taskService.getTaskCount(model);
-        return "projectDetail";
+        int result = projectService.getProjectDetail(vo, member,model);
+//        vo.setProjectId(projectId);
+//        member.setProjectId(projectId);
+//        member.setUserId(session.getAttribute("id").toString());
+
+        if(result == 200)  return "projectDetail";
+        else return "redirect:/";
     }
 
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)

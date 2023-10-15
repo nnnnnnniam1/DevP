@@ -22,6 +22,8 @@ public class TaskVO {
     private String startdate;
     private String enddate;
 
+	private Date now;
+
 	private ArrayList<TaskVO> taskVOList;
     
     public int getTaskId() {
@@ -88,6 +90,13 @@ public class TaskVO {
 	}
 	public void setEnddate(String  enddate) {
 		this.enddate = enddate;
+	}
+
+	public Date  getNow() {
+		return now;
+	}
+	public void setNow(Date  now) {
+		this.now = now;
 	}
 
 	public ArrayList<TaskVO> getTaskVOList(){return taskVOList;}

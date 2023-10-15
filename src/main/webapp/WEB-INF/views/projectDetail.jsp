@@ -58,18 +58,18 @@ String userId = (String) session.getAttribute("userId");
 						<small class="text-muted">지난 업무</small>
 					</div>
 					<div class="col-2">
-						<span>${pasttaskcount}</span>
+						<span style="color:red;">${pastTaskCnt}</span>
 					</div>
 					<div class="col-10">
 						<small class="text-muted">진행 중인 업무</small>
 					</div>
 					<div class="col-2">
-						<span>${progresstaskcount}</span>
+						<span>${progressTaskCnt}</span>
 					</div><div class="col-10">
 						<small class="text-muted">완료된 업무</small>
 					</div>
 					<div class="col-2">
-						<span>${completedtaskcount}</span>
+						<span>${completeTaskCnt}</span>
 					</div>
 				</div>
 			</div>

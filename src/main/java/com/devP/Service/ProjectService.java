@@ -36,4 +36,6 @@ public interface ProjectService {
 	List<String> getMemberNames(int projectId);
 
     int getCompleteProjectList(Model model);
+
+	int getProjectDetail(ProjectVO vo, MemberVO member, Model model);
 }

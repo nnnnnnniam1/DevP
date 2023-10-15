@@ -35,4 +35,10 @@ public class TaskDAOMybatis {
 
     public void updateTask(TaskVO vo){ mybatis.update("TaskDAO.updateTask", vo); }
     public void deleteTask(int taskId){mybatis.delete("TaskDAO.deleteTask", taskId);}
+
+    public int getPastTaskCnt(TaskVO task) {return mybatis.selectOne("TaskDAO.getPastTaskCnt",task); }
+
+    public int getProgressTaskCnt(TaskVO task) {return mybatis.selectOne("TaskDAO.getProgressTaskCnt",task); }
+
+    public int getCompleteTaskCnt(TaskVO task) {return mybatis.selectOne("TaskDAO.getCompleteTaskCnt",task); }
 }
