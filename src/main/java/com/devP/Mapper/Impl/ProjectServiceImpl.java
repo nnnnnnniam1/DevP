@@ -99,14 +99,8 @@ public class ProjectServiceImpl implements ProjectService {
             ProjectListVO vo = new ProjectListVO();
             String userId = session.getAttribute("id").toString();
             vo.setUserId(userId);
-//            List<ProjectListVO> vo2 = projectDAO.getProjectList(vo);
-//            System.out.println(vo2.getProjectName());
 
-            for(ProjectListVO list: projectDAO.getProjectList(userId)){
-                System.out.println(list.getUserId() + list.getProjectProgress() + list.getMemberProgress());
-            }
-
-            model.addAttribute("projectList", projectDAO.getProjectList(userId));
+            model.addAttribute("projectList", projectDAO.getOnGoingProjectList(userId));
 
             return 200;
         }else {

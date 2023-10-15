@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="leaderBtn" onclick="location.href='#'">
+                        <div class="leaderBtn" onclick="deleteProject('${project.projectId}', '${project.projectName}')">
                             <p class="label">프로젝트 삭제</p>
                         </div>
                     <td>
@@ -67,4 +67,32 @@
     </div>
 </div>
 </body>
+<script = "text/javascript">
+function deleteProject(projectId, projectName){
+    if(confirm("["+projectName+"]프로젝트를 삭제하시겠습니까?")){
+        $.ajax({
+            type: 'GET',
+            url: '/project/deleteProject.do',
+            data: {
+                projectId: projectId
+            },
+            success: function(response){
+                if(response === "success"){
+                    alert("삭제되었습니다");
+                    window.location.href="/project/list.do";
+                } else {
+                    alert("오류가 발생했습니다. 다시 시도해주세요");
+                    window.location.href="/project/leader.do?projectId=${projectId}"
+                }
+
+            },
+            error: function(error){
+                console.log("에러: "+error);
+                alert("오류가 발생했습니다. 다시 시도해주세요");
+                window.location.href="/project/leader.do?projectId=${projectId}"
+            }
+        });
+    }
+}
+</script>
 </html>

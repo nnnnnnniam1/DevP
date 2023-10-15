@@ -15,6 +15,8 @@ public class ProjectVO {
     private String script;
     private String email;
 
+    private String status;
+
     public String getEmail() {
         return email;
     }
@@ -104,4 +106,13 @@ public class ProjectVO {
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

@@ -27,4 +27,5 @@ public class LeaderDAOMybatis {
     public void updateMemberDatas(MemberVO vo){ mybatis.update("LeaderDAO.updateMemberDatas", vo); }
     public void deleteMember(MemberVO vo){ mybatis.update("LeaderDAO.deleteMember",vo); }
 
+
 }

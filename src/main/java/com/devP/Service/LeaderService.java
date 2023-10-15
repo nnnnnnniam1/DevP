@@ -39,4 +39,6 @@ public interface LeaderService {
     int addTask(TaskVO vo);
 
     int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model);
+
+    int deleteProject(int projectId);
 }

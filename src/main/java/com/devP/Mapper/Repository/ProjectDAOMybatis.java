@@ -16,6 +16,8 @@ public class ProjectDAOMybatis {
     public int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) {
         return mybatis.insert("ProjectDAO.insertProject", vo);
     }
+    public void deleteProject(int projectId){ mybatis.update("ProjectDAO.deleteProject", projectId); }
+
 
     public int getProjectId(ProjectVO vo) {
         return mybatis.selectOne("ProjectDAO.getProjectId", vo);
@@ -36,7 +38,11 @@ public class ProjectDAOMybatis {
     public List<ProjectListVO> getProjectList(String userId) {
         return mybatis.selectList("ProjectDAO.getProjectList", userId);
     }
+    public List<ProjectListVO> getOnGoingProjectList(String userId) {
+        return mybatis.selectList("ProjectDAO.getOnGoingProjectList", userId);
+    }
 
     public List<String> getMemberNames(int projectId){return mybatis.selectList("ProjectDAO.getMemberNames", projectId);}
+
 
 }

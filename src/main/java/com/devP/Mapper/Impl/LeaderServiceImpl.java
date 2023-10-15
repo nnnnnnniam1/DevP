@@ -1,5 +1,6 @@
 package com.devP.Mapper.Impl;
 
+import com.devP.Mapper.Repository.LeaderDAOMybatis;
 import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Mapper.Repository.TaskDAOMybatis;
@@ -25,6 +26,9 @@ public class LeaderServiceImpl implements LeaderService {
 	private ProjectDAOMybatis projectDAO;
 	@Autowired
 	private TaskDAOMybatis taskDAO;
+
+	@Autowired
+	private LeaderDAOMybatis leaderDAO;
 
 	@Autowired
 	private MailService mailService;
@@ -207,6 +211,13 @@ public class LeaderServiceImpl implements LeaderService {
 
 		return 200;
 
+	}
+
+	@Override
+	public int deleteProject(int projectId){
+		System.out.println(projectId);
+		projectDAO.deleteProject(projectId);
+		return 200;
 	}
 
 }
