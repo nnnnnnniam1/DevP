@@ -51,4 +51,5 @@ public class ProjectDAOMybatis {
     public List<String> getMemberNames(int projectId){return mybatis.selectList("ProjectDAO.getMemberNames", projectId);}
 
 
+    public void completeProject(int projectId) { mybatis.update("ProjectDAO.completeProject", projectId); }
 }

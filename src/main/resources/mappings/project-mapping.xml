@@ -41,6 +41,10 @@
         on g.projectId = p.projectId
         where g.userId = #{userId} AND p.status = "삭제";
     </select>
+    <update id="completeProject">
+        UPDATE project SET status="완료"
+        WHERE projectId=#{projectId}
+    </update>
     <!-- 프로젝트삭제 -->
     <update id="deleteProject">
         UPDATE project SET status="삭제"

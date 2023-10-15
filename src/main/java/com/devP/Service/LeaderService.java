@@ -42,4 +42,6 @@ public interface LeaderService {
     int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model);
 
     int deleteProject(DeleteProjectVO vo);
+
+    int completeProject(int projectId);
 }

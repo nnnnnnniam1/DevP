@@ -219,5 +219,10 @@ public class LeaderServiceImpl implements LeaderService {
 		projectDAO.insertDeleteProjectReason(vo);
 		return 200;
 	}
+	@Override
+	public int completeProject(int projectId){
+		projectDAO.completeProject(projectId);
+		return 200;
+	}
 
 }

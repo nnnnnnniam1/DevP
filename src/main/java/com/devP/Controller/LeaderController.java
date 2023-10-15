@@ -214,12 +214,9 @@ public class LeaderController {
     @RequestMapping(value = "/project/deleteProject.do", method = RequestMethod.POST)
     public ResponseEntity<String> deleteProject(DeleteProjectVO vo,@RequestParam("projectId") int projectId, @RequestParam("reason") String reason) {
         try {
-            System.out.println(projectId);
-            System.out.println(reason);
             vo.setProjectId(projectId);
             vo.setReason(reason);
-            System.out.println(vo.getProjectId());
-            System.out.println(vo.getReason());
+
             int result = leaderService.deleteProject(vo);
             if (result == 200) {
                 return ResponseEntity.ok("success");
@@ -231,6 +228,20 @@ public class LeaderController {
 
         }
     }
+    @RequestMapping(value = "/project/completeProject.do", method = RequestMethod.GET)
+    public ResponseEntity<String> completeProject(@RequestParam("projectId") int projectId) {
+        try {
 
+            int result = leaderService.completeProject(projectId);
+            if (result == 200) {
+                return ResponseEntity.ok("success");
+            } else {
+                return ResponseEntity.ok("failed");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+
+        }
+    }
 
 }

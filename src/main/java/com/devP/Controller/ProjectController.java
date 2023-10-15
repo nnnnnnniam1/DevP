@@ -123,6 +123,7 @@ public class ProjectController {
     //프로젝트 목록
     @RequestMapping(value = "/list.do", method = RequestMethod.GET)
     public String projectList(Model model) {
+        if(session.getAttribute("projectId")!= null){session.removeAttribute("projectId");}
         if(projectService.getProjectList(model) == 200){
             return "projectList";
         } else if (projectService.getProjectList(model) == 405) {
