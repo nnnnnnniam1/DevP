@@ -27,7 +27,7 @@ String userId = (String) session.getAttribute("userId");
 %>
 <div class="container">
 	<h1 class="my-5">${project.projectName}
-	    <c:if test="${myData.leader==myData.userId}">
+	    <c:if test="${myData.leader eq myData.userId}">
             <button class="btn btn-outline-success" type="button" onclick="location.href='/project/leader.do?projectId=${project.projectId}'">leader</button>
         </c:if>
 	</h1>
@@ -35,11 +35,11 @@ String userId = (String) session.getAttribute("userId");
 		<div class = "col-8">
 		<div class = "mb-1">
 		    <c:choose>
-		        <c:when test="${empty myData.leader}">
-		            <span class="badge rounded-pill bg-dark">Member</span>
+		        <c:when test="${myData.leader eq myData.userId}">
+		            <span class="badge rounded-pill bg-dark">Leader</span>
 		        </c:when>
 		        <c:otherwise>
-		            <span class="badge rounded-pill bg-dark">Leader</span>
+		            <span class="badge rounded-pill bg-dark">Member</span>
 		        </c:otherwise>
             </c:choose>
 			<span class="badge rounded-pill bg-light text-dark">${myData.role}</span>
