@@ -33,6 +33,14 @@
         on g.projectId = p.projectId
         where g.userId = #{userId} AND p.status = "완료";
     </select>
+    <!--  삭제 된 프로젝트 목록   -->
+    <select id="getDeleteProjectList" resultType="ProjectList">
+        select g.userId, p.projectId, p.projectName, p.progress AS projectProgress, g.position, g.role, g.progress AS memberProgress
+        from projectgroup g
+        join project p
+        on g.projectId = p.projectId
+        where g.userId = #{userId} AND p.status = "삭제";
+    </select>
     <!-- 프로젝트삭제 -->
     <update id="deleteProject">
         UPDATE project SET status="삭제"

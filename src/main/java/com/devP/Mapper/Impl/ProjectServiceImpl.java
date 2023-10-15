@@ -107,6 +107,21 @@ public class ProjectServiceImpl implements ProjectService {
             return 405;
         }
     }
+    @Override
+    public int getCompleteProjectList(Model model){
+        if(session.getAttribute("id") != null) {
+            ProjectListVO vo = new ProjectListVO();
+            String userId = session.getAttribute("id").toString();
+            vo.setUserId(userId);
+
+            model.addAttribute("completeProjectList", projectDAO.getCompleteProjectList(userId));
+            model.addAttribute("deleteProjectList", projectDAO.getDeleteProjectList(userId));
+
+            return 200;
+        }else {
+            return 405;
+        }
+    }
 
     @Override
     public int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){

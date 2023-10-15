@@ -131,6 +131,17 @@ public class ProjectController {
         return null;
     }
 
+    @RequestMapping(value = "/completeProjectList.do", method = RequestMethod.GET)
+    public String completeProjectList(Model model) {
+        int result = projectService.getCompleteProjectList(model);
+        if(result == 200){
+            return "completeProjectList";
+        } else if (result == 405) {
+            return "main";
+        }
+        return null;
+    }
+
     @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
     public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
         model.addAttribute("menuId","taskMenu");
