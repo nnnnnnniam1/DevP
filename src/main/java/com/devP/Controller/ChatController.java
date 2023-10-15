@@ -1,5 +1,8 @@
 package com.devP.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +46,13 @@ public class ChatController {
 	
 	@MessageMapping("/sendMessage")	
 	public void sendMessage(ChatMessageVO vo) {
-		System.out.println("chatId 는 : " + vo.getChatId());
-		System.out.println("msg 는 : " + vo.getContent());
-		System.out.println("sender 는 : " + vo.getSender());
-		System.out.println("receive 는 : " + vo.getReceiver());
+		System.out.println("시발시발시발");
+		Map<String, Object> messageData = new HashMap<>();
+		messageData.put("sender", vo.getSender());
+		messageData.put("receiver", vo.getReceiver());
+		messageData.put("content", vo.getContent());
 		chatService.saveChatMessage(vo);
-		simpMessagingTemplate.convertAndSend("/topic/" + vo.getReceiver(), vo.getContent());
+		simpMessagingTemplate.convertAndSend("/topic/" + vo.getReceiver(), messageData);
 		return;
 	}
 	

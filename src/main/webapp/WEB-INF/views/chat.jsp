@@ -17,9 +17,10 @@
 .other-message {
 	color: green; /* 상대방 메시지 스타일 */
 }
-.chat-container{
-	max-height : 300px;
-	overflow-y : auto;
+
+.chat-container {
+	max-height: 300px;
+	overflow-y: auto;
 }
 </style>
 <head>
@@ -35,10 +36,10 @@
 				<div class="card text-bg-light mb-3">
 					<div class="card-body chat-container" style="min-height: 30vh">
 						<!-- 채팅 메시지 목록을 나타내는 부분 -->
-						<ul>
+						<ul id="message-list">
 							<c:forEach items="${messageHistoryList}" var="message">
 								<li
-									class="${message.sender eq id ? 'my-message' : 'other-message'}">
+									class="message-item ${message.sender eq id ? 'my-message' : 'other-message'}">
 									<strong>${message.sender}:</strong> ${message.content}
 								</li>
 							</c:forEach>
@@ -48,8 +49,8 @@
 				</div>
 				<div class="card text-bg-light p-2">
 					<div class="form-floating">
-						<textarea class="form-control"
-							placeholder="Leave a comment here" id="msg" style="height: 10vh"></textarea>
+						<textarea class="form-control" placeholder="Leave a comment here"
+							id="msg" style="height: 10vh"></textarea>
 						<label for="floatingcontent">댓글</label>
 					</div>
 					<div>
@@ -68,6 +69,7 @@
 		</th:block>
 	</th:block>
 	<script th:inline="javascript">
+		var $chatListContainer = $(".chat-container");
 		var socket = null;
 		var isStomp = false;
 		const urlParams = new URL(location.href).searchParams;
@@ -82,7 +84,8 @@
 					return;
 
 				let msg = $('textarea#msg').val();
-				console.log("message", msg);
+
+				addMessage(msg, senderId);
 				if (isStomp)
 					socket.send('/sendMessage', {}, JSON.stringify({
 						chatId : chatRoomId,
@@ -105,12 +108,20 @@
 
 				//토픽 구독
 				client.subscribe('/topic/' + senderId, function(event) {
-					console.log("!!!!!!!!!!event>>", event)
+					addMessage(event.body,receiveId);
 				});
 			});
 		}
-
-		var $chatListContainer = $(".chat-container");
+		function addMessage(message, id) {
+			var messageList = document.getElementById('message-list');
+			var messageItem = document.createElement('li');
+			console.log(message)
+			messageItem.className = id === "${ id }" ? 'my-message'
+					: 'other-message';
+			messageItem.innerHTML = '<strong>' + id + ':</strong> ' + message;
+			messageList.appendChild(messageItem);
+			$chatListContainer.scrollTop($chatListContainer[0].scrollHeight);
+		}
 
 		// 스크롤을 가장 아래로 이동
 		$chatListContainer.scrollTop($chatListContainer[0].scrollHeight);

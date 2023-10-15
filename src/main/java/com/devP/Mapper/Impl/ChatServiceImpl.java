@@ -31,10 +31,10 @@ public class ChatServiceImpl implements ChatService {
 
 	@Autowired
 	private MemberDAOMybatis MemberDAO;
-	
+
 	@Autowired
 	private UserDAOMybatis UserDAO;
-	
+
 	@Autowired
 	private ChatMessageDAOMybatis ChatMessageDAO;
 
@@ -45,7 +45,7 @@ public class ChatServiceImpl implements ChatService {
 		MemberVO member = new MemberVO();
 		member.setProjectId(projectId);
 		member.setUserId(to_id);
-		if( MemberDAO.findMember(member) == null) {
+		if (MemberDAO.findMember(member) == null) {
 			System.out.println("멤버 없음");
 			return 0;
 		}
@@ -74,7 +74,6 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public ChatVO checkChatRoom(String chatId) {
-		System.out.println("chatId : " + chatId);
 		return ChatDAO.checkChatRoom(chatId);
 	}
 
