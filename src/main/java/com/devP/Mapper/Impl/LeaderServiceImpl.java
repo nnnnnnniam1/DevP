@@ -214,9 +214,9 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
-	public int deleteProject(int projectId){
-		System.out.println(projectId);
-		projectDAO.deleteProject(projectId);
+	public int deleteProject(DeleteProjectVO vo){
+		projectDAO.deleteProject(vo.getProjectId());
+		projectDAO.insertDeleteProjectReason(vo);
 		return 200;
 	}
 

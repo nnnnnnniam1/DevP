@@ -38,6 +38,11 @@
         UPDATE project SET status="삭제"
         WHERE projectId=#{projectId}
     </update>
+    <!--  프로젝트 삭제 사유 추가   -->
+    <insert id="insertDeleteProjectReason">
+        insert into deleteProject (projectId, reason)
+        values (#{projectId},#{reason});
+    </insert>
     <!--  프로젝트 아이디   -->
     <select id="getProjectId" resultType="int">
         select projectId from project where projectName = #{projectName};

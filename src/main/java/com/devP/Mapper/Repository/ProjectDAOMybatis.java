@@ -16,8 +16,9 @@ public class ProjectDAOMybatis {
     public int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) {
         return mybatis.insert("ProjectDAO.insertProject", vo);
     }
-    public void deleteProject(int projectId){ mybatis.update("ProjectDAO.deleteProject", projectId); }
+    public void deleteProject(int projectId){mybatis.update("ProjectDAO.deleteProject", projectId);}
 
+    public void insertDeleteProjectReason(DeleteProjectVO vo){ mybatis.insert("ProjectDAO.insertDeleteProjectReason", vo);}
 
     public int getProjectId(ProjectVO vo) {
         return mybatis.selectOne("ProjectDAO.getProjectId", vo);
