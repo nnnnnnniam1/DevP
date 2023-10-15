@@ -4,16 +4,16 @@ import java.util.Date;
 
 //VO(Value Object)
 public class ChatVO {
-	private int chatId;
+	private String chatId;
 	private int projectId;
 	private String from_id;
 	private String to_id;
 	private String sbject;
 	private String time;
-	public int getChatId() {
+	public String getChatId() {
 		return chatId;
 	}
-	public void setChatId(int chatId) {
+	public void setChatId(String chatId) {
 		this.chatId = chatId;
 	}
 	public int getProjectId() {
@@ -46,6 +46,4 @@ public class ChatVO {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
-	
 }

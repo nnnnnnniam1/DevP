@@ -19,6 +19,11 @@
         select * from user where email=#{email}
     </select>
 
+	<!-- 유저 이름 가져오기 -->
+    <select id="getUserName" resultType="User">
+        select * from user where id=#{id}
+    </select>
+	
     <!--  비밀번호 변경  -->
     <update id="updatePw">
         update user set password=#{password} where id=#{id}
