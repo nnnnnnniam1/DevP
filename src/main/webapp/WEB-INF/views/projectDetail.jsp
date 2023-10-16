@@ -7,6 +7,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="/resources/css/projectDetail.css">
 <%@include file="sidebar.jsp"%>
 <head>
 <style>
@@ -26,11 +27,21 @@ String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
 %>
 <div class="container">
-	<h1 class="my-5">${project.projectName}
-	    <c:if test="${myData.leader eq myData.userId}">
-            <button class="btn btn-outline-success" type="button" onclick="location.href='/project/leader.do?projectId=${project.projectId}'">leader</button>
-        </c:if>
-	</h1>
+    <div>
+        <h1 class="my-5">${project.projectName}
+            <c:if test="${myData.leader eq myData.userId}">
+                <button class="btn btn-outline-success" type="button" onclick="location.href='/project/leader.do?projectId=${project.projectId}'">leader</button>
+            </c:if>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">색상</button>
+                <ul class="dropdown-menu">
+                    <c:forEach items="${colorMap}" var="color" varStatus="loop">
+                        <li><span class="Dropdown-item" style="background-color:#${color.value};" onclick="location.href='/project/setColor.do?projectColor=${color.value}'"></span></li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </h1>
+	</div>
 	<div class="row m-3">
 		<div class = "col-8">
 		    <div class = "mb-1">

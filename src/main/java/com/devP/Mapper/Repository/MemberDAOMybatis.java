@@ -31,9 +31,10 @@ public class MemberDAOMybatis {
     //업무페이지
     public MemberVO getMyProjectData(MemberVO vo){ return mybatis.selectOne("MemberDAO.getMyProjectData", vo); }
 
-
-
-
     //project - 멤버페이지
     public List<MemberVO> getProjectMemberList(int vo){ return mybatis.selectList("MemberDAO.getProjectMemberList", vo); }
+
+    public void setProjectColor(MemberVO vo) { mybatis.update("MemberDAO.setProjectColor",vo);}
+
+    public String getProjectColor(MemberVO vo){return mybatis.selectOne("MemberDAO.getProjectColor",vo); }
 }
