@@ -33,7 +33,7 @@ String userId = (String) session.getAttribute("userId");
 	</h1>
 	<div class="row m-3">
 		<div class = "col-8">
-		<div class = "mb-1">
+		    <div class = "mb-1">
 		    <c:choose>
 		        <c:when test="${myData.leader eq myData.userId}">
 		            <span class="badge rounded-pill bg-dark">Leader</span>
@@ -43,7 +43,7 @@ String userId = (String) session.getAttribute("userId");
 		        </c:otherwise>
             </c:choose>
 			<span class="badge rounded-pill bg-light text-dark">${myData.role}</span>
-		</div>
+		    </div>
 			<div class="progress mb-2">
 			  <div class="progress-bar bg-warning" role="progressbar" style="width: ${project.progress}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
