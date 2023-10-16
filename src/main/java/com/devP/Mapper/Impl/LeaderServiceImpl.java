@@ -208,8 +208,7 @@ public class LeaderServiceImpl implements LeaderService {
 			else if(vo.getStatus().equals("진행중")) vo.setProgress(50);
 			else if(vo.getStatus().equals("검토")) vo.setProgress(80);
 			else if(vo.getStatus().equals("완료")) vo.setProgress(100);
-			System.out.println(vo.getProgress());
-		}
+		};
 
 		return 200;
 
