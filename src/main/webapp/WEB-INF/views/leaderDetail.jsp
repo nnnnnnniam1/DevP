@@ -1,14 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<%@ include file="/WEB-INF/views/include/headerBase.jsp"%>
+<%@ include file="/WEB-INF/views/include/headerLink.jsp"%>
 <link rel="stylesheet"  href="/resources/css/leaderDetail.css">
-<%@include file="sidebar.jsp"%>
-<head>
-</head>
-<body>
+<%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
+<!-- 컨텐츠 시작 -->
 <div class="topBar">
     <%@include file="leaderTopBar.jsp" %>
 </div>
@@ -96,4 +93,5 @@ function completeProject(projectId, projectName){
     }
 }
 </script>
-</html>
+<!-- 컨텐츠 종료 -->
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>

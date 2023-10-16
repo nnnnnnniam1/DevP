@@ -1,20 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<%@ include file="/WEB-INF/views/include/headerBase.jsp"%>
+<%@ include file="/WEB-INF/views/include/headerLink.jsp"%>
 <link rel="stylesheet" href="/resources/css/manageTask.css">
 <link rel="stylesheet" href="/resources/css/task.css">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-<%@include file="sidebar.jsp"%>
-<head>
-    <title>업무관리</title>
-</head>
-<body>
+<%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
+<!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
     <p class="projectName">${projectName}</p>
     <p class="semiTitle">업무 수정</p>
@@ -278,5 +273,5 @@ function insertTask(){
 
 
 </script>
-</body>
-</html>
+<!-- 컨텐츠 종료 -->
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>

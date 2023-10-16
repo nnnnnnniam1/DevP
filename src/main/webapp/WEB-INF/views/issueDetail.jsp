@@ -1,15 +1,11 @@
-<%@page import="java.io.Console"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="java.util.List" %>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@include file="sidebar.jsp"%>
-<head>
-</head>
-<body>
+
+<%@ include file="/WEB-INF/views/include/headerBase.jsp"%>
+<%@ include file="/WEB-INF/views/include/headerLink.jsp"%>
+
+<%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
+<!-- 컨텐츠 시작 -->
 <%
 String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
@@ -59,5 +55,5 @@ String userId = (String) session.getAttribute("userId");
 		</div>
 	</div>
 </div>
-</body>
-</html>
+<!-- 컨텐츠 종료 -->
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>
