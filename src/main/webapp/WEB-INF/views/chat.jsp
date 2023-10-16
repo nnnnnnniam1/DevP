@@ -34,16 +34,30 @@
 				<p class="h3">${receiver.name}</p>
 				<div class="d-flex"></div>
 				<div class="card text-bg-light mb-3">
-					<div class="card-body chat-container" style="min-height: 30vh">
+					<div id="chatcontainer" class="card-body chat-container"
+						style="min-height: 30vh">
 						<!-- 채팅 메시지 목록을 나타내는 부분 -->
-						<ul id="message-list">
-							<c:forEach items="${messageHistoryList}" var="message">
+						<c:forEach items="${messageHistoryList}" var="message">
+							<div
+								class="item d-flex ${message.sender eq id ? 'justify-content-end' : 'justify-content-start'}">
+								<div class="py-1 d-inline-flex ">
+									<div class="card text-bg-light">
+										<div class="card-body">
+											<small class="text-body-secondary">${message.sender}
+												: ${message.content}</small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+						<%-- <c:forEach items="${messageHistoryList}" var="message">
 								<li
-									class="message-item ${message.sender eq id ? 'my-message' : 'other-message'}">
-									<strong>${message.sender}:</strong> ${message.content}
+									class="list-group-item message-item ${message.sender eq id ? 'my-message' : 'other-message'}">
+									<div class="card">
+										<strong>${message.sender}:</strong> ${message.content}
+									</div>
 								</li>
-							</c:forEach>
-						</ul>
+							</c:forEach> --%>
 
 					</div>
 				</div>
@@ -51,23 +65,16 @@
 					<div class="form-floating">
 						<textarea class="form-control" placeholder="Leave a comment here"
 							id="msg" style="height: 10vh"></textarea>
-						<label for="floatingcontent">댓글</label>
+						<label for="floatingcontent">메세지</label>
 					</div>
 					<div>
 						<button type="submit" id="chatbutton" class="btn btn-primary m-3"
-							style="float: right">등록</button>
+							style="float: right">보내기</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<th:block
-		th:replace="~{/layout/basic :: setContent~{this :: content})}">
-		<th:block th:fragment="content">
-
-
-		</th:block>
-	</th:block>
 	<script th:inline="javascript">
 		var $chatListContainer = $(".chat-container");
 		var socket = null;
@@ -85,9 +92,9 @@
 
 				let msg = $('textarea#msg').val();
 
-				addMessage(msg, senderId);
+				addChatMessage(msg, senderId);
 				if (isStomp)
-					socket.send('/sendMessage', {}, JSON.stringify({
+					socket.send('/sendChatMessage', {}, JSON.stringify({
 						chatId : chatRoomId,
 						sender : senderId,
 						receiver : receiveId,
@@ -108,18 +115,40 @@
 
 				//토픽 구독
 				client.subscribe('/topic/' + senderId, function(event) {
-					addMessage(event.body,receiveId);
+					var chatmessageData = JSON.parse(event.body);
+					addChatMessage(chatmessageData.content, chatmessageData.sender);
 				});
 			});
 		}
-		function addMessage(message, id) {
-			var messageList = document.getElementById('message-list');
-			var messageItem = document.createElement('li');
-			console.log(message)
+		function addChatMessage(message, id) {
+			var senderId = "${ id }";
+			if (senderId === id) {
+			    console.log(senderId, id + "아이디 같아유");
+			    temp_html = `<div class="item d-flex justify-content-end">
+		            <div class="py-1 d-inline-flex ">
+	                <div class="card text-bg-light">
+	                    <div class="card-body">
+	                        <small class="text-body-secondary"> ` + id + ` : ` + message + `</small>
+	                    </div>
+	                </div>
+	            </div>`;
+			} else {
+			    console.log(senderId+ "senderId", id + "아이디 달라유");
+			    temp_html=`<div class="item d-flex justify-content-start">
+		            <div class="py-1 d-inline-flex ">
+	                <div class="card text-bg-light">
+	                    <div class="card-body">
+	                        <small class="text-body-secondary"> ` + id + ` : ` + message + `</small>
+	                    </div>
+	                </div>
+	            </div>`;
+			}
+			    $('#chatcontainer').append(temp_html);
+		    console.log(message)/* 
 			messageItem.className = id === "${ id }" ? 'my-message'
 					: 'other-message';
 			messageItem.innerHTML = '<strong>' + id + ':</strong> ' + message;
-			messageList.appendChild(messageItem);
+			messageList.appendChild(messageItem);  */
 			$chatListContainer.scrollTop($chatListContainer[0].scrollHeight);
 		}
 

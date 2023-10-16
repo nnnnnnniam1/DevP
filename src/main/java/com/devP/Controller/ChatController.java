@@ -44,9 +44,8 @@ public class ChatController {
 		return "chat";
 	}
 	
-	@MessageMapping("/sendMessage")	
-	public void sendMessage(ChatMessageVO vo) {
-		System.out.println("시발시발시발");
+	@MessageMapping("/sendChatMessage")	
+	public void sendChatMessage(ChatMessageVO vo) {
 		Map<String, Object> messageData = new HashMap<>();
 		messageData.put("sender", vo.getSender());
 		messageData.put("receiver", vo.getReceiver());
