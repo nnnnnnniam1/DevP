@@ -29,4 +29,10 @@ public interface TaskService {
 
 
 	Map<String,String> setCategoryMap();
+
+	int getPastTaskCnt(TaskVO task);
+
+	int getProgressTaskCnt(TaskVO task);
+
+	int getCompleteTaskCnt(TaskVO task);
 }

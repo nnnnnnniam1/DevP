@@ -1,6 +1,7 @@
 package com.devP.Service;
 
 import com.devP.VO.*;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,4 +40,8 @@ public interface LeaderService {
     int addTask(TaskVO vo);
 
     int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model);
+
+    int deleteProject(DeleteProjectVO vo);
+
+    int completeProject(int projectId);
 }

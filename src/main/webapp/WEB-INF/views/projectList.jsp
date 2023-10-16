@@ -16,7 +16,10 @@
 <body>
 <div class="mw-100 container">
     <div class="mx-4">
-        <h1 class="">프로젝트 목록</h1>
+        <div class="row">
+            <h1 class="col-auto">프로젝트 목록</h1>
+            <button class="btn btn-outline-success col-auto" type="button" onclick="location.href='/project/completeProjectList.do'">완료프로젝트</button>
+        </div>
         <div class="row">
                 <div class="">
                         <c:forEach items="${projectList}" var="project">

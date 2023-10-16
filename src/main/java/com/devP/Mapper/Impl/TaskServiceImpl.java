@@ -162,8 +162,31 @@ public class TaskServiceImpl implements TaskService {
 		model.addAttribute("completedtaskcount", completedcount);
 	}
 
+	@Override
 	public void addTask(TaskVO vo){taskDAO.insertTask(vo);}
+	@Override
 	public void updateTask(TaskVO vo){taskDAO.updateTask(vo);}
 
+	@Override
 	public void deleteTask(int taskId){taskDAO.deleteTask(taskId);}
+
+	@Override
+	public int getPastTaskCnt(TaskVO task){
+		Date currentDate = new Date();
+		task.setNow(currentDate);
+
+		return taskDAO.getPastTaskCnt(task);
+	}
+	@Override
+	public int getProgressTaskCnt(TaskVO task){
+		Date currentDate = new Date();
+		task.setNow(currentDate);
+
+		return taskDAO.getProgressTaskCnt(task);
+	}
+	@Override
+	public int getCompleteTaskCnt(TaskVO task){
+
+		return taskDAO.getCompleteTaskCnt(task);
+	}
 }

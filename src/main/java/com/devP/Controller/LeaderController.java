@@ -7,6 +7,7 @@ import com.devP.Service.UserService;
 import com.devP.VO.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,26 +40,26 @@ public class LeaderController {
     @Autowired
     private HttpSession session;
 
-    private String toJson(Object object){
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "{}";
-        }
-    }
+//    private String toJson(Object object){
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            return objectMapper.writeValueAsString(object);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            return "{}";
+//        }
+//    }
 
     // 멤버페이지
     @ModelAttribute("positionMap")
-    public Map<String, String> setRoleMap(){
+    public Map<String, String> setRoleMap() {
         Map<String, String> roleMap = new HashMap<String, String>();
-        roleMap.put("팀장","팀장");
+        roleMap.put("팀장", "팀장");
         return roleMap;
     }
 
     @ModelAttribute("roleMap")
-    public Map<String, String> setPositionMap(){
+    public Map<String, String> setPositionMap() {
         Map<String, String> positionMap = new HashMap<String, String>();
         positionMap.put("FE", "FE");
         positionMap.put("BE", "BE");
@@ -68,39 +69,41 @@ public class LeaderController {
         return positionMap;
 
     }
+
     @ModelAttribute("categoryMap")
-    public Map<String, String> setCategoryMap(Model model){
-        Map<String,String> categoryMap = new HashMap<>();
+    public Map<String, String> setCategoryMap(Model model) {
+        Map<String, String> categoryMap = new HashMap<>();
 
-        categoryMap.put("1","기획");
-        categoryMap.put("2","디자인");
-        categoryMap.put("3","구현");
-        categoryMap.put("4","개발");
-        categoryMap.put("5","서버");
-        categoryMap.put("6","테스트");
-        categoryMap.put("7","완료");
+        categoryMap.put("1", "기획");
+        categoryMap.put("2", "디자인");
+        categoryMap.put("3", "구현");
+        categoryMap.put("4", "개발");
+        categoryMap.put("5", "서버");
+        categoryMap.put("6", "테스트");
+        categoryMap.put("7", "완료");
 
-        String categoryMapJson = toJson(categoryMap);
-        model.addAttribute("categoryMapJson", categoryMapJson);
+//        String categoryMapJson = toJson(categoryMap);
+//        model.addAttribute("categoryMapJson", categoryMapJson);
 
 
         return categoryMap;
     }
-    @ModelAttribute("statusMap")
-    public Map<String, String> setStatusMap(Model model){
-        Map<String,String> statusMap = new HashMap<>();
 
-        statusMap.put("1","대기");
-        statusMap.put("2","진행중");
-        statusMap.put("3","검토");
-        statusMap.put("4","완료");
+    @ModelAttribute("statusMap")
+    public Map<String, String> setStatusMap(Model model) {
+        Map<String, String> statusMap = new HashMap<>();
+
+        statusMap.put("1", "대기");
+        statusMap.put("2", "진행중");
+        statusMap.put("3", "검토");
+        statusMap.put("4", "완료");
 
         return statusMap;
     }
 
 
-    @RequestMapping(value="/project/leader.do", method=RequestMethod.GET)
-    public String leaderDetailView(@RequestParam int projectId, ProjectVO vo, Model model){
+    @RequestMapping(value = "/project/leader.do", method = RequestMethod.GET)
+    public String leaderDetailView(@RequestParam int projectId, ProjectVO vo, Model model) {
         vo.setProjectId(projectId);
         leaderService.getLeaderView(vo, model);
         // projectService.getProjectName(vo);
@@ -109,8 +112,8 @@ public class LeaderController {
     }
 
 
-    @RequestMapping(value="/project/manageMember.do", method = RequestMethod.GET)
-    public String manageMemberView(MemberVO vo, Model model){
+    @RequestMapping(value = "/project/manageMember.do", method = RequestMethod.GET)
+    public String manageMemberView(MemberVO vo, Model model) {
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         int result = leaderService.getMemberList(vo, model);
         if (result == 200) return "manageMember";
@@ -124,8 +127,8 @@ public class LeaderController {
         return "redirect:/project/manageMember.do";
     }
 
-    @RequestMapping(value="project/addProject/verify", method = RequestMethod.GET)
-    public String invitedVerify(MemberVO vo, @RequestParam String token){
+    @RequestMapping(value = "project/addProject/verify", method = RequestMethod.GET)
+    public String invitedVerify(MemberVO vo, @RequestParam String token) {
 //        String code = token;
 //        System.out.println(token);
         leaderService.invitedVerify(vo, token);
@@ -134,16 +137,16 @@ public class LeaderController {
 
     }
 
-    @RequestMapping(value="/project/updateMember.do", method = RequestMethod.POST)
-    public String updateMember(@ModelAttribute MemberVO memberVO, Model model){
+    @RequestMapping(value = "/project/updateMember.do", method = RequestMethod.POST)
+    public String updateMember(@ModelAttribute MemberVO memberVO, Model model) {
         int result = leaderService.updateMemberDatas(memberVO.getMemberVOList(), model);
 
-        if(result == 200) return "redirect:/project/manageMember.do";
+        if (result == 200) return "redirect:/project/manageMember.do";
         else return "redirect:/";
     }
 
     @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteMember(MemberVO vo, HttpServletRequest request ) throws Exception {
+    public ResponseEntity<String> deleteMember(MemberVO vo, HttpServletRequest request) throws Exception {
         try {
             String userId = request.getParameter("userId");
             int projectId = Integer.parseInt(request.getParameter("projectId"));
@@ -151,35 +154,42 @@ public class LeaderController {
             leaderService.deleteMember(vo, userId, projectId);
 
             return ResponseEntity.ok("Member deleted successfully");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
 
         }
 
     }
-    @RequestMapping(value="/project/manageTask.do", method = RequestMethod.GET)
-    public String manageTask(TaskVO vo, Model model){
+
+    @RequestMapping(value = "/project/manageTask.do", method = RequestMethod.GET)
+    public String manageTask(TaskVO vo, Model model) {
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         int result = leaderService.getTaskDatas(vo, model);
         if (result == 200) return "manageTask";
         else return "redirect:/";
     }
-    @RequestMapping(value="project/addTask.do", method = RequestMethod.POST)
-    public String addTask(TaskVO vo){
+
+    @RequestMapping(value = "project/addTask.do", method = RequestMethod.POST)
+    public String addTask(TaskVO vo) {
         System.out.println(vo.getCategory());
         int result = leaderService.addTask(vo);
 
-        if(result == 200){ return "redirect:/project/manageTask.do";}
-        else {return "/";}
+        if (result == 200) {
+            return "redirect:/project/manageTask.do";
+        } else {
+            return "/";
+        }
 
     }
-    @RequestMapping(value="/project/updateTask.do", method = RequestMethod.POST)
-    public String updateMember(@ModelAttribute TaskVO vo, Model model){
+
+    @RequestMapping(value = "/project/updateTask.do", method = RequestMethod.POST)
+    public String updateMember(@ModelAttribute TaskVO vo, Model model) {
         int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
 
-        if(result == 200) return "redirect:/project/manageTask.do";
+        if (result == 200) return "redirect:/project/manageTask.do";
         else return "redirect:/";
     }
+
     @RequestMapping(value = "/project/deleteTask.do", method = RequestMethod.POST)
     public ResponseEntity<String> deleteTask(@RequestParam int taskId) throws Exception {
         try {
@@ -187,11 +197,51 @@ public class LeaderController {
             taskService.deleteTask(taskId);
 
             return ResponseEntity.ok("Task deleted successfully");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
 
         }
+    }
 
+    @RequestMapping(value = "/project/deleteProject.do", method = RequestMethod.GET)
+    public String deleteProjectView(@RequestParam int projectId, Model model) {
+        model.addAttribute("projectId", projectId);
+        model.addAttribute("projectName", projectService.getProjectName(projectId));
+        return "deleteProject";
+
+    }
+
+    @RequestMapping(value = "/project/deleteProject.do", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteProject(DeleteProjectVO vo,@RequestParam("projectId") int projectId, @RequestParam("reason") String reason) {
+        try {
+            vo.setProjectId(projectId);
+            vo.setReason(reason);
+
+            int result = leaderService.deleteProject(vo);
+            if (result == 200) {
+                return ResponseEntity.ok("success");
+            } else {
+                return ResponseEntity.ok("failed");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+
+        }
+    }
+    @RequestMapping(value = "/project/completeProject.do", method = RequestMethod.GET)
+    public ResponseEntity<String> completeProject(@RequestParam("projectId") int projectId) {
+        try {
+
+            int result = leaderService.completeProject(projectId);
+            if (result == 200) {
+                return ResponseEntity.ok("success");
+            } else {
+                return ResponseEntity.ok("failed");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+
+        }
     }
 
 }
