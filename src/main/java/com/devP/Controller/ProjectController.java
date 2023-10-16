@@ -10,6 +10,8 @@ import com.devP.VO.ProjectVO;
 import com.devP.VO.TaskVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -66,6 +68,7 @@ public class ProjectController {
 
         return colorMap;
     }
+
 
 
 
@@ -133,7 +136,7 @@ public class ProjectController {
         List<String> nameList = projectService.getMemberNames(vo.getProjectId());
 
         model.addAttribute("categoryMap", taskService.setCategoryMap());
-
+        model.addAttribute("statusMap", taskService.setStatusMap());
         int result = leaderService.getTaskDatas(vo, model);
 
         if(result == 200) return "insertTask";
@@ -144,12 +147,17 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/insertTask.do", method = RequestMethod.POST)
-    public String insertTask(TaskVO vo){
-        int result = leaderService.addTask(vo);
-        if(result == 200) return "redirect:/project/insertTask.do";
-        else {
-            session.removeAttribute("projectId");
-            return "redirect:/list.do";
+    public ResponseEntity<String> insertTask(TaskVO vo, Model model) throws Exception {
+        try {
+            vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+            System.out.println(vo.getProjectId());
+            int result = leaderService.addTask(vo);
+
+            return ResponseEntity.ok("Task insert successfully");
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+
         }
     }
 

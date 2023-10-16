@@ -30,7 +30,6 @@
                 </div>
             </div>
             <div class="row">
-                <form method="post" action="/project/insertTask.do">
                     <div id="box">
                         <div class="addForm">
                             <table id="taskTbl" class="table" width=500px;>
@@ -56,13 +55,13 @@
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <td><input class="form-control" type="text" name="workPackage"></td>
-                                        <td><input class="form-control" type="text" name="depth"></td>
-                                        <td><input class="form-control" type="text" name="detail"></td>
+                                        <td><input class="form-control" type="text" name="workPackage" id="workPackage"></td>
+                                        <td><input class="form-control" type="text" name="depth" id="depth"></td>
+                                        <td><input class="form-control" type="text" name="detail" id="detail"></td>
                                         <td><select class="form-select" name="responsibility" id="responsibilitySelect">
                                             <option value="" disabled selected> 선택</option>
                                             <c:forEach items="${memberMap}" var="member">
-                                                <option value="${member.value}">${member.value}</option>
+                                                <option value="${member.key}">${member.value}</option>
                                             </c:forEach>
                                         </select></td>
                                         <td><input class="form-control startDate" type="date"  name="startdate" id="startDate"/></td>
@@ -70,10 +69,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <input class="form-control" type="submit" value="추가">
+                            <button class="form-control" onclick="insertTask()">추가</button>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>
@@ -160,9 +158,9 @@
         </div>
     </div>
 </div>
-
-<script src="/resources/js/manageTask.js"></script>
+<script src="/resources/js/insertTask.js"></script>
 <script type="text/javascript">
+
 function getCurrentDate(){
         const now = new Date();
         const year = now.getFullYear();
@@ -240,6 +238,47 @@ function drawChart(){
 
 }
 
+
+function insertTask(){
+    var category = document.getElementById("categorySelect").value;
+    var workPackage = document.getElementById("workPackage").value;
+    var depth = document.getElementById("depth").value;
+    var detail = document.getElementById("detail").value;
+    var responsibility = document.getElementById("responsibilitySelect").value;
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+
+    if(category === null || workPackage === null || detail === null || responsibility === null || startDate === null || endDate === null){
+        alert("빈칸없이 채워주세요");
+    } else {
+        $.ajax({
+            url: "/project/insertTask.do",
+            method: 'POST',
+            data: {
+                category: category,
+                workPackage: workPackage,
+                depth: depth,
+                detail: depth,
+                detail: detail,
+                userId: responsibility,
+                startdate: startDate,
+                enddate: endDate
+            },
+            success: function(response){
+                console.log("업무 추가!")
+                window.location.href="/project/insertTask.do";
+            },
+            error: function(error){
+                console.log('에러: '+error);
+                alert("업무를 생성하는데 오류가 발생하였습니다.");
+                window.location.href="/project/insertTask.do";
+            }
+
+
+
+        })
+    }
+}
 
 
 </script>

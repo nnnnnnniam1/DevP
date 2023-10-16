@@ -197,8 +197,6 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int addTask(TaskVO vo){
-		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-		vo.setUserId(session.getAttribute("id").toString());
 		taskService.addTask(vo);
 		return 200;
 	}
