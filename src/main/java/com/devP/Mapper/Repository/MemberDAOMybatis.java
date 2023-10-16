@@ -23,7 +23,6 @@ public class MemberDAOMybatis {
     public void insertMember(MemberVO vo){ mybatis.insert("MemberDAO.insertMember", vo); }
     public void reInvited(MemberVO vo){ mybatis.update("MemberDAO.updateMemberToken", vo); }
     public MemberVO getMemberByToken(MemberVO vo){return (MemberVO) mybatis.selectOne("MemberDAO.getMemberByToken", vo); }
-
     public void updateMemberStatus(MemberVO vo){ mybatis.update("MemberDAO.updateMemberStatus", vo); }
     public void updateMemberDatas(MemberVO vo){ mybatis.update("MemberDAO.updateMemberDatas", vo); }
     public void deleteMember(MemberVO vo){ mybatis.update("MemberDAO.deleteMember",vo); }
