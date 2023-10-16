@@ -143,7 +143,7 @@
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <td><input class="form-control" type="text" name="taskVOList[${loop.index}].progress" value="${task.progress}"></td>
+                                        <td><input class="form-control" type="text" readonly name="taskVOList[${loop.index}].progress" value="${task.progress}"></td>
                                         <td><input class="form-control" type="button" value="삭제" onclick="deleteTask('${task.taskId}')" /></td>
                                     </tr>
                                 </c:forEach>
