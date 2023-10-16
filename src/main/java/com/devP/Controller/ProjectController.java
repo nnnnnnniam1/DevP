@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -172,7 +171,7 @@ public class ProjectController {
         if(result == 200){
             return "completeProjectList";
         } else if (result == 405) {
-            return "main";
+            return "mainTemp";
         }
         return null;
     }
@@ -192,7 +191,7 @@ public class ProjectController {
         int result = projectService.showProjectMemberList(vo, model);
 
         if (result == 200) return "member";
-        else return "main";
+        else return "mainTemp";
     }
 
     //멤버 가져오기
