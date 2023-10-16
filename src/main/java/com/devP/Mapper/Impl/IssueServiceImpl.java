@@ -43,13 +43,13 @@ public class IssueServiceImpl implements IssueService {
 		issue.setStatus("대기");
 		
 		// 구분자를 쉼표(,)로 지정하여 문자열을 나누고, 이메일 주소들을 ArrayList에 저장
-		ArrayList<String> emailList = new ArrayList<>();
+		ArrayList<String> emailIdList = new ArrayList<>();
 		String[] emailArray = emails.split(",");
 		for (String email : emailArray) {
-			emailList.add(email);
+			emailIdList.add(email);
 		}
 		try {
-			mailService.sendMail(emailList, issue.getUserId() + "(이)가 이슈 알림을 보냈습니다", issue.getContent());
+			mailService.sendMail(emailIdList, issue.getUserId() + "(이)가 이슈 알림을 보냈습니다", issue.getContent());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
