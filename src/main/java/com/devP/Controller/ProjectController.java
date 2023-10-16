@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -46,6 +49,25 @@ public class ProjectController {
     @Autowired
     private HttpSession session;
 
+    @ModelAttribute("colorMap")
+    public Map<String, String> setColorMap(){
+        Map<String,String> colorMap = new HashMap<>();
+
+        colorMap.put("1","F5A9A9");
+        colorMap.put("2","F5D0A9");
+        colorMap.put("3","F2F5A9");
+        colorMap.put("4","BCF5A9");
+        colorMap.put("5","BCF5A9");
+        colorMap.put("6","A9D0F5");
+        colorMap.put("7","A9BCF5");
+        colorMap.put("8","A9A9F5");
+        colorMap.put("9","D0A9F5");
+        colorMap.put("10","F6CEEC");
+
+        return colorMap;
+    }
+
+
 
     //프로젝트 추가 화면
     @RequestMapping(value = "/insert.do", method = RequestMethod.GET)
@@ -58,7 +80,22 @@ public class ProjectController {
             return "redirect:/";
         }
     }
+    @RequestMapping(value = "/setColor.do", method = RequestMethod.GET)
+    public String changeProjectColor(@RequestParam String projectColor, MemberVO vo){
+        System.out.println(projectColor);
+        vo.setColor("#"+projectColor);
+        vo.setUserId(session.getAttribute("id").toString());
+        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+        int result = projectService.setProjectColor(vo);
 
+        int projectId = Integer.parseInt(session.getAttribute("projectId").toString());
+        System.out.println(projectId);
+        System.out.println(vo.getColor());
+
+        return "redirect:/project/detail.do?projectId="+projectId;
+//        return "main";
+
+    }
 
     //프로젝트 상세
     @RequestMapping(value="/detail.do", method= RequestMethod.GET)
