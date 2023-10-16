@@ -1,27 +1,18 @@
-<%@page import="java.io.Console"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="java.util.List" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="/resources/css/projectDetail.css">
-<%@include file="sidebar.jsp"%>
-<head>
+
+<%@ include file="/WEB-INF/views/include/headerBase.jsp"%>
+<%@ include file="/WEB-INF/views/include/headerLink.jsp"%>
 <style>
     .card:hover {
       background-color: #f8f9fa; /* 호버 시 배경색 변경 */
     }
   </style>
-  <script>
-    /* function sendGetRequest() {
-        window.location.href = '/issue/list.do?projectId=1';
-    } */
-  </script>
-</head>
-<body>
+<link rel="stylesheet" href="/resources/css/projectDetail.css">
+<link rel="stylesheet"  href="/resources/css/leaderDetail.css">
+
+<%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
+<!-- 컨텐츠 시작 -->
 <%
 String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
@@ -141,5 +132,5 @@ String userId = (String) session.getAttribute("userId");
 			</div>
 		</div>
 </div>
-</body>
-</html>
+<!-- 컨텐츠 종료 -->
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>
