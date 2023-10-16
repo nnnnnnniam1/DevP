@@ -64,7 +64,7 @@
 	<update id="updateTask">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
-		startdate=#{startdate}, enddate=#{enddate}, status=#{status}
+		startdate=#{startdate}, enddate=#{enddate}, status=#{status}, progress=#{progress}
 		WHERE projectId=#{projectId} AND taskId=#{taskId}
 	</update>
 

@@ -27,12 +27,13 @@ public interface TaskService {
 
 	void deleteTask(int taskId);
 
-
-	Map<String,String> setCategoryMap();
-
 	int getPastTaskCnt(TaskVO task);
 
 	int getProgressTaskCnt(TaskVO task);
 
 	int getCompleteTaskCnt(TaskVO task);
+
+	Map<String,String> setCategoryMap();
+
+	Map<String,String> setStatusMap();
 }
