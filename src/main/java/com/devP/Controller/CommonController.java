@@ -36,6 +36,7 @@ public class CommonController {
 
         if(session.getAttribute("id")!=null) {
             issueService.getUserIssueList(model);
+            projectService.getProjectList(model);
             if(taskService.getUserTaskList(model) == 200) {
                 return "mainTemp";
             }
