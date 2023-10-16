@@ -8,6 +8,7 @@
 		<typeAlias alias="Member" type="com.devP.VO.MemberVO" />
 		<typeAlias alias="User" type="com.devP.VO.UserVO" />
 		<typeAlias alias="Project" type="com.devP.VO.ProjectVO" />
+		<typeAlias alias="DeleteProject" type="com.devP.VO.DeleteProjectVO" />
 		<typeAlias alias="ProjectList" type="com.devP.VO.ProjectListVO" />
 		<typeAlias alias="Chat" type="com.devP.VO.ChatVO" />
 		<typeAlias alias="Issue" type="com.devP.VO.IssueVO" />
