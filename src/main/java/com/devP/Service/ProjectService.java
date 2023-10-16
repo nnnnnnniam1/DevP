@@ -38,4 +38,8 @@ public interface ProjectService {
     int getCompleteProjectList(Model model);
 
 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model);
+
+	int setProjectColor(MemberVO vo);
+
+	String getProjectColor(MemberVO vo);
 }

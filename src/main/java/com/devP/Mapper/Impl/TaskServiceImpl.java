@@ -2,7 +2,9 @@ package com.devP.Mapper.Impl;
 
 
 import com.devP.Mapper.Repository.TaskDAOMybatis;
+import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
+import com.devP.VO.MemberVO;
 import com.devP.VO.TaskListVO;
 import com.devP.VO.TaskVO;
 
@@ -12,11 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +22,8 @@ import javax.servlet.http.HttpSession;
 public class TaskServiceImpl implements TaskService {
 
 
-
+	@Autowired
+	private ProjectService projectService;
     @Autowired
     private TaskDAOMybatis taskDAO;
 
@@ -58,6 +57,16 @@ public class TaskServiceImpl implements TaskService {
 
 		return statusMap;
 	}
+	// 캘린더 배경색으로 글자색 변경
+	private String getTextColor(String backgroundColor) {
+		int r = Integer.parseInt(backgroundColor.substring(1, 3), 16);
+		int g = Integer.parseInt(backgroundColor.substring(3, 5), 16);
+		int b = Integer.parseInt(backgroundColor.substring(5, 7), 16);
+		double brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+		// 밝기가 충분히 낮으면 흰색, 그렇지 않으면 검은색으로
+		return brightness < 128 ? "#ffffff" : "#000000";
+	}
 
 	@Override
 	public List<Map<String, Object>> getMyTasks() {
@@ -66,23 +75,33 @@ public class TaskServiceImpl implements TaskService {
 		try {
 			TaskVO task = new TaskVO();
 			task.setUserId(session.getAttribute("id").toString());
-			task.setProjectId((int) session.getAttribute("projectId"));
+//			task.setProjectId((int) session.getAttribute("projectId"));
 			voList = taskDAO.getMyTask(task);
 		}catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
 		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
 		for (TaskVO vo : voList) {
 			Map<String, Object> result = new HashMap<>();
-//    		String formattedstartDate = dateFormat.format(vo.getStartdate());
-//    		String formattedendDate = dateFormat.format(vo.getEnddate());
+			int projectId = vo.getProjectId();
+
+			MemberVO m = new MemberVO();
+			m.setProjectId(projectId);
+			m.setUserId(session.getAttribute("id").toString());
+
+			String backgroundColor = projectService.getProjectColor(m);
+
 			result.put("taskId", vo.getTaskId());
 			result.put("title", vo.getDetail());
 			result.put("progress", vo.getProgress());
 			result.put("start", vo.getStartdate());
 			result.put("end", vo.getEnddate());
 			result.put("allday", true);
+			result.put("backgroundColor", backgroundColor);
+			result.put("borderColor", backgroundColor);
+			result.put("textColor",getTextColor(backgroundColor));
 			resultList.add(result);
 		}
 		return resultList;
@@ -91,27 +110,38 @@ public class TaskServiceImpl implements TaskService {
 	public List<Map<String, Object>> getTask() {
 		List<TaskVO> voList = new ArrayList<TaskVO>();
     	List<Map<String, Object>> resultList = new ArrayList<>();
-    	try {
+
+		MemberVO m = new MemberVO();
+		m.setUserId(session.getAttribute("id").toString());
+
+		try {
     		TaskVO task = new TaskVO();
     		task.setUserId(session.getAttribute("id").toString());
     		task.setProjectId((int) session.getAttribute("projectId"));
-    		voList = taskDAO.getTask(task);
+			m.setProjectId(task.getProjectId());
+			voList = taskDAO.getTask(task);
     	}catch (Exception e) {
 			// TODO: handle exception
     		System.out.println(e);
 		}
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    	for (TaskVO vo : voList) {
+
+		String backgroundColor = projectService.getProjectColor(m);
+
+		for (TaskVO vo : voList) {
         	Map<String, Object> result = new HashMap<>();
-//    		String formattedstartDate = dateFormat.format(vo.getStartdate());
-//    		String formattedendDate = dateFormat.format(vo.getEnddate());
+
             result.put("taskId", vo.getTaskId());
             result.put("title", vo.getDetail());
             result.put("progress", vo.getProgress());
             result.put("start", vo.getStartdate());
             result.put("end", vo.getEnddate());
             result.put("allday", true);
-            resultList.add(result);
+			result.put("backgroundColor", backgroundColor);
+			result.put("borderColor", backgroundColor);
+			result.put("textColor",getTextColor(backgroundColor));
+
+			resultList.add(result);
+
 		}
 		return resultList;
 	}

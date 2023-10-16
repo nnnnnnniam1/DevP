@@ -89,4 +89,14 @@
         JOIN project AS p ON pg.projectId = p.projectId
         WHERE pg.projectId = #{projectId} AND pg.status = '1' AND u.id != #{userId};
     </select>
+
+    <update id="setProjectColor">
+        UPDATE projectgroup SET color=#{color} WHERE projectId=#{projectId} AND userId=#{userId}
+    </update>
+
+    <select id="getProjectColor" resultType="String">
+        SELECT color FROM projectgroup WHERE projectId=#{projectId} AND userId=#{userId}
+    </select>
+
+
 </mapper>

@@ -7,6 +7,7 @@ import com.devP.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.awt.*;
@@ -29,6 +30,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private IssueService issueService;
 
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private LeaderService leaderService;
+
 
 
     @Override
@@ -48,11 +55,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
      public MemberVO getMyProjectData(MemberVO vo){return memberDAO.getMyProjectData(vo);}
-    @Autowired
-    private MailService mailService;
 
-    @Autowired
-    private LeaderService leaderService;
+    @Override
+    public int setProjectColor(MemberVO vo){
+
+        memberDAO.setProjectColor(vo);
+
+        return 200;
+    }
+
+    @Override
+    public String getProjectColor(MemberVO vo){return memberDAO.getProjectColor(vo);}
+
 
     @Override
     public Map<String, String> setMemberMap(List<String> members){
