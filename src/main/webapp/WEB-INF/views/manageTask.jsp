@@ -96,15 +96,14 @@
                         <table class="table taskTbl">
                             <thead>
                                 <tr>
-                                    <th class="" scope="col">Category</th>
-                                    <th class="" scope="col">Work Package</th>
-                                    <th class="" scope="col">depth</th>
-                                    <th class="" scope="col">detail</th>
-                                    <th class="" scope="col">담당자</th>
-                                    <th class="" scope="col">시작일</th>
-                                    <th class="" scope="col">종료일</th>
-                                    <th class="" scope="col">상태</th>
-                                    <th class="" scope="col">진행률</th>
+                                    <th class="col-auto" scope="col">Category</th>
+                                    <th class="col-auto" scope="col">Work Package</th>
+                                    <th class="col-auto" scope="col">depth</th>
+                                    <th class="col-auto" scope="col">detail</th>
+                                    <th class="col-auto" scope="col">담당자</th>
+                                    <th class="col-auto" scope="col">시작일</th>
+                                    <th class="col-auto" scope="col">종료일</th>
+                                    <th class="col-auto" scope="col">상태</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,7 +142,6 @@
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <td><input class="form-control" type="text" readonly name="taskVOList[${loop.index}].progress" value="${task.progress}"></td>
                                         <td><input class="form-control" type="button" value="삭제" onclick="deleteTask('${task.taskId}')" /></td>
                                     </tr>
                                 </c:forEach>
