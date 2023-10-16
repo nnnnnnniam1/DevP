@@ -11,6 +11,7 @@
 		<typeAlias alias="DeleteProject" type="com.devP.VO.DeleteProjectVO" />
 		<typeAlias alias="ProjectList" type="com.devP.VO.ProjectListVO" />
 		<typeAlias alias="Chat" type="com.devP.VO.ChatVO" />
+		<typeAlias alias="ChatMessage" type="com.devP.VO.ChatMessageVO" />
 		<typeAlias alias="Issue" type="com.devP.VO.IssueVO" />
 		<typeAlias alias="Task" type="com.devP.VO.TaskVO" />
 		<typeAlias alias="Report" type="com.devP.VO.ReportVO" />
@@ -22,6 +23,7 @@
 		<mapper resource="mappings/user-mapping.xml" />
 		<mapper resource="mappings/project-mapping.xml" />
 		<mapper resource="mappings/chat-mapping.xml" />
+		<mapper resource="mappings/chatmessage-mapping.xml" />
 		<mapper resource="mappings/issue-mapping.xml" />
 		<mapper resource="mappings/task-mapping.xml" />
 		<mapper resource="mappings/report-mapping.xml" />
