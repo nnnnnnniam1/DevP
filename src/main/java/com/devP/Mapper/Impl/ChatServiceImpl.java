@@ -39,7 +39,7 @@ public class ChatServiceImpl implements ChatService {
 	private ChatMessageDAOMybatis ChatMessageDAO;
 
 	@Override
-	public int getChatRoom(String from_id, String to_id, Model model) {
+	public String getChatRoom(String from_id, String to_id, Model model) {
 		String chatId = generateRoomId(from_id, to_id);
 		int projectId = (int) session.getAttribute("projectId");
 		MemberVO member = new MemberVO();
@@ -47,22 +47,25 @@ public class ChatServiceImpl implements ChatService {
 		member.setUserId(to_id);
 		if (MemberDAO.findMember(member) == null) {
 			System.out.println("멤버 없음");
-			return 0;
+			return "main";
 		}
 		model.addAttribute("receiver", UserDAO.getUserName(to_id));
 		model.addAttribute("chatRoomId", chatId);
 		try {
+			System.out.println("채팅 방 생성");
 			ChatVO vo = new ChatVO();
 			vo.setProjectId(projectId);
 			vo.setChatId(chatId);
 			vo.setFrom_id(from_id);
 			vo.setTo_id(to_id);
 			ChatDAO.newChatRoom(vo);
+			System.out.println("채팅 방 생성 완료");
 		} catch (Exception e) {
+			System.out.println("채팅 방 생성 에러" + e);
 			List<ChatMessageVO> messageHistory = ChatMessageDAO.getChatHistory(chatId, projectId);
 			model.addAttribute("messageHistoryList", messageHistory);
 		}
-		return 1;
+		return "chat";
 	}
 
 	private String generateRoomId(String userId1, String userId2) {

@@ -40,8 +40,7 @@ public class ChatController {
 	@RequestMapping(value = "/getChatView.do", method = RequestMethod.GET)
 	public String chatView(@RequestParam("userId")String to_id, Model model) {
 		String from_id = (String) session.getAttribute("id");
-		chatService.getChatRoom(from_id, to_id, model);
-		return "chat";
+		return chatService.getChatRoom(from_id, to_id, model);
 	}
 	
 	@MessageMapping("/sendChatMessage")	
