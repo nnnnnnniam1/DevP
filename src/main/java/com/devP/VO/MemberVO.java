@@ -16,6 +16,8 @@ public class MemberVO {
     private String status;
     private float progress;
 
+    private String color;
+
     private ArrayList<MemberVO> memberVOList;
     public int getProjectId() {return projectId;}
     public void setProjectId(int projectId){this.projectId = projectId;}
@@ -39,6 +41,9 @@ public class MemberVO {
 
     public float getProgress(){return progress;}
     public void setProgress(float progress){this.progress = progress;}
+
+    public String getColor(){return color;}
+    public void setColor(String color){this.color = color;}
 
     public ArrayList<MemberVO> getMemberVOList() { return memberVOList; }
     public void setMemberVOList(ArrayList<MemberVO> memberVOList) { this.memberVOList = memberVOList; }
