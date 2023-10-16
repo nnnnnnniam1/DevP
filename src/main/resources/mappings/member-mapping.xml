@@ -16,7 +16,7 @@
         JOIN user AS u
         JOIN project AS p
         ON pg.userId = u.id
-        WHERE pg.projectId = #{projectId} AND p.projectId = #{projectId} AND NOT pg.status = "x";
+        WHERE pg.projectId = #{projectId} AND p.projectId = #{projectId} AND pg.status = "1";
     </select>
 
     <!-- 프로젝트 멤버 존재여부 확인 -->
