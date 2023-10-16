@@ -9,7 +9,7 @@ public interface ChatService {
 	
 	public ChatVO checkChatRoom(String chatId);
 	
-	public int getChatRoom(String from_id,String to_id, Model model);
+	public String getChatRoom(String from_id,String to_id, Model model);
 	
 	public int saveChatMessage(ChatMessageVO vo);
 }
