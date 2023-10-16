@@ -26,6 +26,29 @@
 	<select id="getProjectTaskList" resultType="Task">
 		SELECT * FROM task WHERE projectId = #{projectId};
 	</select>
+	<!--  지난 업무 개수	-->
+	<select id="getPastTaskCnt" resultType="int">
+		SELECT COUNT(*) FROM task
+		WHERE STR_TO_DATE(enddate, '%Y-%m-%d') &lt; #{now}
+			AND userId=#{userId}
+			AND projectId=#{projectId}
+			AND progress!=100;
+	</select>
+	<!--  진행중인 업무 개수	-->
+	<select id="getProgressTaskCnt" resultType="int">
+		SELECT COUNT(*) FROM task
+		WHERE STR_TO_DATE(startdate, '%Y-%m-%d') &lt; #{now}
+		AND STR_TO_DATE(enddate, '%Y-%m-%d') &gt; #{now}
+		AND userId = #{userId}
+		AND projectId = #{projectId}
+		AND status = "진행중"
+		AND progress != 100;
+	</select>
+	<!--  완료 업무 개수	-->
+	<select id="getCompleteTaskCnt" resultType="int">
+		SELECT COUNT(*) FROM task
+			WHERE userId=#{userId} AND projectId=#{projectId} AND status = "완료" AND progress = 100;
+	</select>
 
 	<!--  해당프로젝트의 본인 업무 가져오기	-->
 	<select id="getMyProjectTaskList" resultType="Task">

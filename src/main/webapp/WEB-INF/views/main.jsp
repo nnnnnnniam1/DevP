@@ -4,7 +4,8 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>개발자국 메인</title>
+    <link rel="stylesheet" href="/resources/css/base.css">
     <link rel="stylesheet" href="/resources/css/main.css">
     <link rel="stylesheet" href="/resources/css/member.css">
     <script src="script.js"></script>
@@ -13,7 +14,6 @@
 <div class="mw-100 container">
     <div class="main-text">
         ${title}
-
         <button type="button" class="visually-hidden"
                 <c:if test="${login eq '로그인'}"> onclick="location.href='login.do'"</c:if>
                 <c:if test="${login eq '로그아웃'}"> onclick="location.href='logout.do'"</c:if>>

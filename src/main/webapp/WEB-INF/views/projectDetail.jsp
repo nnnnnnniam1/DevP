@@ -27,23 +27,23 @@ String userId = (String) session.getAttribute("userId");
 %>
 <div class="container">
 	<h1 class="my-5">${project.projectName}
-	    <c:if test="${myData.leader==myData.userId}">
+	    <c:if test="${myData.leader eq myData.userId}">
             <button class="btn btn-outline-success" type="button" onclick="location.href='/project/leader.do?projectId=${project.projectId}'">leader</button>
         </c:if>
 	</h1>
 	<div class="row m-3">
 		<div class = "col-8">
-		<div class = "mb-1">
+		    <div class = "mb-1">
 		    <c:choose>
-		        <c:when test="${empty myData.leader}">
-		            <span class="badge rounded-pill bg-dark">Member</span>
+		        <c:when test="${myData.leader eq myData.userId}">
+		            <span class="badge rounded-pill bg-dark">Leader</span>
 		        </c:when>
 		        <c:otherwise>
-		            <span class="badge rounded-pill bg-dark">Leader</span>
+		            <span class="badge rounded-pill bg-dark">Member</span>
 		        </c:otherwise>
             </c:choose>
 			<span class="badge rounded-pill bg-light text-dark">${myData.role}</span>
-		</div>
+		    </div>
 			<div class="progress mb-2">
 			  <div class="progress-bar bg-warning" role="progressbar" style="width: ${project.progress}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
@@ -58,18 +58,18 @@ String userId = (String) session.getAttribute("userId");
 						<small class="text-muted">지난 업무</small>
 					</div>
 					<div class="col-2">
-						<span>${pasttaskcount}</span>
+						<span style="color:red;">${pastTaskCnt}</span>
 					</div>
 					<div class="col-10">
 						<small class="text-muted">진행 중인 업무</small>
 					</div>
 					<div class="col-2">
-						<span>${progresstaskcount}</span>
+						<span>${progressTaskCnt}</span>
 					</div><div class="col-10">
 						<small class="text-muted">완료된 업무</small>
 					</div>
 					<div class="col-2">
-						<span>${completedtaskcount}</span>
+						<span>${completeTaskCnt}</span>
 					</div>
 				</div>
 			</div>

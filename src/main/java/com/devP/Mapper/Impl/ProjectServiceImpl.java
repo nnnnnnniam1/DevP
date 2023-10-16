@@ -2,10 +2,7 @@ package com.devP.Mapper.Impl;
 
 import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Mapper.Repository.ProjectDAOMybatis;
-import com.devP.Service.LeaderService;
-import com.devP.Service.MailService;
-import com.devP.Service.ProjectService;
-import com.devP.Service.TaskService;
+import com.devP.Service.*;
 import com.devP.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +25,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private IssueService issueService;
 
 
 
@@ -99,20 +99,53 @@ public class ProjectServiceImpl implements ProjectService {
             ProjectListVO vo = new ProjectListVO();
             String userId = session.getAttribute("id").toString();
             vo.setUserId(userId);
-//            List<ProjectListVO> vo2 = projectDAO.getProjectList(vo);
-//            System.out.println(vo2.getProjectName());
 
-            for(ProjectListVO list: projectDAO.getProjectList(userId)){
-                System.out.println(list.getUserId() + list.getProjectProgress() + list.getMemberProgress());
-            }
-
-            model.addAttribute("projectList", projectDAO.getProjectList(userId));
+            model.addAttribute("projectList", projectDAO.getOnGoingProjectList(userId));
 
             return 200;
         }else {
             return 405;
         }
     }
+    @Override
+    public int getCompleteProjectList(Model model){
+        if(session.getAttribute("id") != null) {
+            ProjectListVO vo = new ProjectListVO();
+            String userId = session.getAttribute("id").toString();
+            vo.setUserId(userId);
+
+            model.addAttribute("completeProjectList", projectDAO.getCompleteProjectList(userId));
+            model.addAttribute("deleteProjectList", projectDAO.getDeleteProjectList(userId));
+
+            return 200;
+        }else {
+            return 405;
+        }
+    }
+
+    @Override
+    public 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model){
+        //이슈 리스트 가져오기
+        issueService.getIssuelist(vo.getProjectId(), model);
+        //멤버 리스트 가져오기
+        model.addAttribute("project",getProject(vo));
+        model.addAttribute("myData",getMyProjectData(member));
+        model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
+        model.addAttribute("myTask", taskService.getTask());
+        taskService.getTaskCount(model);
+
+        TaskVO task = new TaskVO();
+        task.setProjectId(vo.getProjectId());
+        task.setUserId(session.getAttribute("id").toString());
+
+        model.addAttribute("pastTaskCnt",taskService.getPastTaskCnt(task));
+        model.addAttribute("progressTaskCnt",taskService.getProgressTaskCnt(task));
+        model.addAttribute("completeTaskCnt",taskService.getCompleteTaskCnt(task));
+
+
+        return 200;
+    }
+
 
     @Override
     public int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
