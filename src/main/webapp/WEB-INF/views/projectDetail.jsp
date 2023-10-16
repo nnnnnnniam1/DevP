@@ -119,7 +119,7 @@ String userId = (String) session.getAttribute("userId");
 					</div>
 					<div class = "col-6 d-flex">
 						<div class="card w-100">
-							<div class="card-body">
+							<div class="card-body" onclick="location.href='/project/member.do'">
 							    <h5 class="card-title">멤버</h5>
 							    <c:forEach items="${memberList}" var="member">
 						                <div class="item">
