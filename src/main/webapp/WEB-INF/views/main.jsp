@@ -36,6 +36,15 @@
     <div class="project_list position-relative" onclick="location.href='/project/list.do'">
         <div>진행 중인 프로젝트</div>
         <a href='/project/insert.do' class="btn btn-outline-dark position-absolute top-50 start-50">프로젝트 추가</a>
+        <div>
+            <c:forEach items="${projectList}" var="project">
+                <div>
+                    <a href="/project/detail.do?projectId=${project.projectId}">
+                        <div>${project.projectName}</div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
     </div>
     <div class="issue">
         <c:forEach items="${issueList}" var="issue">
