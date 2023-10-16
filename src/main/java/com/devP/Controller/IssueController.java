@@ -2,6 +2,9 @@ package com.devP.Controller;
 
 import com.devP.Service.ProjectService;
 import com.devP.VO.ProjectVO;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.RequestParam;import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Service.IssueService;
 import com.devP.VO.IssueVO;
 
@@ -24,12 +26,17 @@ public class IssueController {
 	@Autowired
 	private ProjectService projectService;
 	
+	@Autowired
+	private MemberDAOMybatis MemberDAO;
+	
 	
 	//이슈 등록 페이지
 	@RequestMapping(value="/write.do", method= RequestMethod.GET)
     public String issueView(@RequestParam int projectId, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		model.addAttribute("projectId", projectId);
+		model.addAttribute("memberList", MemberDAO.getMemberList(projectId));
+		
         return "issueWrite";
     }
 	
