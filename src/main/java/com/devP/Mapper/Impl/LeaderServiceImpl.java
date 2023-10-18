@@ -175,17 +175,14 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Override
 	public int insertTask(TaskVO vo){
-		taskService.addTask(vo);
+		taskService.insertTask(vo);
 		return 200;
 	}
 	@Override
 	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
 
 		for(TaskVO vo : TaskVOList){
-			if(vo.getStatus().equals("대기")) vo.setProgress(0);
-			else if(vo.getStatus().equals("진행중")) vo.setProgress(50);
-			else if(vo.getStatus().equals("검토")) vo.setProgress(80);
-			else if(vo.getStatus().equals("완료")) vo.setProgress(100);
+			taskService.updateTask(vo);
 		};
 
 		return 200;

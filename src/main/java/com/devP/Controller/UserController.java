@@ -25,42 +25,58 @@ public class UserController {
     @Autowired
     private MailController mailController;
 
+    @Autowired
+    HttpSession session;
 
-    @RequestMapping(value="/login.do", method= RequestMethod.GET)
-    public String loginView(){
+
+    @RequestMapping(value = "/login.do", method = RequestMethod.GET)
+    public String loginView() {
         return "login";
     }
 
-    @RequestMapping(value="/login.do", method = RequestMethod.POST)
-    public String login(UserVO vo, HttpSession session, HttpServletRequest request){
+    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
+    public String login(UserVO vo, HttpSession session, HttpServletRequest request) {
         String saveId = request.getParameter("saveId");
-        int result = userService.getUser(vo,saveId);
-        if(result == 200){ return "redirect:/"; }
-        else { return "login"; }
+        int result = userService.getUser(vo, saveId);
+        if (result == 200) {
+            return "redirect:/";
+        } else {
+            return "login";
+        }
     }
 
-    @RequestMapping(value="/logout.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
     public String logout() {
-        int result = userService.logout();
+
+        if (session.getAttribute("checked") == null) {
+            session.invalidate();
+        }
+
         return "redirect:/";
+
     }
-    @RequestMapping(value="/searchLogin.do", method = RequestMethod.GET)
-    public String searchLoginView(){ return "searchLogin"; }
+
+    @RequestMapping(value = "/searchLogin.do", method = RequestMethod.GET)
+    public String searchLoginView() {
+        return "searchLogin";
+    }
 
 
     @RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
     public String searchId(UserVO vo, HttpServletRequest request) throws Exception {
 
-        int result = userService.findId(vo);
+        int result = userService.getIdByEmail(vo);
 
         return "searchLogin";
     }
+
     @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
     public String searchPw(UserVO vo, HttpServletRequest request) throws Exception {
         int result = userService.findPw(vo);
 
         return "searchLogin";
     }
+
     @RequestMapping(value = "/checkCode.do", method = RequestMethod.POST)
     @ResponseBody
     public String checkCode(HttpServletRequest request, HttpSession session) {
@@ -75,19 +91,21 @@ public class UserController {
         }
 
     }
+
     @RequestMapping(value = "/changePw.do", method = RequestMethod.GET)
-    public String changePwView(HttpSession session){
+    public String changePwView(HttpSession session) {
         session.removeAttribute("authKey");
         return "changePw";
     }
 
     @RequestMapping(value = "/changePw.do", method = RequestMethod.POST)
-    public String changePw(UserVO vo){
-        int result = userService.changePw(vo);
+    public String changePw(UserVO vo) {
+        int result = userService.updatePw(vo);
         return "changePw";
     }
+
     @RequestMapping(value = "/changePwSuccess.do", method = RequestMethod.GET)
-    public String changePwSuccessView(){
+    public String changePwSuccessView() {
         return "changePwSuccess";
     }
 

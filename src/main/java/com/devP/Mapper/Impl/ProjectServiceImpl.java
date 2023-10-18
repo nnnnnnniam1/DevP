@@ -140,7 +140,7 @@ public class ProjectServiceImpl implements ProjectService {
         model.addAttribute("project",getProject(vo));
         model.addAttribute("myData",getMyProjectData(member));
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
-        model.addAttribute("myTask", taskService.getTask());
+        model.addAttribute("myTask", taskService.getMyTasks());
         taskService.getTaskCount(model);
 
         TaskVO task = new TaskVO();
