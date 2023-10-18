@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="row">
-            <form:form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/updateTask.do">
+            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/updateTask.do">
                 <div>
                     <div class="manageForm">
                         <table class="table taskTbl">
@@ -145,7 +145,7 @@
                         <input class="form-control" type="submit" value="수정">
                     </div>
                 </div>
-            </form:form>
+            </form>
         </div>
     </div>
 </div>

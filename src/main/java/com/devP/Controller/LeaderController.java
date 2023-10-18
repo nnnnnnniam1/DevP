@@ -139,8 +139,8 @@ public class LeaderController {
 
     @RequestMapping(value = "/project/updateMember.do", method = RequestMethod.POST)
     public String updateMember(@ModelAttribute MemberVO memberVO, Model model) {
+        System.out.println("ddd");
         int result = leaderService.updateMemberDatas(memberVO.getMemberVOList(), model);
-
         if (result == 200) return "redirect:/project/manageMember.do";
         else return "redirect:/";
     }
@@ -183,7 +183,7 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/project/updateTask.do", method = RequestMethod.POST)
-    public String updateMember(@ModelAttribute TaskVO vo, Model model) {
+    public String updateTask(@ModelAttribute TaskVO vo, Model model) {
         int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
 
         if (result == 200) return "redirect:/project/manageTask.do";
@@ -228,6 +228,7 @@ public class LeaderController {
 
         }
     }
+
     @RequestMapping(value = "/project/completeProject.do", method = RequestMethod.GET)
     public ResponseEntity<String> completeProject(@RequestParam("projectId") int projectId) {
         try {
