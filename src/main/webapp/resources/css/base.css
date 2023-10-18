@@ -15,6 +15,7 @@ ul{margin:0px; padding:0px;}
 
 input::placeholder{color:#ccc; font-size:18px;}
 
+.none{display:none;}
 
 .m-t-1{margin-top:1em;}
 .m-b-1{margin-bottom:1em;}
@@ -46,9 +47,11 @@ input::placeholder{color:#ccc; font-size:18px;}
 
 .sidebar{position: fixed; top:60px; left:0px;}
 
-.container{
+.content-wrap .container{
     width: 80%;
     padding-top: 3em;
+    padding-left:3em;
+    padding-right:3em;
     /*
     height: 100%;
     display: flex;
@@ -81,4 +84,4 @@ input::placeholder{color:#ccc; font-size:18px;}
 
 .del{ text-decoration: line-through;}
 
-
+h2.pTitle{font-size: 35px; font-weight: bold;}
