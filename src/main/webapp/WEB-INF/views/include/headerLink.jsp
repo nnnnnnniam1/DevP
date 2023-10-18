@@ -16,8 +16,14 @@
 			transition: all .4s;
 		}
 		.sidebar-link:hover {
-			background-color: #444;
-			border-radius: 5px;
+			background-color: #530be9;
+			color:#fff !important;
+			border-radius: 0px;
+		}
+		.sidebar-link.current {
+			background-color: #530be9;
+			color:#fff !important;
+			border-radius: 0px;
 		}
 		.current{
 			background-color: #9932CC;

@@ -78,4 +78,4 @@
         </c:otherwise>
     </c:choose>
 
-    <button class="btn btn-outline-success logoutBtn" type="button" onclick="location.href='/logout.do'">Logout</button>
+    
