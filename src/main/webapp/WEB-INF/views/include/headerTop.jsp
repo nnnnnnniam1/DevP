@@ -2,16 +2,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 
 </head>
 <body>
-<div id = "sidebar" class="sidebar fixed-top p-3" style="width: 20%; height: 100vh">
-	<div class="align-items-center">
-		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" id="home">
-    		<img src="/resources/image/dogfootprint.png" width="15%" height="100%">
-    		<span id="logoLabel">DevP</span>
-		</a>
+<div class="content-wrap">
+<div id="header">
+	<a href="/" class="logo" id="home">
+   		<img src="/resources/image/dogfootprint.png" />
+   		<span id="logoLabel">DevP</span>
+	</a>
+	<div>
+	<ul class="menu">
+		<li></li>
+		<li><button class="btn black" type="button" onclick="location.href='/logout.do'">Logout</button></li>
+	</ul>
 	</div>
-	<hr>
+</div>
+
+<c:if test="${path!='/' && path!='/project/list.do'}">
+<div id = "sidebar" class="sidebar" style="width: 20%; height: 100vh">
     <%@ include file="/WEB-INF/views/include/headerNav.jsp"%>
 </div>
+</c:if>
