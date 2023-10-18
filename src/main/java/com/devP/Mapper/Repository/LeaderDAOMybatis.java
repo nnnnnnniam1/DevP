@@ -14,9 +14,7 @@ public class LeaderDAOMybatis {
     @Autowired
     private SqlSessionTemplate mybatis;
 
-    public List<MemberVO> getMemberList(MemberVO vo){
-        return mybatis.selectList("LeaderDAO.getMemberList", vo);
-    }
+    public List<MemberVO> getMemberList(MemberVO vo){ return mybatis.selectList("LeaderDAO.getMemberList", vo); }
 
     public MemberVO getMember(MemberVO vo){ return (MemberVO) mybatis.selectOne("LeaderDAO.getMember",vo); }
     public void insertMember(MemberVO vo){ mybatis.insert("LeaderDAO.insertMember", vo); }
