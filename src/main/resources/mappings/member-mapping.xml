@@ -30,7 +30,7 @@
     </insert>
 
     <!-- 이전에 삭제된 멤버 다시 추가 -->
-    <update id="updateMemberToken">
+    <update id="updateMemberStatus">
         UPDATE projectgroup SET status=#{status}
         WHERE userId=#{userId} AND projectId=#{projectId}
     </update>
@@ -41,7 +41,7 @@
     </select>
 
     <!--  프로젝트 멤버 참가 상태 변경 -->
-    <update id="updateMemberStatus">
+    <update id="updateMemberStatusByToken">
         UPDATE projectgroup SET status="1" WHERE status=#{status}
     </update>
 

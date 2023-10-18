@@ -5,9 +5,6 @@ import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
 import com.devP.Service.UserService;
 import com.devP.VO.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,16 +36,6 @@ public class LeaderController {
 
     @Autowired
     private HttpSession session;
-
-//    private String toJson(Object object){
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        try {
-//            return objectMapper.writeValueAsString(object);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            return "{}";
-//        }
-//    }
 
     // 멤버페이지
     @ModelAttribute("positionMap")
@@ -82,9 +69,6 @@ public class LeaderController {
         categoryMap.put("6", "테스트");
         categoryMap.put("7", "완료");
 
-//        String categoryMapJson = toJson(categoryMap);
-//        model.addAttribute("categoryMapJson", categoryMapJson);
-
 
         return categoryMap;
     }
@@ -106,8 +90,7 @@ public class LeaderController {
     public String leaderDetailView(@RequestParam int projectId, ProjectVO vo, Model model) {
         vo.setProjectId(projectId);
         leaderService.getLeaderView(vo, model);
-        // projectService.getProjectName(vo);
-        // projectService.getProjectProgress(vo);
+
         return "leaderDetail";
     }
 
@@ -123,15 +106,14 @@ public class LeaderController {
     @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
     public String addMember(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
         vo3.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = leaderService.addMember(user, vo, vo2, vo3);
+        int result = leaderService.insertMember(user, vo, vo2, vo3);
         return "redirect:/project/manageMember.do";
     }
 
     @RequestMapping(value = "project/addProject/verify", method = RequestMethod.GET)
     public String invitedVerify(MemberVO vo, @RequestParam String token) {
-//        String code = token;
-//        System.out.println(token);
-        leaderService.invitedVerify(vo, token);
+
+        leaderService.insertInvitedVerify(vo, token);
 
         return "redirect:/login.do";
 
@@ -172,7 +154,7 @@ public class LeaderController {
     @RequestMapping(value = "project/addTask.do", method = RequestMethod.POST)
     public String addTask(TaskVO vo) {
         System.out.println(vo.getCategory());
-        int result = leaderService.addTask(vo);
+        int result = leaderService.insertTask(vo);
 
         if (result == 200) {
             return "redirect:/project/manageTask.do";
@@ -212,7 +194,7 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/project/deleteProject.do", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteProject(DeleteProjectVO vo,@RequestParam("projectId") int projectId, @RequestParam("reason") String reason) {
+    public ResponseEntity<String> deleteProject(DeleteProjectVO vo, @RequestParam("projectId") int projectId, @RequestParam("reason") String reason) {
         try {
             vo.setProjectId(projectId);
             vo.setReason(reason);
@@ -233,7 +215,7 @@ public class LeaderController {
     public ResponseEntity<String> completeProject(@RequestParam("projectId") int projectId) {
         try {
 
-            int result = leaderService.completeProject(projectId);
+            int result = leaderService.updateProjectStatus(projectId);
             if (result == 200) {
                 return ResponseEntity.ok("success");
             } else {

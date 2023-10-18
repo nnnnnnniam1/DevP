@@ -88,7 +88,7 @@ public class ProjectController {
         vo.setColor("#"+projectColor);
         vo.setUserId(session.getAttribute("id").toString());
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = projectService.setProjectColor(vo);
+        int result = projectService.insertProjectColor(vo);
 
         int projectId = Integer.parseInt(session.getAttribute("projectId").toString());
         System.out.println(projectId);
@@ -150,7 +150,7 @@ public class ProjectController {
         try {
             vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
             System.out.println(vo.getProjectId());
-            int result = leaderService.addTask(vo);
+            int result = leaderService.insertTask(vo);
 
             return ResponseEntity.ok("Task insert successfully");
 

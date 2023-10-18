@@ -45,7 +45,7 @@ public class ChatServiceImpl implements ChatService {
 		MemberVO member = new MemberVO();
 		member.setProjectId(projectId);
 		member.setUserId(to_id);
-		if (MemberDAO.findMember(member) == null) {
+		if (MemberDAO.getMember(member) == null) {
 			System.out.println("멤버 없음");
 			return "main";
 		}

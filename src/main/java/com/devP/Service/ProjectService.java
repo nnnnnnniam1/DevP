@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface ProjectService {
 
-	Map<String, String> setMemberMap(List<String> members);
+	Map<String, String> getMemberMap(List<String> members);
 
 	ProjectVO getProject(ProjectVO vo);
 
@@ -39,7 +39,7 @@ public interface ProjectService {
 
 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model);
 
-	int setProjectColor(MemberVO vo);
+	int insertProjectColor(MemberVO vo);
 
 	String getProjectColor(MemberVO vo);
 }
