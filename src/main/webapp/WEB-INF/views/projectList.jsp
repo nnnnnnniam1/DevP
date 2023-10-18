@@ -6,7 +6,7 @@
 <link rel="stylesheet"  href="/resources/css/leaderDetail.css">
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="mw-100 container">
+<div class="full container">
     <div class="mx-4">
         <div class="row">
             <h1 class="col-auto">프로젝트 목록</h1>
@@ -38,7 +38,6 @@
                                         </div>
                                     </a>
                                 </div>
-                            <br>
                         </c:forEach>
                 </div>
         </div>
