@@ -2,8 +2,6 @@ package com.devP.Mapper.Impl;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +14,6 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired
 	private CommentDAOMybatis CommentDAO;
 
-	@Autowired
-	private HttpSession session;
-	
 	@Override
 	public int insertComment(CommentVO vo) {
 		return CommentDAO.insertComment(vo);

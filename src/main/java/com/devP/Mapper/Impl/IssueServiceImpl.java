@@ -1,6 +1,5 @@
 package com.devP.Mapper.Impl;
 
-import com.devP.Controller.MailController;
 import com.devP.Mapper.Repository.IssueDAOMybatis;
 import com.devP.Service.CommentService;
 import com.devP.Service.IssueService;
@@ -8,13 +7,11 @@ import com.devP.Service.MailService;
 import com.devP.Service.UserService;
 import com.devP.VO.IssueVO;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
