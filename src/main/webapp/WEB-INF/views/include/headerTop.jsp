@@ -20,7 +20,7 @@
 	</div>
 </div>
 
-<c:if test="${path!='/' && path!='/project/list.do'}">
+<c:if test="${path!='/' && path!='/project/list.do' && path!='/project/completeProjectList.do'}">
 <div id = "sidebar" class="sidebar" style="width: 20%; height: 100vh">
     <%@ include file="/WEB-INF/views/include/headerNav.jsp"%>
 </div>
