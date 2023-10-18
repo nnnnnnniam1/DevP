@@ -1,6 +1,5 @@
 package com.devP.Mapper.Impl;
 
-import com.devP.Mapper.Repository.LeaderDAOMybatis;
 import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Mapper.Repository.TaskDAOMybatis;
@@ -25,9 +24,6 @@ public class LeaderServiceImpl implements LeaderService {
 	private ProjectDAOMybatis projectDAO;
 	@Autowired
 	private TaskDAOMybatis taskDAO;
-
-	@Autowired
-	private LeaderDAOMybatis leaderDAO;
 
 	@Autowired
 	private MailService mailService;
@@ -123,7 +119,7 @@ public class LeaderServiceImpl implements LeaderService {
 	public void insertReInvitedMember(MemberVO vo){ memberDAO.updateMemberStatus(vo); }
 
 	@Override
-	public int insertInvitedVerify(MemberVO vo, String token){
+	public int updateStatusByInvitedVerify(MemberVO vo, String token){
 		vo.setStatus(token);
 		System.out.println(vo.getStatus());
 		vo = getMemberByToken(vo);

@@ -181,7 +181,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int showProjectMemberList(MemberVO vo, Model model){
+    public int getProjectMemberList(MemberVO vo, Model model){
         vo.setProjectId((Integer) session.getAttribute("projectId"));
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
         return 200;

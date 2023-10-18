@@ -20,7 +20,7 @@ public interface LeaderService {
 
     void insertReInvitedMember(MemberVO vo);
 
-    int insertInvitedVerify(MemberVO vo, String token);
+    int updateStatusByInvitedVerify(MemberVO vo, String token);
 
     MemberVO getMemberByToken(MemberVO vo);
 

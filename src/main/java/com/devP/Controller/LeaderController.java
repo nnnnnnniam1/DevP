@@ -113,7 +113,7 @@ public class LeaderController {
     @RequestMapping(value = "project/addProject/verify", method = RequestMethod.GET)
     public String invitedVerify(MemberVO vo, @RequestParam String token) {
 
-        leaderService.insertInvitedVerify(vo, token);
+        leaderService.updateStatusByInvitedVerify(vo, token);
 
         return "redirect:/login.do";
 

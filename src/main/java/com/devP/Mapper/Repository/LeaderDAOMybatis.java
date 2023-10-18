@@ -18,7 +18,7 @@ public class LeaderDAOMybatis {
         return mybatis.selectList("LeaderDAO.getMemberList", vo);
     }
 
-    public MemberVO findMember(MemberVO vo){ return (MemberVO) mybatis.selectOne("LeaderDAO.findMember",vo); }
+    public MemberVO getMember(MemberVO vo){ return (MemberVO) mybatis.selectOne("LeaderDAO.getMember",vo); }
     public void insertMember(MemberVO vo){ mybatis.insert("LeaderDAO.insertMember", vo); }
     public void reInvited(MemberVO vo){ mybatis.update("LeaderDAO.updateMemberToken", vo); }
     public MemberVO getMemberByToken(MemberVO vo){return (MemberVO) mybatis.selectOne("LeaderDAO.getMemberByToken", vo); }
