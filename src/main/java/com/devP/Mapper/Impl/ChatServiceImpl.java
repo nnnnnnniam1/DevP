@@ -40,7 +40,7 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public String getChatRoom(String from_id, String to_id, Model model) {
-		String chatId = generateRoomId(from_id, to_id);
+		String chatId = insertRoomId(from_id, to_id);
 		int projectId = (int) session.getAttribute("projectId");
 		MemberVO member = new MemberVO();
 		member.setProjectId(projectId);
@@ -58,7 +58,7 @@ public class ChatServiceImpl implements ChatService {
 			vo.setChatId(chatId);
 			vo.setFrom_id(from_id);
 			vo.setTo_id(to_id);
-			ChatDAO.newChatRoom(vo);
+			ChatDAO.insertChatRoom(vo);
 			System.out.println("채팅 방 생성 완료");
 		} catch (Exception e) {
 			System.out.println("채팅 방 생성 에러" + e);
@@ -68,20 +68,20 @@ public class ChatServiceImpl implements ChatService {
 		return "chat";
 	}
 
-	private String generateRoomId(String userId1, String userId2) {
+	private String insertRoomId(String userId1, String userId2) {
 		// 사용자 아이디를 정렬하여 채팅 방 아이디 생성
 		List<String> sortedUserIds = Arrays.asList(userId1, userId2);
 		sortedUserIds.sort(String::compareTo);
 		return String.join("_", sortedUserIds);
 	}
 
-	@Override
-	public ChatVO checkChatRoom(String chatId) {
-		return ChatDAO.checkChatRoom(chatId);
-	}
+//	@Override
+//	public ChatVO checkChatRoom(String chatId) {
+//		return ChatDAO.checkChatRoom(chatId);
+//	}
 
 	@Override
-	public int saveChatMessage(ChatMessageVO vo) {
-		return ChatMessageDAO.saveChatMessage(vo);
+	public int insertChatMessage(ChatMessageVO vo) {
+		return ChatMessageDAO.insertChatMessage(vo);
 	}
 }
