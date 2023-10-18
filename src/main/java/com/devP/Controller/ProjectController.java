@@ -196,7 +196,7 @@ public class ProjectController {
     @RequestMapping(value="/member.do", method = RequestMethod.GET)
     public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
         model.addAttribute("menuId","memberMenu");
-        int result = projectService.showProjectMemberList(vo, model);
+        int result = projectService.getProjectMemberList(vo, model);
 
         if (result == 200) return "member";
         else return "mainTemp";

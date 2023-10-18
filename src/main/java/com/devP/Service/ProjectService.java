@@ -26,7 +26,7 @@ public interface ProjectService {
 	int insertProjectView();
 	int getProjectList(Model model);
 
-	int showProjectMemberList(MemberVO vo, Model model);
+	int getProjectMemberList(MemberVO vo, Model model);
 	int getProjectId(ProjectVO vo);
 
 	int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception ;
