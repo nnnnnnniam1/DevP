@@ -7,13 +7,9 @@
 }
 .contentsBox {
     width: 100%;
-    padding: 10px;
-    //background-color: #FFF9FE;
+    margin-bottom:30px;
 }
 .projectProgress {
-    // margin-right: 10px;
-    //padding: 25px;
-    //margin-bottom: 20px;
     padding:10px;
 }
 .progress-bar {
@@ -24,8 +20,10 @@
     height: 50px;
     display: flex; /* Flexbox를 사용합니다. */
     align-items: center; /* 수직 가운데 정렬합니다. */
-    background-color: #E5D3D3;
-    border-radius: 10px;
-    padding: 10px;
+    background-color: #333;
+    color:#fff;
+    padding-left:1em;
+    border-radius:10px 10px 0px 0px;
     font-size: 20px;
 }
+.wbsWrapper{padding:1em;}

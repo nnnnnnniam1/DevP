@@ -9,20 +9,22 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
-    <p class="projectName">${project.projectName}</p>
-    <p class="semiTitle">업무</p>
+<h2 class="pTitle">${project.projectName}</h2>
+
+    
+    
     <div class="contentsBox">
         <p class="labelWrapper">진행률</p>
         <div class="projectProgress">
             <span class="progressLabel">전체진행률</span>
             <div class="progress">
-                <div style="width: ${project.progress}%;" class="progress-bar bg-warning text-dark">${project.progress}%</div>
+                <div style="width: ${project.progress}%;" class="progress-bar type01 text-dark">${project.progress}%</div>
             </div>
         </div>
         <div class="projectProgress">
             <span class="progressLabel">${member.userName}</span>
             <div class="progress">
-                <div style="width: ${member.progress}%;" class="progress-bar bg-warning text-dark">${member.progress}%</div>
+                <div style="width: ${member.progress}%;" class="progress-bar type02 text-dark">${member.progress}%</div>
             </div>
         </div>
     </div>
@@ -41,15 +43,24 @@
                 <div id="">
                     <form>
                         <table class="table" width=500px;>
+                        	<colgroup>
+                                <col style="width: 2%">
+                                <col style="width: 7%">
+                                <col style="width: 7%">
+                                <col style="width: 10%">
+                                <col style="">
+                                <col style="width: 7%">
+                                <col style="width: 5%">
+                            </colgroup>
                             <thead>
                                 <tr>
-                                    <th class="col-md-2" scope="col" width="10%">No</th>
-                                    <th class="col-md-4" scope="col">시작일</th>
-                                    <th class="col-md-2" scope="col">종료일</th>
-                                    <th class="col-md-2" scope="col">depth</th>
-                                    <th class="col-md-2" scope="col">디테일</th>
-                                    <th class="col-md-2" scope="col">진행률</th>
-                                    <th class="col-md-2" scope="col">이슈</th>
+                                    <th scope="col">No</th>
+                                    <th scope="col">시작일</th>
+                                    <th scope="col">종료일</th>
+                                    <th scope="col">depth</th>
+                                    <th scope="col">디테일</th>
+                                    <th scope="col">진행률</th>
+                                    <th scope="col">이슈</th>
                                 </tr>
                             </thead>
                             <tbody>
