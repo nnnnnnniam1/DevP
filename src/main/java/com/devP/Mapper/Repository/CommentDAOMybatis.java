@@ -17,7 +17,7 @@ public class CommentDAOMybatis{
     @Autowired
     private SqlSessionTemplate mybatis;
     
-    public int registerComment(CommentVO vo){
+    public int insertComment(CommentVO vo){
         return mybatis.insert("CommentDAO.registerComment", vo);
     }
 

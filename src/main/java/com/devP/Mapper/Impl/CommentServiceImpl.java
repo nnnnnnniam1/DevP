@@ -20,8 +20,8 @@ public class CommentServiceImpl implements CommentService{
 	private HttpSession session;
 	
 	@Override
-	public int registerComment(CommentVO vo) {
-		return CommentDAO.registerComment(vo);
+	public int insertComment(CommentVO vo) {
+		return CommentDAO.insertComment(vo);
 	}
 
 	@Override

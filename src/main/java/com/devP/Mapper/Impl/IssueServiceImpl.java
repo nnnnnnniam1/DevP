@@ -89,9 +89,9 @@ public class IssueServiceImpl implements IssueService {
 				issue.setStatus("검토");
 			}
 			// 이슈 조회수 올리기 -추가 작업 동일 세션 아이디 중복 조회 제한
-			issueDAO.countupIssue(issueId);
+			issueDAO.updateIssueCount(issueId);
 			// 이슈 상태 변경
-			issueDAO.changeIssueStatus(issue);
+			issueDAO.updateIssueStatus(issue);
 			model.addAttribute("issue", issue);
 			model.addAttribute("commentList", commentService.getComment(issue.getIssueId()));
 		} catch (Exception e) {
@@ -102,10 +102,10 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public int solveIssue(IssueVO issue) {
+	public int updateIssueStatus(IssueVO issue) {
 		issue.setStatus("해결");
 		try {
-			issueDAO.changeIssueStatus(issue);
+			issueDAO.updateIssueStatus(issue);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
@@ -114,7 +114,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public int modifyIssue(IssueVO issue) {
+	public int updateIssue(IssueVO issue) {
 		String emails = issue.getSendingEmail();
 		try {
 			// 세션 아이디 정보 등록
@@ -127,10 +127,10 @@ public class IssueServiceImpl implements IssueService {
 	        }
 	        //이메일 알림 전송
 	        mailService.sendMail(emailList, issue.getUserId() + "(이)가 이슈 수정 알림을 보냈습니다", issue.getContent());
-			issueDAO.modifyIssue(issue);
+			issueDAO.updateIssue(issue);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return issueDAO.modifyIssue(issue);
+		return issueDAO.updateIssue(issue);
 	}
 }

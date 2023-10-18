@@ -75,7 +75,7 @@ public class IssueController {
 	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
     public String solveIssue(@ModelAttribute IssueVO issue, Model model){
 		model.addAttribute("menuId", "issueMenu");
-		issueService.solveIssue(issue);
+		issueService.updateIssueStatus(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 	//이슈 수정 페이지
@@ -90,7 +90,7 @@ public class IssueController {
     public String modifyIssue(@ModelAttribute IssueVO issue, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		System.out.println(issue.getProjectId());
-		issueService.modifyIssue(issue);
+		issueService.updateIssue(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 }

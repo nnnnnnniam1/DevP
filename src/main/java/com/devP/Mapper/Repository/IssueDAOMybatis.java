@@ -33,15 +33,15 @@ public class IssueDAOMybatis{
     	return mybatis.selectOne("IssueDAO.getIssue", issueId);
     }
     
-    public int countupIssue(int issueId) {
+    public int updateIssueCount(int issueId) {
     	return mybatis.update("IssueDAO.countupIssue", issueId);
     }
     
-    public int changeIssueStatus(IssueVO vo) {
+    public int updateIssueStatus(IssueVO vo) {
     	return mybatis.update("IssueDAO.changeIssueStatus", vo);
     }
     
-    public int modifyIssue(IssueVO vo) {
+    public int updateIssue(IssueVO vo) {
     	return mybatis.update("IssueDAO.modifyIssue", vo);
     }
 }
