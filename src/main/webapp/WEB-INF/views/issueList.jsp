@@ -8,10 +8,11 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
-	<div class="mt-5">
-		<h1 class="mb-5">${project.projectName} 이슈 목록</h1>
+<h2 class="pTitle">${project.projectName}</h2>
+
+	<div class="issue-list">
 		<div class="d-flex flex-row-reverse">
-			<button type="submit" onclick="location.href='/issue/write.do?projectId=${projectId}'" class="btn btn-primary mx-3">작성</button>
+			<button type="submit" onclick="location.href='/issue/write.do?projectId=${projectId}'" class="btn main mx-3">작성</button>
 		</div>
 	    <div class="row">
 			<c:forEach var="status" items="${statusarr}">
@@ -20,20 +21,22 @@
 			        <div class="card-header">
 					    ${status}
 					  </div>
+					  <div class="card-body">
 			        <c:forEach items="${issueList}" var="issue">
 			            <c:if test="${issue.status eq status}">
-			                <div class="item card-body">
-				                <div class="card text-bg-light">
-					                <a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">
-									  <div class="card-header">${issue.title}</div>
-									  <div class="card-body">
-									    <small class="text-body-secondary">${issue.date}<br>${issue.name}</small>
-									  </div>
-									</a>
-								</div>
-			                </div>
+			            	<div class="item">
+			            		<a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">
+								  <h2 class="title">${issue.title}</h2>
+								  
+								  <small class="text-body-secondary">${issue.date}<br>${issue.name}</small>
+								  
+								</a>
+			            	</div>
+			            	
+			                
 			            </c:if>
 			        </c:forEach>
+			    </div>
 			    </div>
 			    </div>
 			</c:forEach>

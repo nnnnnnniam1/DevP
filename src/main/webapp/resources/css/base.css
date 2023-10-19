@@ -10,11 +10,13 @@ a{ text-decoration:none; color:#333; }
     padding: 0.5em 0.5em;
     font-size: 1.25rem;
 }
+p{margin:0px; padding:0px;}
 
 ul{margin:0px; padding:0px;}
 
 input::placeholder{color:#ccc; font-size:18px;}
 
+.none{display:none !important;}
 
 .m-t-1{margin-top:1em;}
 .m-b-1{margin-bottom:1em;}
@@ -24,7 +26,7 @@ input::placeholder{color:#ccc; font-size:18px;}
 
 .btn.main{background-color:#6d03ff; color:#fff; font-weight:bold; }
 .btn.black{background-color:#333; color:#fff; }
-.btn.black:hover{background-color:#000;}
+.btn.black:hover{background-color:#000;color:#fff; }
 .content-wrap{min-height: 100%;
     padding-top: 60px;
     position: relative;}
@@ -46,9 +48,12 @@ input::placeholder{color:#ccc; font-size:18px;}
 
 .sidebar{position: fixed; top:60px; left:0px;}
 
-.container{
+.content-wrap .container{
     width: 80%;
     padding-top: 3em;
+    padding-left:3em;
+    padding-right:3em;
+    padding-bottom:4em;
     /*
     height: 100%;
     display: flex;
@@ -62,8 +67,10 @@ input::placeholder{color:#ccc; font-size:18px;}
 .main-grid{display: grid; gap:10px;}
 
 .tag{display: inline-block;}
-.tag.type01{background-color:#ff6fe7; color: #000 !important; font-weight: bold; padding:0.25em 0.5em; border-radius: 0.75em;}
-.tag.type02{background-color:#e4ff00; color: #000 !important; font-weight: bold; padding:0.25em 0.5em; border-radius: 0.75em;}
+.tag.type01{background-color:#ff6fe7; color: #000 !important; font-weight: bold; padding:0.25em 0.5em; border-radius: 0.75em; font-size:16px;}
+.tag.type02{background-color:#e4ff00; color: #000 !important; font-weight: bold; padding:0.25em 0.5em; border-radius: 0.75em; font-size:16px;}
+
+.tag.type03{background-color:#ffd100; color: #000 !important; font-weight: bold; padding:0.25em 0.5em; border-radius: 0.75em; font-size:16px;}
 
 .tab.type01{display:inline-block;}
 .tab.type01 li{display:inline-block; float: left; padding:0.75em 2em; background-color: #D3D3D3; border-radius: 10px 10px 0px 0px;}
@@ -73,12 +80,47 @@ input::placeholder{color:#ccc; font-size:18px;}
 
 .project-list{padding:2em; border-bottom:1px solid #ccc;}
 .project-list.del{background-color: #f3f3f3;}
-.project-list .progress-bar{background-color: #6d03ff;}
-.project-list .memberProgress{margin-top:0.5em;}
-.project-list .memberProgress .progress-bar{background-color: #00c30f;}
+.progress .progress-bar{background-color: #6d03ff;}
+.memberProgress{margin-top:0.5em;}
+.memberProgress .progress-bar{background-color: #00c30f;}
 
+
+.progress-bar.type01{ background-color: #6d03ff;}
+.progress-bar.type02{ background-color: #00c30f;}
 .project-list .progress, .project-list .progress-stacked{background-color: #e7e7e7;}
 
 .del{ text-decoration: line-through;}
+
+h2.pTitle{font-size: 35px; font-weight: bold;padding:0em 0em 0.5em 0em; border-bottom:2px solid #333;margin-bottom:10px;}
+h2.pTitle button{padding:0.25em 1em; margin-top:-10px; margin-left:1em; }
+
+.summaryCount .row div{font-size:25px; font-weight: bold; margin-bottom:10px;}
+.summaryCount .row div.col-10{margin:0px 0px 10px 0px; font-size:21px; font-weight: 400; color:#000;}
+
+.card-title{font-weight: bold;margin-bottom:1em;}
+.card-body .item{padding:0.5em 0em; color:#000; font-weight: bold;}
+
+.task .card-body{    border: 2px solid #f7f7f7;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    color: #333;
+    padding: 1em;
+}
+.task-info{margin-bottom:0.5em; padding:0.25em; padding-left:0.5em; background-color: #fff; border:1px solid #530be9; border-radius:10px; cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;}
+.issue-info{margin-bottom:0.5em; padding:0.25em; padding-left:0.5em; background-color: #fff; border:1px solid #530be9; border-radius:10px; cursor: pointer;}
+.task .card{font-size:15px; border:2px solid #530be9;
+    border-radius: 10px;}
+.task .card-body{font-size:15px; }
+.issue-list .card-header{background-color: #333; color:#fff;}
+.issue-list .item{background-color: #fff;border:1px solid #6d03ff; border-radius:10px; margin-bottom:1em; padding:1em;}
+.issue-list .item:hover{background-color: #f7f7f7;}
+.issue-list .item h2{color:#6d03ff; font-size:20px;}
+
+
+.leader .menu{float: left; list-style: none; width:100%; padding:0px;}
+.leader .menu li{float: left; display:inline-block; margin-right:1em;}
 
 

@@ -62,8 +62,3 @@
     margin:0px;
 }
 .main-grid h2{font-size:20px;margin-bottom:0.75em;}
-.task-info{margin-bottom:0.5em; padding:0.25em; padding-left:0.5em; background-color: #fff; border:1px solid #530be9; border-radius:10px; cursor: pointer;}
-.issue-info{margin-bottom:0.5em; padding:0.25em; padding-left:0.5em; background-color: #fff; border:1px solid #530be9; border-radius:10px; cursor: pointer;}
-.task .card{font-size:15px; border:2px solid #530be9;
-    border-radius: 10px;}
-.task .card-body{font-size:15px; }

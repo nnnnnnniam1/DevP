@@ -5,6 +5,7 @@
 }
 .leaderWrapper {
     width: 80%;
+    display:flex;
 }
 .projectName {
     font-size: 35px;
@@ -15,33 +16,28 @@
 }
 
 .btnTable {
-    width: 400px;
+    width: 20%;
 }
 td {
  padding: 10px;
 }
 
 .leaderBtn {
-    width: 400px;
+    width: 100%;
     height:150px;
     border-radius: 10px;
     background-color: lightGray;
     position: relative;
 }
 .label {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    
 }
 
 .progressWrapper {
-    width: 70%;
+    width: 80%;
 }
 .progressBox {
     width:800px;
-    height: 680px;
-    background-color: #FFF9FE;
 }
 
 .projectProgress {
