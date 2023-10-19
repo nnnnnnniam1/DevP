@@ -7,7 +7,7 @@ html,body,input,select,button,*{
 a{ text-decoration:none; color:#333; }
 
 .form-control{
-    padding: 0.5em 0.25em;
+    padding: 0.5em 0.5em;
     font-size: 1.25rem;
 }
 
@@ -15,6 +15,7 @@ ul{margin:0px; padding:0px;}
 
 input::placeholder{color:#ccc; font-size:18px;}
 
+.none{display:none;}
 
 .m-t-1{margin-top:1em;}
 .m-b-1{margin-bottom:1em;}
@@ -46,9 +47,11 @@ input::placeholder{color:#ccc; font-size:18px;}
 
 .sidebar{position: fixed; top:60px; left:0px;}
 
-.container{
+.content-wrap .container{
     width: 80%;
     padding-top: 3em;
+    padding-left:3em;
+    padding-right:3em;
     /*
     height: 100%;
     display: flex;
@@ -57,6 +60,28 @@ input::placeholder{color:#ccc; font-size:18px;}
     align-items: center;*/
 
 }
-.container.full{width:100%;padding-left:0px;padding-right:0px; margin-left:0px !important;margin:0 auto !important;}
+.container.full{width:80% !important;max-width:100%;padding-left:0px;padding-right:0px;padding-bottom: 3em; margin-left:0px !important;margin:0 auto !important;}
 
 .main-grid{display: grid; gap:10px;}
+
+.tag{display: inline-block;}
+.tag.type01{background-color:#ff6fe7; color: #000 !important; font-weight: bold; padding:0.25em 0.5em; border-radius: 0.75em;}
+.tag.type02{background-color:#e4ff00; color: #000 !important; font-weight: bold; padding:0.25em 0.5em; border-radius: 0.75em;}
+
+.tab.type01{display:inline-block;}
+.tab.type01 li{display:inline-block; float: left; padding:0.75em 2em; background-color: #D3D3D3; border-radius: 10px 10px 0px 0px;}
+.tab.type01 li.active{background-color:#6d03ff; color:#fff !important;font-weight: bold;}
+
+.list-wrap{background-color: #fff; border-top:4px solid #6d03ff;}
+
+.project-list{padding:2em; border-bottom:1px solid #ccc;}
+.project-list.del{background-color: #f3f3f3;}
+.project-list .progress-bar{background-color: #6d03ff;}
+.project-list .memberProgress{margin-top:0.5em;}
+.project-list .memberProgress .progress-bar{background-color: #00c30f;}
+
+.project-list .progress, .project-list .progress-stacked{background-color: #e7e7e7;}
+
+.del{ text-decoration: line-through;}
+
+h2.pTitle{font-size: 35px; font-weight: bold;}
