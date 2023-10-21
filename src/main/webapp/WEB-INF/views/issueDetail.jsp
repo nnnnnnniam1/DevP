@@ -26,7 +26,7 @@ String userId = (String) session.getAttribute("userId");
 		  			  <input type="hidden" name="issueId" value = "${ issue.issueId }">
 				      <button type="submit" id = "solveButton" class="btn btn-primary">해결</button>
 				    </form>
-				    <button type="button" onclick="location.href='/issue/modify.do?issueId=${issue.issueId}'" class="btn btn-primary">수정</button>
+				    <button type="button" onclick="location.href='/issue/modify/view.do?issueId=${issue.issueId}'" class="btn btn-primary">수정</button>
 			    </div>
 			    </c:if>
 		    </div>

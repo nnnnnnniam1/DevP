@@ -11,7 +11,7 @@
     <div class="mx-5">
         <div class="main-text">새로운 프로젝트</div>
         <div class="ml-auto project-form">
-        <form method="post" action="/project/insert.do" >
+        <form method="post" action="/project/add.do" >
             <br>
             <div class="row mb-3">
                 <label for="projectName" class="col-sm-2 col-form-label">프로젝트</label>

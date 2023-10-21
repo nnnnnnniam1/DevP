@@ -33,7 +33,7 @@
             <table class="btnTable none">
                 <tr>
                     <td>
-                        <div class="leaderBtn"  onclick="location.href='manageTask.do'">
+                        <div class="leaderBtn"  onclick="location.href='/leader/manage/task/view.do'">
                             <p class="label">일정 및 업무 수정</p>
                         </div>
                     </td>
@@ -54,7 +54,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="leaderBtn" onclick="location.href='deleteProject.do?projectId=${project.projectId}'">
+                        <div class="leaderBtn" onclick="location.href='leader/project/delete/view.do?projectId=${project.projectId}'">
                             <p class="label">프로젝트 삭제</p>
                         </div>
                     </td>
@@ -87,24 +87,24 @@ function completeProject(projectId, projectName){
     if(confirm("["+projectName+"]프로젝트를 완료하시겠습니까?")){
         $.ajax({
             type: 'GET',
-            url: '/project/completeProject.do',
+            url: '/leader/project/complete.do',
             data: {
                 projectId: projectId
             },
             success: function(response){
                 if(response === "success"){
                     alert("완료되었습니다");
-                    window.location.href="/project/list.do";
+                    window.location.href="/project/list/view.do";
                 } else {
                     alert("오류가 발생했습니다. 다시 시도해주세요");
-                    window.location.href="/project/leader.do?projectId=${projectId}"
+                    window.location.href="/leader/detail.do?projectId=${projectId}"
                 }
 
             },
             error: function(error){
                 console.log("에러: "+error);
                 alert("오류가 발생했습니다. 다시 시도해주세요");
-                window.location.href="/project/leader.do?projectId=${projectId}"
+                window.location.href="/leader/detail.do?projectId=${projectId}"
             }
         });
     }

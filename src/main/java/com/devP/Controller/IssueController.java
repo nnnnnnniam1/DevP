@@ -31,7 +31,7 @@ public class IssueController {
 	
 	
 	//이슈 등록 페이지
-	@RequestMapping(value="/write.do", method= RequestMethod.GET)
+	@RequestMapping(value="/view.do", method= RequestMethod.GET)
     public String issueView(@RequestParam int projectId, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		model.addAttribute("projectId", projectId);
@@ -42,7 +42,7 @@ public class IssueController {
 	
 	//이슈 등록
 	@RequestMapping(value="/write.do", method= RequestMethod.POST)
-    public String issueInsert(@ModelAttribute IssueVO issue, Model model){
+    public String writeIssue(@ModelAttribute IssueVO issue, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		issueService.insertIssue(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
@@ -66,7 +66,7 @@ public class IssueController {
 	}
 	//이슈 상세
 	@RequestMapping(value="/detail.do", method= RequestMethod.GET)
-    public String getIssuedetail(@RequestParam int issueId, Model model){
+    public String detailIssue(@RequestParam int issueId, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		issueService.getIssue(issueId, model);
         return "issueDetail";
@@ -79,8 +79,8 @@ public class IssueController {
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 	//이슈 수정 페이지
-	@RequestMapping(value="/modify.do", method= RequestMethod.GET)
-	public String getmodifyIssue(@RequestParam int issueId, Model model){
+	@RequestMapping(value="/modify/view.do", method= RequestMethod.GET)
+	public String modifyIssueView(@RequestParam int issueId, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		issueService.getIssue(issueId, model);
 	    return "issueModify";

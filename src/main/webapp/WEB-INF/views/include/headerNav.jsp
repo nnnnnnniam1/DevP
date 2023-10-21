@@ -14,7 +14,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/project/member.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="memberMenu">
+                    <a href="/project/member/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="memberMenu">
                         <i class="bi bi-people-fill mx-3"></i>멤버
                     </a>
                 </li>
@@ -35,7 +35,7 @@
                 </li>
                   <c:if test="${myData.leader==myData.userId}">
                     <li>
-                        <a href="/project/leader.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                        <a href="/leader/detail.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark">
                             <i class="bi bi-key mx-3"></i>리더
                         </a>
                     </li>
@@ -45,17 +45,17 @@
         <c:otherwise>
             <ul class="navbar-nav flex-column mt-4">
                 <li class="nav-item">
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-receipt-cutoff mx-3"></i>프로젝트
                     </a>
                 </li>
                 <li>
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-list-task mx-3"></i></i>업무
                     </a>
                 </li>
                 <li>
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-people-fill mx-3"></i>멤버
                     </a>
                 </li>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-newspaper mx-3"></i>이슈
                     </a>
                 </li>

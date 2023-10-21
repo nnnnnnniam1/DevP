@@ -10,7 +10,7 @@
 <div class="container">
     <div class=".changePw-wrapper">
         <h2>비밀변호 변경</h2><br>
-        <form class="row justify-content-center" method="post" action="changePw.do" class="change-form">
+        <form class="row justify-content-center" method="post" action="/user/pw/change.do" class="change-form">
             <div class="mb-3">
                 <label id="form-label inputLabel">새로운 비밀번호</label>
                 <input class="form-control" type="password" name="password" id="password1"><br>
@@ -37,11 +37,11 @@
         } else {
             $.ajax({
                 type:'POST',
-                url: 'changePw.do',
+                url: '/user/pw/change.do',
                 data: {password: p1},
                 success: function(response){
                     console.log(response);
-                    window.location.href="/changePwSuccess.do"
+                    window.location.href="/user/pw/change/success/view.do"
                 },
                 error: function(error){
                     console.log("비밀번호 변경 중 오류 발생");
