@@ -14,9 +14,9 @@
         SELECT u.name AS userName, u.id AS userId, u.email,
                p.leader, pg.position, pg.role, pg.progress, pg.status
         FROM projectgroup AS pg
-                 JOIN user AS u
-                 JOIN project AS p
-                      ON pg.userId = u.id
+        JOIN user AS u
+        JOIN project AS p
+        ON pg.userId = u.id
         WHERE pg.projectId = #{projectId} AND p.projectId = #{projectId} AND pg.status != "x";
     </select>
 
@@ -31,7 +31,7 @@
     </insert>
 
     <!-- 이전에 삭제된 멤버 다시 추가 -->
-    <update id="updateMemberToken">
+    <update id="updateMemberStatus">
         UPDATE projectgroup SET status=#{status}
         WHERE userId=#{userId} AND projectId=#{projectId}
     </update>
@@ -42,7 +42,7 @@
     </select>
 
     <!--  프로젝트 멤버 참가 상태 변경 -->
-    <update id="updateMemberStatus">
+    <update id="updateMemberStatusByToken">
         UPDATE projectgroup SET status="1" WHERE status=#{status}
     </update>
 

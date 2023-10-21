@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface ProjectService {
 
-	Map<String, String> setMemberMap(List<String> members);
+	Map<String, String> getMemberMap(List<String> members);
 
 	ProjectVO getProject(ProjectVO vo);
 
@@ -26,10 +26,10 @@ public interface ProjectService {
 	int insertProjectView();
 	int getProjectList(Model model);
 
-	int showProjectMemberList(MemberVO vo, Model model);
+	int getProjectMemberList(MemberVO vo, Model model);
 	int getProjectId(ProjectVO vo);
 
-	int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception ;
+	int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception ;
 
 	List<MemberVO> getProjectMemberList(int projectId);
 
@@ -39,7 +39,7 @@ public interface ProjectService {
 
 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model);
 
-	int setProjectColor(MemberVO vo);
+	int insertProjectColor(MemberVO vo);
 
 	String getProjectColor(MemberVO vo);
 }

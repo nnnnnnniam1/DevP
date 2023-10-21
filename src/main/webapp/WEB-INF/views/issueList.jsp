@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="/resources/css/issue.css">
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="mv-100 container">
+<div class="mw-100 container">
 <h2 class="pTitle">${project.projectName}</h2>
 
 	<div class="issue-list">
 		<div class="d-flex flex-row-reverse">
-			<button type="submit" onclick="location.href='/issue/write.do?projectId=${projectId}'" class="btn main mx-3">작성</button>
+			<button type="submit" onclick="location.href='/issue/view.do?projectId=${projectId}'" class="btn btn-primary mx-3">작성</button>
 		</div>
 	    <div class="row">
 			<c:forEach var="status" items="${statusarr}">

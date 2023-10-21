@@ -88,13 +88,13 @@ function deleteTask(taskId){
     if(confirm("업무를 삭제하시겠습니까?")){
         $.ajax({
             type: 'POST',
-            url: '/project/deleteTask.do',
+            url: '/leader/task/delete.do',
             data: {
                 taskId: taskId
             },
             success: function(response){
                 alert("삭제되었습니다");
-                window.location.href="/project/insertTask.do";
+                window.location.href="/project/task/add/view.do";
             },
             error: function(error){
                 console.log("에러: "+error);

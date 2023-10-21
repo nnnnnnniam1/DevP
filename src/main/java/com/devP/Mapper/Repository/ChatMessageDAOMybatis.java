@@ -21,7 +21,7 @@ public class ChatMessageDAOMybatis{
     @Autowired
     private SqlSessionTemplate mybatis;
 
-	public int saveChatMessage(ChatMessageVO vo) {
+	public int insertChatMessage(ChatMessageVO vo) {
 		return mybatis.insert("ChatMessageDAO.saveChatMessage", vo);
 	}
 	

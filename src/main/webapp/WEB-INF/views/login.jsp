@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <div class="login-wrapper">
-            <form class="row justify-content-center loginForm" method="post" action="login.do" id="login-form">
+            <form class="row justify-content-center loginForm" method="post" action="/user/login.do" id="login-form">
                 <h2>로그인</h2>
                 <div class="mb-3">
                     <label class="form-label">아이디</label>
@@ -24,7 +24,7 @@
 
                     <div class="position-relative">
                     <div class="col">
-                        <a class="position-absolute top-50 start-0 translate-middle-y" href="searchLogin.do">아이디/비밀번호 찾기</a>
+                        <a class="position-absolute top-50 start-0 translate-middle-y" href="/user/login/search/view.do">아이디/비밀번호 찾기</a>
                     </div>
                     <div class="col">
                         <a class="position-absolute top-50 end-0 translate-middle-y" href="#">회원가입</a>

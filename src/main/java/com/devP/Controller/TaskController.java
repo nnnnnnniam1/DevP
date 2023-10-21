@@ -30,19 +30,16 @@ public class TaskController {
 	private TaskService taskService;
 
 
-
-
-
 	//업무 가져오기
     @RequestMapping(value="/getTask.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
     @ResponseBody
 	    public List<Map<String, Object>> getTask(){
-	    return taskService.getTask();
+	    return taskService.getMyTasks();
   	}
 
 	@RequestMapping(value="/getMyTasks.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public List<Map<String, Object>> getMyTask(){ return taskService.getMyTasks(); }
+	public List<Map<String, Object>> getMyTask(){ return taskService.getMyAllTasks(); }
 
 
 	// 업무 추가 뷰

@@ -9,9 +9,9 @@ import com.devP.VO.TaskVO;
 import org.springframework.ui.Model;
 
 public interface TaskService {
-	List<Map<String, Object>> getTask();
-
 	List<Map<String, Object>> getMyTasks();
+
+	List<Map<String, Object>> getMyAllTasks();
 
 	List<TaskVO> getProjectTaskList(int projectId);
 
@@ -21,7 +21,7 @@ public interface TaskService {
 
 	void getTaskCount(Model model);
 
-	void addTask(TaskVO vo);
+	void insertTask(TaskVO vo);
 
 	void updateTask(TaskVO vo);
 

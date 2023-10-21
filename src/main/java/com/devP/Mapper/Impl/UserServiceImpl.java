@@ -44,19 +44,9 @@ public class UserServiceImpl implements UserService {
 			return 405;
 	}
 
-	@Override
-	public int logout(){
-		if (session.getAttribute("checked") != null) {
-			System.out.println("아이디 저장임");
-		} else {
-			session.invalidate();
-			System.out.println("아이디 저장 안됨");
-		}
-		return 200;
-	}
 
 	@Override
-	public int findId(UserVO vo) throws Exception {
+	public int getIdByEmail(UserVO vo) throws Exception {
 		UserVO user = getUserByEmail(vo);
 		if(user != null){
 			mailService.sendId(user.getId(), user.getEmail());
@@ -89,9 +79,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int changePw(UserVO vo){
+	public int updatePw(UserVO vo){
 		vo.setId((String)session.getAttribute("userId"));
-		updatePw(vo);
+		userDAO.updatePw(vo);
 
 		return 200;
 	}
@@ -101,8 +91,6 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getUserByEmail(vo);
 	}
 
-	@Override
-	public void updatePw(UserVO vo) { userDAO.updatePw(vo); }
 
 	@Override
 	public UserVO getUserDataEmail(UserVO vo){ return userDAO.getUserDataEmail(vo); }

@@ -72,23 +72,23 @@ public class ProjectController {
 
 
     //프로젝트 추가 화면
-    @RequestMapping(value = "/insert.do", method = RequestMethod.GET)
-    public String insertProjectView() {
+    @RequestMapping(value = "/add/view.do", method = RequestMethod.GET)
+    public String addProjectView() {
         if(projectService.insertProjectView() == 200) {
             return "insertProject";
         }else if(projectService.insertProjectView() == 405){
-            return "redirect:/login.do";
+            return "redirect:/user/login/view.do";
         }else{
             return "redirect:/";
         }
     }
-    @RequestMapping(value = "/setColor.do", method = RequestMethod.GET)
-    public String changeProjectColor(@RequestParam String projectColor, MemberVO vo){
+    @RequestMapping(value = "/color/set.do", method = RequestMethod.GET)
+    public String setColorProject(@RequestParam String projectColor, MemberVO vo){
         System.out.println(projectColor);
         vo.setColor("#"+projectColor);
         vo.setUserId(session.getAttribute("id").toString());
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = projectService.setProjectColor(vo);
+        int result = projectService.insertProjectColor(vo);
 
         int projectId = Integer.parseInt(session.getAttribute("projectId").toString());
         System.out.println(projectId);
@@ -101,7 +101,7 @@ public class ProjectController {
 
     //프로젝트 상세
     @RequestMapping(value="/detail.do", method= RequestMethod.GET)
-    public String projectView(@RequestParam int projectId, ProjectVO vo, MemberVO member, Model model){
+    public String detailProject(@RequestParam int projectId, ProjectVO vo, MemberVO member, Model model){
         model.addAttribute("menuId", "projectMenu");
         if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
         session.setAttribute("projectId", projectId);
@@ -118,19 +118,19 @@ public class ProjectController {
         else return "redirect:/";
     }
 
-    @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
-    public String insertProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+    @RequestMapping(value = "/add.do", method = RequestMethod.POST)
+    public String addProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
         int result = projectService.insertProject(vo, vo2, vo3);
         if(result == 200) {
             int projectId = projectService.getProjectId(vo);
             session.setAttribute("projectId",projectId);
-            return "redirect: /project/insertTask.do";
+            return "redirect: /project/task/add/view.do";
         }
         else if(result == 405) return "redirect: /project/insertProject.do";
         return null;
     }
-    @RequestMapping(value = "/insertTask.do", method = RequestMethod.GET)
-    public String insertTaskView(TaskVO vo, Model model){
+    @RequestMapping(value = "/task/add/view.do", method = RequestMethod.GET)
+    public String addTaskView(TaskVO vo, Model model){
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         List<String> nameList = projectService.getMemberNames(vo.getProjectId());
 
@@ -145,12 +145,12 @@ public class ProjectController {
         }
     }
 
-    @RequestMapping(value = "/insertTask.do", method = RequestMethod.POST)
-    public ResponseEntity<String> insertTask(TaskVO vo, Model model) throws Exception {
+    @RequestMapping(value = "/task/add.do", method = RequestMethod.POST)
+    public ResponseEntity<String> addTask(TaskVO vo, Model model) throws Exception {
         try {
             vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
             System.out.println(vo.getProjectId());
-            int result = leaderService.addTask(vo);
+            int result = leaderService.insertTask(vo);
 
             return ResponseEntity.ok("Task insert successfully");
 
@@ -162,8 +162,8 @@ public class ProjectController {
 
 
     //프로젝트 목록
-    @RequestMapping(value = "/list.do", method = RequestMethod.GET)
-    public String projectList(Model model) {
+    @RequestMapping(value = "/list/view.do", method = RequestMethod.GET)
+    public String listProjectView(Model model) {
         if(session.getAttribute("projectId")!= null){session.removeAttribute("projectId");}
         if(projectService.getProjectList(model) == 200){
             return "projectList";
@@ -173,8 +173,8 @@ public class ProjectController {
         return null;
     }
 
-    @RequestMapping(value = "/completeProjectList.do", method = RequestMethod.GET)
-    public String completeProjectList(Model model) {
+    @RequestMapping(value = "/list/complete/view.do", method = RequestMethod.GET)
+    public String completeListProjectView(Model model) {
         int result = projectService.getCompleteProjectList(model);
         if(result == 200){
             return "completeProjectList";
@@ -187,24 +187,18 @@ public class ProjectController {
     @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
     public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
         model.addAttribute("menuId","taskMenu");
-        int result = projectService.showTaskView(project, member, task, model);
+        int result = projectService.getMyTaskView(project, member, task, model);
         if(result == 200) return "task";
-        else return "man";
+        else return "main";
     }
 
 
-    @RequestMapping(value="/member.do", method = RequestMethod.GET)
+    @RequestMapping(value="/member/list.do", method = RequestMethod.GET)
     public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
         model.addAttribute("menuId","memberMenu");
-        int result = projectService.showProjectMemberList(vo, model);
+        int result = projectService.getProjectMemberList(vo, model);
 
         if (result == 200) return "member";
         else return "mainTemp";
-    }
-
-    //멤버 가져오기
-    @RequestMapping(value="/getTeam.do", method = RequestMethod.GET)
-    public String getTeamView(){
-        return "member";
     }
 }

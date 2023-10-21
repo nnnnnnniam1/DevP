@@ -10,7 +10,7 @@
 <div class="container">
     <div class="changePw-wrapper">
         <h2> 비밀번호 변경 성공</h2>
-        <a href="login.do">로그인하러 가기</a>
+        <a href="/user/login/view.do">로그인하러 가기</a>
     </div>
 </div>
 <!-- 컨텐츠 종료 -->
