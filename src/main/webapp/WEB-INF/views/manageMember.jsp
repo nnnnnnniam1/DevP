@@ -11,7 +11,7 @@
     <p class="semiTitle">프로젝트관리-멤버 추가/삭제</p>
     <div class="manage-wrapper">
         <div class="addMember">
-            <form class="manageMemberWrapper" action="/project/addMember.do" method="post">
+            <form class="manageMemberWrapper" action="/leader/member/add.do" method="post">
                 <div class="addMemberLine row g-3 align-items-center">
                 <div class="col-auto">
                     <label class="formLabel col-form-label"> 멤버추가</label>
@@ -27,7 +27,7 @@
     </div>
     <div  class="member-wrapper">
         <p class="manageMemberWrapper formLabel col-form-label">멤버 관리</p>
-        <form:form class="manageForm" modelAttribute="MemberVO" name="dataForm" id="dataForm" method="post" action="/project/updateMember.do" >
+        <form:form class="manageForm" modelAttribute="MemberVO" name="dataForm" id="dataForm" method="post" action="/leader/member/modify.do" >
             <table class="table" width=500px;>
                 <thead>
                     <tr>

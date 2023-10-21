@@ -10,7 +10,7 @@
     <div class="mx-4">
         <div class="row">
             <h1 class="col-auto">프로젝트 목록</h1>
-            <button class="btn btn-outline-success col-auto" type="button" onclick="location.href='/project/completeProjectList.do'">완료프로젝트</button>
+            <button class="btn btn-outline-success col-auto" type="button" onclick="location.href='/project/list/complete/view.do'">완료프로젝트</button>
         </div>
         <div class="row">
                 <div class="">

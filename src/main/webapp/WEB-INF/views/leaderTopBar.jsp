@@ -29,7 +29,7 @@
             </ul>
             <ul class="navbar-nav ml-auto"> <!-- ml-auto를 추가하여 오른쪽으로 정렬 -->
                 <li class="nav-item logoutBtn">
-                    <button class="btn btn-outline-success" type="button" onclick="location.href='/logout.do'">Logout</button>
+                    <button class="btn btn-outline-success" type="button" onclick="location.href='/user/logout.do'">Logout</button>
                 </li>
             </ul>
         </div>

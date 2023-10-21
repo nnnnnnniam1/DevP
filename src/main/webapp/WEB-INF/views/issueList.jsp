@@ -11,7 +11,7 @@
 	<div class="mt-5">
 		<h1 class="mb-5">${project.projectName} 이슈 목록</h1>
 		<div class="d-flex flex-row-reverse">
-			<button type="submit" onclick="location.href='/issue/write.do?projectId=${projectId}'" class="btn btn-primary mx-3">작성</button>
+			<button type="submit" onclick="location.href='/issue/view.do?projectId=${projectId}'" class="btn btn-primary mx-3">작성</button>
 		</div>
 	    <div class="row">
 			<c:forEach var="status" items="${statusarr}">

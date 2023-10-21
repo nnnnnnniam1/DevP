@@ -15,8 +15,8 @@
     <div class="main-text">
         ${title}
         <button type="button" class="visually-hidden"
-                <c:if test="${login eq '로그인'}"> onclick="location.href='login.do'"</c:if>
-                <c:if test="${login eq '로그아웃'}"> onclick="location.href='logout.do'"</c:if>>
+                <c:if test="${login eq '로그인'}"> onclick="location.href='/user/login/view.do'"</c:if>
+                <c:if test="${login eq '로그아웃'}"> onclick="location.href='/user/logout.do'"</c:if>>
             ${login}
         </button>
     </div>
@@ -33,9 +33,9 @@
             </div>
         </c:forEach>
     </div>
-    <div class="project_list position-relative" onclick="location.href='/project/list.do'">
+    <div class="project_list position-relative" onclick="location.href='/project/list/view.do'">
         <div>진행 중인 프로젝트</div>
-        <a href='/project/insert.do' class="btn btn-outline-dark position-absolute top-50 start-50">프로젝트 추가</a>
+        <a href='/project/add/view.do' class="btn btn-outline-dark position-absolute top-50 start-50">프로젝트 추가</a>
     </div>
     <div class="issue">
         <c:forEach items="${issueList}" var="issue">
@@ -78,8 +78,8 @@
     <div class="main-text">
         ${title}
         <button type="button" class="visually-hidden"
-                <c:if test="${login eq '로그인'}"> onclick="location.href='login.do'"</c:if>
-                <c:if test="${login eq '로그아웃'}"> onclick="location.href='logout.do'"</c:if>>
+                <c:if test="${login eq '로그인'}"> onclick="location.href='/user/login/view.do'"</c:if>
+                <c:if test="${login eq '로그아웃'}"> onclick="location.href='/user/logout.do'"</c:if>>
             ${login}
         </button>
     </div>
@@ -96,9 +96,9 @@
             </div>
         </c:forEach>
     </div>
-    <div class="project_list position-relative" onclick="location.href='/project/list.do'">
+    <div class="project_list position-relative" onclick="location.href='/project/list/view.do'">
         <div>진행 중인 프로젝트</div>
-        <a href='/project/insert.do' class="btn btn-outline-dark position-absolute top-50 start-50">프로젝트 추가</a>
+        <a href='/project/add/view.do' class="btn btn-outline-dark position-absolute top-50 start-50">프로젝트 추가</a>
         <div>
             <c:forEach items="${projectList}" var="project">
                 <div>
