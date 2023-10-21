@@ -157,7 +157,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
+    public int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
         // 프로젝트 및 본인 진행률 가져오기
         project.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
         member.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
@@ -185,7 +185,6 @@ public class ProjectServiceImpl implements ProjectService {
         vo.setProjectId((Integer) session.getAttribute("projectId"));
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
         return 200;
-
     }
 
     @Override

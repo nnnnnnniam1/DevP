@@ -187,9 +187,9 @@ public class ProjectController {
     @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
     public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
         model.addAttribute("menuId","taskMenu");
-        int result = projectService.showTaskView(project, member, task, model);
+        int result = projectService.getMyTaskView(project, member, task, model);
         if(result == 200) return "task";
-        else return "man";
+        else return "main";
     }
 
 

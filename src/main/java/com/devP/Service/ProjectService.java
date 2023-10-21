@@ -29,7 +29,7 @@ public interface ProjectService {
 	int getProjectMemberList(MemberVO vo, Model model);
 	int getProjectId(ProjectVO vo);
 
-	int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception ;
+	int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception ;
 
 	List<MemberVO> getProjectMemberList(int projectId);
 
