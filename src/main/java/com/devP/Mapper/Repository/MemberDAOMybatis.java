@@ -19,11 +19,11 @@ public class MemberDAOMybatis {
     //leader - 멤버페이지
     public List<MemberVO> getMemberList(int projectId){ return mybatis.selectList("MemberDAO.getMemberList", projectId); }
 
-    public MemberVO findMember(MemberVO vo){ return (MemberVO) mybatis.selectOne("MemberDAO.findMember",vo); }
+    public MemberVO getMember(MemberVO vo){ return (MemberVO) mybatis.selectOne("MemberDAO.findMember",vo); }
     public void insertMember(MemberVO vo){ mybatis.insert("MemberDAO.insertMember", vo); }
-    public void reInvited(MemberVO vo){ mybatis.update("MemberDAO.updateMemberToken", vo); }
-    public MemberVO getMemberByToken(MemberVO vo){return (MemberVO) mybatis.selectOne("MemberDAO.getMemberByToken", vo); }
     public void updateMemberStatus(MemberVO vo){ mybatis.update("MemberDAO.updateMemberStatus", vo); }
+    public MemberVO getMemberByToken(MemberVO vo){return (MemberVO) mybatis.selectOne("MemberDAO.getMemberByToken", vo); }
+    public void updateMemberStatusByToken(MemberVO vo){ mybatis.update("MemberDAO.updateMemberStatus", vo); }
     public void updateMemberDatas(MemberVO vo){ mybatis.update("MemberDAO.updateMemberDatas", vo); }
     public void deleteMember(MemberVO vo){ mybatis.update("MemberDAO.deleteMember",vo); }
 
@@ -33,7 +33,7 @@ public class MemberDAOMybatis {
     //project - 멤버페이지
     public List<MemberVO> getProjectMemberList(int vo){ return mybatis.selectList("MemberDAO.getProjectMemberList", vo); }
 
-    public void setProjectColor(MemberVO vo) { mybatis.update("MemberDAO.setProjectColor",vo);}
+    public void insertProjectColor(MemberVO vo) { mybatis.update("MemberDAO.setProjectColor",vo);}
 
     public String getProjectColor(MemberVO vo){return mybatis.selectOne("MemberDAO.getProjectColor",vo); }
 }

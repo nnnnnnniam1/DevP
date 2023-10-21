@@ -6,10 +6,10 @@ import com.devP.VO.ChatMessageVO;
 import com.devP.VO.ChatVO;
 
 public interface ChatService {
-	
-	public ChatVO checkChatRoom(String chatId);
-	
+
+//	public ChatVO checkChatRoom(String chatId);
+
 	public String getChatRoom(String from_id,String to_id, Model model);
-	
-	public int saveChatMessage(ChatMessageVO vo);
+
+	public int insertChatMessage(ChatMessageVO vo);
 }

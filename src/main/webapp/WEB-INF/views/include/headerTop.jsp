@@ -15,7 +15,7 @@
 	<div>
 	<ul class="menu">
 		<li></li>
-		<li><button class="btn black" type="button" onclick="location.href='/logout.do'">Logout</button></li>
+		<li><button class="btn black" type="button" onclick="location.href='/user/logout.do'">Logout</button></li>
 	</ul>
 	</div>
 </div>

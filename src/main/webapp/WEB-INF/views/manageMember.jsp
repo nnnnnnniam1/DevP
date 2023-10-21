@@ -27,7 +27,7 @@
     </div>
     <div  class="member-wrapper">
         <p class="manageMemberWrapper formLabel col-form-label">멤버 관리</p>
-        <form:form class="manageForm" modelAttribute="MemberVO" name="dataForm" id="dataForm" method="post" action="/leader/member/modify.do" >
+        <form class="manageForm" modelAttribute="MemberVO" name="dataForm" id="dataForm" method="post" action="/leader/member/modify.do" >
             <table class="table" width=500px;>
                 <thead>
                     <tr>
@@ -90,7 +90,7 @@
                 </tbody>
             </table>
             <input class="form-control" type="submit" value="수정">
-        </form:form>
+        </form>
     </div>
 </div>
 <script src="/resources/js/manageMemberScript.js"></script>

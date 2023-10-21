@@ -13,7 +13,7 @@
     <div>
         <p class="projectName">
             ${projectName}
-            <button class="btn btn-outline-success" type="button" onclick="location.href='list.do'">완료</button>
+            <button class="btn btn-outline-success" type="button" onclick="location.href='/project/list/view.do'">완료</button>
         </p>
     </div>
     <div class="manage-wrapper">

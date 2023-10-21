@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="row">
-            <form:form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/leader/task/modify.do">
+            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/leader/task/modify.do">
                 <div>
                     <div class="manageForm">
                         <table class="table taskTbl">
@@ -145,7 +145,7 @@
                         <input class="form-control" type="submit" value="수정">
                     </div>
                 </div>
-            </form:form>
+            </form>
         </div>
     </div>
 </div>
@@ -257,12 +257,12 @@ function insertTask(){
             },
             success: function(response){
                 console.log("업무 추가!")
-                window.location.href="/leader/manage/task/view.do";
+                window.location.href="/leader/task/view.do";
             },
             error: function(error){
                 console.log('에러: '+error);
                 alert("업무를 생성하는데 오류가 발생하였습니다.");
-                window.location.href="/project/manage/task/view.do";
+                window.location.href="/project/task/view.do";
             }
 
 

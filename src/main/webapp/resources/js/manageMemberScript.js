@@ -9,7 +9,7 @@ function deleteMember(userId, projectName, projectId){
             },
             success: function(response){
                 alert("삭제되었습니다");
-                window.location.href="/leader//manage/member/view.do";
+                window.location.href="/leader/member/view.do";
             },
             error: function(error){
                 console.log("에러: "+error);

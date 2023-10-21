@@ -5,9 +5,6 @@ import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
 import com.devP.Service.UserService;
 import com.devP.VO.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,16 +38,6 @@ public class LeaderController {
     @Autowired
     private HttpSession session;
 
-//    private String toJson(Object object){
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        try {
-//            return objectMapper.writeValueAsString(object);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            return "{}";
-//        }
-//    }
-
     // 멤버페이지
     @ModelAttribute("positionMap")
     public Map<String, String> setRoleMap() {
@@ -83,9 +70,6 @@ public class LeaderController {
         categoryMap.put("6", "테스트");
         categoryMap.put("7", "완료");
 
-//        String categoryMapJson = toJson(categoryMap);
-//        model.addAttribute("categoryMapJson", categoryMapJson);
-
 
         return categoryMap;
     }
@@ -107,13 +91,12 @@ public class LeaderController {
     public String detailLeader(@RequestParam int projectId, ProjectVO vo, Model model) {
         vo.setProjectId(projectId);
         leaderService.getLeaderView(vo, model);
-        // projectService.getProjectName(vo);
-        // projectService.getProjectProgress(vo);
+
         return "leaderDetail";
     }
 
 
-    @RequestMapping(value = "/manage/member/view.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/member/view.do", method = RequestMethod.GET)
     public String manageMemberLeaderView(MemberVO vo, Model model) {
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         int result = leaderService.getMemberList(vo, model);
@@ -124,15 +107,15 @@ public class LeaderController {
     @RequestMapping(value = "/member/add.do", method = RequestMethod.POST)
     public String addMemberLeader(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
         vo3.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = leaderService.addMember(user, vo, vo2, vo3);
-        return "redirect:/leader/manage/member/view.do";
+        int result = leaderService.insertMember(user, vo, vo2, vo3);
+        return "redirect:/leader/member/view.do";
     }
 
     @RequestMapping(value = "/verify.do", method = RequestMethod.GET)
     public String verifyMemberLeader(MemberVO vo, @RequestParam String token) {
 //        String code = token;
 //        System.out.println(token);
-        leaderService.invitedVerify(vo, token);
+        leaderService.updateStatusByInvitedVerify(vo, token);
 
         return "redirect:/user/login/view.do";
 
@@ -142,7 +125,7 @@ public class LeaderController {
     public String modifyMemberLeader(@ModelAttribute MemberVO memberVO, Model model) {
         int result = leaderService.updateMemberDatas(memberVO.getMemberVOList(), model);
 
-        if (result == 200) return "redirect:/leader/manage/member/view.do";
+        if (result == 200) return "redirect:/leader/member/view.do";
         else return "redirect:/";
     }
 
@@ -162,7 +145,7 @@ public class LeaderController {
 
     }
 
-    @RequestMapping(value = "/manage/task/view.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/task/view.do", method = RequestMethod.GET)
     public String manageTaskLeaderView(TaskVO vo, Model model) {
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         int result = leaderService.getTaskDatas(vo, model);
@@ -173,21 +156,22 @@ public class LeaderController {
     @RequestMapping(value = "/task/add.do", method = RequestMethod.POST)
     public String addTaskLeader(TaskVO vo) {
         System.out.println(vo.getCategory());
-        int result = leaderService.addTask(vo);
+        int result = leaderService.insertTask(vo);
 
         if (result == 200) {
-            return "redirect:/leader/manage/task/view.do";
+            return "redirect:/leader/task/view.do";
         } else {
             return "/";
         }
 
     }
 
+
     @RequestMapping(value = "/task/modify.do", method = RequestMethod.POST)
     public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model) {
         int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
 
-        if (result == 200) return "redirect:/leader/manage/task/view.do";
+        if (result == 200) return "redirect:/leader/task/view.do";
         else return "redirect:/";
     }
 
@@ -212,6 +196,7 @@ public class LeaderController {
 
     }
 
+
     @RequestMapping(value = "/project/delete.do", method = RequestMethod.POST)
     public ResponseEntity<String> deleteProjectLeader(DeleteProjectVO vo,@RequestParam("projectId") int projectId, @RequestParam("reason") String reason) {
         try {
@@ -229,11 +214,12 @@ public class LeaderController {
 
         }
     }
+
     @RequestMapping(value = "/project/complete.do", method = RequestMethod.GET)
     public ResponseEntity<String> completeProjectLeader(@RequestParam("projectId") int projectId) {
         try {
 
-            int result = leaderService.completeProject(projectId);
+            int result = leaderService.updateProjectStatus(projectId);
             if (result == 200) {
                 return ResponseEntity.ok("success");
             } else {
