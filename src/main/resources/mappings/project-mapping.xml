@@ -15,7 +15,7 @@
         from projectgroup g
         join project p
         on g.projectId = p.projectId
-        where g.userId = #{userId};
+        where g.userId = #{userId} AND g.status != x;
     </select>
     <!--  진행 중인 프로젝트 목록   -->
     <select id="getOnGoingProjectList" resultType="ProjectList">

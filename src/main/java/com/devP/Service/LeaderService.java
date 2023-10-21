@@ -1,13 +1,8 @@
 package com.devP.Service;
 
 import com.devP.VO.*;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
 
 public interface LeaderService {
 
@@ -15,21 +10,21 @@ public interface LeaderService {
 
     int getMemberList(MemberVO vo, Model model);
 
-    int addLeader(MemberVO vo,int projectId);
+    int insertLeader(MemberVO vo,int projectId);
 
-    int addMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
+    int insertMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
 
-    MemberVO findMember(MemberVO vo);
+    MemberVO getMember(MemberVO vo);
 
     void insertMember(MemberVO vo);
 
-    void reInvited(MemberVO vo);
+    void insertReInvitedMember(MemberVO vo);
 
-    int invitedVerify(MemberVO vo, String token);
+    int updateStatusByInvitedVerify(MemberVO vo, String token);
 
     MemberVO getMemberByToken(MemberVO vo);
 
-    void updateMemberStatus(MemberVO vo);
+    void updateMemberStatusByToken(MemberVO vo);
 
     int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model);
 
@@ -37,11 +32,11 @@ public interface LeaderService {
 
     int getTaskDatas(TaskVO vo, Model model);
 
-    int addTask(TaskVO vo);
+    int insertTask(TaskVO vo);
 
     int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model);
 
     int deleteProject(DeleteProjectVO vo);
 
-    int completeProject(int projectId);
+    int updateProjectStatus(int projectId);
 }

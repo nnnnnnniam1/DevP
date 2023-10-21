@@ -69,7 +69,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getMyTasks() {
+	public List<Map<String, Object>> getMyAllTasks() {
 		List<TaskVO> voList = new ArrayList<TaskVO>();
 		List<Map<String, Object>> resultList = new ArrayList<>();
 		try {
@@ -107,7 +107,7 @@ public class TaskServiceImpl implements TaskService {
 		return resultList;
 	}
 	@Override
-	public List<Map<String, Object>> getTask() {
+	public List<Map<String, Object>> getMyTasks() {
 		List<TaskVO> voList = new ArrayList<TaskVO>();
     	List<Map<String, Object>> resultList = new ArrayList<>();
 
@@ -193,7 +193,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void addTask(TaskVO vo){taskDAO.insertTask(vo);}
+	public void insertTask(TaskVO vo){taskDAO.insertTask(vo);}
 	@Override
 	public void updateTask(TaskVO vo){taskDAO.updateTask(vo);}
 

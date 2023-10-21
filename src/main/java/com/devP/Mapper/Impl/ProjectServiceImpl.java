@@ -7,10 +7,8 @@ import com.devP.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -36,6 +34,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private LeaderService leaderService;
 
+    @Override
+    public Map<String, String> getMemberMap(List<String> members){
+        Map<String, String> memberMap = new HashMap<String, String>();
+        for(String member: members){
+            String[] m = member.split(",");
+            memberMap.put(m[0], m[1]);
+        }
+        return memberMap;
+    }
+
 
 
     @Override
@@ -57,26 +65,13 @@ public class ProjectServiceImpl implements ProjectService {
      public MemberVO getMyProjectData(MemberVO vo){return memberDAO.getMyProjectData(vo);}
 
     @Override
-    public int setProjectColor(MemberVO vo){
-
-        memberDAO.setProjectColor(vo);
-
+    public int insertProjectColor(MemberVO vo){
+        memberDAO.insertProjectColor(vo);
         return 200;
     }
 
     @Override
     public String getProjectColor(MemberVO vo){return memberDAO.getProjectColor(vo);}
-
-
-    @Override
-    public Map<String, String> setMemberMap(List<String> members){
-        Map<String, String> memberMap = new HashMap<String, String>();
-        for(String member: members){
-            String[] m = member.split(",");
-            memberMap.put(m[0], m[1]);
-        }
-        return memberMap;
-    }
 
     @Override
     public int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
@@ -90,8 +85,8 @@ public class ProjectServiceImpl implements ProjectService {
                 session.removeAttribute("projectName");
                 session.setAttribute("projectName", vo.getProjectName());
                 vo3.setProjectId(getProjectId(vo));
-                leaderService.addLeader(vo2,vo3.getProjectId());
-                leaderService.addMember(members, vo, vo2, vo3);
+                leaderService.insertLeader(vo2,vo3.getProjectId());
+                leaderService.insertMember(members, vo, vo2, vo3);
                 return 200;
             }
             return 0;
@@ -145,7 +140,7 @@ public class ProjectServiceImpl implements ProjectService {
         model.addAttribute("project",getProject(vo));
         model.addAttribute("myData",getMyProjectData(member));
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
-        model.addAttribute("myTask", taskService.getTask());
+        model.addAttribute("myTask", taskService.getMyTasks());
         taskService.getTaskCount(model);
 
         TaskVO task = new TaskVO();
@@ -162,7 +157,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
+    public int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
         // 프로젝트 및 본인 진행률 가져오기
         project.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
         member.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
@@ -177,24 +172,19 @@ public class ProjectServiceImpl implements ProjectService {
         model.addAttribute("project", project);
         model.addAttribute("member", getMyProjectData(member));
 
-        List<TaskVO> taskVOList = taskService.getMyProjectTaskList(task);
-
-        System.out.println(taskVOList);
+        List<TaskVO> taskVOList;
+        taskVOList = taskService.getMyProjectTaskList(task);
 
         model.addAttribute("taskList",taskVOList);
 
         return 200;
-
-//        if(member.getUserId() != null) {return 200;}
-//        else {return 405;}
     }
 
     @Override
-    public int showProjectMemberList(MemberVO vo, Model model){
+    public int getProjectMemberList(MemberVO vo, Model model){
         vo.setProjectId((Integer) session.getAttribute("projectId"));
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
         return 200;
-
     }
 
     @Override

@@ -49,7 +49,7 @@ public class ChatController {
 		messageData.put("sender", vo.getSender());
 		messageData.put("receiver", vo.getReceiver());
 		messageData.put("content", vo.getContent());
-		chatService.saveChatMessage(vo);
+		chatService.insertChatMessage(vo);
 		simpMessagingTemplate.convertAndSend("/topic/" + vo.getReceiver(), messageData);
 		return;
 	}

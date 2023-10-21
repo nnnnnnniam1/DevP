@@ -7,7 +7,7 @@ import com.devP.VO.CommentVO;
 
 public interface CommentService {
 
-	int registerComment(CommentVO vo);
+	int insertComment(CommentVO vo);
 
 	List<CommentVO> getComment(int issueId);
 }

@@ -14,14 +14,13 @@ import com.devP.VO.CommentVO;
 
 @Repository
 public class ChatDAOMybatis{
-
     @Autowired
     private SqlSessionTemplate mybatis;
-    
-    public int newChatRoom(ChatVO vo){
+
+    public int insertChatRoom(ChatVO vo){
         return mybatis.insert("ChatDAO.newChatRoom", vo);
     }
-    public ChatVO checkChatRoom(String chatId) {
-    	return mybatis.selectOne("ChatDAO.checkChatRoom", chatId);
-    }
+//    public ChatVO checkChatRoom(String chatId) {
+//    	return mybatis.selectOne("ChatDAO.checkChatRoom", chatId);
+//    }
 }

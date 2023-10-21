@@ -17,7 +17,7 @@
 String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
 %>
-<div class="container">
+<div class="mw-100 container">
     <div>
         <h1 class="my-5">${project.projectName}
             <c:if test="${myData.leader eq myData.userId}">

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/resources/css/issue.css">
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="mv-100 container">
+<div class="mw-100 container">
 <h2 class="pTitle">${project.projectName}</h2>
 
 	<div class="issue-list">

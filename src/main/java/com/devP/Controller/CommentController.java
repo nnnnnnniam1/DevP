@@ -19,7 +19,7 @@ public class CommentController {
 	//이슈 댓글 작성
 	@RequestMapping(value="/write.do", method= RequestMethod.POST)
 	public String writeComment(CommentVO vo){
-		commentService.registerComment(vo);
+		commentService.insertComment(vo);
 	    return "redirect:/issue/detail.do?issueId=" + vo.getIssueId();
 	}
 }

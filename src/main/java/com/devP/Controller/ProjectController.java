@@ -88,7 +88,7 @@ public class ProjectController {
         vo.setColor("#"+projectColor);
         vo.setUserId(session.getAttribute("id").toString());
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = projectService.setProjectColor(vo);
+        int result = projectService.insertProjectColor(vo);
 
         int projectId = Integer.parseInt(session.getAttribute("projectId").toString());
         System.out.println(projectId);
@@ -150,7 +150,7 @@ public class ProjectController {
         try {
             vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
             System.out.println(vo.getProjectId());
-            int result = leaderService.addTask(vo);
+            int result = leaderService.insertTask(vo);
 
             return ResponseEntity.ok("Task insert successfully");
 
@@ -187,16 +187,16 @@ public class ProjectController {
     @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
     public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
         model.addAttribute("menuId","taskMenu");
-        int result = projectService.showTaskView(project, member, task, model);
+        int result = projectService.getMyTaskView(project, member, task, model);
         if(result == 200) return "task";
-        else return "man";
+        else return "main";
     }
 
 
     @RequestMapping(value="/member/list.do", method = RequestMethod.GET)
     public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
         model.addAttribute("menuId","memberMenu");
-        int result = projectService.showProjectMemberList(vo, model);
+        int result = projectService.getProjectMemberList(vo, model);
 
         if (result == 200) return "member";
         else return "mainTemp";

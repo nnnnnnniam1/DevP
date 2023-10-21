@@ -14,26 +14,25 @@
 
  <ul class="menu">
   	<li>
-  	<button class="btn black" type="button" onclick="location.href='manageTask.do'">일정 및 업무 수정</button>
+  	<button class="btn black" type="button" onclick="location.href='/leader/task/view.do'">일정 및 업무 수정</button>
   	</li>
   	<li>
-  	<button class="btn black" type="button" onclick="location.href='manageMember.do'">멤버 추가 및 삭제</button>
+  	<button class="btn black" type="button" onclick="location.href='/leader/member/view.do'">멤버 추가 및 삭제</button>
   	</li>
   	<li>
   	<button class="btn black" type="button" onclick="completeProject('${project.projectId}','${project.projectName}')">프로젝트 완료</button>
   	</li>
   	<li>
-  	<button class="btn black" type="button" onclick="location.href='deleteProject.do?projectId=${project.projectId}'">프로젝트 삭제</button>
+  	<button class="btn black" type="button" onclick="location.href='/leader/project/delete/view.do?projectId=${project.projectId}'">프로젝트 삭제</button>
   	</li>
   </ul>
-  
     <div class="leaderWrapper">
         <div class="contentsWrapper">
-       
+
             <table class="btnTable none">
                 <tr>
                     <td>
-                        <div class="leaderBtn"  onclick="location.href='/leader/manage/task/view.do'">
+                        <div class="leaderBtn"  onclick="location.href='/leader/task/view.do'">
                             <p class="label">일정 및 업무 수정</p>
                         </div>
                     </td>
@@ -54,7 +53,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="leaderBtn" onclick="location.href='leader/project/delete/view.do?projectId=${project.projectId}'">
+                        <div class="leaderBtn" onclick="location.href='/leader/project/delete/view.do?projectId=${project.projectId}'">
                             <p class="label">프로젝트 삭제</p>
                         </div>
                     </td>

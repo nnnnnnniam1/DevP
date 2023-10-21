@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;import com.devP.Mapper.Repository.MemberDAOMybatis;
@@ -75,7 +74,7 @@ public class IssueController {
 	@RequestMapping(value="/solve.do", method= RequestMethod.POST)
     public String solveIssue(@ModelAttribute IssueVO issue, Model model){
 		model.addAttribute("menuId", "issueMenu");
-		issueService.solveIssue(issue);
+		issueService.updateIssueStatus(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 	//이슈 수정 페이지
@@ -90,7 +89,7 @@ public class IssueController {
     public String modifyIssue(@ModelAttribute IssueVO issue, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		System.out.println(issue.getProjectId());
-		issueService.modifyIssue(issue);
+		issueService.updateIssue(issue);
         return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
 	}
 }
