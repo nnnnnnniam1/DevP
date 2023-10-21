@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -11,7 +10,7 @@
 
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="mw-100 container">
+<div class="full container">
     <div class="main-text">
         ${title}
         <button type="button" class="visually-hidden"
@@ -20,9 +19,11 @@
             ${login}
         </button>
     </div>
+    <div class="main-grid">
     <div class="calender">
+    	<h2>업무 리스트</h2>
         <c:forEach items="${taskList}" var="task">
-            <div class="mx-4 my-4">
+            <div class="task-info">
 <%--                <a href="/task/detail.do?taskId=${task.taskId}" class="text-reset text-decoration-none">--%>
 <%--                    <div class="">${task.projectName}</div>--%>
                     <div class="">
@@ -38,8 +39,9 @@
         <a href='/project/add/view.do' class="btn btn-outline-dark position-absolute top-50 start-50">프로젝트 추가</a>
     </div>
     <div class="issue">
+    <h2>이슈 리스트</h2>
         <c:forEach items="${issueList}" var="issue">
-                    <div class="mx-4 my-4">
+                    <div class="issue-info">
                         <a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">
                             <div class="">${issue.title}</div>
                             <div class="">
@@ -50,20 +52,16 @@
         </c:forEach>
     </div>
     <div class="task">
-        <div class="card mt-3">
+        <div class="card">
             <div class="card-body">
-                <h5 class="card-title">달력</h5>
                 <%@include file="mainCalendar.jsp"%>
             </div>
         </div>
     </div>
+    </div>
 </div>
 <!-- 컨텐츠 종료 -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-=======
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="sidebar.jsp"%>
 
 <html>
 <head>
@@ -132,4 +130,3 @@
 </div>
 </body>
 </html>
->>>>>>> 11413808bbf3bb88ea1dca27cc1d8d56784d14ff

@@ -38,7 +38,7 @@ public class CommonController {
             issueService.getUserIssueList(model);
             projectService.getProjectList(model);
             if(taskService.getUserTaskList(model) == 200) {
-                return "mainTemp";
+                return "main";
             }
             return null;
         }

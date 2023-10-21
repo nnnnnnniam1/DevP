@@ -37,12 +37,11 @@
 	<!--  진행중인 업무 개수	-->
 	<select id="getProgressTaskCnt" resultType="int">
 		SELECT COUNT(*) FROM task
-		WHERE STR_TO_DATE(startdate, '%Y-%m-%d') &lt; #{now}
-		AND STR_TO_DATE(enddate, '%Y-%m-%d') &gt; #{now}
+		WHERE STR_TO_DATE(startdate, '%Y-%m-%d') &lt;= #{now}
+		AND STR_TO_DATE(enddate, '%Y-%m-%d') &gt;= #{now}
 		AND userId = #{userId}
 		AND projectId = #{projectId}
-		AND status = "진행중"
-		AND progress != 100;
+		AND progress!=100
 	</select>
 	<!--  완료 업무 개수	-->
 	<select id="getCompleteTaskCnt" resultType="int">
@@ -71,5 +70,25 @@
 	<delete id="deleteTask">
 		DELETE FROM task WHERE taskId=#{taskId};
 	</delete>
+
+
+	<update id="setMemberProgress">
+		UPDATE projectgroup
+			SET progress = (
+				SELECT AVG(avg_progress) * 100
+				FROM (
+					SELECT userId, AVG(progress) as avg_progress
+					FROM task
+					WHERE projectId = projectgroup.projectId
+					GROUP BY userId
+				) as sub
+				WHERE sub.userId = projectgroup.userId
+				)
+			WHERE EXISTS (
+				SELECT 1
+				FROM task
+				WHERE projectId = projectgroup.projectId
+			);
+	</update>
 
 </mapper>

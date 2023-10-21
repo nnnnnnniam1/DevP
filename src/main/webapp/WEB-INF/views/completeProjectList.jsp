@@ -5,78 +5,62 @@
 <%@ include file="/WEB-INF/views/include/headerBase.jsp"%>
 <%@ include file="/WEB-INF/views/include/headerLink.jsp"%>
 <link rel="stylesheet" href="/resources/css/manageMemberStyles.css">
-<link rel="stylesheet"  href="/resources/css/base.css">
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="container">
-    <p class="semiTitle">완료/삭제된 프로젝트</p>
-    <div class="member-wrapper">
-        <p class="manageMemberWrapper formLabel col-form-label">완료 프로젝트</p>
-        <div>
-            <c:if test="${empty completeProjectList}">
-                <div style="height:10em;"></div>
-            </c:if>
-            <c:forEach items="${completeProjectList}" var="project">
-                <div class="">
-                    <a href="#" class="text-reset text-decoration-none">
-                        <div class="card wd-75 text-bg-light">
-                            <div class="card-header">${project.projectName}</div>
-                            <div class="card-body">
-                                <small class="text-body-secondary">${project.role}</small>
-                                <small class="text-body-secondary">${project.position}</small>
-                                <div class="projectProgress">
-                                    <span class="text-body-secondary ">전체진행률</span>
-                                    <div class="progress">
-                                        <div style="width: ${project.projectProgress}%;" class="progress-bar" />
-                                    </div>
-                                </div>
-                                <div class="memberProgress">
-                                    <span class="text-body-secondary">개인진행률</span>
-                                    <div class="progress">
-                                        <div style="width: ${project.memberProgress}%;" class="progress-bar" />
-                                    </div>
-                                </div>
-                            </div>
+<div class="full container">
+	<h2>프로젝트 목록</h2>
+	<ul class="tab type01">
+		<li><a href="/project/list.do">진행중</a></li>
+		<li class="active">완료/삭제</li>
+	</ul>
+    <div class="list-wrap">
+    	<ul>
+    		<c:forEach items="${completeProjectList}" var="project">
+    		<li>
+    			<div class="project-list">
+    				<h3>프로젝트명 : ${project.projectName}</h3>
+    				<small class="text-body-secondary tag type01">${project.role}</small>
+                    <small class="text-body-secondary tag type02">${project.position}</small>
+                    <div class="projectProgress">
+                        <span class="text-body-secondary ">전체진행률</span>
+                        <div class="progress">
+                            <div style="width: ${project.projectProgress}%;" class="progress-bar" />
                         </div>
-                    </a>
                     </div>
-                <br>
-            </c:forEach>
-        </div>
-        <div  class="member-wrapper">
-        <p class="manageMemberWrapper formLabel col-form-label">삭제 프로젝트</p>
-        <div>
-            <c:if test="${empty deleteProjectList}">
-                <div style="height:10em;"></div>
-            </c:if>
-            <c:forEach items="${deleteProjectList}" var="project">
-                <div class="">
-                    <a href="#" class="text-reset text-decoration-none">
-                        <div class="card wd-75 text-bg-light">
-                            <div class="card-header">${project.projectName}</div>
-                            <div class="card-body">
-                                <small class="text-body-secondary">${project.role}</small>
-                                <small class="text-body-secondary">${project.position}</small>
-                                <div class="projectProgress">
-                                    <span class="text-body-secondary ">전체진행률</span>
-                                    <div class="progress">
-                                        <div style="width: ${project.projectProgress}%;" class="progress-bar" />
-                                    </div>
-                                </div>
-                                <div class="memberProgress">
-                                    <span class="text-body-secondary">개인진행률</span>
-                                    <div class="progress">
-                                        <div style="width: ${project.memberProgress}%;" class="progress-bar" />
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="memberProgress">
+                        <span class="text-body-secondary">개인진행률</span>
+                        <div class="progress">
+                            <div style="width: ${project.memberProgress}%;" class="progress-bar" />
                         </div>
-                    </a>
                     </div>
-                <br>
-            </c:forEach>
-        </div>
+    			</div>
+    		</li>
+    		</c:forEach>
+    		
+    		<c:forEach items="${deleteProjectList}" var="project">
+    		<li>
+    			<div class="project-list del">
+    				<h3 class="del">프로젝트명 : ${project.projectName}</h3>
+    				<small class="text-body-secondary tag type01">${project.role}</small>
+                    <small class="text-body-secondary tag type02">${project.position}</small>
+                    <div class="projectProgress">
+                        <span class="text-body-secondary ">전체진행률</span>
+                        <div class="progress">
+                            <div style="width: ${project.projectProgress}%;" class="progress-bar" />
+                        </div>
+                    </div>
+                    <div class="memberProgress">
+                        <span class="text-body-secondary">개인진행률</span>
+                        <div class="progress">
+                            <div style="width: ${project.memberProgress}%;" class="progress-bar" />
+                        </div>
+                    </div>
+    			</div>
+    		</li>
+    		</c:forEach>
+    	</ul>
     </div>
+    
 </div>
 <script src="/resources/js/manageMemberScript.js"></script>
 <!-- 컨텐츠 종료 -->
