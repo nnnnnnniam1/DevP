@@ -36,7 +36,7 @@
                     <label class="col-sm-2 col-form-label">프로젝트</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext"
-                            name="projectTitle" value="프로젝트">
+                            name="projectTitle" value="${project.projectName}">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-sm-3">
                         <select id="chooseMember" class="form-select col-sm-10">
-                            <option value"">멤버 선택</option> 
+                            <option>멤버 선택</option>
                             <c:forEach items="${memberList}" var="member">
                                 <option value="${member.email}">${member.userId}</option>
                             </c:forEach>

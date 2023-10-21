@@ -9,9 +9,10 @@
     <!--  리더 - 멤버페이지  -->
 
     <!--  프로젝트 멤버리스트 불러오기  -->
+    <!--  프로젝트 멤버리스트 불러오기  -->
     <select id="getMemberList" resultType="Member">
         SELECT u.name AS userName, u.id AS userId, u.email,
-            p.leader, pg.position, pg.role, pg.progress, pg.status
+               p.leader, pg.position, pg.role, pg.progress, pg.status
         FROM projectgroup AS pg
         JOIN user AS u
         JOIN project AS p

@@ -151,7 +151,7 @@
                         <input class="form-control" type="submit" value="수정">
                     </div>
                 </div>
-            </form:form>
+            </form>
         </div>
     </div>
 </div>

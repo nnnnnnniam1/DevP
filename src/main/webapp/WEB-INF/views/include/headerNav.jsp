@@ -4,6 +4,7 @@
         <c:when test="${projectId!=null}">
             <ul class="navbar-nav flex-column mt-4">
                 <li class="nav-item">
+
                     <a href="/project/detail.do?projectId=${ projectId }" + class="nav-link p-3 mb-2 sidebar-link link-dark" id="projectMenu">
                         <i class="bi bi-receipt-cutoff mx-3"></i>프로젝트
                     </a>
