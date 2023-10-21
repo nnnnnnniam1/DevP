@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="row">
-            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/updateTask.do">
+            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/leader/task/modify.do">
                 <div>
                     <div class="manageForm">
                         <table class="table taskTbl">
@@ -242,7 +242,7 @@ function insertTask(){
         alert("빈칸없이 채워주세요");
     } else {
         $.ajax({
-            url: "/project/addTask.do",
+            url: "/leader/task/add.do",
             method: 'POST',
             data: {
                 projectId: projectId,
@@ -257,12 +257,12 @@ function insertTask(){
             },
             success: function(response){
                 console.log("업무 추가!")
-                window.location.href="/project/manageTask.do";
+                window.location.href="/leader/task/view.do";
             },
             error: function(error){
                 console.log('에러: '+error);
                 alert("업무를 생성하는데 오류가 발생하였습니다.");
-                window.location.href="/project/manageTask.do";
+                window.location.href="/project/task/view.do";
             }
 
 

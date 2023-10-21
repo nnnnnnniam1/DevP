@@ -20,7 +20,7 @@
 			<li class="is_on" style="list-style: none;"><a href="#"
 				class="btn">아이디</a>
 				<div class="searchForm find-id">
-					<form class="findForm" method="post" action="searchId.do"
+					<form class="findForm" method="post" action="/user/id/search.do"
 						id="login-form">
 						<div class="row mb-3">
 							<label class="col-sm-3 col-form-label" id="input">이름</label>
@@ -41,7 +41,7 @@
 			<li style="list-style: none;"><a href="#" class="btn">비밀번호</a>
 				<div class="searchForm find-pw row mb-3">
 					<div>
-						<form class="findForm" method="post" action="searchPw.do"
+						<form class="findForm" method="post" action="user/pw/search.do"
 							id="login-form">
 							<div class="row mb-3">
 								<label class="col-sm-3 col-form-label" id="input">아이디</label>
@@ -63,7 +63,7 @@
 					</div>
 					<div>
 						<form class="codeForm findForm" method="post"
-							action="checkCode.do" id="login-form">
+							action="/user/code/check.do" id="login-form">
 							<div class="row mb-3">
 								<label class="col-sm-3 col-form-label" id="input">인증번호</label> <input
 									type="hidden" id="authKey" value="${authKey}">
@@ -133,7 +133,7 @@
 						$
 								.ajax({
 									type : 'POST',
-									url : 'searchPw.do',
+									url : '/user/pw/search.do',
 									data : $(this).serialize(),
 									success : function(response) {
 										// Update the activeTabIndex to the "비밀번호 찾기" tab
@@ -182,7 +182,7 @@
 				} else {
 					$.ajax({
 						type : 'POST',
-						url : 'checkCode.do',
+						url : '/user/code/check.do',
 						data : $(this).serialize(),
 						success : function(response) {
 							if (response === "success") {
@@ -206,7 +206,7 @@
 			function() {
 				// successed 값이 "success"인 경우에만 비밀번호 재설정 페이지로 이동
 				if (success) {
-					location.href = 'changePw.do';
+					location.href = '/user/pw/change/view.do';
 				} else {
 					// successed 값이 "success"가 아닌 경우, 즉 인증이 안 된 경우에는 알림창을 띄움
 					alert("비밀번호 재설정을 위해서는 먼저 인증을 완료해주세요.");

@@ -13,7 +13,7 @@
     <div>
         <p class="projectName">
             ${projectName}
-            <button class="btn btn-outline-success" type="button" onclick="location.href='list.do'">완료</button>
+            <button class="btn btn-outline-success" type="button" onclick="location.href='/project/list/view.do'">완료</button>
         </p>
     </div>
     <div class="manage-wrapper">
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="row">
-            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/updateTask.do">
+            <form:form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/leader/task/modify.do">
                 <div>
                     <div class="manageForm">
                         <table class="table taskTbl">
@@ -151,7 +151,7 @@
                         <input class="form-control" type="submit" value="수정">
                     </div>
                 </div>
-            </form>
+            </form:form>
         </div>
     </div>
 </div>
@@ -249,7 +249,7 @@ function insertTask(){
         alert("빈칸없이 채워주세요");
     } else {
         $.ajax({
-            url: "/project/insertTask.do",
+            url: "/project/task/add.do",
             method: 'POST',
             data: {
                 category: category,
@@ -263,12 +263,12 @@ function insertTask(){
             },
             success: function(response){
                 console.log("업무 추가!")
-                window.location.href="/project/insertTask.do";
+                window.location.href="/project/task/add/view.do";
             },
             error: function(error){
                 console.log('에러: '+error);
                 alert("업무를 생성하는데 오류가 발생하였습니다.");
-                window.location.href="/project/insertTask.do";
+                window.location.href="/project/task/add/view.do";
             }
 
 

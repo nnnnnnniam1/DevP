@@ -39,7 +39,7 @@ function deleteProject(projectId, projectName){
     if(confirm("["+projectName+"]프로젝트를 삭제하시겠습니까?")){
         $.ajax({
             type: 'POST',
-            url: '/project/deleteProject.do',
+            url: '/leader/project/delete.do',
             data: {
                 projectId: projectId,
                 reason: reason
@@ -47,17 +47,17 @@ function deleteProject(projectId, projectName){
             success: function(response){
                 if(response === "success"){
                     alert("삭제되었습니다");
-                    window.location.href="/project/list.do";
+                    window.location.href="/project/list/view.do";
                 } else {
                     alert("오류가 발생했습니다. 다시 시도해주세요");
-                    window.location.href="/project/leader.do?projectId=${projectId}"
+                    window.location.href="/leader/detail.do?projectId=${projectId}"
                 }
 
             },
             error: function(error){
                 console.log("에러: "+error);
                 alert("오류가 발생했습니다. 다시 시도해주세요");
-                window.location.href="/project/leader.do?projectId=${projectId}"
+                window.location.href="/leader/detail.do?projectId=${projectId}"
             }
         });
     }

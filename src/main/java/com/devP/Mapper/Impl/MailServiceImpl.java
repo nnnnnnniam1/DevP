@@ -83,7 +83,7 @@ public class MailServiceImpl implements MailService{
         body = "<h3>" + memberName+"님, 안녕하세요</h3><br>"
                 + leader+"님에 의해 " + project+" 프로젝트에 초대되었습니다.<br>"
                 + "초대를 수락하신다면 "
-                + "<a href='http://localhost:8080/project/addProject/verify?token="+token+"'>초대 수락</a>";
+                + "<a href='http://localhost:8080/leader/verify?token="+token+"'>초대 수락</a>";
 
         sendMail(to,subject,body);
 

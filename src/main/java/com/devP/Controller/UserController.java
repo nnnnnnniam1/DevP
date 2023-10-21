@@ -18,6 +18,7 @@ import javax.servlet.jsp.PageContext;
 
 @Controller
 @SessionAttributes("user")
+@RequestMapping("user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -29,8 +30,8 @@ public class UserController {
     HttpSession session;
 
 
-    @RequestMapping(value = "/login.do", method = RequestMethod.GET)
-    public String loginView() {
+    @RequestMapping(value="/login/view.do", method= RequestMethod.GET)
+    public String loginView(){
         return "login";
     }
 
@@ -56,13 +57,12 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/searchLogin.do", method = RequestMethod.GET)
-    public String searchLoginView() {
-        return "searchLogin";
-    }
+
+    @RequestMapping(value="/login/search/view.do", method = RequestMethod.GET)
+    public String searchLoginView(){ return "searchLogin"; }
 
 
-    @RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/id/search.do", method = RequestMethod.POST)
     public String searchId(UserVO vo, HttpServletRequest request) throws Exception {
 
         int result = userService.getIdByEmail(vo);
@@ -70,14 +70,14 @@ public class UserController {
         return "searchLogin";
     }
 
-    @RequestMapping(value = "/searchPw.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/pw/search.do", method = RequestMethod.POST)
     public String searchPw(UserVO vo, HttpServletRequest request) throws Exception {
         int result = userService.findPw(vo);
 
         return "searchLogin";
     }
 
-    @RequestMapping(value = "/checkCode.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/code/check.do", method = RequestMethod.POST)
     @ResponseBody
     public String checkCode(HttpServletRequest request, HttpSession session) {
         String inputCode = request.getParameter("input-code");
@@ -92,20 +92,20 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/changePw.do", method = RequestMethod.GET)
-    public String changePwView(HttpSession session) {
+    @RequestMapping(value = "/pw/change/view.do", method = RequestMethod.GET)
+    public String changePwView(HttpSession session){
         session.removeAttribute("authKey");
         return "changePw";
     }
 
-    @RequestMapping(value = "/changePw.do", method = RequestMethod.POST)
-    public String changePw(UserVO vo) {
+
+    @RequestMapping(value = "/pw/change.do", method = RequestMethod.POST)
+    public String changePw(UserVO vo){
         int result = userService.updatePw(vo);
         return "changePw";
     }
-
-    @RequestMapping(value = "/changePwSuccess.do", method = RequestMethod.GET)
-    public String changePwSuccessView() {
+    @RequestMapping(value = "/pw/change/success/view.do", method = RequestMethod.GET)
+    public String changePwSuccessView(){
         return "changePwSuccess";
     }
 
