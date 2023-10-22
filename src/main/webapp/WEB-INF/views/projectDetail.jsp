@@ -17,21 +17,20 @@
 String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
 %>
-<div class="mw-100 container">
-    <div>
-        <h1 class="my-5">${project.projectName}
-            <c:if test="${myData.leader eq myData.userId}">
-                <button class="btn btn-outline-success" type="button" onclick="location.href='/leader/detail.do?projectId=${project.projectId}'">leader</button>
-            </c:if>
-            <div class="btn-group">
-                <button type="button" class="btn main dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">색상</button>
-                <ul class="dropdown-menu">
-                    <c:forEach items="${colorMap}" var="color" varStatus="loop">
-                        <li><span class="Dropdown-item" style="background-color:#${color.value};" onclick="location.href='/project/color/set.do?projectColor=${color.value}'"></span></li>
-                    </c:forEach>
-                </ul>
-            </div>
-</h2>
+<div class="container">
+    <h2 class="pTitle">${project.projectName}
+        <c:if test="${myData.leader eq myData.userId}">
+            <button class="btn btn-outline-success" type="button" onclick="location.href='/leader/detail.do?projectId=${project.projectId}'">leader</button>
+        </c:if>
+        <div class="btn-group">
+            <button type="button" class="btn main dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">색상</button>
+            <ul class="dropdown-menu">
+                <c:forEach items="${colorMap}" var="color" varStatus="loop">
+                    <li><span class="Dropdown-item" style="background-color:#${color.value};" onclick="location.href='/project/color/set.do?projectColor=${color.value}'"></span></li>
+                </c:forEach>
+            </ul>
+        </div>
+    </h2>
 
 	<div class="row m-b-1">
 		<div class = "col-8 m-t-1">

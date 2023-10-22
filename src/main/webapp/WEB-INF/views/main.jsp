@@ -20,7 +20,7 @@
         </button>
     </div>
     <div class="main-grid">
-    <div class="calender">
+    <div class="task">
     	<h2>업무 리스트</h2>
         <c:forEach items="${taskList}" var="task">
             <div class="task-info">
@@ -51,7 +51,7 @@
                     </div>
         </c:forEach>
     </div>
-    <div class="task">
+    <div class="calender">
         <div class="card">
             <div class="card-body">
                 <%@include file="mainCalendar.jsp"%>

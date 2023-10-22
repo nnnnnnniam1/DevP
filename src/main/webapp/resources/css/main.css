@@ -12,32 +12,32 @@
     color: black;
     padding-top: 0px;
 }
-.calender{
+.task{
     grid-column: 1 / 2;
-    grid-row: 2 / 20;
-    
+    grid-row: 2 /30;
+
     margin:0px;
-    
+
     border:2px solid #f7f7f7;
     background-color: #f7f7f7;
     border-radius: 10px;
     color:#333;
     padding:1em;
-    
 }
 .project_list{
     position: relative;
     grid-column: 2 / 4;
-    grid-row: 2 / 3;
+    grid-row: 2;
     border:2px solid #530be9;
     background-color: #530be9;
     border-radius: 10px;
     color:#fff;
-    
+
     margin:0px;
     padding:1em;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .project_list > div {
     font-size: 26px;
@@ -45,20 +45,21 @@
 }
 .issue{
     grid-column: 2 / 3;
-    grid-row: 3 / 20;
-    
+    grid-row: 3 / 30;
+
     margin:0px;
-    
+
     border:2px solid #f7f7f7;
     background-color: #f7f7f7;
     border-radius: 10px;
     color:#333;
     padding:1em;
 }
-.task{
+.calender{
     grid-column: 3 / 4;
-    grid-row: 3 / 5;
-    
+    grid-row: 3 / 30;
+
     margin:0px;
+
 }
 .main-grid h2{font-size:20px;margin-bottom:0.75em;}
