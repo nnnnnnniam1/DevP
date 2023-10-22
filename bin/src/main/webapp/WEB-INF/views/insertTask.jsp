@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="row">
-            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/leader/task/modify.do">
+            <form:form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/leader/task/modify.do">
                 <div>
                     <div class="manageForm">
                         <table class="table taskTbl">

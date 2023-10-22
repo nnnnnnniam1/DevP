@@ -5,17 +5,14 @@
 <%@ include file="/WEB-INF/views/include/headerLink.jsp"%>
 <link rel="stylesheet" href="/resources/css/manageTask.css">
 <link rel="stylesheet" href="/resources/css/task.css">
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
-    <div>
-        <p class="projectName">
-            ${projectName}
-            <button class="btn btn-outline-success" type="button" onclick="location.href='/project/list/view.do'">완료</button>
-        </p>
-    </div>
+    <p class="projectName">${projectName}</p>
+    <p class="semiTitle">업무 수정</p>
     <div class="manage-wrapper">
         <div class="addMember">
             <div class="manageTaskWrapper">
@@ -24,48 +21,47 @@
                 </div>
             </div>
             <div class="row">
-                    <div id="box">
-                        <div class="addForm">
-                            <table id="taskTbl" class="table" width=500px;>
-                                <thead>
-                                    <tr>
-                                        <th class="" scope="col">Category</th>
-                                        <th class="" scope="col">Work Package</th>
-                                        <th class="" scope="col">depth</th>
-                                        <th class="" scope="col">detail</th>
-                                        <th class="" scope="col">담당자</th>
-                                        <th class="" scope="col">시작일</th>
-                                         <th class="" scope="col">종료일</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <select class="form-select" name="category" id="categorySelect">
-                                                <option value="" disabled selected> 선택</option>
-                                                <c:forEach items="${categoryMap}" var="category">
-                                                    <option value="${category.value}">${category.value}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </td>
-                                        <td><input class="form-control" type="text" name="workPackage" id="workPackage"></td>
-                                        <td><input class="form-control" type="text" name="depth" id="depth"></td>
-                                        <td><input class="form-control" type="text" name="detail" id="detail"></td>
-                                        <td><select class="form-select" name="responsibility" id="responsibilitySelect">
+                <div id="box">
+                    <div class="addForm">
+                        <table id="taskTbl" class="table" width=500px;>
+                            <thead>
+                                <tr>
+                                    <th class="" scope="col">Category</th>
+                                    <th class="" scope="col">Work Package</th>
+                                    <th class="" scope="col">depth</th>
+                                    <th class="" scope="col">detail</th>
+                                    <th class="" scope="col">담당자</th>
+                                    <th class="" scope="col">시작일</th>
+                                    <th class="" scope="col">종료일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-select" name="category" id="categorySelect">
                                             <option value="" disabled selected> 선택</option>
-                                            <c:forEach items="${memberMap}" var="member">
-                                                <option value="${member.key}">${member.value}</option>
+                                            <c:forEach items="${categoryMap}" var="category">
+                                                <option value="${category.value}">${category.value}</option>
                                             </c:forEach>
-                                        </select></td>
-                                        <td><input class="form-control startDate" type="date"  name="startdate" id="startDate"/></td>
-                                        <td><input class="form-control endDate" type="date"  name="enddate" id="endDate" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button class="form-control" onclick="insertTask()">추가</button>
-                        </div>
+                                        </select>
+                                    </td>
+                                    <td><input class="form-control" type="text" name="workPackage" id="workPackage"></td>
+                                    <td><input class="form-control" type="text" name="depth" id="depth"></td>
+                                    <td><input class="form-control" type="text" name="detail" id="detail"></td>
+                                    <td><select class="form-select" name="responsibility" id="responsibilitySelect">
+                                        <option value="" disabled selected> 선택</option>
+                                        <c:forEach items="${memberMap}" var="member">
+                                            <option value="${member.key}">${member.value}</option>
+                                        </c:forEach>
+                                    </select></td>
+                                    <td><input class="form-control startDate" type="date"  name="startdate" id="startDate"/></td>
+                                    <td><input class="form-control endDate" type="date"  name="enddate" id="endDate" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="form-control" onclick="insertTask()">추가</button>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -95,15 +91,14 @@
                         <table class="table taskTbl">
                             <thead>
                                 <tr>
-                                    <th class="" scope="col">Category</th>
-                                    <th class="" scope="col">Work Package</th>
-                                    <th class="" scope="col">depth</th>
-                                    <th class="" scope="col">detail</th>
-                                    <th class="" scope="col">담당자</th>
-                                    <th class="" scope="col">시작일</th>
-                                    <th class="" scope="col">종료일</th>
-                                    <th class="" scope="col">상태</th>
-                                    <th class="" scope="col">진행률</th>
+                                    <th class="col-auto" scope="col">Category</th>
+                                    <th class="col-auto" scope="col">Work Package</th>
+                                    <th class="col-auto" scope="col">depth</th>
+                                    <th class="col-auto" scope="col">detail</th>
+                                    <th class="col-auto" scope="col">담당자</th>
+                                    <th class="col-auto" scope="col">시작일</th>
+                                    <th class="col-auto" scope="col">종료일</th>
+                                    <th class="col-auto" scope="col">상태</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,6 +125,7 @@
                                                 >${member.value}</option>
                                             </c:forEach>
                                         </select></td>
+
                                         <td><input class="form-control startDate" type="date"  name="taskVOList[${loop.index}].startdate" value="${task.startdate}"/></td>
                                         <td><input class="form-control endDate" type="date"  name="taskVOList[${loop.index}].enddate" value="${task.enddate}"/></td>
                                         <td>
@@ -141,13 +137,11 @@
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <td><input class="form-control" type="text" name="taskVOList[${loop.index}].progress" value="${task.progress}"></td>
                                         <td><input class="form-control" type="button" value="삭제" onclick="deleteTask('${task.taskId}')" /></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
-
                         <input class="form-control" type="submit" value="수정">
                     </div>
                 </div>
@@ -155,9 +149,9 @@
         </div>
     </div>
 </div>
-<script src="/resources/js/insertTask.js"></script>
-<script type="text/javascript">
 
+<script src="/resources/js/manageTask.js"></script>
+<script type="text/javascript">
 function getCurrentDate(){
         const now = new Date();
         const year = now.getFullYear();
@@ -201,7 +195,6 @@ function dateDifference(a, b){
     dataArray.push(datas);
 </c:forEach>
 
-
 if(dataArray[0] !== null && dataArray.length>0){
     google.charts.load('current', {'packages':['gantt']});
     google.charts.setOnLoadCallback(drawChart);
@@ -234,8 +227,6 @@ function drawChart(){
     chart.draw(data, options);
 
 }
-
-
 function insertTask(){
     var category = document.getElementById("categorySelect").value;
     var workPackage = document.getElementById("workPackage").value;
@@ -245,13 +236,16 @@ function insertTask(){
     var startDate = document.getElementById("startDate").value;
     var endDate = document.getElementById("endDate").value;
 
+    var projectId = ${projectId}
+
     if(category === null || workPackage === null || detail === null || responsibility === null || startDate === null || endDate === null){
         alert("빈칸없이 채워주세요");
     } else {
         $.ajax({
-            url: "/project/task/add.do",
+            url: "/leader/task/add.do",
             method: 'POST',
             data: {
+                projectId: projectId,
                 category: category,
                 workPackage: workPackage,
                 depth: depth,
@@ -263,12 +257,12 @@ function insertTask(){
             },
             success: function(response){
                 console.log("업무 추가!")
-                window.location.href="/project/task/add/view.do";
+                window.location.href="/leader/task/view.do";
             },
             error: function(error){
                 console.log('에러: '+error);
                 alert("업무를 생성하는데 오류가 발생하였습니다.");
-                window.location.href="/project/task/add/view.do";
+                window.location.href="/project/task/view.do";
             }
 
 
