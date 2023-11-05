@@ -1,9 +1,6 @@
 package com.devP.Service;
 
-import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectGroupVO;
-import com.devP.VO.ProjectVO;
-import com.devP.VO.TaskVO;
+import com.devP.VO.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -42,4 +39,11 @@ public interface ProjectService {
 	int insertProjectColor(MemberVO vo);
 
 	String getProjectColor(MemberVO vo);
+
+	int updateReviewStatus(MemberVO vo);
+
+	int updateReview(ReviewVO vo);
+
+	ReviewVO getReview(ReviewVO vo);
+
 }

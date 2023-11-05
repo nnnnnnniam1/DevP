@@ -18,7 +18,7 @@
     		<c:forEach items="${completeProjectList}" var="project">
                 <li>
                     <div class="project-list">
-                        <h3>프로젝트명 : ${project.projectName}</h3>
+                        <a href="/project/review/report.do?projectId=${project.projectId}"><h3>프로젝트명 : ${project.projectName}</h3></a>
                         <small class="text-body-secondary tag type01">${project.role}</small>
                         <small class="text-body-secondary tag type02">${project.position}</small>
                         <div class="projectProgress">

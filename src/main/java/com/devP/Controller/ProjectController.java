@@ -1,13 +1,11 @@
 package com.devP.Controller;
 
+import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Service.IssueService;
 import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
-import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectGroupVO;
-import com.devP.VO.ProjectVO;
-import com.devP.VO.TaskVO;
+import com.devP.VO.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +35,9 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private MemberDAOMybatis memberDAO;
 
     @Autowired
     private TaskService taskService;
@@ -201,4 +202,69 @@ public class ProjectController {
         if (result == 200) return "member";
         else return "mainTemp";
     }
+
+    @RequestMapping(value="/review/report.do", method = RequestMethod.GET)
+    public String reviewWriteView(@RequestParam int projectId, ProjectVO vo, MemberVO member, Model model){
+
+        if(session.getAttribute("projectId") != null) {
+            session.removeAttribute("projectId");
+            session.removeAttribute("projectName");
+        }
+        session.setAttribute("projectId", projectId);
+        session.setAttribute("projectName", projectService.getProjectName(projectId));
+
+        vo.setProjectId(projectId); vo.setProjectName(projectService.getProjectName(projectId));
+        member.setProjectId(projectId); member.setUserId(session.getAttribute("id").toString());
+
+        MemberVO myProjectData = memberDAO.getMember(member);
+
+        model.addAttribute("projectData", projectService.getProject(vo));
+        model.addAttribute("memberData", projectService.getProjectMemberList(projectId));
+
+        return "reviewWrite";
+
+    }
+
+    @RequestMapping(value = "/review/report.do", method = RequestMethod.POST)
+    public String reviewReportView(MemberVO member, @RequestParam("content") List<String> contentList, @RequestParam("evaMemberId") List<String> evaMemberIdList) {
+        member.setProjectId((Integer) session.getAttribute("projectId"));
+        member.setUserId(session.getAttribute("id").toString());
+        projectService.updateReviewStatus(member);
+
+        for (int i = 0; i < contentList.size(); i++) {
+            String content = contentList.get(i);
+            String evaMemberId = evaMemberIdList.get(i);
+
+            // Create a new ReviewVO object for each iteration
+            ReviewVO review = new ReviewVO();
+            review.setProjectId((Integer) session.getAttribute("projectId"));
+            review.setEvaMemberId(evaMemberId);
+
+            if(review != null) {
+                ReviewVO existingContent = projectService.getReview(review);
+                System.out.println("원래있던거" +existingContent.getEvaluation());
+
+                if (existingContent.getEvaluation() != null) {
+                    // 기존 내용이 있는 경우에만 누적 작업을 수행
+                    String newContent = existingContent.getEvaluation() + ',' + content;
+                    System.out.println(newContent);
+                    review.setEvaluation(newContent);
+                } else{ //******** 현재 이 경우 update 안됨 ******************//
+                    // 기존 내용이 없는 경우, 새로운 내용으로 초기화
+                    review.setEvaluation(content);
+                }
+            }else{
+                System.out.println("reviewVO null");
+            }
+
+
+
+
+            // Update the review using the modified 'review' object
+            projectService.updateReview(review);
+        }
+        return "reviewReport";
+    }
+
+
 }

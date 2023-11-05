@@ -52,4 +52,11 @@ public class ProjectDAOMybatis {
 
 
     public void completeProject(int projectId) { mybatis.update("ProjectDAO.completeProject", projectId); }
+
+    public void updateReviewStatus(MemberVO vo){mybatis.insert("ProjectDAO.updateReviewStatus", vo);}
+
+    public void updateReview(ReviewVO vo) {mybatis.update("ProjectDAO.updateReview", vo);}
+
+    public ReviewVO getReview(ReviewVO vo){
+        return mybatis.selectOne("ProjectDAO.getReview", vo);}
 }
