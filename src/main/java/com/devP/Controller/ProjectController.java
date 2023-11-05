@@ -128,8 +128,9 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/add.do", method = RequestMethod.POST)
-    public String addProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
+    public String addProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, Model model) throws Exception {
         int result = projectService.insertProject(vo, vo2, vo3);
+        model.addAttribute("menuId","");
         if(result == 200) {
             int projectId = projectService.getProjectId(vo);
             session.setAttribute("projectId",projectId);
@@ -142,7 +143,7 @@ public class ProjectController {
     public String addTaskView(TaskVO vo, Model model){
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
         List<String> nameList = projectService.getMemberNames(vo.getProjectId());
-
+        model.addAttribute("menuId","");
         model.addAttribute("categoryMap", taskService.setCategoryMap());
         model.addAttribute("statusMap", taskService.setStatusMap());
         int result = leaderService.getTaskDatas(vo, model);
