@@ -67,8 +67,17 @@ public class ProjectController {
 
         return colorMap;
     }
+    @ModelAttribute("statusMap")
+    public Map<String, String> setStatusMap(Model model) {
+        Map<String, String> statusMap = new HashMap<>();
 
+        statusMap.put("1", "대기");
+        statusMap.put("2", "진행중");
+        statusMap.put("3", "검토");
+        statusMap.put("4", "완료");
 
+        return statusMap;
+    }
 
 
     //프로젝트 추가 화면

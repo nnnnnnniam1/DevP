@@ -90,6 +90,7 @@ public class LeaderController {
     @RequestMapping(value = "/detail.do", method = RequestMethod.GET)
     public String detailLeader(@RequestParam int projectId, ProjectVO vo, Model model) {
         vo.setProjectId(projectId);
+        model.addAttribute("menuId", "leaderMenu");
         leaderService.getLeaderView(vo, model);
 
         return "leaderDetail";
@@ -99,6 +100,7 @@ public class LeaderController {
     @RequestMapping(value = "/member/view.do", method = RequestMethod.GET)
     public String manageMemberLeaderView(MemberVO vo, Model model) {
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+        model.addAttribute("menuId","leaderMenu");
         int result = leaderService.getMemberList(vo, model);
         if (result == 200) return "manageMember";
         else return "redirect:/user/login/view.do";
@@ -148,6 +150,7 @@ public class LeaderController {
     @RequestMapping(value = "/task/view.do", method = RequestMethod.GET)
     public String manageTaskLeaderView(TaskVO vo, Model model) {
         vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+        model.addAttribute("menuId","leaderMenu");
         int result = leaderService.getTaskDatas(vo, model);
         if (result == 200) return "manageTask";
         else return "redirect:/";
