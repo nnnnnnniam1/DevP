@@ -75,7 +75,7 @@
     <div class="contentsBox">
         <p class="labelWrapper">업무수정</p>
         <div class="row">
-            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/leader/task/modify.do">
+            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/task/modify.do">
                 <div>
                     <div class="manageForm">
                         <table class="table taskTbl">
