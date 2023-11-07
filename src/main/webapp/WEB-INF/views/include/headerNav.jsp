@@ -36,7 +36,7 @@
                 </li>
                   <c:if test="${myData.leader==myData.userId}">
                     <li>
-                        <a href="/leader/detail.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark" id="leaderMenu">
+                        <a href="/leader/detail.do?projectId=${projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark" id="leaderMenu">
                             <i class="bi bi-key mx-3"></i>리더
                         </a>
                     </li>
