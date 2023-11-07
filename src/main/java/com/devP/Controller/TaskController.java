@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.devP.VO.TaskVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,12 @@ public class TaskController {
 	// 업무 추가 뷰
 	@RequestMapping(value = "/insertTask.do", method = RequestMethod.GET)
 	public String addTask(){ return "addTask"; }
+
+	@RequestMapping(value="/modify.do", method = RequestMethod.POST)
+	public String modifyTask(@ModelAttribute TaskVO vo, Model model){
+		int result = taskService.updateTaskMember(vo);
+
+
+		return "redirect:/project/myTask.do";
+	}
 }

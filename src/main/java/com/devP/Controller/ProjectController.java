@@ -74,7 +74,7 @@ public class ProjectController {
         statusMap.put("1", "대기");
         statusMap.put("2", "진행중");
         statusMap.put("3", "검토");
-        statusMap.put("4", "완료");
+//        statusMap.put("4", "완료");
 
         return statusMap;
     }
