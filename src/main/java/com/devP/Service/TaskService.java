@@ -23,7 +23,9 @@ public interface TaskService {
 
 	void insertTask(TaskVO vo);
 
-	void updateTask(TaskVO vo);
+	void updateTaskLeader(TaskVO vo);
+
+	int updateTaskMember(TaskVO vo);
 
 	void deleteTask(int taskId);
 

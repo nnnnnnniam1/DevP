@@ -178,9 +178,11 @@ public class LeaderServiceImpl implements LeaderService {
 	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
 
 		for(TaskVO vo : TaskVOList){
-			taskService.updateTask(vo);
+			taskService.updateTaskLeader(vo);
 		};
-
+		int projectId = Integer.parseInt(session.getAttribute("projectId").toString());
+		memberDAO.updateAllProgress(projectId);
+		projectDAO.updateProgress(projectId);
 		return 200;
 
 	}
