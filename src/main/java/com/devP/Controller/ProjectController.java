@@ -227,42 +227,38 @@ public class ProjectController {
 
     @RequestMapping(value = "/review/report.do", method = RequestMethod.POST)
     public String reviewReportView(MemberVO member, @RequestParam("content") List<String> contentList, @RequestParam("evaMemberId") List<String> evaMemberIdList) {
-        member.setProjectId((Integer) session.getAttribute("projectId"));
-        member.setUserId(session.getAttribute("id").toString());
-        projectService.updateReviewStatus(member);
-
-        for (int i = 0; i < contentList.size(); i++) {
-            String content = contentList.get(i);
-            String evaMemberId = evaMemberIdList.get(i);
-
-            // Create a new ReviewVO object for each iteration
-            ReviewVO review = new ReviewVO();
-            review.setProjectId((Integer) session.getAttribute("projectId"));
-            review.setEvaMemberId(evaMemberId);
-
-            if(review != null) {
-                ReviewVO existingContent = projectService.getReview(review);
-                System.out.println("원래있던거" +existingContent.getEvaluation());
-
-                if (existingContent.getEvaluation() != null) {
-                    // 기존 내용이 있는 경우에만 누적 작업을 수행
-                    String newContent = existingContent.getEvaluation() + ',' + content;
-                    System.out.println(newContent);
-                    review.setEvaluation(newContent);
-                } else{ //******** 현재 이 경우 update 안됨 ******************//
-                    // 기존 내용이 없는 경우, 새로운 내용으로 초기화
-                    review.setEvaluation(content);
-                }
-            }else{
-                System.out.println("reviewVO null");
-            }
-
-
-
-
-            // Update the review using the modified 'review' object
-            projectService.updateReview(review);
-        }
+//        member.setProjectId((Integer) session.getAttribute("projectId"));
+//        member.setUserId(session.getAttribute("id").toString());
+//        projectService.updateReviewStatus(member);
+//
+//        for (int i = 0; i < contentList.size(); i++) {
+//            String content = contentList.get(i);
+//            String evaMemberId = evaMemberIdList.get(i);
+//
+//            // Create a new ReviewVO object for each iteration
+//            ReviewVO review = new ReviewVO();
+//            review.setProjectId((Integer) session.getAttribute("projectId"));
+//            review.setEvaMemberId(evaMemberId);
+//
+//            if(review != null) {
+//                ReviewVO existingContent = projectService.getReview(review);
+//                System.out.println("원래있던거" +existingContent.getEvaluation());
+//
+//                if (existingContent.getEvaluation() != null) {
+//                    // 기존 내용이 있는 경우에만 누적 작업을 수행
+//                    String newContent = existingContent.getEvaluation() + ',' + content;
+//                    System.out.println(newContent);
+//                    review.setEvaluation(newContent);
+//                } else{ //******** 현재 이 경우 update 안됨 ******************//
+//                    // 기존 내용이 없는 경우, 새로운 내용으로 초기화
+//                    review.setEvaluation(content);
+//                }
+//            }else{
+//                System.out.println("reviewVO null");
+//            }
+//            // Update the review using the modified 'review' object
+//            projectService.updateReview(review);
+//        }
         return "reviewReport";
     }
 
