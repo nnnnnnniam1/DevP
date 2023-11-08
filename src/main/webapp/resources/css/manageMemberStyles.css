@@ -1,5 +1,5 @@
 body{
-    color: #717476;
+    // color: #717476;
     font-family: Inter;
     font-weight: 700;
     line-height: normal;
@@ -20,13 +20,11 @@ body{
 .semiTitle {
     font-size: 28px;
 }
-.manageMemberWrapper {
+.addMemberWrapper {
     width: 100%;
     height: 50px;
     display: flex; /* Flexbox를 사용합니다. */
     align-items: center; /* 수직 가운데 정렬합니다. */
-    background-color: #E5D3D3;
-    border-radius: 10px;
     padding: 10px;
 }
 /*

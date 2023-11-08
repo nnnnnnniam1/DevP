@@ -1,6 +1,8 @@
 package com.devP.Mapper.Impl;
 
 
+import com.devP.Mapper.Repository.MemberDAOMybatis;
+import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Mapper.Repository.TaskDAOMybatis;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
@@ -29,6 +31,12 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskDAOMybatis taskDAO;
 
+	@Autowired
+	private ProjectDAOMybatis projectDAO;
+
+	@Autowired
+	private MemberDAOMybatis memberDAO;
+
     @Autowired
     private HttpSession session;
 
@@ -55,7 +63,6 @@ public class TaskServiceImpl implements TaskService {
 		statusMap.put("1","대기");
 		statusMap.put("2","진행중");
 		statusMap.put("3","검토");
-		statusMap.put("4","완료");
 
 		return statusMap;
 	}
@@ -204,7 +211,19 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void insertTask(TaskVO vo){taskDAO.insertTask(vo);}
 	@Override
-	public void updateTask(TaskVO vo){taskDAO.updateTask(vo);}
+	public void updateTaskLeader(TaskVO vo){taskDAO.updateTaskLeader(vo);}
+
+	@Override
+	public int updateTaskMember(TaskVO vo){
+		ArrayList<TaskVO> taskVOList = vo.getTaskVOList();
+		for(TaskVO task : taskVOList){
+			taskDAO.updateTaskStatus(task);
+		};
+		vo.setUserId(session.getAttribute("id").toString());
+		memberDAO.updateMemberProgress(vo);
+		projectDAO.updateProgress(vo.getProjectId());
+		return 200;
+	}
 
 	@Override
 	public void deleteTask(int taskId){taskDAO.deleteTask(taskId);}

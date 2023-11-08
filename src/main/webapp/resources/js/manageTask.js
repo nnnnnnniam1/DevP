@@ -94,7 +94,7 @@ function deleteTask(taskId){
             },
             success: function(response){
                 alert("삭제되었습니다");
-                window.location.href="/project/task/add/view.do";
+                window.location.href="/leader/task/view.do";
             },
             error: function(error){
                 console.log("에러: "+error);

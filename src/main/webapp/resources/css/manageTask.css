@@ -27,3 +27,5 @@
 .formLabel {
     font-size: 20px;
 }
+
+input::value{font-size:16px;}

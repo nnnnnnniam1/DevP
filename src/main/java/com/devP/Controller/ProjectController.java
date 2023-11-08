@@ -65,8 +65,17 @@ public class ProjectController {
 
         return colorMap;
     }
+    @ModelAttribute("statusMap")
+    public Map<String, String> setStatusMap(Model model) {
+        Map<String, String> statusMap = new HashMap<>();
 
+        statusMap.put("1", "대기");
+        statusMap.put("2", "진행중");
+        statusMap.put("3", "검토");
+//        statusMap.put("4", "완료");
 
+        return statusMap;
+    }
 
 
     //프로젝트 추가 화면
@@ -138,7 +147,7 @@ public class ProjectController {
     	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
         vo.setProjectId(projectData.getProjectId());
         List<String> nameList = projectService.getMemberNames(vo.getProjectId());
-
+        model.addAttribute("menuId","");
         model.addAttribute("categoryMap", taskService.setCategoryMap());
         model.addAttribute("statusMap", taskService.setStatusMap());
         int result = leaderService.getTaskDatas(vo, model, session);
@@ -164,6 +173,13 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
 
         }
+    }
+    @RequestMapping(value = "/task/modify.do", method = RequestMethod.POST)
+    public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model) {
+        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
+
+        if (result == 200) return "redirect:/project/task/add/view.do";
+        else return "redirect:/list";
     }
 
 

@@ -77,7 +77,7 @@
     <%--            <textarea name="script" class="col-sm-10"></textarea>--%>
     <%--        </div>--%>
     <%--        <br>--%>
-            <button type="submit" class="col-sm-12">프로젝트 추가</button>
+            <button type="submit" class="col-sm-12 btn main">프로젝트 추가</button>
         </div>
 <!-- 컨텐츠 종료 -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

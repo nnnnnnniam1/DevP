@@ -11,7 +11,6 @@
 </div>
 <div class="container leader">
 <h2 class="pTitle">${project.projectName}</h2>
-
  <ul class="menu">
   	<li>
   	<button class="btn black" type="button" onclick="location.href='/leader/task/view.do'">일정 및 업무 수정</button>

@@ -8,11 +8,8 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="container">
-<h2 class="pTitle">${project.projectName}</h2>
-
-    
-    
+<div class="mv-100 container">
+<h2 class="pTitle">${project.projectName} - 업무</h2>
     <div class="contentsBox">
         <p class="labelWrapper">진행률</p>
         <div class="projectProgress">
@@ -29,28 +26,31 @@
         </div>
     </div>
     <div class="contentsBox">
-        <p class="labelWrapper">WBS</p>
+        <p class="labelWrapper m-b-1">WBS</p>
         <div class="wbsWrapper">
             <div class="wbsBox">
                 <div id="chart_div"></div>
             </div>
         </div>
+        <c:if test="${empty taskList}">
+            <div style="height:10em;"></div>
+        </c:if>
     </div>
     <div class="contentsBox">
         <p class="labelWrapper">일정</p>
         <div class="taskWrapper">
             <div class="taskBox">
                 <div id="">
-                    <form>
+                    <form modelAttribute="TaskVO" name="dataForm" method="post" action="/task/modify.do">
                         <table class="table" width=500px;>
                         	<colgroup>
-                                <col style="width: 2%">
-                                <col style="width: 7%">
-                                <col style="width: 7%">
-                                <col style="width: 10%">
-                                <col style="">
-                                <col style="width: 7%">
                                 <col style="width: 5%">
+                                <col style="width: 10%">
+                                <col style="width: 10%">
+                                <col style="width: 25%">
+                                <col style="width: 30%">
+                                <col style="width: 10%">
+                                <col style="width: 10%">
                             </colgroup>
                             <thead>
                                 <tr>
@@ -64,14 +64,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${taskList}" var="task" varStatus="status">
+                                <c:forEach items="${taskList}" var="task" varStatus="loop">
+                                    <input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}">
+                                    <input type="hidden" name="projectId" value="${projectId}">
                                     <tr>
-                                        <td>${status.count}</td>
+                                        <td>${loop.count}</td>
                                         <td >${task.startdate}</td>
                                         <td>${task.enddate}</td>
                                         <td>${task.depth}</td>
                                         <td>${task.detail}</td>
-                                        <td>${task.progress}</td>
+                                        <td>
+                                            <select class="form-select" name="taskVOList[${loop.index}].status" id="statusSelect">
+                                                <c:forEach items="${statusMap}" var="status">
+                                                    <option value="${status.value}"
+                                                        <c:if test="${status.value eq task.status}"> selected</c:if>
+                                                    >${status.value}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
                                         <td>
                                             <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/view.do?projectId=${project.projectId}'" />
                                         </td>
@@ -79,6 +89,7 @@
                                 </c:forEach>
                             </tbody>
                         </table>
+                        <input class="btn main form-control" type="submit" value="수정">
                     </form>
                 </div>
             </div>
@@ -129,10 +140,13 @@
     
         data.addRows(dataArray);
     
+        var rowHeight = 50;
+        var chartHeight = (dataArray.length * rowHeight) + 100;
+
         var options = {
-            height: 400,
+            height: chartHeight,
             gantt: {
-                trackHeight: 30
+                trackHeight: rowHeight
             }
         };
     

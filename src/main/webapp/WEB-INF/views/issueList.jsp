@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="mw-100 container">
-<h2 class="pTitle">${project.projectName}</h2>
+<h2 class="pTitle">${project.projectName} - 이슈</h2>
 
 	<div class="issue-list">
 		<div class="d-flex flex-row-reverse">

@@ -9,7 +9,7 @@
 <div class="container">
 	<div class="issue-wrapper">
 		<div class="mt-5">
-	        <h1 class="mb-4">${project.projectName} 이슈</h1>
+	        <h2 class="pTitle">${project.projectName} - 이슈</h2>
 	        <p class="h3">${ issue.title }</p>
 			<div class="d-flex">
 				<div class="flex-grow-1">

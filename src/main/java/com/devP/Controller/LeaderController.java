@@ -87,7 +87,7 @@ public class LeaderController {
     @RequestMapping(value = "/detail.do", method = RequestMethod.GET)
     public String detailLeader(@RequestParam int projectId, ProjectVO vo, Model model) {
 		model.addAttribute("menuId", "leaderMenu");
-        vo.setProjectId(projectId);	
+        vo.setProjectId(projectId);
         leaderService.getLeaderView(vo, model);
 
         return "leaderDetail";

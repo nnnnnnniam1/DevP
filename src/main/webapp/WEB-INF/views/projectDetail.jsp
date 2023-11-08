@@ -19,9 +19,6 @@ String userId = (String) session.getAttribute("userId");
 %> --%>
 <div class="container">
     <h2 class="pTitle">${project.projectName}
-        <c:if test="${myData.leader eq myData.userId}">
-            <button class="btn btn-outline-success" type="button" onclick="location.href='/leader/detail.do?projectId=${project.projectId}'">leader</button>
-        </c:if>
         <div class="btn-group">
             <button type="button" class="btn main dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">색상</button>
             <ul class="dropdown-menu">

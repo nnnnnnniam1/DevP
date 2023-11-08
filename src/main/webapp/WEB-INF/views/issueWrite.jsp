@@ -27,7 +27,7 @@
 <div class="container">
     <div class="issue-wrapper">
         <div class="mt-5">
-            <h1 class="mb-4">${project.projectName}이슈등록</h1>
+            <h2 class="pTitle">${project.projectName} - 이슈작성</h2>
             <form method="post" class="p-3" action="/issue/write.do"
                 id="issue-form">
                 <input type="hidden" name="projectId" value="${project.projectId}">
@@ -62,6 +62,22 @@
                     <label class="col-sm-2 col-form-label">제목</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="title">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">업무선택</label>
+                    <div class="col-sm-7">
+                        <div id="sendingEmail-container"></div>
+                        <input id="sendingEmail" type="hidden" class="form-control"
+                            name="sendingEmail">
+                    </div>
+                    <div class="col-sm-3">
+                        <select id="chooseMember" class="form-select col-sm-10">
+                            <option>선택</option>
+                            <c:forEach items="${memberList}" var="member">
+                                <option value="${member.email}">${member.userId}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">

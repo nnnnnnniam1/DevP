@@ -81,4 +81,14 @@
         ON pg.userId = u.id
         WHERE pg.projectId = #{projectId}
     </select>
+
+    <update id="updateProgress">
+        UPDATE project
+        SET progress = (
+        SELECT
+        (SUM(progress) / COUNT(*) ) as average_progress
+        FROM task
+        )
+        WHERE projectId=#{projectId};
+    </update>
 </mapper>
