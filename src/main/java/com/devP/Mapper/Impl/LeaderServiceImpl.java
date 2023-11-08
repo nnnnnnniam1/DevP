@@ -176,7 +176,6 @@ public class LeaderServiceImpl implements LeaderService {
 	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model, HttpSession session){
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		for(TaskVO vo : TaskVOList){
-			System.out.println(vo.getTaskId());
 			taskService.updateTaskLeader(vo);
 		};
 		int projectId = projectData.getProjectId();
