@@ -28,7 +28,6 @@ import java.util.Map;
 
 
 @Controller
-@SessionAttributes("project")
 @RequestMapping("project")
 public class ProjectController {
 
@@ -80,10 +79,10 @@ public class ProjectController {
 
     //프로젝트 추가 화면
     @RequestMapping(value = "/add/view.do", method = RequestMethod.GET)
-    public String addProjectView() {
-        if(projectService.insertProjectView() == 200) {
+    public String addProjectView(HttpSession session) {
+        if(projectService.insertProjectView(session) == 200) {
             return "insertProject";
-        }else if(projectService.insertProjectView() == 405){
+        }else if(projectService.insertProjectView(session) == 405){
             return "redirect:/user/login/view.do";
         }else{
             return "redirect:/";
@@ -121,7 +120,7 @@ public class ProjectController {
         vo.setProjectId(projectId); member.setProjectId(projectId);
         member.setUserId(userData.getId());
 
-        int result = projectService.getProjectDetail(vo, member,model);
+        int result = projectService.getProjectDetail(vo, member,model,session);
 //        vo.setProjectId(projectId);
 //        member.setProjectId(projectId);
 //        member.setUserId(session.getAttribute("id").toString());
@@ -186,18 +185,19 @@ public class ProjectController {
     //프로젝트 목록
     @RequestMapping(value = "/list/view.do", method = RequestMethod.GET)
     public String listProjectView(Model model, HttpSession session) {
-        if(session.getAttribute("project")!= null){session.removeAttribute("project");}
-        if(projectService.getProjectList(model) == 200){
+        if(session.getAttribute("project")!= null){session.removeAttribute("project");
+    	System.out.println("프로젝트 세션 값 초기화");}
+        if(projectService.getProjectList(model, session) == 200){
             return "projectList";
-        } else if (projectService.getProjectList(model) == 405) {
+        } else if (projectService.getProjectList(model, session) == 405) {
             return "login";
         }
         return null;
     }
 
     @RequestMapping(value = "/list/complete/view.do", method = RequestMethod.GET)
-    public String completeListProjectView(Model model) {
-        int result = projectService.getCompleteProjectList(model);
+    public String completeListProjectView(Model model,HttpSession session) {
+        int result = projectService.getCompleteProjectList(model, session);
         if(result == 200){
             return "completeProjectList";
         } else if (result == 405) {
@@ -207,9 +207,9 @@ public class ProjectController {
     }
 
     @RequestMapping(value="/myTask.do", method = RequestMethod.GET)
-    public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception {
+    public String myTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model,HttpSession session) throws Exception {
         model.addAttribute("menuId","taskMenu");
-        int result = projectService.getMyTaskView(project, member, task, model);
+        int result = projectService.getMyTaskView(project, member, task, model,session);
         if(result == 200) return "task";
         else return "main";
     }
@@ -218,7 +218,7 @@ public class ProjectController {
     @RequestMapping(value="/member/list.do", method = RequestMethod.GET)
     public String manageMemberView(MemberVO vo, HttpSession session, Model model) {
         model.addAttribute("menuId","memberMenu");
-        int result = projectService.getProjectMemberList(vo, model);
+        int result = projectService.getProjectMemberList(vo, model,session);
 
         if (result == 200) return "member";
         else return "mainTemp";

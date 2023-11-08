@@ -33,7 +33,7 @@ String userId = (String) session.getAttribute("userId");
 		<div class = "col-8 m-t-1">
 		    <div class = "mb-1">
 		    <c:choose>
-		        <c:when test="${myData.leader eq myData.userId}">
+		        <c:when test="${project.leader == user.id}">
 		            <span class="badge rounded-pill tag type01">Leader</span>
 		        </c:when>
 		        <c:otherwise>

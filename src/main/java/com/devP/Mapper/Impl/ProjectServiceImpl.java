@@ -16,8 +16,6 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
-    private HttpSession session;
-    @Autowired
     private ProjectDAOMybatis projectDAO;
     @Autowired
     private MemberDAOMybatis memberDAO;
@@ -98,13 +96,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int insertProjectView() {
+    public int insertProjectView(HttpSession session) {
         if(session.getAttribute("user") != null) return 200;
         else return 405;
 
     }
     @Override
-    public int getProjectList(Model model){
+    public int getProjectList(Model model, HttpSession session){
     	UserVO userData = (UserVO) session.getAttribute("user");
         if(userData.getId() != null) {
             ProjectListVO vo = new ProjectListVO();
@@ -119,7 +117,7 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
     @Override
-    public int getCompleteProjectList(Model model){
+    public int getCompleteProjectList(Model model,HttpSession session){
     	UserVO userData = (UserVO) session.getAttribute("user");
         if(userData.getId() != null) {
             ProjectListVO vo = new ProjectListVO();
@@ -136,7 +134,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model){
+    public 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model,HttpSession session){
     	UserVO userData = (UserVO) session.getAttribute("user");
         //이슈 리스트 가져오기
         issueService.getIssuelist(vo.getProjectId(), model);
@@ -161,7 +159,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
+    public int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model,HttpSession session){
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		UserVO userData = (UserVO) session.getAttribute("user");
         // 프로젝트 및 본인 진행률 가져오기
@@ -187,7 +185,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int getProjectMemberList(MemberVO vo, Model model){
+    public int getProjectMemberList(MemberVO vo, Model model,HttpSession session){
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
         vo.setProjectId(projectData.getProjectId());
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));

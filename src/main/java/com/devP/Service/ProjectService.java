@@ -25,21 +25,21 @@ public interface ProjectService {
 
 	int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception;
 
-	int insertProjectView();
-	int getProjectList(Model model);
+	int insertProjectView(HttpSession session);
+	int getProjectList(Model model,HttpSession session);
 
-	int getProjectMemberList(MemberVO vo, Model model);
+	int getProjectMemberList(MemberVO vo, Model model,HttpSession session);
 	int getProjectId(ProjectVO vo);
 
-	int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model) throws Exception ;
+	int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model,HttpSession session) throws Exception ;
 
 	List<MemberVO> getProjectMemberList(int projectId);
 
 	List<String> getMemberNames(int projectId);
 
-    int getCompleteProjectList(Model model);
+    int getCompleteProjectList(Model model,HttpSession session);
 
-	int getProjectDetail(ProjectVO vo, MemberVO member, Model model);
+	int getProjectDetail(ProjectVO vo, MemberVO member, Model model,HttpSession session);
 
 	int insertProjectColor(MemberVO vo);
 
