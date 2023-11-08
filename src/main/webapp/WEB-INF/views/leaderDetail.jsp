@@ -96,14 +96,14 @@ function completeProject(projectId, projectName){
                     window.location.href="/project/list/view.do";
                 } else {
                     alert("오류가 발생했습니다. 다시 시도해주세요");
-                    window.location.href="/leader/detail.do?projectId=${projectId}"
+                    window.location.href="/leader/detail.do?projectId=${project.projectId}"
                 }
 
             },
             error: function(error){
                 console.log("에러: "+error);
                 alert("오류가 발생했습니다. 다시 시도해주세요");
-                window.location.href="/leader/detail.do?projectId=${projectId}"
+                window.location.href="/leader/detail.do?projectId=${project.projectId}"
             }
         });
     }

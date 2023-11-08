@@ -161,7 +161,7 @@
 	        }
 	    }
 	});
-	  var projectId = ${projectId}; // 서버에서 생성된 값으로 설정
+	  var projectId = ${project.projectId}; // 서버에서 생성된 값으로 설정
 	  var link = "/project/detail.do?projectId=" + projectId;
 	  document.getElementById("projectMenu").href = link; // 링크 엘리먼트의 href 속성 설정
 	  var link = "/issue/list.do?projectId=" + projectId;

@@ -7,7 +7,7 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="container">
-    <p class="projectName">${projectName}</p>
+    <p class="projectName">${project.projectName}</p>
     <p class="semiTitle">프로젝트관리-멤버 추가/삭제</p>
     <div class="manage-wrapper">
         <div class="addMember">
@@ -17,7 +17,7 @@
                     <label class="formLabel col-form-label"> 멤버추가</label>
                 </div>
                 <div class="col-auto">
-                    <input type="hidden" value="${projectName}" name="projectName" />
+                    <input type="hidden" value="${project.projectName}" name="projectName" />
                     <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="user">
                 </div>
                 <div class="col-auto"><input class="form-control" type="submit" value="send"></div>
@@ -42,7 +42,7 @@
                 <tbody>
                     <c:forEach items="${memberList}" var="member" varStatus="loop">
                         <tr>
-                            <input type="hidden" value="${projectId}" name="memberVOList[${loop.index}].projectId">
+                            <input type="hidden" value="${project.projectId}" name="memberVOList[${loop.index}].projectId">
                             <input type="hidden" value="${member.userId}" name="memberVOList[${loop.index}].userId">
                             <td>${member.userName}</td>
                             <td>${member.email}</td>
@@ -83,7 +83,7 @@
                                 </c:if>
                             </td>
                             <td>
-                                <input class="form-control" type="button" value="삭제" onclick="deleteMember('${member.userId}','${projectName}', ${projectId})" />
+                                <input class="form-control" type="button" value="삭제" onclick="deleteMember('${member.userId}','${project.projectName}', ${project.projectId})" />
                             </td>
                         </tr>
                     </c:forEach>

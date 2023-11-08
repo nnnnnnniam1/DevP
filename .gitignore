@@ -180,3 +180,5 @@ database.properties
 
 
 target/
+.project
+.classpath

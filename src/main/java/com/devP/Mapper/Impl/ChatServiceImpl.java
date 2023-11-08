@@ -20,6 +20,7 @@ import com.devP.VO.ChatMessageVO;
 import com.devP.VO.ChatVO;
 import com.devP.VO.CommentVO;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectVO;
 
 @Service("chatService")
 public class ChatServiceImpl implements ChatService {
@@ -40,8 +41,9 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public String getChatRoom(String from_id, String to_id, Model model) {
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		String chatId = insertRoomId(from_id, to_id);
-		int projectId = (int) session.getAttribute("projectId");
+		int projectId = projectData.getProjectId();
 		MemberVO member = new MemberVO();
 		member.setProjectId(projectId);
 		member.setUserId(to_id);

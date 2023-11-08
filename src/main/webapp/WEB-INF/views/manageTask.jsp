@@ -11,7 +11,7 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
-    <p class="projectName">${projectName}</p>
+    <p class="projectName">${project.projectName}</p>
     <p class="semiTitle">업무 수정</p>
     <div class="manage-wrapper">
         <div class="addMember">
@@ -236,7 +236,7 @@ function insertTask(){
     var startDate = document.getElementById("startDate").value;
     var endDate = document.getElementById("endDate").value;
 
-    var projectId = ${projectId}
+    var projectId = ${project.projectId}
 
     if(category === null || workPackage === null || detail === null || responsibility === null || startDate === null || endDate === null){
         alert("빈칸없이 채워주세요");
@@ -262,11 +262,8 @@ function insertTask(){
             error: function(error){
                 console.log('에러: '+error);
                 alert("업무를 생성하는데 오류가 발생하였습니다.");
-                window.location.href="/project/task/view.do";
+                window.location.href="/leader/task/view.do";
             }
-
-
-
         })
     }
 }

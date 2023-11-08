@@ -8,7 +8,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="mv-100 container">
+<div class="container">
 <h2 class="pTitle">${project.projectName}</h2>
 
     
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="projectProgress">
-            <span class="progressLabel">${member.userName}</span>
+            <span class="progressLabel">${user.name}</span>
             <div class="progress">
                 <div style="width: ${member.progress}%;" class="progress-bar type02 text-dark">${member.progress}%</div>
             </div>

@@ -5,8 +5,10 @@ import com.devP.Mapper.Repository.TaskDAOMybatis;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectVO;
 import com.devP.VO.TaskListVO;
 import com.devP.VO.TaskVO;
+import com.devP.VO.UserVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,11 +72,12 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Map<String, Object>> getMyAllTasks() {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		List<TaskVO> voList = new ArrayList<TaskVO>();
 		List<Map<String, Object>> resultList = new ArrayList<>();
 		try {
 			TaskVO task = new TaskVO();
-			task.setUserId(session.getAttribute("id").toString());
+			task.setUserId(userData.getId());
 //			task.setProjectId((int) session.getAttribute("projectId"));
 			voList = taskDAO.getMyTask(task);
 		}catch (Exception e) {
@@ -89,7 +92,7 @@ public class TaskServiceImpl implements TaskService {
 
 			MemberVO m = new MemberVO();
 			m.setProjectId(projectId);
-			m.setUserId(session.getAttribute("id").toString());
+			m.setUserId(userData.getId());
 
 			String backgroundColor = projectService.getProjectColor(m);
 
@@ -108,16 +111,18 @@ public class TaskServiceImpl implements TaskService {
 	}
 	@Override
 	public List<Map<String, Object>> getMyTasks() {
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+		UserVO userData = (UserVO) session.getAttribute("user");
 		List<TaskVO> voList = new ArrayList<TaskVO>();
     	List<Map<String, Object>> resultList = new ArrayList<>();
 
 		MemberVO m = new MemberVO();
-		m.setUserId(session.getAttribute("id").toString());
+		m.setUserId(userData.getId());
 
 		try {
     		TaskVO task = new TaskVO();
-    		task.setUserId(session.getAttribute("id").toString());
-    		task.setProjectId((int) session.getAttribute("projectId"));
+    		task.setUserId(userData.getId());
+    		task.setProjectId(projectData.getProjectId());
 			m.setProjectId(task.getProjectId());
 			voList = taskDAO.getTask(task);
     	}catch (Exception e) {
@@ -156,8 +161,9 @@ public class TaskServiceImpl implements TaskService {
 		return taskDAO.getMyProjectTaskList(vo);
 	}
 	public int getUserTaskList(Model model){
-		if(session.getAttribute("id") != null) {
-			String userId = (String) session.getAttribute("id");
+		UserVO userData = (UserVO) session.getAttribute("user");
+		if(userData.getId() != null) {
+			String userId = userData.getId();
 			List<TaskListVO> vo = taskDAO.getUserTaskList(userId);
 
 			model.addAttribute("taskList", taskDAO.getUserTaskList(userId));
@@ -171,11 +177,14 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void getTaskCount(Model model) {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		int progresscount = 0, completedcount = 0, pastcount = 0;
 		List<TaskVO> voList = new ArrayList<TaskVO>();
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		TaskVO task = new TaskVO();
-		task.setUserId(session.getAttribute("id").toString());
-		task.setProjectId((int) session.getAttribute("projectId"));
+		task.setUserId(userData.getId());
+		task.setProjectId(projectData.getProjectId());
+//		task.setProjectId((int) session.getAttribute("projectId"));
 		voList = taskDAO.getTask(task);
 		for (TaskVO vo: voList) {
 			if(vo.getEnddate().compareTo(String.valueOf(new Date())) > 0){

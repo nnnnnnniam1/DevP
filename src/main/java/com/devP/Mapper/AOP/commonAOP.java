@@ -23,7 +23,10 @@ public class commonAOP {
     
     @Before("allPointcut()")
     public void beforeServiceMethod(JoinPoint joinPoint) {
-    	session.setAttribute("menuId", "issueMenu");
+    	//세션 조회 시 로그인 값 없으면 로그인 페이지로
+//    	if(session.getAttribute("user")==null) {
+//    		return
+//    	};
         String methodName = joinPoint.getSignature().getName();
         System.out.println("Before executing: " + methodName);
     }

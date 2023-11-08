@@ -6,6 +6,7 @@ import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.UserService;
 import com.devP.VO.IssueVO;
+import com.devP.VO.UserVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,11 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public int insertIssue(IssueVO issue) {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		System.out.println(issue.getTaskId());
 		String emails = issue.getSendingEmail();
 		// 세션 아이디 정보 등록
-		issue.setUserId(session.getAttribute("id").toString());
+		issue.setUserId(userData.getId());
 		// 이슈 상태 초기 설정
 		System.out.println(issue.getIssueId());
 		issue.setStatus("대기");
@@ -64,7 +66,8 @@ public class IssueServiceImpl implements IssueService {
 	}
 	@Override
 	public int getUserIssueList(Model model){
-		String userId = (String)session.getAttribute("id");
+		UserVO userData = (UserVO) session.getAttribute("user");
+		String userId = userData.getId();
 		List<IssueVO> vo = issueDAO.getUserIssuelist(userId);
 
 		model.addAttribute("issueList", issueDAO.getUserIssuelist(userId));
@@ -112,10 +115,11 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public int updateIssue(IssueVO issue) {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		String emails = issue.getSendingEmail();
 		try {
 			// 세션 아이디 정보 등록
-			issue.setUserId(session.getAttribute("id").toString());
+			issue.setUserId(userData.getId());
 			// 구분자를 쉼표(,)로 지정하여 문자열을 나누고, 이메일 주소들을 ArrayList에 저장
 	        ArrayList<String> emailList = new ArrayList<>();
 	        String[] emailArray = emails.split(",");

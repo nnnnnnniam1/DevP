@@ -15,7 +15,7 @@
                 <div class="mb-3">
                     <div>
                         <label class="form-label">프로젝트명</label>
-                        <input type="text" readonly class="form-control-plaintext" id="projectName" value="${projectName}">
+                        <input type="text" readonly class="form-control-plaintext" id="projectName" value="${project.projectName}">
                     </div>
                     <div>
                         <label class="form-label">삭제사유</label>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="form-control btn main m-t-2 m-b-2" type="button" onclick="deleteProject('${projectId}','${projectName}')">삭제</button>
+                        <button class="form-control btn main m-t-2 m-b-2" type="button" onclick="deleteProject('${project.projectId}','${project.projectName}')">삭제</button>
                     </div>
                 </div>
             </form>
@@ -50,14 +50,14 @@ function deleteProject(projectId, projectName){
                     window.location.href="/project/list/view.do";
                 } else {
                     alert("오류가 발생했습니다. 다시 시도해주세요");
-                    window.location.href="/leader/detail.do?projectId=${projectId}"
+                    window.location.href="/leader/detail.do?projectId=${project.projectId}"
                 }
 
             },
             error: function(error){
                 console.log("에러: "+error);
                 alert("오류가 발생했습니다. 다시 시도해주세요");
-                window.location.href="/leader/detail.do?projectId=${projectId}"
+                window.location.href="/leader/detail.do?projectId=${project.projectId}"
             }
         });
     }
