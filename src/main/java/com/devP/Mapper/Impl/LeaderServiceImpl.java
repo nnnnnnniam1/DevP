@@ -174,6 +174,7 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 	@Override
 	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model, HttpSession session){
+
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		for(TaskVO vo : TaskVOList){
 			taskService.updateTaskLeader(vo);
