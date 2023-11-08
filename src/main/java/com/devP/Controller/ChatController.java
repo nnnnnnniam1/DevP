@@ -21,6 +21,7 @@ import com.devP.Service.ChatService;
 import com.devP.Service.CommentService;
 import com.devP.VO.ChatMessageVO;
 import com.devP.VO.ChatVO;
+import com.devP.VO.UserVO;
 
 @Controller
 @RequestMapping("/chat")
@@ -39,7 +40,9 @@ public class ChatController {
 	// 채팅 화면
 	@RequestMapping(value = "/getChatView.do", method = RequestMethod.GET)
 	public String chatView(@RequestParam("userId")String to_id, Model model) {
-		String from_id = (String) session.getAttribute("id");
+		model.addAttribute("menuId", "memberMenu");
+		UserVO userData = (UserVO) session.getAttribute("user");
+		String from_id = userData.getId();
 		return chatService.getChatRoom(from_id, to_id, model);
 	}
 	

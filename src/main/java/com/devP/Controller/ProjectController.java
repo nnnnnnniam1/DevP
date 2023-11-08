@@ -8,6 +8,7 @@ import com.devP.VO.MemberVO;
 import com.devP.VO.ProjectGroupVO;
 import com.devP.VO.ProjectVO;
 import com.devP.VO.TaskVO;
+import com.devP.VO.UserVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,9 +47,6 @@ public class ProjectController {
 
     @Autowired
     private MailController mailController;
-
-    @Autowired
-    private HttpSession session;
 
     @ModelAttribute("colorMap")
     public Map<String, String> setColorMap(){
@@ -92,16 +90,18 @@ public class ProjectController {
         }
     }
     @RequestMapping(value = "/color/set.do", method = RequestMethod.GET)
-    public String setColorProject(@RequestParam String projectColor, MemberVO vo){
+    public String setColorProject(@RequestParam String projectColor, MemberVO vo, HttpSession session){
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+    	UserVO userData = (UserVO) session.getAttribute("user");
         System.out.println(projectColor);
         vo.setColor("#"+projectColor);
-        vo.setUserId(session.getAttribute("id").toString());
-        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+        vo.setUserId(userData.getId());
+        vo.setProjectId(projectData.getProjectId());
         int result = projectService.insertProjectColor(vo);
 
-        int projectId = Integer.parseInt(session.getAttribute("projectId").toString());
-        System.out.println(projectId);
-        System.out.println(vo.getColor());
+        int projectId = projectData.getProjectId();
+        System.out.println("projectId is =" + projectId);
+        System.out.println("getColor is =" + vo.getColor());
 
         return "redirect:/project/detail.do?projectId="+projectId;
 //        return "main";
@@ -110,13 +110,16 @@ public class ProjectController {
 
     //프로젝트 상세
     @RequestMapping(value="/detail.do", method= RequestMethod.GET)
-    public String detailProject(@RequestParam int projectId, ProjectVO vo, MemberVO member, Model model){
+    public String detailProject(@RequestParam int projectId, ProjectVO vo, MemberVO member, Model model, HttpSession session){
+    	UserVO userData = (UserVO) session.getAttribute("user");
         model.addAttribute("menuId", "projectMenu");
-        if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
-        session.setAttribute("projectId", projectId);
+        if(session.getAttribute("project")!=null) session.removeAttribute("project");
+        session.setAttribute("project", projectService.getProject(vo));
+//        if(session.getAttribute("projectId")!=null) session.removeAttribute("projectId");
+//        session.setAttribute("project", projectId);
 
         vo.setProjectId(projectId); member.setProjectId(projectId);
-        member.setUserId(session.getAttribute("id").toString());
+        member.setUserId(userData.getId());
 
         int result = projectService.getProjectDetail(vo, member,model);
 //        vo.setProjectId(projectId);
@@ -128,9 +131,8 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/add.do", method = RequestMethod.POST)
-    public String addProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, Model model) throws Exception {
-        int result = projectService.insertProject(vo, vo2, vo3);
-        model.addAttribute("menuId","");
+    public String addProject(@ModelAttribute ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception {
+        int result = projectService.insertProject(vo, vo2, vo3, session);
         if(result == 200) {
             int projectId = projectService.getProjectId(vo);
             session.setAttribute("projectId",projectId);
@@ -140,25 +142,28 @@ public class ProjectController {
         return null;
     }
     @RequestMapping(value = "/task/add/view.do", method = RequestMethod.GET)
-    public String addTaskView(TaskVO vo, Model model){
-        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+    public String addTaskView(TaskVO vo, Model model, HttpSession session){
+        model.addAttribute("menuId", "projectMenu");
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo.setProjectId(projectData.getProjectId());
         List<String> nameList = projectService.getMemberNames(vo.getProjectId());
         model.addAttribute("menuId","");
         model.addAttribute("categoryMap", taskService.setCategoryMap());
         model.addAttribute("statusMap", taskService.setStatusMap());
-        int result = leaderService.getTaskDatas(vo, model);
+        int result = leaderService.getTaskDatas(vo, model, session);
 
         if(result == 200) return "insertTask";
         else {
-            session.removeAttribute("projectId");
+            session.removeAttribute("project");
             return "redirect:/list.do";
         }
     }
 
     @RequestMapping(value = "/task/add.do", method = RequestMethod.POST)
-    public ResponseEntity<String> addTask(TaskVO vo, Model model) throws Exception {
+    public ResponseEntity<String> addTask(TaskVO vo, Model model, HttpSession session) throws Exception {
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
         try {
-            vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
+            vo.setProjectId(projectData.getProjectId());
             System.out.println(vo.getProjectId());
             int result = leaderService.insertTask(vo);
 
@@ -170,8 +175,8 @@ public class ProjectController {
         }
     }
     @RequestMapping(value = "/task/modify.do", method = RequestMethod.POST)
-    public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model) {
-        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
+    public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model, HttpSession session) {
+        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model, session);
 
         if (result == 200) return "redirect:/project/task/add/view.do";
         else return "redirect:/list";
@@ -180,8 +185,8 @@ public class ProjectController {
 
     //프로젝트 목록
     @RequestMapping(value = "/list/view.do", method = RequestMethod.GET)
-    public String listProjectView(Model model) {
-        if(session.getAttribute("projectId")!= null){session.removeAttribute("projectId");}
+    public String listProjectView(Model model, HttpSession session) {
+        if(session.getAttribute("project")!= null){session.removeAttribute("project");}
         if(projectService.getProjectList(model) == 200){
             return "projectList";
         } else if (projectService.getProjectList(model) == 405) {

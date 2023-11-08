@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="projectProgress">
-            <span class="progressLabel">${member.userName}</span>
+            <span class="progressLabel">${user.name}</span>
             <div class="progress">
                 <div style="width: ${member.progress}%;" class="progress-bar type02 text-dark">${member.progress}%</div>
             </div>
