@@ -63,7 +63,13 @@
 	<update id="updateTaskLeader">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
-		startdate=#{startdate}, enddate=#{enddate}, status=#{status},
+		startdate=#{startdate}, enddate=#{enddate},
+		realEnd =
+		CASE
+			WHEN status != #{status} AND #{status} = '완료' THEN now()
+			ELSE NULL
+		END,
+		status=#{status},
 		progress =
 			CASE
 				WHEN #{status} = '대기' THEN 0
@@ -72,7 +78,7 @@
 				WHEN #{status} = '완료' THEN 100
 				ELSE progress
 			END
-		WHERE projectId=#{projectId} AND taskId=#{taskId}
+		WHERE taskId=#{taskId}
 	</update>
 	<!--  프로젝트 업무 수정	-->
 	<update id="updateTaskStatus">
