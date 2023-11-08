@@ -173,12 +173,12 @@ public class LeaderServiceImpl implements LeaderService {
 		return 200;
 	}
 	@Override
-	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
-
+	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model, HttpSession session){
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		for(TaskVO vo : TaskVOList){
 			taskService.updateTaskLeader(vo);
 		};
-		int projectId = Integer.parseInt(session.getAttribute("projectId").toString());
+		int projectId = projectData.getProjectId();
 		memberDAO.updateAllProgress(projectId);
 		projectDAO.updateProgress(projectId);
 		return 200;

@@ -36,7 +36,7 @@ public interface LeaderService {
 
     int insertTask(TaskVO vo);
 
-    int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model);
+    int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model, HttpSession session);
 
     int deleteProject(DeleteProjectVO vo);
 

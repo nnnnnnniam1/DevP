@@ -170,8 +170,8 @@ public class LeaderController {
 
 
     @RequestMapping(value = "/task/modify.do", method = RequestMethod.POST)
-    public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model) {
-        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
+    public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model, HttpSession session) {
+        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model, session);
 
         if (result == 200) return "redirect:/leader/task/view.do";
         else return "redirect:/";
