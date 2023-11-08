@@ -74,7 +74,7 @@ public class ProjectController {
         statusMap.put("1", "대기");
         statusMap.put("2", "진행중");
         statusMap.put("3", "검토");
-        statusMap.put("4", "완료");
+//        statusMap.put("4", "완료");
 
         return statusMap;
     }
@@ -168,6 +168,13 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
 
         }
+    }
+    @RequestMapping(value = "/task/modify.do", method = RequestMethod.POST)
+    public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model) {
+        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
+
+        if (result == 200) return "redirect:/project/task/add/view.do";
+        else return "redirect:/list";
     }
 
 

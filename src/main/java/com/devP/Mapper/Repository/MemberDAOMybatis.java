@@ -1,6 +1,7 @@
 package com.devP.Mapper.Repository;
 
 import com.devP.VO.MemberVO;
+import com.devP.VO.TaskVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,4 +37,7 @@ public class MemberDAOMybatis {
     public void insertProjectColor(MemberVO vo) { mybatis.update("MemberDAO.setProjectColor",vo);}
 
     public String getProjectColor(MemberVO vo){return mybatis.selectOne("MemberDAO.getProjectColor",vo); }
+
+    public void updateMemberProgress(TaskVO vo){mybatis.update("MemberDAO.updateProgress", vo);}
+    public void updateAllProgress(int projectId) { mybatis.update("MemberDAO.updateAllProgress", projectId); }
 }
