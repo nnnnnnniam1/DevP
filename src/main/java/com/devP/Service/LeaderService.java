@@ -4,15 +4,17 @@ import com.devP.VO.*;
 import org.springframework.ui.Model;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 public interface LeaderService {
 
     void getLeaderView(ProjectVO vo, Model model);
 
-    int getMemberList(MemberVO vo, Model model);
+    int getMemberList(MemberVO vo, Model model, HttpSession session);
 
-    int insertLeader(MemberVO vo,int projectId);
+    int insertLeader(MemberVO vo,int projectId, HttpSession session);
 
-    int insertMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
+    int insertMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception;
 
     MemberVO getMember(MemberVO vo);
 
@@ -30,7 +32,7 @@ public interface LeaderService {
 
     void deleteMember(MemberVO vo, String userId, int projectId);
 
-    int getTaskDatas(TaskVO vo, Model model);
+    int getTaskDatas(TaskVO vo, Model model, HttpSession session);
 
     int insertTask(TaskVO vo);
 

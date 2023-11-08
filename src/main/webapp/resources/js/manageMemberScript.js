@@ -20,7 +20,7 @@ function deleteMember(userId, projectName, projectId){
 
 function updateMembers(){
     var memberDataList = [];
-    var projectId = '<%= session.getAttribute("projectId") %>';
+    var projectId = '<%= `(ProjectVO)session.getAttribute("project").getProjectId() %>';
     console.log(projectId);
 
     $("table tr").each(function(){

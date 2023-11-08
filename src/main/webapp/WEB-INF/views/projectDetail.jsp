@@ -13,10 +13,10 @@
 
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<%
+<%-- <%
 String username = (String) session.getAttribute("name");
 String userId = (String) session.getAttribute("userId");
-%>
+%> --%>
 <div class="container">
     <h2 class="pTitle">${project.projectName}
         <div class="btn-group">
@@ -93,7 +93,7 @@ String userId = (String) session.getAttribute("userId");
 					<div class = "col-6 d-flex" style="min-height: 30vh">
 						<div class="card w-100" onclick="sendGetRequest()">
 								<div class="card-body">
-									<a href="/issue/list.do?projectId=${projectId}" class="text-reset text-decoration-none">
+									<a href="/issue/list.do?projectId=${project.projectId}" class="text-reset text-decoration-none">
 								    <h5 class="card-title">이슈</h5>
 									</a>
 								    <c:forEach items="${issueList}" var="issue">

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 public interface ProjectService {
 
 	Map<String, String> getMemberMap(List<String> members);
@@ -21,7 +23,7 @@ public interface ProjectService {
 
 	MemberVO getMyProjectData(MemberVO vo);
 
-	int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
+	int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception;
 
 	int insertProjectView();
 	int getProjectList(Model model);

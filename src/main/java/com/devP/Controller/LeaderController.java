@@ -34,10 +34,7 @@ public class LeaderController {
 
     @Autowired
     private MailController mailController;
-
-    @Autowired
-    private HttpSession session;
-
+    
     // 멤버페이지
     @ModelAttribute("positionMap")
     public Map<String, String> setRoleMap() {
@@ -89,8 +86,8 @@ public class LeaderController {
 
     @RequestMapping(value = "/detail.do", method = RequestMethod.GET)
     public String detailLeader(@RequestParam int projectId, ProjectVO vo, Model model) {
+		model.addAttribute("menuId", "leaderMenu");
         vo.setProjectId(projectId);
-        model.addAttribute("menuId", "leaderMenu");
         leaderService.getLeaderView(vo, model);
 
         return "leaderDetail";
@@ -98,18 +95,19 @@ public class LeaderController {
 
 
     @RequestMapping(value = "/member/view.do", method = RequestMethod.GET)
-    public String manageMemberLeaderView(MemberVO vo, Model model) {
-        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        model.addAttribute("menuId","leaderMenu");
-        int result = leaderService.getMemberList(vo, model);
+    public String manageMemberLeaderView(MemberVO vo, Model model, HttpSession session) {
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo.setProjectId(projectData.getProjectId());
+        int result = leaderService.getMemberList(vo, model, session);
         if (result == 200) return "manageMember";
         else return "redirect:/user/login/view.do";
     }
 
     @RequestMapping(value = "/member/add.do", method = RequestMethod.POST)
-    public String addMemberLeader(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
-        vo3.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = leaderService.insertMember(user, vo, vo2, vo3);
+    public String addMemberLeader(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception {
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo3.setProjectId(projectData.getProjectId());
+        int result = leaderService.insertMember(user, vo, vo2, vo3, session);
         return "redirect:/leader/member/view.do";
     }
 
@@ -148,10 +146,11 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/task/view.do", method = RequestMethod.GET)
-    public String manageTaskLeaderView(TaskVO vo, Model model) {
-        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        model.addAttribute("menuId","leaderMenu");
-        int result = leaderService.getTaskDatas(vo, model);
+    public String manageTaskLeaderView(TaskVO vo, Model model, HttpSession session) {
+		model.addAttribute("menuId", "leaderMenu");
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo.setProjectId(projectData.getProjectId());
+        int result = leaderService.getTaskDatas(vo, model, session);
         if (result == 200) return "manageTask";
         else return "redirect:/";
     }
