@@ -59,7 +59,7 @@
 		VALUES (#{projectId},#{category}, #{workPackage},#{depth},#{detail},#{userId},#{startdate}, #{enddate});
 	</insert>
 
-	<!--  프로젝트 업무 수정	-->
+	<!--  프로젝트 업무 수정 - 리더	-->
 	<update id="updateTaskLeader">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
