@@ -82,6 +82,26 @@
         WHERE pg.projectId = #{projectId}
     </select>
 
+    <!-- 리뷰 리포트 상태 변경 -->
+    <update id="updateReviewStatus">
+        UPDATE projectgroup SET review="Yes"
+        WHERE projectId=#{projectId} AND userId=#{userId}
+    </update>
+
+    <!-- 리뷰 작성 -->
+    <update id="updateReview">
+        UPDATE  review
+        SET evaluation=#{evaluation}
+        WHERE evaMemberId=#{evaMemberId}
+    </update>
+
+    <!-- 작성된 리뷰 가져오기 -->
+    <select id="getReview" resultType="Review">
+        SELECT evaluation
+        FROM review
+        WHERE projectId = #{projectId} AND evaMemberId=#{evaMemberId}
+    </select>
+
     <update id="updateProgress">
         UPDATE project
         SET progress = (
