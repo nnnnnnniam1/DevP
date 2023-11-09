@@ -3,6 +3,68 @@ package com.devP.VO;
 
 //VO(Value Object)
 public class ReportVO {
-	
-	
+
+    private String userId;
+    private String userName;
+    private String taskCount;
+    private String taskPercentage;
+    private int lateTaskCount;
+
+    private String lateTaskPercentage;
+
+    private int modifiedTaskCount;
+    private String modifiedTaskPercentage;
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getTaskCount() {
+        return taskCount;
+    }
+    public void setTaskCount(String taskCount) {
+        this.taskCount = taskCount;
+    }
+    public String getTaskPercentage() {
+        return taskPercentage;
+    }
+    public void setTaskPercentage(String taskPercentage) {
+        this.taskPercentage = taskPercentage;
+    }
+    public int getLateTaskCount() {
+        return lateTaskCount;
+    }
+    public void setLateTaskCount(int lateTaskCount) {
+        this.lateTaskCount = lateTaskCount;
+    }
+    public String getLateTaskPercentage() {
+        return lateTaskPercentage;
+    }
+    public void setLateTaskPercentage(String lateTaskPercentage) {
+        this.lateTaskPercentage = lateTaskPercentage;
+    }
+    public int getModifiedTaskCount() {
+        return modifiedTaskCount;
+    }
+    public void setModifiedTaskCount(int modifiedTaskCount) {
+        this.modifiedTaskCount = modifiedTaskCount;
+    }
+    public String getModifiedTaskPercentage() {
+        return modifiedTaskPercentage;
+    }
+    public void setModifiedTaskPercentage(String modifiedTaskPercentage) {
+        this.modifiedTaskPercentage = modifiedTaskPercentage;
+    }
+
+
+
 }

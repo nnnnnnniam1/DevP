@@ -66,6 +66,11 @@
 	<update id="updateTaskLeader">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
+		modify =
+			CASE
+				WHEN startdate != #{startdate} OR enddate != #{enddate} THEN modify + 1
+				ELSE modify
+			END,
 		startdate=#{startdate}, enddate=#{enddate},
 		realEnd =
 		CASE

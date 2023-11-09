@@ -1,15 +1,12 @@
 package com.devP.Controller;
 
 import com.devP.Mapper.Repository.MemberDAOMybatis;
+import com.devP.Mapper.Repository.ReportDAOMybatis;
 import com.devP.Service.IssueService;
 import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
-import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectGroupVO;
-import com.devP.VO.ProjectVO;
-import com.devP.VO.TaskVO;
-import com.devP.VO.UserVO;
+import com.devP.VO.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +39,8 @@ public class ProjectController {
 
     @Autowired
     private MemberDAOMybatis memberDAO;
+    @Autowired
+    private ReportDAOMybatis reportDAO;
 
     @Autowired
     private TaskService taskService;
@@ -251,13 +250,19 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/review/report.do", method = RequestMethod.POST)
-    public String reviewReportView(HttpSession session, Model model) {
+    public String reviewReportView(HttpSession session, Model model, MemberVO vo) {
         ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        UserVO userData = (UserVO) session.getAttribute("user");
         int projectId = projectData.getProjectId();
 
-        List<TaskVO> taskList = taskService.getProjectTaskList(projectId);
+        vo.setProjectId(projectId); vo.setUserName(userData.getId());
+
         model.addAttribute("projectData",projectData);
         model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
+
+        model.addAttribute("reportData", reportDAO.getReportTaskData(projectId));
+
+
 
 //        member.setProjectId((Integer) session.getAttribute("projectId"));
 //        member.setUserId(session.getAttribute("id").toString());

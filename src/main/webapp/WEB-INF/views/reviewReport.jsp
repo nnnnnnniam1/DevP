@@ -29,9 +29,7 @@
 
                         <div class="member-item"><br>
                             <textarea  rows="5" cols="120" >
-nn: 언니 고생했어 !
-dongodng: 그동안 고생많았다 잘지내
-sejin: 다음에는 더 잘해보겠습니다 !!
+
                             </textarea> <br>
                         </div>
 
@@ -69,11 +67,14 @@ sejin: 다음에는 더 잘해보겠습니다 !!
                 </div>
                 <div class="projectProgress">
                     <span class="progressLabel">업무 기여도</span><br>
-
-                    <div>이세진님은 '개화' 프로젝트에서 33.3% 업무 기여도를 보입니다.</div>
-                    <div> 그 중 '늦춰진 업무 3건(60%)', '이슈 등록된 업무 4건(80%)', '리더가 일정을 조정한 업무 2건(40%)' 입니다.</div>
-                    <div> 일정이 늦춰지는 것을 알리지 않은 업무 1건(스와이퍼 구조 해결)이 있습니다.</div>
-
+                    <c:forEach items="${reportData}" var="report" varStatus="loop">
+                        <h2 class="pTitle">${report.userName}</h2>
+                        <div class="contentsBox">
+                            <div>${report.userName}님, '${project.projectName}' 프로젝트에서 ${report.taskPercentage}업무 기여도를 보입니다.</div>
+                            <div> 그 중 '늦춰진 업무 ${report.lateTaskCount}건(${report.lateTaskPercentage})', '이슈 등록된 업무 4건(80%)','리더가 일정을 조정한 업무 ${report.modifiedTaskCount}건(${report.modifiedTaskPercentage})' 입니다.</div>
+                            <div> 일정이 늦춰지는 것을 알리지 않은 업무 1건(스와이퍼 구조 해결)이 있습니다.</div>
+                        </div>
+                    </c:forEach>
                 </div>
 
             </div>
