@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
+
 <h2 class="pTitle">${project.projectName} - 업무</h2>
     <div class="contentsBox">
         <p class="labelWrapper">진행률</p>
