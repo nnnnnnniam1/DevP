@@ -237,10 +237,6 @@ public class ProjectController {
 
         ProjectVO projectData = (ProjectVO) session.getAttribute("project");
         UserVO userData = (UserVO) session.getAttribute("user");
-//        if(projectData.getProjectId() != null) {
-//            session.removeAttribute("projectId");
-//            session.removeAttribute("projectName");
-//        }
 
         vo.setProjectName(projectService.getProjectName(projectId));
         member.setProjectId(projectId); member.setUserId(userData.getId());
