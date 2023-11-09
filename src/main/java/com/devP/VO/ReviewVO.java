@@ -3,7 +3,7 @@ package com.devP.VO;
 public class ReviewVO {
     private int reviewId;
     private int projectId;
-    private String userId;
+    private String writeMemberId;
     private String evaMemberId;
     private String evaluation;
 
@@ -23,12 +23,12 @@ public class ReviewVO {
         this.evaMemberId = evaMemberId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getWriteMemberId() {
+        return writeMemberId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setWriteMemberId(String userId) {
+        this.writeMemberId = userId;
     }
 
     public int getProjectId() {

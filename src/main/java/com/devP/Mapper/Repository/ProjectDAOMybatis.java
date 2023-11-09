@@ -58,8 +58,15 @@ public class ProjectDAOMybatis {
 
     public void updateReviewStatus(MemberVO vo){mybatis.insert("ProjectDAO.updateReviewStatus", vo);}
 
+    public void insertReview(ReviewVO vo) {
+    	mybatis.insert("ProjectDAO.insertReview", vo);
+    }
+    
     public void updateReview(ReviewVO vo) {mybatis.update("ProjectDAO.updateReview", vo);}
 
-    public ReviewVO getReview(ReviewVO vo){
+    public ReviewVO getReview(MemberVO vo){
         return mybatis.selectOne("ProjectDAO.getReview", vo);}
+    public List<ReviewVO> getMyReview(MemberVO vo){
+    	return mybatis.selectList("ProjectDAO.getMyReview", vo);
+    }
 }

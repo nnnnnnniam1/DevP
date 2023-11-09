@@ -2,6 +2,7 @@ package com.devP.Service;
 
 import com.devP.VO.*;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -43,9 +44,13 @@ public interface ProjectService {
 	String getProjectColor(MemberVO vo);
 
 	int updateReviewStatus(MemberVO vo);
-
+	
+	int insertReview(HttpSession session, List<String> contentList,List<String> evaMemberIdList,ProjectVO projectData, UserVO userData);
+	
 	int updateReview(ReviewVO vo);
-
-	ReviewVO getReview(ReviewVO vo);
+	
+	ReviewVO getReview(MemberVO vo);
+	
+	List<ReviewVO> getMyReview(MemberVO vo);
 
 }

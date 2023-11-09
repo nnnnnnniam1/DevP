@@ -213,7 +213,24 @@ public class ProjectServiceImpl implements ProjectService {
         projectDAO.updateReviewStatus(vo);
         return 200;
     }
-
+    
+    @Override
+    public int insertReview(HttpSession session, List<String> contentList,List<String> evaMemberIdList, ProjectVO projectData, UserVO userData) {
+    	for (int i = 0; i < contentList.size(); i++) {
+    		System.out.println("i" + i);
+            String content = contentList.get(i);
+            String evaMemberId = evaMemberIdList.get(i);
+            // 리뷰 객체 생성하고 값 넣기
+            ReviewVO review = new ReviewVO();
+            review.setProjectId(projectData.getProjectId());
+            review.setEvaMemberId(evaMemberId);
+            review.setWriteMemberId(userData.getId());
+            review.setEvaluation(content);
+            projectDAO.insertReview(review);
+    	}
+    	return 200;
+    }
+    
     @Override
     public int updateReview(ReviewVO vo){
         projectDAO.updateReview(vo);
@@ -221,8 +238,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ReviewVO getReview(ReviewVO vo){
+    public List<ReviewVO> getMyReview(MemberVO vo){
+        return projectDAO.getMyReview(vo);
+    }
+    
+    @Override
+    public ReviewVO getReview(MemberVO vo){
         return projectDAO.getReview(vo);
     }
-
 }
