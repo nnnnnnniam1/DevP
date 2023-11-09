@@ -251,7 +251,14 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/review/report.do", method = RequestMethod.POST)
-    public String reviewReportView(MemberVO member, @RequestParam("content") List<String> contentList, @RequestParam("evaMemberId") List<String> evaMemberIdList) {
+    public String reviewReportView(HttpSession session, Model model) {
+        ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        int projectId = projectData.getProjectId();
+
+        List<TaskVO> taskList = taskService.getProjectTaskList(projectId);
+        model.addAttribute("projectData",projectData);
+        model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
+
 //        member.setProjectId((Integer) session.getAttribute("projectId"));
 //        member.setUserId(session.getAttribute("id").toString());
 //        projectService.updateReviewStatus(member);

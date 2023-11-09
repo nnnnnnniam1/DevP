@@ -7,68 +7,21 @@
 <link rel="stylesheet"  href="/resources/css/leaderDetail.css">
 <link rel="stylesheet" href="/resources/css/member.css">
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
     <h2 class="pTitle">${projectName}</h2>
-
-<%--    <ul class="menu">--%>
-<%--        <li>--%>
-<%--            <button class="btn black" type="button" onclick="location.href='/leader/task/view.do'">일정 및 업무 수정</button>--%>
-<%--        </li>--%>
-<%--        <li>--%>
-<%--            <button class="btn black" type="button" onclick="location.href='/leader/member/view.do'">멤버 추가 및 삭제</button>--%>
-<%--        </li>--%>
-<%--        <li>--%>
-<%--            <button class="btn black" type="button" onclick="completeProject('${project.projectId}','${project.projectName}')">프로젝트 완료</button>--%>
-<%--        </li>--%>
-<%--        <li>--%>
-<%--            <button class="btn black" type="button" onclick="location.href='/leader/project/delete/view.do?projectId=${project.projectId}'">프로젝트 삭제</button>--%>
-<%--        </li>--%>
-<%--    </ul>--%>
-    <div class="leaderWrapper">
-        <div class="contentsWrapper">
-
-<%--            <table class="btnTable none">--%>
-<%--                <tr>--%>
-<%--                    <td>--%>
-<%--                        <div class="leaderBtn"  onclick="location.href='/leader/task/view.do'">--%>
-<%--                            <p class="label">일정 및 업무 수정</p>--%>
-<%--                        </div>--%>
-<%--                    </td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>--%>
-<%--                        <div class="leaderBtn"  onclick="location.href='manageMember.do'">--%>
-<%--                            <p class="label">멤버 추가 및 삭제</p>--%>
-<%--                        </div>--%>
-<%--                    </td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>--%>
-<%--                        <div class="leaderBtn" onclick="completeProject('${project.projectId}','${project.projectName}')">--%>
-<%--                            <p class="label">프로젝트 완료</p>--%>
-<%--                        </div>--%>
-<%--                    </td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>--%>
-<%--                        <div class="leaderBtn" onclick="location.href='/leader/project/delete/view.do?projectId=${project.projectId}'">--%>
-<%--                            <p class="label">프로젝트 삭제</p>--%>
-<%--                        </div>--%>
-<%--                    </td>--%>
-<%--                </tr>--%>
-<%--            </table>--%>
-
-            <div class="contentsBox">
-                <div class="projectProgress">
-                    <span class="progressLabel">프로젝트</span>
-                    <div class="">${projectData.projectName}</div>
-                    <div>개화</div>
-                </div>
+        <div class="contentsBox">
+            <div class="projectProgress">
+                <span class="progressLabel">프로젝트</span>
+                <div class="">${projectData.projectName}</div>
+                <span class="progressLabel">script</span>
+                <div class="">${projectData.script}</div>
                 <div class="projectProgress">
                     <span class="progressLabel">기간</span>
-<%--                    <div class="">${projectData.startDate} ~ ${projectData.endDate}</div>--%>
-                    <div>2023.06.07 ~ 2023.11.05</div>
+                    <div>계획기간 :${projectData.startDate} ~ ${projectData.endDate}</div>
+                    <div>실제기간 :${projectData.startDate} ~ ${projectData.realEnd}</div>
                 </div>
                 <div class="projectProgress">
                     <div class="member-wrapper">
@@ -110,11 +63,13 @@ sejin: 다음에는 더 잘해보겠습니다 !!
                 </div>
                 <div class="projectProgress">
                     <span class="progressLabel">업무 진행 내역</span>
-                    <img src="/resources/image/wbsImage.png">
+                        <div class="wbsBox">
+                            <div id="chart_div"></div>
+                        </div>
                 </div>
                 <div class="projectProgress">
                     <span class="progressLabel">업무 기여도</span><br>
-                    <img src="/resources/image/업무기여도.png">
+
                     <div>이세진님은 '개화' 프로젝트에서 33.3% 업무 기여도를 보입니다.</div>
                     <div> 그 중 '늦춰진 업무 3건(60%)', '이슈 등록된 업무 4건(80%)', '리더가 일정을 조정한 업무 2건(40%)' 입니다.</div>
                     <div> 일정이 늦춰지는 것을 알리지 않은 업무 1건(스와이퍼 구조 해결)이 있습니다.</div>
@@ -126,35 +81,56 @@ sejin: 다음에는 더 잘해보겠습니다 !!
     </div>
 </div>
 </body>
-<%--<script = "text/javascript">--%>
-<script>
-function completeProject(projectId, projectName){
-if(confirm("["+projectName+"]프로젝트를 완료하시겠습니까?")){
-$.ajax({
-type: 'GET',
-url: '/leader/project/complete.do',
-data: {
-projectId: projectId
-},
-success: function(response){
-if(response === "success"){
-alert("완료되었습니다");
-window.location.href="/project/list/view.do";
-} else {
-alert("오류가 발생했습니다. 다시 시도해주세요");
-window.location.href="/leader/detail.do?projectId=${projectId}"
-}
+<script type="text/javascript">
+    var dataArray = [];
 
-},
-error: function(error){
-console.log("에러: "+error);
-alert("오류가 발생했습니다. 다시 시도해주세요");
-window.location.href="/leader/detail.do?projectId=${projectId}"
-}
-});
-}
-}
+    function dateDifference(a, b){
+        return (b-a+1)/(1000 * 60 * 60 * 24);
+    }
+    <c:forEach items="${taskList}" var="task" varStatus="status">
+        var percentage = 0;
+        var startDate = new Date("${task.startdate}");
+        var endDate = new Date("${task.realEnd}");
+        percentage = ${task.progress}
+        var datas = ["${task.taskId}","${task.detail}","${task.userName}",
+                     startDate,endDate,null,percentage, null];
+
+        dataArray.push(datas);
+    </c:forEach>
+
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart(){
+        console.log(dataArray);
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task ID');
+        data.addColumn('string', 'Task Name');
+        data.addColumn('string', 'workPackage');
+        data.addColumn('date', 'Start Date');
+        data.addColumn('date', 'End Date');
+        data.addColumn('number', 'Duration');
+        data.addColumn('number', 'Percent Complete');
+        data.addColumn('string', 'Dependencies');
+
+        data.addRows(dataArray);
+
+        var rowHeight = 50;
+        var chartHeight = (dataArray.length * rowHeight) + 100;
+
+        var options = {
+            height: chartHeight,
+            gantt: {
+                trackHeight: rowHeight
+            }
+        };
+
+        var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+    }
 </script>
-
 <!-- 컨텐츠 종료 -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
