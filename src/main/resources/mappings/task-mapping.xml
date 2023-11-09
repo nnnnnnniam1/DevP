@@ -59,12 +59,39 @@
 		VALUES (#{projectId},#{category}, #{workPackage},#{depth},#{detail},#{userId},#{startdate}, #{enddate});
 	</insert>
 
-	<!--  프로젝트 업무 수정	-->
-	<update id="updateTask">
+	<!--  프로젝트 업무 수정 - 리더	-->
+	<update id="updateTaskLeader">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
-		startdate=#{startdate}, enddate=#{enddate}, status=#{status}, progress=#{progress}
+		startdate=#{startdate}, enddate=#{enddate},
+		realEnd =
+		CASE
+		WHEN status != #{status} AND #{status} = '완료' THEN NOW()
+		ELSE NULL
+		END,
+		status=#{status},
+		progress =
+			CASE
+				WHEN #{status} = '대기' THEN 0
+				WHEN #{status} = '진행중' THEN 50
+				WHEN #{status} = '검토' THEN 75
+				WHEN #{status} = '완료' THEN 100
+				ELSE progress
+			END
 		WHERE projectId=#{projectId} AND taskId=#{taskId}
+	</update>
+	<!--  프로젝트 업무 수정	-->
+	<update id="updateTaskStatus">
+		UPDATE task SET
+			status = #{status},
+			progress =
+			CASE
+				WHEN #{status} = '대기' THEN 0
+				WHEN #{status} = '진행중' THEN 50
+				WHEN #{status} = '검토' THEN 75
+			ELSE progress
+			END
+		WHERE taskId = #{taskId};
 	</update>
 
 	<delete id="deleteTask">

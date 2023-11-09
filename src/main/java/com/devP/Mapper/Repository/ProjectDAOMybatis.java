@@ -32,9 +32,12 @@ public class ProjectDAOMybatis {
         return mybatis.selectOne("ProjectDAO.getProjectName", projectId);
     }
 
+    public void updateProgress(int projectId) { mybatis.update("ProjectDAO.updateProgress", projectId); }
+
     public int getProjectProgress(ProjectVO vo) {
         return mybatis.selectOne("ProjectDAO.getProjectProgress", vo);
     }
+
 
     public List<ProjectListVO> getProjectList(String userId) {
         return mybatis.selectList("ProjectDAO.getProjectList", userId);

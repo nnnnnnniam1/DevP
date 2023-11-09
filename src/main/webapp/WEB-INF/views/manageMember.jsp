@@ -9,13 +9,13 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="container">
-<h2 class="pTitle">${projectName} - 멤버관리</h2>
+<h2 class="pTitle">${project.projectName} - 멤버관리</h2>
 <div class="contentsBox">
     <p class="labelWrapper m-b-1"> 멤버추가</p>
     <form class="" action="/leader/member/add.do" method="post">
         <div class="addMemberLine row align-items-center">
             <div class="col-sm-10">
-                <input type="hidden" value="${projectName}" name="projectName" />
+                <input type="hidden" value="${project.projectName}" name="projectName" />
                 <input class="formInput form-control" type="email" placeholder="devp@devp.com" name="user">
             </div>
             <input class="btn main col-sm-2" type="submit" value="send">
@@ -39,7 +39,7 @@
             <tbody>
                 <c:forEach items="${memberList}" var="member" varStatus="loop">
                     <tr>
-                        <input type="hidden" value="${projectId}" name="memberVOList[${loop.index}].projectId">
+                        <input type="hidden" value="${project.projectId}" name="memberVOList[${loop.index}].projectId">
                         <input type="hidden" value="${member.userId}" name="memberVOList[${loop.index}].userId">
                         <td>${member.userName}</td>
                         <td>${member.email}</td>
@@ -80,7 +80,7 @@
                             </c:if>
                         </td>
                         <td>
-                            <input class="form-control" type="button" value="삭제" onclick="deleteMember('${member.userId}','${projectName}', ${projectId})" />
+                            <input class="form-control" type="button" value="삭제" onclick="deleteMember('${member.userId}','${project.projectName}', ${project.projectId})" />
                         </td>
                     </tr>
                 </c:forEach>

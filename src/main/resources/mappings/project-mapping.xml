@@ -101,4 +101,14 @@
         FROM review
         WHERE projectId = #{projectId} AND evaMemberId=#{evaMemberId}
     </select>
+
+    <update id="updateProgress">
+        UPDATE project
+        SET progress = (
+        SELECT
+        (SUM(progress) / COUNT(*) ) as average_progress
+        FROM task
+        )
+        WHERE projectId=#{projectId};
+    </update>
 </mapper>

@@ -84,7 +84,7 @@ input::placeholder{color:#ccc; font-size:18px;}
 .memberProgress .progress-bar{background-color: #00c30f;}
 
 
-.progress-bar.type01{ background-color: #6d03ff;}
+.progress-bar.type01{ background-color: #6d03ff; color: #fff; }
 .progress-bar.type02{ background-color: #00c30f;}
 .project-list .progress, .project-list .progress-stacked{background-color: #e7e7e7;}
 

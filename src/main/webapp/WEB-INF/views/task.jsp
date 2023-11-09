@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="projectProgress">
-            <span class="progressLabel">${member.userName}</span>
+            <span class="progressLabel">${user.name}</span>
             <div class="progress">
                 <div style="width: ${member.progress}%;" class="progress-bar type02 text-dark">${member.progress}%</div>
             </div>
@@ -42,7 +42,7 @@
         <div class="taskWrapper">
             <div class="taskBox">
                 <div id="">
-                    <form>
+                    <form modelAttribute="TaskVO" name="dataForm" method="post" action="/task/modify.do">
                         <table class="table" width=500px;>
                         	<colgroup>
                                 <col style="width: 5%">
@@ -65,15 +65,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${taskList}" var="task" varStatus="status">
+                                <c:forEach items="${taskList}" var="task" varStatus="loop">
+                                    <input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}">
+                                    <input type="hidden" name="projectId" value="${projectId}">
                                     <tr>
-                                        <td>${status.count}</td>
+                                        <td>${loop.count}</td>
                                         <td >${task.startdate}</td>
                                         <td>${task.enddate}</td>
                                         <td>${task.depth}</td>
                                         <td>${task.detail}</td>
                                         <td>
-                                            <select class="form-select" id="statusSelect">
+                                            <select class="form-select" name="taskVOList[${loop.index}].status" id="statusSelect">
                                                 <c:forEach items="${statusMap}" var="status">
                                                     <option value="${status.value}"
                                                         <c:if test="${status.value eq task.status}"> selected</c:if>
@@ -88,6 +90,7 @@
                                 </c:forEach>
                             </tbody>
                         </table>
+                        <input class="btn main form-control" type="submit" value="수정">
                     </form>
                 </div>
             </div>

@@ -36,11 +36,6 @@ public class LeaderServiceImpl implements LeaderService {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private HttpSession session;
-
-
-
 	@Override
 	public void getLeaderView(ProjectVO vo, Model model){
 		//session.setAttribute("projectName", projectService.getProjectName(vo));
@@ -51,12 +46,13 @@ public class LeaderServiceImpl implements LeaderService {
 
 
 	@Override
-	public int getMemberList(MemberVO vo, Model model){
-		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-		ProjectVO project = new ProjectVO();		//임시
-		project.setProjectId(vo.getProjectId());					//임시
-		session.setAttribute("projectId",project.getProjectId());	//임시
-		session.setAttribute("projectName",projectService.getProjectName(project.getProjectId()));	//임시
+	public int getMemberList(MemberVO vo, Model model, HttpSession session){
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+		vo.setProjectId(projectData.getProjectId());
+//		ProjectVO project = new ProjectVO();		//임시
+//		project.setProjectId(vo.getProjectId());					//임시
+//		session.setAttribute("projectId",project.getProjectId());	//임시
+//		session.setAttribute("projectName",projectService.getProjectName(project.getProjectId()));	//임시
 		model.addAttribute("memberList", memberDAO.getMemberList(vo.getProjectId()));
 
 		if (memberDAO.getMemberList(vo.getProjectId()) != null) return 200;
@@ -64,8 +60,9 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
-	public int insertLeader(MemberVO vo2, int projectId){
-		String leader = session.getAttribute("id").toString();
+	public int insertLeader(MemberVO vo2, int projectId, HttpSession session){
+		UserVO userData = (UserVO) session.getAttribute("user");
+		String leader = userData.getId();
 		vo2.setStatus("1");
 		vo2.setLeader(leader);
 		vo2.setUserId(leader);
@@ -75,8 +72,9 @@ public class LeaderServiceImpl implements LeaderService {
 		return 200;
 	}
 	@Override
-	public int insertMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
-		String leader = (String) session.getAttribute("id");
+	public int insertMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception {
+		UserVO userData = (UserVO) session.getAttribute("user");
+		String leader = userData.getId();
 		String project = vo.getProjectName();
 
 		String[] memberArr = members.split(",");
@@ -157,12 +155,12 @@ public class LeaderServiceImpl implements LeaderService {
 	}
 
 	@Override
-	public int getTaskDatas(TaskVO vo, Model model){
+	public int getTaskDatas(TaskVO vo, Model model, HttpSession session){
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		List<String> memberList = projectDAO.getMemberNames(vo.getProjectId());
-		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-		model.addAttribute("taskList",taskService.getProjectTaskList(Integer.parseInt(session.getAttribute("projectId").toString())));
-		model.addAttribute("projectName",projectService.getProjectName(Integer.parseInt(session.getAttribute("projectId").toString())));	//임시
-
+		vo.setProjectId(projectData.getProjectId());
+		model.addAttribute("taskList",taskService.getProjectTaskList(projectData.getProjectId()));
+		model.addAttribute("projectName",projectService.getProjectName(projectData.getProjectId()));	//임시
 		model.addAttribute("memberMap",projectService.getMemberMap(memberList));
 
 
@@ -175,12 +173,15 @@ public class LeaderServiceImpl implements LeaderService {
 		return 200;
 	}
 	@Override
-	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
+	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model, HttpSession session){
 
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		for(TaskVO vo : TaskVOList){
-			taskService.updateTask(vo);
+			taskService.updateTaskLeader(vo);
 		};
-
+		int projectId = projectData.getProjectId();
+		memberDAO.updateAllProgress(projectId);
+		projectDAO.updateProgress(projectId);
 		return 200;
 
 	}
