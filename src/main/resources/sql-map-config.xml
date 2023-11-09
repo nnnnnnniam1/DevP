@@ -16,6 +16,7 @@
 		<typeAlias alias="Task" type="com.devP.VO.TaskVO" />
 		<typeAlias alias="Report" type="com.devP.VO.ReportVO" />
 		<typeAlias alias="Reply" type="com.devP.VO.CommentVO" />
+		<typeAlias alias="Review" type="com.devP.VO.ReviewVO" />
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
