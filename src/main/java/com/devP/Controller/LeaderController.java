@@ -96,6 +96,7 @@ public class LeaderController {
 
     @RequestMapping(value = "/member/view.do", method = RequestMethod.GET)
     public String manageMemberLeaderView(MemberVO vo, Model model, HttpSession session) {
+		model.addAttribute("menuId", "leaderMenu");
     	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
         vo.setProjectId(projectData.getProjectId());
         int result = leaderService.getMemberList(vo, model, session);
