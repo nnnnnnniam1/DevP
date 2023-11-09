@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -207,6 +208,23 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<String> getMemberNames(int projectId){
         return projectDAO.getMemberNames(projectId);
+    }
+
+    @Override
+    public int updateReviewStatus(MemberVO vo){
+        projectDAO.updateReviewStatus(vo);
+        return 200;
+    }
+
+    @Override
+    public int updateReview(ReviewVO vo){
+        projectDAO.updateReview(vo);
+        return 200;
+    }
+
+    @Override
+    public ReviewVO getReview(ReviewVO vo){
+        return projectDAO.getReview(vo);
     }
 
 }
