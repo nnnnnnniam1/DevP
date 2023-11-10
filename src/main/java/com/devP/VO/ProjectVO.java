@@ -8,6 +8,7 @@ public class ProjectVO {
     private String projectName;
     private String startDate;
     private String endDate;
+    private String realEnd;
     private String wbsFile;
     private String planFile;
     private int progress;
@@ -69,6 +70,13 @@ public class ProjectVO {
 
 
 
+    public String getRealEnd() {
+        return realEnd;
+    }
+
+    public void setRealEnd(String realEnd) {
+        this.realEnd = realEnd;
+    }
     public String getEndDate() {
         return endDate;
     }

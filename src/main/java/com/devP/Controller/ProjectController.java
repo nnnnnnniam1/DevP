@@ -1,16 +1,13 @@
 package com.devP.Controller;
 
 import com.devP.Mapper.Repository.MemberDAOMybatis;
+import com.devP.Mapper.Repository.ReportDAOMybatis;
 import com.devP.Service.IssueService;
 import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
-import com.devP.VO.MemberVO;
-import com.devP.VO.ProjectGroupVO;
-import com.devP.VO.ProjectVO;
-import com.devP.VO.ReviewVO;
-import com.devP.VO.TaskVO;
-import com.devP.VO.UserVO;
+import com.devP.VO.*;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,9 +35,11 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 
-	@Autowired
-	private MemberDAOMybatis memberDAO;
 
+    @Autowired
+    private MemberDAOMybatis memberDAO;
+    @Autowired
+    private ReportDAOMybatis reportDAO;
 	@Autowired
 	private TaskService taskService;
 
@@ -255,13 +254,12 @@ public class ProjectController {
 		member.setUserId(userData.getId());
 		if(projectService.getReview(member) != null) {
 			model.addAttribute("myReview", projectService.getMyReview(member));
+			model.addAttribute("projectData",projectData);
+			model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
+
+			model.addAttribute("reportData", reportDAO.getReportTaskData(projectId));
 			return "reviewReport";
 		}
-
-
-//        vo.setProjectName(projectService.getProjectName(projectId));
-
-//        MemberVO myProjectData = memberDAO.getMember(member);
 
 		model.addAttribute("projectData", projectData);
 		model.addAttribute("memberData", projectService.getProjectMemberList(projectId));
@@ -269,37 +267,28 @@ public class ProjectController {
 		return "reviewWrite";
 	}
 
-	@RequestMapping(value = "/review/report.do", method = RequestMethod.POST)
-	public String reviewReportView(MemberVO member, @RequestParam("content") List<String> contentList,
-			@RequestParam("evaMemberId") List<String> evaMemberIdList, HttpSession session, Model model) {
-		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
-		UserVO userData = (UserVO) session.getAttribute("user");
-        member.setProjectId(projectData.getProjectId());
-        member.setUserId(userData.getId());
-        
-        projectService.updateReviewStatus(member);
-        projectService.insertReview(session, contentList, evaMemberIdList, projectData, userData);
-        model.addAttribute("myReview", projectService.getMyReview(member));
-//
-//            if(review != null) {
-//            ReviewVO existingContent = projectService.getReview(review);
-//            System.out.println("원래있던거" +existingContent.getEvaluation());
-//
-//                if (existingContent.getEvaluation() != null) {
-//                    // 기존 내용이 있는 경우에만 누적 작업을 수행
-//                    String newContent = existingContent.getEvaluation() + ',' + content;
-//                    System.out.println(newContent);
-//                    review.setEvaluation(newContent);
-//                } else{ //******** 현재 이 경우 update 안됨 ******************//
-//                    // 기존 내용이 없는 경우, 새로운 내용으로 초기화
-//                    review.setEvaluation(content);
-//                }
-//            }else{
-//                System.out.println("reviewVO null");
-//            }
-//            // Update the review using the modified 'review' object
-//            projectService.updateReview(review);
-//		 ** 다시 커밋용 주석..
+    @RequestMapping(value = "/review/report.do", method = RequestMethod.POST)
+    public String reviewReportView(@RequestParam("content") List<String> contentList,
+								   @RequestParam("evaMemberId") List<String> evaMemberIdList,
+								   MemberVO member, HttpSession session, Model model, MemberVO vo) {
+        ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        UserVO userData = (UserVO) session.getAttribute("user");
+
+        int projectId = projectData.getProjectId();
+		member.setProjectId(projectId);
+		member.setUserId(userData.getId());
+
+        vo.setProjectId(projectId); vo.setUserName(userData.getId());
+		projectService.updateReviewStatus(member);
+		projectService.insertReview(session, contentList, evaMemberIdList, projectData, userData);
+		model.addAttribute("myReview", projectService.getMyReview(member));
+
+        model.addAttribute("projectData",projectData);
+        model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
+
+        model.addAttribute("reportData", reportDAO.getReportTaskData(projectId));
+
+
 		return "reviewReport";
 	}
 

@@ -1,10 +1,13 @@
 package com.devP.Controller;
 
+import com.devP.Mapper.Repository.TaskDAOMybatis;
 import com.devP.Service.ProjectService;
 import com.devP.VO.ProjectVO;
 
 import java.util.List;
 
+import com.devP.VO.TaskVO;
+import com.devP.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Service.IssueService;
 import com.devP.VO.IssueVO;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/issue")
@@ -27,15 +32,24 @@ public class IssueController {
 	
 	@Autowired
 	private MemberDAOMybatis MemberDAO;
+	@Autowired
+	private TaskDAOMybatis TaskDAO;
 	
 	
 	//이슈 등록 페이지
 	@RequestMapping(value="/view.do", method= RequestMethod.GET)
-    public String issueView(@RequestParam int projectId, Model model){
+    public String issueView(@RequestParam int projectId, @RequestParam(required = false) Integer taskId, Model model, TaskVO vo, HttpSession session){
+		UserVO userData = (UserVO) session.getAttribute("user");
+		vo.setProjectId(projectId); vo.setUserId(userData.getId());
+
 		model.addAttribute("menuId", "issueMenu");
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("memberList", MemberDAO.getMemberList(projectId));
-		
+		model.addAttribute("taskList", TaskDAO.getMyProjectTaskList(vo));
+
+		if (taskId != null) {
+			model.addAttribute("taskId", taskId);
+		}
         return "issueWrite";
     }
 	
@@ -44,8 +58,9 @@ public class IssueController {
     public String writeIssue(@ModelAttribute IssueVO issue, Model model){
 		model.addAttribute("menuId", "issueMenu");
 		issueService.insertIssue(issue);
-        return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
+		return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
     }
+
 	//이슈 목록
 	@RequestMapping(value="/list.do", method= RequestMethod.GET)	
     public String getIssuelist(@RequestParam int projectId, Model model){

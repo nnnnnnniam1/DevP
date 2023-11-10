@@ -42,7 +42,8 @@
         where g.userId = #{userId} AND p.status = "삭제";
     </select>
     <update id="completeProject">
-        UPDATE project SET status="완료"
+        UPDATE project
+        SET status="완료", realEnd = CURRENT_DATE()
         WHERE projectId=#{projectId}
     </update>
     <!-- 프로젝트삭제 -->
