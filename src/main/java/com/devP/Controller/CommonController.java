@@ -3,6 +3,9 @@ package com.devP.Controller;
 import com.devP.Service.IssueService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
+import com.devP.VO.UserVO;
+
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,23 +25,28 @@ public class CommonController {
 
     @Autowired
     private ProjectService projectService;
-    @Autowired
-    private HttpSession session;
+//    @Autowired
+//    private HttpSession session;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String mainView(HttpServletRequest request, Model model) {
+    public String mainView(HttpServletRequest request, Model model, HttpSession session) {
+        String userId = null;
+        if(session.getAttribute("user") != null) {
+        	UserVO userData = (UserVO) session.getAttribute("user");
+        	userId = userData.getId();
+        }else {
+        	return "login";
+        }
     	model.addAttribute("menuId", "");
-        HttpSession session = request.getSession();
-        String userId = (String)session.getAttribute("id");
         session.setAttribute("title", logincheck(userId, request));
-        session.removeAttribute("projectName");
-        session.removeAttribute("projectId");
+//        session.removeAttribute("projectName");
+        session.removeAttribute("project");
 
-        if(session.getAttribute("id")!=null) {
+        if(session.getAttribute("user")!=null) {
             issueService.getUserIssueList(model);
-            projectService.getProjectList(model);
+            projectService.getProjectList(model, session);
             if(taskService.getUserTaskList(model) == 200) {
-                return "mainTemp";
+                return "main";
             }
             return null;
         }

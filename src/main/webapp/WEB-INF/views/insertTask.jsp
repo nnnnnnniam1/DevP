@@ -11,85 +11,71 @@
 <!-- 컨텐츠 시작 -->
 <div class="mv-100 container">
     <div>
-        <p class="projectName">
-            ${projectName}
-            <button class="btn btn-outline-success" type="button" onclick="location.href='list.do'">완료</button>
-        </p>
+        <h2 class="pTitle">
+            ${projectName} － 업무추가
+            <button class="btn btn-outline-success" type="button" onclick="location.href='/project/list/view.do'">완료</button>
+        </h2>
     </div>
-    <div class="manage-wrapper">
-        <div class="addMember">
-            <div class="manageTaskWrapper">
-                <div class="col-auto">
-                    <label class="formLabel col-form-label">업무추가</label>
+    <div class="contentsBox">
+        <p class="labelWrapper">업무추가</p>
+        <div class="row">
+            <div id="box">
+                <div class="addForm">
+                    <table id="taskTbl" class="table" width=500px;>
+                        <thead>
+                            <tr>
+                                <th class="" scope="col">Category</th>
+                                <th class="" scope="col">Work Package</th>
+                                <th class="" scope="col">depth</th>
+                                <th class="" scope="col">detail</th>
+                                <th class="" scope="col">담당자</th>
+                                <th class="" scope="col">시작일</th>
+                                 <th class="" scope="col">종료일</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-select" name="category" id="categorySelect">
+                                        <option value="" disabled selected> 선택</option>
+                                        <c:forEach items="${categoryMap}" var="category">
+                                            <option value="${category.value}">${category.value}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+                                <td><input class="form-control" type="text" name="workPackage" id="workPackage"></td>
+                                <td><input class="form-control" type="text" name="depth" id="depth"></td>
+                                <td><input class="form-control" type="text" name="detail" id="detail"></td>
+                                <td><select class="form-select" name="responsibility" id="responsibilitySelect">
+                                    <option value="" disabled selected> 선택</option>
+                                    <c:forEach items="${memberMap}" var="member">
+                                        <option value="${member.key}">${member.value}</option>
+                                    </c:forEach>
+                                </select></td>
+                                <td><input class="form-control startDate" type="date"  name="startdate" id="startDate"/></td>
+                                <td><input class="form-control endDate" type="date"  name="enddate" id="endDate" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="row">
-                    <div id="box">
-                        <div class="addForm">
-                            <table id="taskTbl" class="table" width=500px;>
-                                <thead>
-                                    <tr>
-                                        <th class="" scope="col">Category</th>
-                                        <th class="" scope="col">Work Package</th>
-                                        <th class="" scope="col">depth</th>
-                                        <th class="" scope="col">detail</th>
-                                        <th class="" scope="col">담당자</th>
-                                        <th class="" scope="col">시작일</th>
-                                         <th class="" scope="col">종료일</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <select class="form-select" name="category" id="categorySelect">
-                                                <option value="" disabled selected> 선택</option>
-                                                <c:forEach items="${categoryMap}" var="category">
-                                                    <option value="${category.value}">${category.value}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </td>
-                                        <td><input class="form-control" type="text" name="workPackage" id="workPackage"></td>
-                                        <td><input class="form-control" type="text" name="depth" id="depth"></td>
-                                        <td><input class="form-control" type="text" name="detail" id="detail"></td>
-                                        <td><select class="form-select" name="responsibility" id="responsibilitySelect">
-                                            <option value="" disabled selected> 선택</option>
-                                            <c:forEach items="${memberMap}" var="member">
-                                                <option value="${member.key}">${member.value}</option>
-                                            </c:forEach>
-                                        </select></td>
-                                        <td><input class="form-control startDate" type="date"  name="startdate" id="startDate"/></td>
-                                        <td><input class="form-control endDate" type="date"  name="enddate" id="endDate" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button class="form-control" onclick="insertTask()">추가</button>
-                        </div>
-                    </div>
-            </div>
+            <button class="btn main" onclick="insertTask()">추가</button>
         </div>
     </div>
-    <div class="manage-wrapper">
-        <div class="manageTaskWrapper">
-            <div class="col-auto">
-                <label class="formLabel col-form-label">간트차트</label>
-            </div>
-            <div class="wbsBox col-auto">
-                <div id="chart_div"></div>
-            </div>
-            <c:if test="${empty taskList}">
-                <div style="height:10em;"></div>
-            </c:if>
+    <div class="contentsBox">
+        <p class="labelWrapper m-b-1">간트차트</p>
+        <div class="wbsBox col-auto">
+            <div id="chart_div"></div>
         </div>
+        <c:if test="${empty taskList}">
+            <div style="height:10em;"></div>
+        </c:if>
     </div>
-    <div  class="member-wrapper">
-        <div class="manageTaskWrapper">
-            <div class="col-auto">
-                <label class="formLabel col-form-label">업무수정</label>
-            </div>
-        </div>
+    <div class="contentsBox">
+        <p class="labelWrapper">업무수정</p>
         <div class="row">
-            <form:form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/updateTask.do">
+            <form class="manageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/project/task/modify.do">
                 <div>
                     <div class="manageForm">
                         <table class="table taskTbl">
@@ -147,11 +133,10 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-
                         <input class="form-control" type="submit" value="수정">
                     </div>
                 </div>
-            </form:form>
+            </form>
         </div>
     </div>
 </div>
@@ -249,7 +234,7 @@ function insertTask(){
         alert("빈칸없이 채워주세요");
     } else {
         $.ajax({
-            url: "/project/insertTask.do",
+            url: "/project/task/add.do",
             method: 'POST',
             data: {
                 category: category,
@@ -263,12 +248,12 @@ function insertTask(){
             },
             success: function(response){
                 console.log("업무 추가!")
-                window.location.href="/project/insertTask.do";
+                window.location.href="/project/task/add/view.do";
             },
             error: function(error){
                 console.log('에러: '+error);
                 alert("업무를 생성하는데 오류가 발생하였습니다.");
-                window.location.href="/project/insertTask.do";
+                window.location.href="/project/task/add/view.do";
             }
 
 

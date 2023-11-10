@@ -32,9 +32,12 @@ public class ProjectDAOMybatis {
         return mybatis.selectOne("ProjectDAO.getProjectName", projectId);
     }
 
+    public void updateProgress(int projectId) { mybatis.update("ProjectDAO.updateProgress", projectId); }
+
     public int getProjectProgress(ProjectVO vo) {
         return mybatis.selectOne("ProjectDAO.getProjectProgress", vo);
     }
+
 
     public List<ProjectListVO> getProjectList(String userId) {
         return mybatis.selectList("ProjectDAO.getProjectList", userId);
@@ -52,4 +55,18 @@ public class ProjectDAOMybatis {
 
 
     public void completeProject(int projectId) { mybatis.update("ProjectDAO.completeProject", projectId); }
+
+    public void updateReviewStatus(MemberVO vo){mybatis.insert("ProjectDAO.updateReviewStatus", vo);}
+
+    public void insertReview(ReviewVO vo) {
+    	mybatis.insert("ProjectDAO.insertReview", vo);
+    }
+    
+    public void updateReview(ReviewVO vo) {mybatis.update("ProjectDAO.updateReview", vo);}
+
+    public ReviewVO getReview(MemberVO vo){
+        return mybatis.selectOne("ProjectDAO.getReview", vo);}
+    public List<ReviewVO> getMyReview(MemberVO vo){
+    	return mybatis.selectList("ProjectDAO.getMyReview", vo);
+    }
 }

@@ -1,20 +1,18 @@
 package com.devP.Mapper.Impl;
 
-import com.devP.Controller.MailController;
 import com.devP.Mapper.Repository.IssueDAOMybatis;
 import com.devP.Service.CommentService;
 import com.devP.Service.IssueService;
 import com.devP.Service.MailService;
 import com.devP.Service.UserService;
 import com.devP.VO.IssueVO;
+import com.devP.VO.UserVO;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -34,10 +32,11 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public int insertIssue(IssueVO issue) {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		System.out.println(issue.getTaskId());
 		String emails = issue.getSendingEmail();
 		// 세션 아이디 정보 등록
-		issue.setUserId(session.getAttribute("id").toString());
+		issue.setUserId(userData.getId());
 		// 이슈 상태 초기 설정
 		System.out.println(issue.getIssueId());
 		issue.setStatus("대기");
@@ -67,7 +66,8 @@ public class IssueServiceImpl implements IssueService {
 	}
 	@Override
 	public int getUserIssueList(Model model){
-		String userId = (String)session.getAttribute("id");
+		UserVO userData = (UserVO) session.getAttribute("user");
+		String userId = userData.getId();
 		List<IssueVO> vo = issueDAO.getUserIssuelist(userId);
 
 		model.addAttribute("issueList", issueDAO.getUserIssuelist(userId));
@@ -89,9 +89,9 @@ public class IssueServiceImpl implements IssueService {
 				issue.setStatus("검토");
 			}
 			// 이슈 조회수 올리기 -추가 작업 동일 세션 아이디 중복 조회 제한
-			issueDAO.countupIssue(issueId);
+			issueDAO.updateIssueCount(issueId);
 			// 이슈 상태 변경
-			issueDAO.changeIssueStatus(issue);
+			issueDAO.updateIssueStatus(issue);
 			model.addAttribute("issue", issue);
 			model.addAttribute("commentList", commentService.getComment(issue.getIssueId()));
 		} catch (Exception e) {
@@ -102,10 +102,10 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public int solveIssue(IssueVO issue) {
+	public int updateIssueStatus(IssueVO issue) {
 		issue.setStatus("해결");
 		try {
-			issueDAO.changeIssueStatus(issue);
+			issueDAO.updateIssueStatus(issue);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
@@ -114,11 +114,12 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public int modifyIssue(IssueVO issue) {
+	public int updateIssue(IssueVO issue) {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		String emails = issue.getSendingEmail();
 		try {
 			// 세션 아이디 정보 등록
-			issue.setUserId(session.getAttribute("id").toString());
+			issue.setUserId(userData.getId());
 			// 구분자를 쉼표(,)로 지정하여 문자열을 나누고, 이메일 주소들을 ArrayList에 저장
 	        ArrayList<String> emailList = new ArrayList<>();
 	        String[] emailArray = emails.split(",");
@@ -127,10 +128,10 @@ public class IssueServiceImpl implements IssueService {
 	        }
 	        //이메일 알림 전송
 	        mailService.sendMail(emailList, issue.getUserId() + "(이)가 이슈 수정 알림을 보냈습니다", issue.getContent());
-			issueDAO.modifyIssue(issue);
+			issueDAO.updateIssue(issue);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return issueDAO.modifyIssue(issue);
+		return issueDAO.updateIssue(issue);
 	}
 }

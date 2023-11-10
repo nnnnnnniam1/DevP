@@ -7,7 +7,6 @@ import com.devP.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.awt.*;
@@ -17,8 +16,6 @@ import java.util.List;
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
 
-    @Autowired
-    private HttpSession session;
     @Autowired
     private ProjectDAOMybatis projectDAO;
     @Autowired
@@ -35,6 +32,16 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private LeaderService leaderService;
+
+    @Override
+    public Map<String, String> getMemberMap(List<String> members){
+        Map<String, String> memberMap = new HashMap<String, String>();
+        for(String member: members){
+            String[] m = member.split(",");
+            memberMap.put(m[0], m[1]);
+        }
+        return memberMap;
+    }
 
 
 
@@ -57,31 +64,19 @@ public class ProjectServiceImpl implements ProjectService {
      public MemberVO getMyProjectData(MemberVO vo){return memberDAO.getMyProjectData(vo);}
 
     @Override
-    public int setProjectColor(MemberVO vo){
-
-        memberDAO.setProjectColor(vo);
-
+    public int insertProjectColor(MemberVO vo){
+        memberDAO.insertProjectColor(vo);
         return 200;
     }
 
     @Override
     public String getProjectColor(MemberVO vo){return memberDAO.getProjectColor(vo);}
 
-
     @Override
-    public Map<String, String> setMemberMap(List<String> members){
-        Map<String, String> memberMap = new HashMap<String, String>();
-        for(String member: members){
-            String[] m = member.split(",");
-            memberMap.put(m[0], m[1]);
-        }
-        return memberMap;
-    }
-
-    @Override
-    public int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
-        if(session.getAttribute("id") != "") {
-            String leader = session.getAttribute("id").toString();
+    public int insertProject(ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception {
+    	UserVO userData = (UserVO) session.getAttribute("user");
+        if(userData.getId() != "") {
+            String leader = userData.getId();
             vo.setLeader(leader);
             vo.setProgress(0);
             if(vo.getEmail()!="") {
@@ -90,8 +85,8 @@ public class ProjectServiceImpl implements ProjectService {
                 session.removeAttribute("projectName");
                 session.setAttribute("projectName", vo.getProjectName());
                 vo3.setProjectId(getProjectId(vo));
-                leaderService.addLeader(vo2,vo3.getProjectId());
-                leaderService.addMember(members, vo, vo2, vo3);
+                leaderService.insertLeader(vo2,vo3.getProjectId(), session);
+                leaderService.insertMember(members, vo, vo2, vo3, session);
                 return 200;
             }
             return 0;
@@ -102,16 +97,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int insertProjectView() {
-        if(session.getAttribute("id") != null) return 200;
+    public int insertProjectView(HttpSession session) {
+        if(session.getAttribute("user") != null) return 200;
         else return 405;
 
     }
     @Override
-    public int getProjectList(Model model){
-        if(session.getAttribute("id") != null) {
+    public int getProjectList(Model model, HttpSession session){
+    	UserVO userData = (UserVO) session.getAttribute("user");
+        if(userData.getId() != null) {
             ProjectListVO vo = new ProjectListVO();
-            String userId = session.getAttribute("id").toString();
+            String userId = userData.getId();
             vo.setUserId(userId);
 
             model.addAttribute("projectList", projectDAO.getOnGoingProjectList(userId));
@@ -122,10 +118,11 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
     @Override
-    public int getCompleteProjectList(Model model){
-        if(session.getAttribute("id") != null) {
+    public int getCompleteProjectList(Model model,HttpSession session){
+    	UserVO userData = (UserVO) session.getAttribute("user");
+        if(userData.getId() != null) {
             ProjectListVO vo = new ProjectListVO();
-            String userId = session.getAttribute("id").toString();
+            String userId = userData.getId();
             vo.setUserId(userId);
 
             model.addAttribute("completeProjectList", projectDAO.getCompleteProjectList(userId));
@@ -138,19 +135,20 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model){
+    public 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model,HttpSession session){
+    	UserVO userData = (UserVO) session.getAttribute("user");
         //이슈 리스트 가져오기
         issueService.getIssuelist(vo.getProjectId(), model);
         //멤버 리스트 가져오기
-        model.addAttribute("project",getProject(vo));
+        model.addAttribute("project",(ProjectVO) session.getAttribute("project"));
         model.addAttribute("myData",getMyProjectData(member));
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
-        model.addAttribute("myTask", taskService.getTask());
-        taskService.getTaskCount(model);
-
+        model.addAttribute("myTask", taskService.getMyTasks());
+//        taskService.getTaskCount(model);
+//
         TaskVO task = new TaskVO();
         task.setProjectId(vo.getProjectId());
-        task.setUserId(session.getAttribute("id").toString());
+        task.setUserId(userData.getId());
 
         model.addAttribute("pastTaskCnt",taskService.getPastTaskCnt(task));
         model.addAttribute("progressTaskCnt",taskService.getProgressTaskCnt(task));
@@ -162,39 +160,37 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public int showTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
+    public int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model,HttpSession session){
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+		UserVO userData = (UserVO) session.getAttribute("user");
         // 프로젝트 및 본인 진행률 가져오기
-        project.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
-        member.setProjectId(Integer.parseInt((session.getAttribute("projectId")).toString()));
-        member.setUserId((String) session.getAttribute("id"));
-        project.setProgress(getProjectProgress(project));   // 프로젝트 진행률
-        project.setProjectName(getProjectName(project.getProjectId()));
+//        project.setProjectId(projectData.getProjectId());
+        member.setProjectId(projectData.getProjectId());
+        member.setUserId(userData.getId());
+//        project.setProgress(getProjectProgress(project));   // 프로젝트 진행률
+//        project.setProjectName(getProjectName(project.getProjectId()));
 
         // 업무가져오기
-        task.setProjectId(project.getProjectId());
+        task.setProjectId(projectData.getProjectId());
         task.setUserId(member.getUserId());
 
-        model.addAttribute("project", project);
+//        model.addAttribute("project", project);
         model.addAttribute("member", getMyProjectData(member));
 
-        List<TaskVO> taskVOList = taskService.getMyProjectTaskList(task);
-
-        System.out.println(taskVOList);
+        List<TaskVO> taskVOList;
+        taskVOList = taskService.getMyProjectTaskList(task);
 
         model.addAttribute("taskList",taskVOList);
 
         return 200;
-
-//        if(member.getUserId() != null) {return 200;}
-//        else {return 405;}
     }
 
     @Override
-    public int showProjectMemberList(MemberVO vo, Model model){
-        vo.setProjectId((Integer) session.getAttribute("projectId"));
+    public int getProjectMemberList(MemberVO vo, Model model,HttpSession session){
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo.setProjectId(projectData.getProjectId());
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
         return 200;
-
     }
 
     @Override
@@ -212,4 +208,42 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDAO.getMemberNames(projectId);
     }
 
+    @Override
+    public int updateReviewStatus(MemberVO vo){
+        projectDAO.updateReviewStatus(vo);
+        return 200;
+    }
+    
+    @Override
+    public int insertReview(HttpSession session, List<String> contentList,List<String> evaMemberIdList, ProjectVO projectData, UserVO userData) {
+    	for (int i = 0; i < contentList.size(); i++) {
+    		System.out.println("i" + i);
+            String content = contentList.get(i);
+            String evaMemberId = evaMemberIdList.get(i);
+            // 리뷰 객체 생성하고 값 넣기
+            ReviewVO review = new ReviewVO();
+            review.setProjectId(projectData.getProjectId());
+            review.setEvaMemberId(evaMemberId);
+            review.setWriteMemberId(userData.getId());
+            review.setEvaluation(content);
+            projectDAO.insertReview(review);
+    	}
+    	return 200;
+    }
+    
+    @Override
+    public int updateReview(ReviewVO vo){
+        projectDAO.updateReview(vo);
+        return 200;
+    }
+
+    @Override
+    public List<ReviewVO> getMyReview(MemberVO vo){
+        return projectDAO.getMyReview(vo);
+    }
+    
+    @Override
+    public ReviewVO getReview(MemberVO vo){
+        return projectDAO.getReview(vo);
+    }
 }

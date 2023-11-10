@@ -17,6 +17,15 @@ public class MemberVO {
     private float progress;
 
     private String color;
+    private String review;
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
 
     private ArrayList<MemberVO> memberVOList;
     public int getProjectId() {return projectId;}

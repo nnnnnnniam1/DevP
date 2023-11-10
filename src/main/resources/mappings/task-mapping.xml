@@ -24,7 +24,10 @@
 	</select>
 	<!--  모든사람 프로젝트 업무리스트	-->
 	<select id="getProjectTaskList" resultType="Task">
-		SELECT * FROM task WHERE projectId = #{projectId};
+		SELECT t.*, u.name as userName
+		FROM task t
+		INNER JOIN user u ON t.userId = u.id AND t.projectId = #{projectId};
+
 	</select>
 	<!--  지난 업무 개수	-->
 	<select id="getPastTaskCnt" resultType="int">
@@ -59,12 +62,44 @@
 		VALUES (#{projectId},#{category}, #{workPackage},#{depth},#{detail},#{userId},#{startdate}, #{enddate});
 	</insert>
 
-	<!--  프로젝트 업무 수정	-->
-	<update id="updateTask">
+	<!--  프로젝트 업무 수정 - 리더	-->
+	<update id="updateTaskLeader">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
-		startdate=#{startdate}, enddate=#{enddate}, status=#{status}, progress=#{progress}
+		modify =
+			CASE
+				WHEN startdate != #{startdate} OR enddate != #{enddate} THEN modify + 1
+				ELSE modify
+			END,
+		startdate=#{startdate}, enddate=#{enddate},
+		realEnd =
+		CASE
+		WHEN status != #{status} AND #{status} = '완료' THEN CURRENT_DATE()
+		ELSE NULL
+		END,
+		status=#{status},
+		progress =
+			CASE
+				WHEN #{status} = '대기' THEN 0
+				WHEN #{status} = '진행중' THEN 50
+				WHEN #{status} = '검토' THEN 75
+				WHEN #{status} = '완료' THEN 100
+				ELSE progress
+			END
 		WHERE projectId=#{projectId} AND taskId=#{taskId}
+	</update>
+	<!--  프로젝트 업무 수정	-->
+	<update id="updateTaskStatus">
+		UPDATE task SET
+			status = #{status},
+			progress =
+			CASE
+				WHEN #{status} = '대기' THEN 0
+				WHEN #{status} = '진행중' THEN 50
+				WHEN #{status} = '검토' THEN 75
+			ELSE progress
+			END
+		WHERE taskId = #{taskId};
 	</update>
 
 	<delete id="deleteTask">

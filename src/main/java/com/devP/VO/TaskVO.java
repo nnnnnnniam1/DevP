@@ -11,6 +11,8 @@ public class TaskVO {
 	private int taskId;
 	private int projectId;
     private String userId;
+
+	private String userName;
     private String category;
 	private String workPackage;
     private int priority;
@@ -20,7 +22,8 @@ public class TaskVO {
 	private String status;
 
     private String startdate;
-    private String enddate;
+	private String enddate;
+	private String realEnd;
 
 	private Date now;
 
@@ -41,9 +44,12 @@ public class TaskVO {
 	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserId(String userId) {this.userId = userId;	}
+	public String getUserName() {
+		return userName;
 	}
+	public void setUserName(String userName) {this.userName = userName;	}
+
 	public String getCategory() {
 		return category;
 	}
@@ -90,6 +96,12 @@ public class TaskVO {
 	}
 	public void setEnddate(String  enddate) {
 		this.enddate = enddate;
+	}
+	public String  getRealEnd() {
+		return realEnd;
+	}
+	public void setRealEnd(String  realEnd) {
+		this.realEnd = realEnd;
 	}
 
 	public Date  getNow() {

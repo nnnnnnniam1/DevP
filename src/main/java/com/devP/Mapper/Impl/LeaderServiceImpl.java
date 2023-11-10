@@ -1,6 +1,5 @@
 package com.devP.Mapper.Impl;
 
-import com.devP.Mapper.Repository.LeaderDAOMybatis;
 import com.devP.Mapper.Repository.MemberDAOMybatis;
 import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Mapper.Repository.TaskDAOMybatis;
@@ -11,7 +10,6 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,9 +26,6 @@ public class LeaderServiceImpl implements LeaderService {
 	private TaskDAOMybatis taskDAO;
 
 	@Autowired
-	private LeaderDAOMybatis leaderDAO;
-
-	@Autowired
 	private MailService mailService;
 	@Autowired
 	private ProjectService projectService;
@@ -40,11 +35,6 @@ public class LeaderServiceImpl implements LeaderService {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private HttpSession session;
-
-
 
 	@Override
 	public void getLeaderView(ProjectVO vo, Model model){
@@ -56,21 +46,23 @@ public class LeaderServiceImpl implements LeaderService {
 
 
 	@Override
-	public int getMemberList(MemberVO vo, Model model){
-		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-		ProjectVO project = new ProjectVO();		//임시
-		project.setProjectId(vo.getProjectId());					//임시
-		session.setAttribute("projectId",project.getProjectId());	//임시
-		session.setAttribute("projectName",projectService.getProjectName(project.getProjectId()));	//임시
+	public int getMemberList(MemberVO vo, Model model, HttpSession session){
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+		vo.setProjectId(projectData.getProjectId());
+//		ProjectVO project = new ProjectVO();		//임시
+//		project.setProjectId(vo.getProjectId());					//임시
+//		session.setAttribute("projectId",project.getProjectId());	//임시
+//		session.setAttribute("projectName",projectService.getProjectName(project.getProjectId()));	//임시
 		model.addAttribute("memberList", memberDAO.getMemberList(vo.getProjectId()));
-		//System.out.println(memberDAO.getMemberList(vo.getProjectId()).get(0).getRole());
+
 		if (memberDAO.getMemberList(vo.getProjectId()) != null) return 200;
 		else return 405;
 	}
 
 	@Override
-	public int addLeader(MemberVO vo2, int projectId){
-		String leader = session.getAttribute("id").toString();
+	public int insertLeader(MemberVO vo2, int projectId, HttpSession session){
+		UserVO userData = (UserVO) session.getAttribute("user");
+		String leader = userData.getId();
 		vo2.setStatus("1");
 		vo2.setLeader(leader);
 		vo2.setUserId(leader);
@@ -80,8 +72,9 @@ public class LeaderServiceImpl implements LeaderService {
 		return 200;
 	}
 	@Override
-	public int addMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
-		String leader = (String) session.getAttribute("id");
+	public int insertMember(String members, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception {
+		UserVO userData = (UserVO) session.getAttribute("user");
+		String leader = userData.getId();
 		String project = vo.getProjectName();
 
 		String[] memberArr = members.split(",");
@@ -101,57 +94,37 @@ public class LeaderServiceImpl implements LeaderService {
 			vo2.setStatus(token);
 
 			try{
-				if (findMember(vo2) != null) {
-					reInvited(vo2);
+				if (getMember(vo2) != null) {
+					insertReInvitedMember(vo2);
 				} else {
-					userService.insertMember(vo2);
+//					userService.insertMember(vo2);
 					insertMember(vo2);
 				}
 			}catch (BadSqlGrammarException e){
-				System.out.println("배드");
 			}catch (DuplicateKeyException e){
-				System.out.println("듀플");
 			}
-
-
 		}
 		return 200;
 	}
 
-//	public int addMemberList(String members, MemberVO vo, Model model)throws Exception{
-//		String leader = (String) session.getAttribute("name");
-//		String project = (String) session.getAttribute("projectName");
-//		int projectId = (int) session.getAttribute("projectId");
-//
-//		// 수락 상태를 확인할 token 발행
-//		String token = UUID.randomUUID().toString();
-//		System.out.println(token);
-//
-//		if(members != null){
-//			for(members[0]; )
-//		}
-//	}
 
 	@Override
-	public MemberVO findMember(MemberVO vo){ return memberDAO.findMember(vo); }
+	public MemberVO getMember(MemberVO vo){ return memberDAO.getMember(vo); }
 	@Override
 	public void insertMember(MemberVO vo){ memberDAO.insertMember(vo); }
 
 	@Override
-	public void reInvited(MemberVO vo){ memberDAO.reInvited(vo); }
+	public void insertReInvitedMember(MemberVO vo){ memberDAO.updateMemberStatus(vo); }
 
 	@Override
-	public int invitedVerify(MemberVO vo, String token){
+	public int updateStatusByInvitedVerify(MemberVO vo, String token){
 		vo.setStatus(token);
 		System.out.println(vo.getStatus());
 		vo = getMemberByToken(vo);
 		if (vo != null){
-			System.out.println(vo.getUserId());
-			updateMemberStatus(vo);
-			System.out.println("변경 성공");
+			updateMemberStatusByToken(vo);
 			return 200;
 		} else {
-			System.out.println("변경 실패");
 			return 405;
 		}
 
@@ -161,7 +134,7 @@ public class LeaderServiceImpl implements LeaderService {
 	public MemberVO getMemberByToken(MemberVO vo){ return memberDAO.getMemberByToken(vo); }
 
 	@Override
-	public void updateMemberStatus(MemberVO vo){ memberDAO.updateMemberStatus(vo); }
+	public void updateMemberStatusByToken(MemberVO vo){ memberDAO.updateMemberStatusByToken(vo); }
 
 	@Override
 	public int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model){
@@ -177,39 +150,38 @@ public class LeaderServiceImpl implements LeaderService {
 	@Override
 	public void deleteMember(MemberVO vo, String userId, int projectId){
 		vo.setUserId(userId);
-
 		vo.setProjectId(projectId);
 		memberDAO.deleteMember(vo);
 	}
 
 	@Override
-	public int getTaskDatas(TaskVO vo, Model model){
+	public int getTaskDatas(TaskVO vo, Model model, HttpSession session){
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		List<String> memberList = projectDAO.getMemberNames(vo.getProjectId());
-		vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-		model.addAttribute("taskList",taskService.getProjectTaskList(Integer.parseInt(session.getAttribute("projectId").toString())));
-		model.addAttribute("projectName",projectService.getProjectName(Integer.parseInt(session.getAttribute("projectId").toString())));	//임시
-
-		model.addAttribute("memberMap",projectService.setMemberMap(memberList));
+		vo.setProjectId(projectData.getProjectId());
+		model.addAttribute("taskList",taskService.getProjectTaskList(projectData.getProjectId()));
+		model.addAttribute("projectName",projectService.getProjectName(projectData.getProjectId()));	//임시
+		model.addAttribute("memberMap",projectService.getMemberMap(memberList));
 
 
 		return 200;
 	}
 
 	@Override
-	public int addTask(TaskVO vo){
-		taskService.addTask(vo);
+	public int insertTask(TaskVO vo){
+		taskService.insertTask(vo);
 		return 200;
 	}
 	@Override
-	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model){
+	public int updateTaskDatas(ArrayList<TaskVO> TaskVOList, Model model, HttpSession session){
 
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		for(TaskVO vo : TaskVOList){
-			if(vo.getStatus().equals("대기")) vo.setProgress(0);
-			else if(vo.getStatus().equals("진행중")) vo.setProgress(50);
-			else if(vo.getStatus().equals("검토")) vo.setProgress(80);
-			else if(vo.getStatus().equals("완료")) vo.setProgress(100);
+			taskService.updateTaskLeader(vo);
 		};
-
+		int projectId = projectData.getProjectId();
+		memberDAO.updateAllProgress(projectId);
+		projectDAO.updateProgress(projectId);
 		return 200;
 
 	}
@@ -221,7 +193,7 @@ public class LeaderServiceImpl implements LeaderService {
 		return 200;
 	}
 	@Override
-	public int completeProject(int projectId){
+	public int updateProjectStatus(int projectId){
 		projectDAO.completeProject(projectId);
 		return 200;
 	}

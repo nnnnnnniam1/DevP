@@ -27,7 +27,7 @@
   <div class="container">
       <div class="issue-wrapper">
           <div class="mt-5">
-              <h1 class="mb-4">${project.projectName} 이슈 수정</h1>
+              <h2 class="pTitle">${project.projectName} - 이슈 수정</h1>
               <form method="post" class="p-3" action="/issue/modify.do" id="issue-form">
                    <input class = "issueInput" type = "hidden" id="issueId" name="issueId" value = "${issue.issueId}"><br>
                    <input class = "issueInput" type = "hidden" id="projectId" name="projectId" value = "${issue.projectId}"><br>

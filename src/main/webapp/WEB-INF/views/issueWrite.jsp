@@ -27,16 +27,15 @@
 <div class="container">
     <div class="issue-wrapper">
         <div class="mt-5">
-            <h1 class="mb-4">${project.projectName}이슈등록</h1>
+            <h2 class="pTitle">${project.projectName} - 이슈작성</h2>
             <form method="post" class="p-3" action="/issue/write.do"
                 id="issue-form">
-                <input type="hidden" name="projectId" value="${projectId}">
-                <%-- <input type = "hidden" name="taskId" value = "${ taskId }"><br> --%>
+                <input type="hidden" name="projectId" value="${project.projectId}">
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">${project.projectName}</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext"
-                            name="projectTitle" value="프로젝트">
+                            name="projectTitle" value="${project.projectName}">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -55,13 +54,25 @@
                     <label class="col-sm-2 col-form-label">작성자 </label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext"
-                            name="writer" value="${ sessionScope.name }">
+                            name="writer" value="${ user.name }">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">제목</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="title">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">업무선택</label>
+                    <div class="col-sm-10">
+                        <select id="chooseTask" name="taskId" class="form-select col-sm-10">
+                            <option disabled selected>선택</option>
+                            <option value="">업무아님</option>
+                            <c:forEach items="${taskList}" var="task">
+                                <option value="${task.taskId}" ${task.taskId == taskId ? 'selected' : ''} >${task.detail}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -73,7 +84,7 @@
                     </div>
                     <div class="col-sm-3">
                         <select id="chooseMember" class="form-select col-sm-10">
-                            <option value"">멤버 선택</option> 
+                            <option>멤버 선택</option>
                             <c:forEach items="${memberList}" var="member">
                                 <option value="${member.email}">${member.userId}</option>
                             </c:forEach>
@@ -150,8 +161,6 @@
                     }
                 }
             });
-
-    
 </script>
 <!-- 컨텐츠 종료 -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

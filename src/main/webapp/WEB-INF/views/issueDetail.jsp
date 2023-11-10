@@ -6,27 +6,23 @@
 
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<%
-String username = (String) session.getAttribute("name");
-String userId = (String) session.getAttribute("userId");
-%>
 <div class="container">
 	<div class="issue-wrapper">
 		<div class="mt-5">
-	        <h1 class="mb-4">${project.projectName} 이슈</h1>
+	        <h2 class="pTitle">${project.projectName} - 이슈</h2>
 	        <p class="h3">${ issue.title }</p>
 			<div class="d-flex">
 				<div class="flex-grow-1">
 					<small class="text-body-secondary">${ issue.category } | ${issue.date} | ${issue.name} | ${ issue.count }</small>
 				</div>
-				<c:if test = "${ issue.userId eq sessionScope.id}">
+				<c:if test = "${ issue.userId eq user.id}">
 		        <div class="d-flex flex-row-reverse">
 					<form id="solveForm" action="/issue/solve.do" method="post" class="my-0 mx-1">
 		  			  <input type="hidden" name="projectId" value = "${ issue.projectId }">
 		  			  <input type="hidden" name="issueId" value = "${ issue.issueId }">
 				      <button type="submit" id = "solveButton" class="btn btn-primary">해결</button>
 				    </form>
-				    <button type="button" onclick="location.href='/issue/modify.do?issueId=${issue.issueId}'" class="btn btn-primary">수정</button>
+				    <button type="button" onclick="location.href='/issue/modify/view.do?issueId=${issue.issueId}'" class="btn btn-primary">수정</button>
 			    </div>
 			    </c:if>
 		    </div>
@@ -45,7 +41,7 @@ String userId = (String) session.getAttribute("userId");
 			</c:forEach>
 			<form method="post" action="../comment/write.do" id="commentForm" class = "p-2 my-0">
 	  			  <input type="hidden" id="issueId" name="issueId" value = "${ issue.issueId }">
-        		  <input type="hidden" id="writer" name= "writer" value="<%= username %>">
+        		  <input type="hidden" id="writer" name= "writer" value="${user.name}">
 	       		<div class="form-floating">
 				  <textarea class="form-control" name="content" placeholder="Leave a comment here" id="floatingcontent" style="height: 10vh"></textarea>
 				  <label for="floatingcontent">댓글</label>  

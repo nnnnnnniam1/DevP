@@ -18,7 +18,7 @@ public interface IssueService {
 	
 	int getIssue(int issueId, Model model);
 	
-	int solveIssue(IssueVO vo);
+	int updateIssueStatus(IssueVO vo);
 	
-	int modifyIssue(IssueVO vo);
+	int updateIssue(IssueVO vo);
 }

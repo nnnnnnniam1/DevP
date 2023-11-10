@@ -15,7 +15,7 @@
         from projectgroup g
         join project p
         on g.projectId = p.projectId
-        where g.userId = #{userId};
+        where g.userId = #{userId} AND g.status != x;
     </select>
     <!--  진행 중인 프로젝트 목록   -->
     <select id="getOnGoingProjectList" resultType="ProjectList">
@@ -42,7 +42,8 @@
         where g.userId = #{userId} AND p.status = "삭제";
     </select>
     <update id="completeProject">
-        UPDATE project SET status="완료"
+        UPDATE project
+        SET status="완료", realEnd = CURRENT_DATE()
         WHERE projectId=#{projectId}
     </update>
     <!-- 프로젝트삭제 -->
@@ -81,4 +82,46 @@
         ON pg.userId = u.id
         WHERE pg.projectId = #{projectId}
     </select>
+
+    <!-- 리뷰 리포트 상태 변경 -->
+    <update id="updateReviewStatus">
+        UPDATE projectgroup SET review="Yes"
+        WHERE projectId=#{projectId} AND userId=#{userId}
+    </update>
+
+    <!-- 리뷰 수정 -->
+    <update id="updateReview">
+        UPDATE  review
+        SET evaluation=#{evaluation}
+        WHERE evaMemberId=#{evaMemberId}
+    </update>
+    
+    <insert id="insertReview">
+ 		insert into review (projectId, evaMemberId, evaluation, writeMemberId)
+        values (#{projectId},#{evaMemberId},#{evaluation},#{writeMemberId});
+    </insert>
+
+    <!-- 작성된 리뷰 가져오기 -->
+    <select id="getReview" resultType="Review">
+        SELECT *
+        FROM review
+        WHERE projectId = #{projectId} AND writeMemberId=#{userId} LIMIT 1;
+    </select>
+
+	<!-- 작성된 내 리뷰 가져오기 -->
+    <select id="getMyReview" resultType="Review">
+        SELECT *
+        FROM review
+        WHERE projectId = #{projectId} AND evaMemberId=#{userId};
+    </select>
+	
+    <update id="updateProgress">
+        UPDATE project
+        SET progress = (
+        SELECT
+        (SUM(progress) / COUNT(*) ) as average_progress
+        FROM task
+        )
+        WHERE projectId=#{projectId};
+    </update>
 </mapper>

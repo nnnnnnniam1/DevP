@@ -6,6 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+	<link rel="stylesheet" href="/resources/css/manageMemberStyles.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="/resources/css/base.css">
 	<style type="text/css">
@@ -16,8 +17,14 @@
 			transition: all .4s;
 		}
 		.sidebar-link:hover {
-			background-color: #444;
-			border-radius: 5px;
+			background-color: #530be9;
+			color:#fff !important;
+			border-radius: 0px;
+		}
+		.sidebar-link.current {
+			background-color: #530be9;
+			color:#fff !important;
+			border-radius: 0px;
 		}
 		.current{
 			background-color: #9932CC;
@@ -61,7 +68,7 @@
 	        }
 	    }
 	});
-	  var projectId = ${projectId}; // 서버에서 생성된 값으로 설정
+	  var projectId = ${project.projectId}; // 서버에서 생성된 값으로 설정
 	  var link = "/project/detail.do?projectId=" + projectId;
 	  document.getElementById("projectMenu").href = link; // 링크 엘리먼트의 href 속성 설정
 	  var link = "/issue/list.do?projectId=" + projectId;

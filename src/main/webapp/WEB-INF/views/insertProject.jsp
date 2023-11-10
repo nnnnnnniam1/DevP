@@ -11,7 +11,7 @@
     <div class="mx-5">
         <div class="main-text">새로운 프로젝트</div>
         <div class="ml-auto project-form">
-        <form method="post" action="/project/insert.do" >
+        <form method="post" action="/project/add.do" >
             <br>
             <div class="row mb-3">
                 <label for="projectName" class="col-sm-2 col-form-label">프로젝트</label>
@@ -77,7 +77,7 @@
     <%--            <textarea name="script" class="col-sm-10"></textarea>--%>
     <%--        </div>--%>
     <%--        <br>--%>
-            <button type="submit" class="col-sm-12">프로젝트 추가</button>
+            <button type="submit" class="col-sm-12 btn main">프로젝트 추가</button>
         </div>
 <!-- 컨텐츠 종료 -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

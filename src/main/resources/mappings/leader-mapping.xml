@@ -15,7 +15,7 @@
     </select>
 
     <!-- 프로젝트 멤버 존재여부 확인 -->
-    <select id="findMember" resultType="Member">
+    <select id="getMember" resultType="Member">
         SELECT * FROM projectgroup WHERE projectId=#{projectId} AND userId=#{userId}
     </select>
     <!-- 프로젝트 멤버추가   -->

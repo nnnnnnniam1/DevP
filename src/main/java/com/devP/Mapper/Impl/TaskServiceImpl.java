@@ -1,12 +1,16 @@
 package com.devP.Mapper.Impl;
 
 
+import com.devP.Mapper.Repository.MemberDAOMybatis;
+import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Mapper.Repository.TaskDAOMybatis;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
 import com.devP.VO.MemberVO;
+import com.devP.VO.ProjectVO;
 import com.devP.VO.TaskListVO;
 import com.devP.VO.TaskVO;
+import com.devP.VO.UserVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,12 @@ public class TaskServiceImpl implements TaskService {
 	private ProjectService projectService;
     @Autowired
     private TaskDAOMybatis taskDAO;
+
+	@Autowired
+	private ProjectDAOMybatis projectDAO;
+
+	@Autowired
+	private MemberDAOMybatis memberDAO;
 
     @Autowired
     private HttpSession session;
@@ -53,7 +63,6 @@ public class TaskServiceImpl implements TaskService {
 		statusMap.put("1","대기");
 		statusMap.put("2","진행중");
 		statusMap.put("3","검토");
-		statusMap.put("4","완료");
 
 		return statusMap;
 	}
@@ -69,12 +78,13 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getMyTasks() {
+	public List<Map<String, Object>> getMyAllTasks() {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		List<TaskVO> voList = new ArrayList<TaskVO>();
 		List<Map<String, Object>> resultList = new ArrayList<>();
 		try {
 			TaskVO task = new TaskVO();
-			task.setUserId(session.getAttribute("id").toString());
+			task.setUserId(userData.getId());
 //			task.setProjectId((int) session.getAttribute("projectId"));
 			voList = taskDAO.getMyTask(task);
 		}catch (Exception e) {
@@ -89,7 +99,7 @@ public class TaskServiceImpl implements TaskService {
 
 			MemberVO m = new MemberVO();
 			m.setProjectId(projectId);
-			m.setUserId(session.getAttribute("id").toString());
+			m.setUserId(userData.getId());
 
 			String backgroundColor = projectService.getProjectColor(m);
 
@@ -107,17 +117,19 @@ public class TaskServiceImpl implements TaskService {
 		return resultList;
 	}
 	@Override
-	public List<Map<String, Object>> getTask() {
+	public List<Map<String, Object>> getMyTasks() {
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+		UserVO userData = (UserVO) session.getAttribute("user");
 		List<TaskVO> voList = new ArrayList<TaskVO>();
     	List<Map<String, Object>> resultList = new ArrayList<>();
 
 		MemberVO m = new MemberVO();
-		m.setUserId(session.getAttribute("id").toString());
+		m.setUserId(userData.getId());
 
 		try {
     		TaskVO task = new TaskVO();
-    		task.setUserId(session.getAttribute("id").toString());
-    		task.setProjectId((int) session.getAttribute("projectId"));
+    		task.setUserId(userData.getId());
+    		task.setProjectId(projectData.getProjectId());
 			m.setProjectId(task.getProjectId());
 			voList = taskDAO.getTask(task);
     	}catch (Exception e) {
@@ -156,8 +168,9 @@ public class TaskServiceImpl implements TaskService {
 		return taskDAO.getMyProjectTaskList(vo);
 	}
 	public int getUserTaskList(Model model){
-		if(session.getAttribute("id") != null) {
-			String userId = (String) session.getAttribute("id");
+		UserVO userData = (UserVO) session.getAttribute("user");
+		if(userData.getId() != null) {
+			String userId = userData.getId();
 			List<TaskListVO> vo = taskDAO.getUserTaskList(userId);
 
 			model.addAttribute("taskList", taskDAO.getUserTaskList(userId));
@@ -171,11 +184,14 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void getTaskCount(Model model) {
+		UserVO userData = (UserVO) session.getAttribute("user");
 		int progresscount = 0, completedcount = 0, pastcount = 0;
 		List<TaskVO> voList = new ArrayList<TaskVO>();
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		TaskVO task = new TaskVO();
-		task.setUserId(session.getAttribute("id").toString());
-		task.setProjectId((int) session.getAttribute("projectId"));
+		task.setUserId(userData.getId());
+		task.setProjectId(projectData.getProjectId());
+//		task.setProjectId((int) session.getAttribute("projectId"));
 		voList = taskDAO.getTask(task);
 		for (TaskVO vo: voList) {
 			if(vo.getEnddate().compareTo(String.valueOf(new Date())) > 0){
@@ -193,9 +209,21 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void addTask(TaskVO vo){taskDAO.insertTask(vo);}
+	public void insertTask(TaskVO vo){taskDAO.insertTask(vo);}
 	@Override
-	public void updateTask(TaskVO vo){taskDAO.updateTask(vo);}
+	public void updateTaskLeader(TaskVO vo){taskDAO.updateTaskLeader(vo);}
+
+	@Override
+	public int updateTaskMember(TaskVO vo){
+		ArrayList<TaskVO> taskVOList = vo.getTaskVOList();
+		for(TaskVO task : taskVOList){
+			taskDAO.updateTaskStatus(task);
+		};
+		vo.setUserId(session.getAttribute("id").toString());
+		memberDAO.updateMemberProgress(vo);
+		projectDAO.updateProgress(vo.getProjectId());
+		return 200;
+	}
 
 	@Override
 	public void deleteTask(int taskId){taskDAO.deleteTask(taskId);}

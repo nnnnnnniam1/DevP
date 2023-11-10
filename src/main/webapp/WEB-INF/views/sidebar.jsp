@@ -80,7 +80,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/project/member.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="memberMenu">
+                    <a href="/project/member/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="memberMenu">
                         <i class="bi bi-people-fill mx-3"></i>멤버
                     </a>
                 </li>
@@ -101,7 +101,7 @@
                 </li>
                   <c:if test="${myData.leader==myData.userId}">
                     <li>
-                        <a href="/project/leader.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                        <a href="/leader/detail.do?projectId=${project.projectId}" class="nav-link p-3 mb-2 sidebar-link link-dark" id="leaderMenu">
                             <i class="bi bi-key mx-3"></i>리더
                         </a>
                     </li>
@@ -111,17 +111,17 @@
         <c:otherwise>
             <ul class="navbar-nav flex-column mt-4">
                 <li class="nav-item">
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-receipt-cutoff mx-3"></i>프로젝트
                     </a>
                 </li>
                 <li>
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-list-task mx-3"></i></i>업무
                     </a>
                 </li>
                 <li>
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-people-fill mx-3"></i>멤버
                     </a>
                 </li>
@@ -131,7 +131,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/project/list.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/project/list/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-newspaper mx-3"></i>이슈
                     </a>
                 </li>
@@ -144,7 +144,7 @@
         </c:otherwise>
     </c:choose>
 
-    <button class="btn btn-outline-success logoutBtn" type="button" onclick="location.href='/logout.do'">Logout</button>
+    <button class="btn btn-outline-success logoutBtn" type="button" onclick="location.href='/user/logout.do'">Logout</button>
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -161,7 +161,7 @@
 	        }
 	    }
 	});
-	  var projectId = ${projectId}; // 서버에서 생성된 값으로 설정
+	  var projectId = ${project.projectId}; // 서버에서 생성된 값으로 설정
 	  var link = "/project/detail.do?projectId=" + projectId;
 	  document.getElementById("projectMenu").href = link; // 링크 엘리먼트의 href 속성 설정
 	  var link = "/issue/list.do?projectId=" + projectId;

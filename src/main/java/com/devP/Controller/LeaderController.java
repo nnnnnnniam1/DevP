@@ -5,9 +5,6 @@ import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
 import com.devP.Service.UserService;
 import com.devP.VO.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
+@RequestMapping("/leader")
 //@SessionAttributes("leader")
 public class LeaderController {
 
@@ -36,20 +34,7 @@ public class LeaderController {
 
     @Autowired
     private MailController mailController;
-
-    @Autowired
-    private HttpSession session;
-
-//    private String toJson(Object object){
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        try {
-//            return objectMapper.writeValueAsString(object);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            return "{}";
-//        }
-//    }
-
+    
     // 멤버페이지
     @ModelAttribute("positionMap")
     public Map<String, String> setRoleMap() {
@@ -82,9 +67,6 @@ public class LeaderController {
         categoryMap.put("6", "테스트");
         categoryMap.put("7", "완료");
 
-//        String categoryMapJson = toJson(categoryMap);
-//        model.addAttribute("categoryMapJson", categoryMapJson);
-
 
         return categoryMap;
     }
@@ -102,52 +84,55 @@ public class LeaderController {
     }
 
 
-    @RequestMapping(value = "/project/leader.do", method = RequestMethod.GET)
-    public String leaderDetailView(@RequestParam int projectId, ProjectVO vo, Model model) {
+    @RequestMapping(value = "/detail.do", method = RequestMethod.GET)
+    public String detailLeader(@RequestParam int projectId, ProjectVO vo, Model model) {
+		model.addAttribute("menuId", "leaderMenu");
         vo.setProjectId(projectId);
         leaderService.getLeaderView(vo, model);
-        // projectService.getProjectName(vo);
-        // projectService.getProjectProgress(vo);
+
         return "leaderDetail";
     }
 
 
-    @RequestMapping(value = "/project/manageMember.do", method = RequestMethod.GET)
-    public String manageMemberView(MemberVO vo, Model model) {
-        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = leaderService.getMemberList(vo, model);
+    @RequestMapping(value = "/member/view.do", method = RequestMethod.GET)
+    public String manageMemberLeaderView(MemberVO vo, Model model, HttpSession session) {
+		model.addAttribute("menuId", "leaderMenu");
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo.setProjectId(projectData.getProjectId());
+        int result = leaderService.getMemberList(vo, model, session);
         if (result == 200) return "manageMember";
-        else return "redirect:/login.do";
+        else return "redirect:/user/login/view.do";
     }
 
-    @RequestMapping(value = "/project/addMember.do", method = RequestMethod.POST)
-    public String addMember(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception {
-        vo3.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = leaderService.addMember(user, vo, vo2, vo3);
-        return "redirect:/project/manageMember.do";
+    @RequestMapping(value = "/member/add.do", method = RequestMethod.POST)
+    public String addMemberLeader(String user, ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception {
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo3.setProjectId(projectData.getProjectId());
+        int result = leaderService.insertMember(user, vo, vo2, vo3, session);
+        return "redirect:/leader/member/view.do";
     }
 
-    @RequestMapping(value = "project/addProject/verify", method = RequestMethod.GET)
-    public String invitedVerify(MemberVO vo, @RequestParam String token) {
+    @RequestMapping(value = "/verify.do", method = RequestMethod.GET)
+    public String verifyMemberLeader(MemberVO vo, @RequestParam String token) {
 //        String code = token;
 //        System.out.println(token);
-        leaderService.invitedVerify(vo, token);
+        leaderService.updateStatusByInvitedVerify(vo, token);
 
-        return "redirect:/login.do";
+        return "redirect:/user/login/view.do";
 
     }
 
-    @RequestMapping(value = "/project/updateMember.do", method = RequestMethod.POST)
-    public String updateMember(@ModelAttribute MemberVO memberVO, Model model) {
+    @RequestMapping(value = "/member/modify.do", method = RequestMethod.POST)
+    public String modifyMemberLeader(@ModelAttribute MemberVO memberVO, Model model) {
         int result = leaderService.updateMemberDatas(memberVO.getMemberVOList(), model);
 
-        if (result == 200) return "redirect:/project/manageMember.do";
+        if (result == 200) return "redirect:/leader/member/view.do";
         else return "redirect:/";
     }
 
-    @RequestMapping(value = "/project/deleteMember.do", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteMember(MemberVO vo, HttpServletRequest request) throws Exception {
-        try {
+    @RequestMapping(value = "/member/delete.do", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteMemberLeader(MemberVO vo, HttpServletRequest request) throws Exception {
+        try {	
             String userId = request.getParameter("userId");
             int projectId = Integer.parseInt(request.getParameter("projectId"));
             System.out.println(userId);
@@ -161,37 +146,40 @@ public class LeaderController {
 
     }
 
-    @RequestMapping(value = "/project/manageTask.do", method = RequestMethod.GET)
-    public String manageTask(TaskVO vo, Model model) {
-        vo.setProjectId(Integer.parseInt(session.getAttribute("projectId").toString()));
-        int result = leaderService.getTaskDatas(vo, model);
+    @RequestMapping(value = "/task/view.do", method = RequestMethod.GET)
+    public String manageTaskLeaderView(TaskVO vo, Model model, HttpSession session) {
+		model.addAttribute("menuId", "leaderMenu");
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+        vo.setProjectId(projectData.getProjectId());
+        int result = leaderService.getTaskDatas(vo, model, session);
         if (result == 200) return "manageTask";
         else return "redirect:/";
     }
 
-    @RequestMapping(value = "project/addTask.do", method = RequestMethod.POST)
-    public String addTask(TaskVO vo) {
+    @RequestMapping(value = "/task/add.do", method = RequestMethod.POST)
+    public String addTaskLeader(TaskVO vo) {
         System.out.println(vo.getCategory());
-        int result = leaderService.addTask(vo);
+        int result = leaderService.insertTask(vo);
 
         if (result == 200) {
-            return "redirect:/project/manageTask.do";
+            return "redirect:/leader/task/view.do";
         } else {
             return "/";
         }
 
     }
 
-    @RequestMapping(value = "/project/updateTask.do", method = RequestMethod.POST)
-    public String updateMember(@ModelAttribute TaskVO vo, Model model) {
-        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model);
 
-        if (result == 200) return "redirect:/project/manageTask.do";
+    @RequestMapping(value = "/task/modify.do", method = RequestMethod.POST)
+    public String modifyTaskLeader(@ModelAttribute TaskVO vo, Model model, HttpSession session) {
+        int result = leaderService.updateTaskDatas(vo.getTaskVOList(), model, session);
+
+        if (result == 200) return "redirect:/leader/task/view.do";
         else return "redirect:/";
     }
 
-    @RequestMapping(value = "/project/deleteTask.do", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteTask(@RequestParam int taskId) throws Exception {
+    @RequestMapping(value = "/task/delete.do", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteTaskLeader(@RequestParam int taskId) throws Exception {
         try {
             System.out.println(taskId);
             taskService.deleteTask(taskId);
@@ -203,7 +191,7 @@ public class LeaderController {
         }
     }
 
-    @RequestMapping(value = "/project/deleteProject.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/project/delete/view.do", method = RequestMethod.GET)
     public String deleteProjectView(@RequestParam int projectId, Model model) {
         model.addAttribute("projectId", projectId);
         model.addAttribute("projectName", projectService.getProjectName(projectId));
@@ -211,8 +199,9 @@ public class LeaderController {
 
     }
 
-    @RequestMapping(value = "/project/deleteProject.do", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteProject(DeleteProjectVO vo,@RequestParam("projectId") int projectId, @RequestParam("reason") String reason) {
+
+    @RequestMapping(value = "/project/delete.do", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteProjectLeader(DeleteProjectVO vo,@RequestParam("projectId") int projectId, @RequestParam("reason") String reason) {
         try {
             vo.setProjectId(projectId);
             vo.setReason(reason);
@@ -228,11 +217,12 @@ public class LeaderController {
 
         }
     }
-    @RequestMapping(value = "/project/completeProject.do", method = RequestMethod.GET)
-    public ResponseEntity<String> completeProject(@RequestParam("projectId") int projectId) {
+
+    @RequestMapping(value = "/project/complete.do", method = RequestMethod.GET)
+    public ResponseEntity<String> completeProjectLeader(@RequestParam("projectId") int projectId) {
         try {
 
-            int result = leaderService.completeProject(projectId);
+            int result = leaderService.updateProjectStatus(projectId);
             if (result == 200) {
                 return ResponseEntity.ok("success");
             } else {

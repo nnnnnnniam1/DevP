@@ -36,7 +36,7 @@
                     <!-- 채팅 메시지 목록을 나타내는 부분 -->
                     <c:forEach items="${messageHistoryList}" var="message">
                         <div
-                            class="item d-flex ${message.sender eq id ? 'justify-content-end' : 'justify-content-start'}">
+                            class="item d-flex ${message.sender eq user.id ? 'justify-content-end' : 'justify-content-start'}">
                             <div class="py-1 d-inline-flex ">
                                 <div class="card text-bg-light">
                                     <div class="card-body">
@@ -79,7 +79,7 @@
     const urlParams = new URL(location.href).searchParams;
     const chatRoomId = "${ chatRoomId }"
     const receiveId = urlParams.get('userId');
-    const senderId = "${ id }"
+    const senderId = "${ user.id }"
     $(document).ready(function() {
         connectStomp()
         $('#chatbutton').on('click', function(evt) {
@@ -118,7 +118,7 @@
         });
     }
     function addChatMessage(message, id) {
-        var senderId = "${ id }";
+        var senderId = "${ user.id }";
         if (senderId === id) {
             console.log(senderId, id + "아이디 같아유");
             temp_html = `<div class="item d-flex justify-content-end">
@@ -141,7 +141,8 @@
             </div>`;
         }
             $('#chatcontainer').append(temp_html);
-        console.log(message)/* 
+        console.log(message)
+        /* 
         messageItem.className = id === "${ id }" ? 'my-message'
                 : 'other-message';
         messageItem.innerHTML = '<strong>' + id + ':</strong> ' + message;

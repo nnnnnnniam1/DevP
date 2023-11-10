@@ -1,26 +1,25 @@
 package com.devP.Service;
 
+import javax.servlet.http.HttpSession;
+
 import com.devP.VO.MemberVO;
 import com.devP.VO.UserVO;
 
 public interface UserService {
 
     //	public void insertUser(UserVO vo);
-    int getUser(UserVO vo, String saveId);
+    int getUser(UserVO vo, String saveId, HttpSession session);
 
-    int logout();
 
-    int findId(UserVO vo) throws Exception;
+    int getIdByEmail(UserVO vo) throws Exception;
 
-    int findPw(UserVO vo) throws Exception;
+    int findPw(UserVO vo, HttpSession session) throws Exception;
 
-    int checkCode(String inputCode);
+    int checkCode(String inputCode, HttpSession session);
 
-    int changePw(UserVO vo);
+    int updatePw(UserVO vo, HttpSession session);
 
     UserVO getUserByEmail(UserVO vo);
-
-    void updatePw(UserVO vo);
 
     UserVO getUserDataEmail(UserVO vo);
 

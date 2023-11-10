@@ -1,47 +1,44 @@
 package com.devP.Service;
 
 import com.devP.VO.*;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 public interface LeaderService {
 
     void getLeaderView(ProjectVO vo, Model model);
 
-    int getMemberList(MemberVO vo, Model model);
+    int getMemberList(MemberVO vo, Model model, HttpSession session);
 
-    int addLeader(MemberVO vo,int projectId);
+    int insertLeader(MemberVO vo,int projectId, HttpSession session);
 
-    int addMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3) throws Exception;
+    int insertMember(String members,ProjectVO vo, MemberVO vo2, ProjectGroupVO vo3, HttpSession session) throws Exception;
 
-    MemberVO findMember(MemberVO vo);
+    MemberVO getMember(MemberVO vo);
 
     void insertMember(MemberVO vo);
 
-    void reInvited(MemberVO vo);
+    void insertReInvitedMember(MemberVO vo);
 
-    int invitedVerify(MemberVO vo, String token);
+    int updateStatusByInvitedVerify(MemberVO vo, String token);
 
     MemberVO getMemberByToken(MemberVO vo);
 
-    void updateMemberStatus(MemberVO vo);
+    void updateMemberStatusByToken(MemberVO vo);
 
     int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model);
 
     void deleteMember(MemberVO vo, String userId, int projectId);
 
-    int getTaskDatas(TaskVO vo, Model model);
+    int getTaskDatas(TaskVO vo, Model model, HttpSession session);
 
-    int addTask(TaskVO vo);
+    int insertTask(TaskVO vo);
 
-    int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model);
+    int updateTaskDatas(ArrayList<TaskVO> taskVOList, Model model, HttpSession session);
 
     int deleteProject(DeleteProjectVO vo);
 
-    int completeProject(int projectId);
+    int updateProjectStatus(int projectId);
 }
