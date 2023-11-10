@@ -7,13 +7,19 @@ public class ReportVO {
     private String userId;
     private String userName;
     private String taskCount;
-    private String taskPercentage;
+    private int taskPercentage;
     private int lateTaskCount;
 
     private String lateTaskPercentage;
 
     private int modifiedTaskCount;
     private String modifiedTaskPercentage;
+    private int issueTaskCount;
+    private String issueTaskPercentage;
+    private int nonIssueLateTaskCount;
+    private String nonIssueLateTaskDetail;
+
+
 
     public String getUserId() {
         return userId;
@@ -34,10 +40,10 @@ public class ReportVO {
     public void setTaskCount(String taskCount) {
         this.taskCount = taskCount;
     }
-    public String getTaskPercentage() {
+    public int getTaskPercentage() {
         return taskPercentage;
     }
-    public void setTaskPercentage(String taskPercentage) {
+    public void setTaskPercentage(int taskPercentage) {
         this.taskPercentage = taskPercentage;
     }
     public int getLateTaskCount() {
@@ -63,6 +69,28 @@ public class ReportVO {
     }
     public void setModifiedTaskPercentage(String modifiedTaskPercentage) {
         this.modifiedTaskPercentage = modifiedTaskPercentage;
+    }
+    public int getIssueTaskCount() {
+        return issueTaskCount;
+    }
+    public void setIssueTaskCount(int issueTaskCount) {
+        this.issueTaskCount = issueTaskCount;
+    }
+    public String getIssueTaskPercentage() {
+        return issueTaskPercentage;
+    }
+    public void setIssueTaskPercentage(String issueTaskPercentage) {
+        this.issueTaskPercentage = issueTaskPercentage;
+    }
+    public int getNonIssueLateTaskCount() { return nonIssueLateTaskCount; }
+    public void setNonIssueLateTaskCount(int nonIssueLateTaskCount) {
+        this.nonIssueLateTaskCount = nonIssueLateTaskCount;
+    }
+    public String getNonIssueLateTaskDetail() {
+        return nonIssueLateTaskDetail;
+    }
+    public void setNonIssueLateTaskDetail(String nonIssueLateTaskDetail) {
+        this.nonIssueLateTaskDetail = nonIssueLateTaskDetail;
     }
 
 
