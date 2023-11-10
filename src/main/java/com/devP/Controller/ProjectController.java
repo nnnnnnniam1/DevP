@@ -258,6 +258,11 @@ public class ProjectController {
 			model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
 
 			model.addAttribute("reportData", reportDAO.getReportTaskData(projectId));
+
+			if(projectData.getStatus().equals("삭제")){
+				model.addAttribute("deleteReason",reportDAO.getDeleteProjectReason(projectId));
+			}
+
 			return "reviewReport";
 		}
 
@@ -287,7 +292,9 @@ public class ProjectController {
         model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
 
         model.addAttribute("reportData", reportDAO.getReportTaskData(projectId));
-
+		if(projectData.getStatus().equals("삭제")){
+			model.addAttribute("deleteReason",reportDAO.getDeleteProjectReason(projectId));
+		}
 
 		return "reviewReport";
 	}

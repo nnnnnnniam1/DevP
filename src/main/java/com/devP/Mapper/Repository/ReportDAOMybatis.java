@@ -18,5 +18,8 @@ public class ReportDAOMybatis {
     public List<ReportVO> getReportTaskData(int projectId) {
         return mybatis.selectList("ReportDAO.getReportTaskData", projectId);
     }
+    public String getDeleteProjectReason(int projectId){
+        return mybatis.selectOne("ReportDAO.getDeleteProjectReason",projectId);
+    }
 
 }
