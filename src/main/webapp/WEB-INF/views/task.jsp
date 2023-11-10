@@ -8,7 +8,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
-<div class="mv-100 container">
+<div class="mw-100 container">
 
 <h2 class="pTitle">${project.projectName} - 업무</h2>
     <div class="contentsBox">
@@ -28,11 +28,13 @@
     </div>
     <div class="contentsBox">
         <p class="labelWrapper m-b-1">WBS</p>
-        <div class="wbsWrapper">
-            <div class="wbsBox">
-                <div id="chart_div"></div>
+        <c:if test="${not empty taskList}">
+            <div class="wbsWrapper">
+                <div class="wbsBox">
+                    <div id="chart_div"></div>
+                </div>
             </div>
-        </div>
+        </c:if>
         <c:if test="${empty taskList}">
             <div style="height:10em;"></div>
         </c:if>
