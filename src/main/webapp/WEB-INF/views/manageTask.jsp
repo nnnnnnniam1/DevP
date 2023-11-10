@@ -39,7 +39,11 @@
                                         </c:forEach>
                                     </select>
                                 </td>
-                                <td><input class="form-control" type="text" name="workPackage" id="workPackage"></td>
+                                <td>
+                                    <select class="form-select" name="workPackage" id="workPackageSelect">
+                                        <option value="" disabled selected> 선택</option>
+                                    </select>
+                                </td>
                                 <td><input class="form-control" type="text" name="depth" id="depth"></td>
                                 <td><input class="form-control" type="text" name="detail" id="detail"></td>
                                 <td><select class="form-select" name="responsibility" id="responsibilitySelect">
@@ -191,7 +195,6 @@ if(dataArray[0] !== null && dataArray.length>0){
 }
 
 function drawChart(){
-    console.log(dataArray);
 
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Task ID');
@@ -222,7 +225,7 @@ function drawChart(){
 }
 function insertTask(){
     var category = document.getElementById("categorySelect").value;
-    var workPackage = document.getElementById("workPackage").value;
+    var workPackage = document.getElementById("workPackageSelect").value;
     var depth = document.getElementById("depth").value;
     var detail = document.getElementById("detail").value;
     var responsibility = document.getElementById("responsibilitySelect").value;
@@ -261,6 +264,39 @@ function insertTask(){
     }
 }
 
+
+</script>
+<script>
+var workPackage = {
+    "기획": ["기획분석", "일정계획"],
+    "분석": ["IA 정의", "사용자 화면 기획"],
+    "디자인": ["디자인"],
+    "구현": ["프로토타입", "퍼블리싱", "개발세팅", "프런트엔드", "백엔드"],
+    "서버": ["서버"],
+    "테스트": ["테스트"],
+    "완료": ["모니터링 및 디버깅", "산출물 취합", "운영이관", "프로젝트 완료"]
+}
+// 카테고리 선택 시 작업 패키지 업데이트
+function updateWorkPackages() {
+    var categorySelect = document.getElementById("categorySelect");
+    var workPackageSelect = document.getElementById("workPackageSelect");
+    var selectedCategory = categorySelect.value;
+
+    // 작업 패키지 셀렉트 박스 초기화
+    workPackageSelect.innerHTML = '<option value="" disabled selected> 선택</option>';
+
+    // 선택한 카테고리에 해당하는 작업 패키지 추가
+    if (selectedCategory in workPackage) {
+        workPackage[selectedCategory].forEach(function (workPackage) {
+            var option = document.createElement("option");
+            option.value = workPackage;
+            option.text = workPackage;
+            workPackageSelect.add(option);
+        });
+    }
+}
+document.getElementById("categorySelect").addEventListener("change", updateWorkPackages);
+updateWorkPackages();
 
 </script>
 <!-- 컨텐츠 종료 -->
