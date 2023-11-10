@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <c:choose>
+<style>
+.nav-link{
+font-weight: 700;
+}
+</style>
+<c:choose>
         <c:when test="${project!=null}">
             <ul class="navbar-nav flex-column mt-4">
                 <li class="nav-item">

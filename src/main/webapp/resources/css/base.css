@@ -45,9 +45,10 @@ input::placeholder{color:#ccc; font-size:18px;}
     align-items: center;}
 #header .menu li{float: left; padding:0em 1em;}
 
-.sidebar{position: fixed; top:60px; left:0px;}
+.sidebar{position: fixed; top:60px; left:0px; z-index: 1; background-color: #FFFFFF}
 
 .content-wrap .container{
+	z-index: 0;
     width: 80%;
     padding-top: 3em;
     padding-left:3em;
