@@ -48,7 +48,8 @@
     </update>
     <!-- 프로젝트삭제 -->
     <update id="deleteProject">
-        UPDATE project SET status="삭제"
+        UPDATE project SET status="삭제",
+        realEnd = CURRENT_DATE()
         WHERE projectId=#{projectId}
     </update>
     <!--  프로젝트 삭제 사유 추가   -->
