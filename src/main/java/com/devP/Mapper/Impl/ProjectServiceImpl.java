@@ -17,8 +17,6 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
-    private HttpSession session;
-    @Autowired
     private ProjectDAOMybatis projectDAO;
     @Autowired
     private MemberDAOMybatis memberDAO;
@@ -99,13 +97,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int insertProjectView() {
+    public int insertProjectView(HttpSession session) {
         if(session.getAttribute("user") != null) return 200;
         else return 405;
 
     }
     @Override
-    public int getProjectList(Model model){
+    public int getProjectList(Model model, HttpSession session){
     	UserVO userData = (UserVO) session.getAttribute("user");
         if(userData.getId() != null) {
             ProjectListVO vo = new ProjectListVO();
@@ -120,7 +118,7 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
     @Override
-    public int getCompleteProjectList(Model model){
+    public int getCompleteProjectList(Model model,HttpSession session){
     	UserVO userData = (UserVO) session.getAttribute("user");
         if(userData.getId() != null) {
             ProjectListVO vo = new ProjectListVO();
@@ -137,7 +135,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model){
+    public 	int getProjectDetail(ProjectVO vo, MemberVO member, Model model,HttpSession session){
     	UserVO userData = (UserVO) session.getAttribute("user");
         //이슈 리스트 가져오기
         issueService.getIssuelist(vo.getProjectId(), model);
@@ -162,7 +160,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model){
+    public int getMyTaskView(ProjectVO project, MemberVO member, TaskVO task, Model model,HttpSession session){
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		UserVO userData = (UserVO) session.getAttribute("user");
         // 프로젝트 및 본인 진행률 가져오기
@@ -188,7 +186,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int getProjectMemberList(MemberVO vo, Model model){
+    public int getProjectMemberList(MemberVO vo, Model model,HttpSession session){
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
         vo.setProjectId(projectData.getProjectId());
         model.addAttribute("memberList", getProjectMemberList(vo.getProjectId()));
@@ -215,7 +213,24 @@ public class ProjectServiceImpl implements ProjectService {
         projectDAO.updateReviewStatus(vo);
         return 200;
     }
-
+    
+    @Override
+    public int insertReview(HttpSession session, List<String> contentList,List<String> evaMemberIdList, ProjectVO projectData, UserVO userData) {
+    	for (int i = 0; i < contentList.size(); i++) {
+    		System.out.println("i" + i);
+            String content = contentList.get(i);
+            String evaMemberId = evaMemberIdList.get(i);
+            // 리뷰 객체 생성하고 값 넣기
+            ReviewVO review = new ReviewVO();
+            review.setProjectId(projectData.getProjectId());
+            review.setEvaMemberId(evaMemberId);
+            review.setWriteMemberId(userData.getId());
+            review.setEvaluation(content);
+            projectDAO.insertReview(review);
+    	}
+    	return 200;
+    }
+    
     @Override
     public int updateReview(ReviewVO vo){
         projectDAO.updateReview(vo);
@@ -223,8 +238,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ReviewVO getReview(ReviewVO vo){
+    public List<ReviewVO> getMyReview(MemberVO vo){
+        return projectDAO.getMyReview(vo);
+    }
+    
+    @Override
+    public ReviewVO getReview(MemberVO vo){
         return projectDAO.getReview(vo);
     }
-
 }

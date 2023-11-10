@@ -44,7 +44,7 @@ public class CommonController {
 
         if(session.getAttribute("user")!=null) {
             issueService.getUserIssueList(model);
-            projectService.getProjectList(model);
+            projectService.getProjectList(model, session);
             if(taskService.getUserTaskList(model) == 200) {
                 return "main";
             }

@@ -89,20 +89,32 @@
         WHERE projectId=#{projectId} AND userId=#{userId}
     </update>
 
-    <!-- 리뷰 작성 -->
+    <!-- 리뷰 수정 -->
     <update id="updateReview">
         UPDATE  review
         SET evaluation=#{evaluation}
         WHERE evaMemberId=#{evaMemberId}
     </update>
+    
+    <insert id="insertReview">
+ 		insert into review (projectId, evaMemberId, evaluation, writeMemberId)
+        values (#{projectId},#{evaMemberId},#{evaluation},#{writeMemberId});
+    </insert>
 
     <!-- 작성된 리뷰 가져오기 -->
     <select id="getReview" resultType="Review">
-        SELECT evaluation
+        SELECT *
         FROM review
-        WHERE projectId = #{projectId} AND evaMemberId=#{evaMemberId}
+        WHERE projectId = #{projectId} AND writeMemberId=#{userId} LIMIT 1;
     </select>
 
+	<!-- 작성된 내 리뷰 가져오기 -->
+    <select id="getMyReview" resultType="Review">
+        SELECT *
+        FROM review
+        WHERE projectId = #{projectId} AND evaMemberId=#{userId};
+    </select>
+	
     <update id="updateProgress">
         UPDATE project
         SET progress = (
