@@ -96,26 +96,40 @@ String userId = (String) session.getAttribute("userId");
 									<a href="/issue/list.do?projectId=${project.projectId}" class="text-reset text-decoration-none">
 								    <h5 class="card-title">이슈</h5>
 									</a>
-								    <c:forEach items="${issueList}" var="issue">
-						                <div class="item">
+								    <c:forEach items="${issueList}" var="issue" varStatus="loop">
+								    	<c:if test="${loop.index + 1 <= 5}">
+								    	<div class="item">
 							                <a href="/issue/detail.do?issueId=${issue.issueId}" class="text-reset text-decoration-none">
 											<small class="text-body-secondary  tag type03">${issue.name}</small>
 											<small class="text-body-secondary"> ${issue.title}</small>
 											</a>
 						                </div>
+								    	</c:if>
+								    	<c:if test="${loop.index == 5}">
+							    			<div class="d-flex justify-content-center">
+								    		...
+							    			</div>
+								    	</c:if>
 							        </c:forEach>
-								  </div>	
+								 </div>	
 						</div>
 					</div>
 					<div class = "col-6 d-flex">
 						<div class="card w-100">
 							<div class="card-body" onclick="location.href='/project/member/list.do'">
 							    <h5 class="card-title">멤버</h5>
-							    <c:forEach items="${memberList}" var="member">
+							    <c:forEach items="${memberList}" var="member" varStatus="loop">
+							    <c:if test="${loop.index + 1 <= 5}">
 						                <div class="item">
 							                <small class="text-body-secondary tag type03">${member.userName} </small>
 							                <small class="text-body-secondary tag type02"> ${member.role}</small>
 						                </div>
+						                </c:if>
+						                <c:if test="${loop.index == 5}">
+							    			<div class="d-flex justify-content-center">
+								    		...
+							    			</div>
+								    	</c:if>
 							        </c:forEach>
 							  </div>
 						</div>
