@@ -14,7 +14,7 @@ public class IssueVO {
 	private int count;
 	private String content;
 	private String sendingEmail;
-	private Date date;
+	private String date;
 	private String name;
 	
 	public String getName() {
@@ -23,10 +23,10 @@ public class IssueVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public Integer getIssueId() {

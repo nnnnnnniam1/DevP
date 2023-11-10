@@ -1,9 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <c:choose>
+<style>
+.nav-link{
+font-weight: 700;
+}
+</style>
+<c:choose>
         <c:when test="${project!=null}">
             <ul class="navbar-nav flex-column mt-4">
                 <li class="nav-item">
-
                     <a href="/project/detail.do?projectId=${ project.projectId }" + class="nav-link p-3 mb-2 sidebar-link link-dark" id="projectMenu">
                         <i class="bi bi-receipt-cutoff mx-3"></i>프로젝트
                     </a>
@@ -19,7 +23,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu4">
+                    <a href="/project/progress.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="progressMenu">
                         <i class="bi bi-bar-chart-fill mx-3"></i>진행률
                     </a>
                 </li>

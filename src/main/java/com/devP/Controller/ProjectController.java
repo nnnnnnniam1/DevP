@@ -312,4 +312,13 @@ public class ProjectController {
 		return "reviewReport";
 	}
 
+	@RequestMapping(value = "/progress.do", method = RequestMethod.GET)
+	public String progressView(HttpSession session, ProjectVO vo, Model model){
+		model.addAttribute("menuId", "progressMenu");
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+		vo.setProjectId(projectData.getProjectId());
+		leaderService.getLeaderView(vo, model);
+
+		return "progress";
+	}
 }
