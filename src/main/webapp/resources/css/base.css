@@ -119,5 +119,5 @@ h2.pTitle button{padding:0.25em 1em; margin-top:-10px; margin-left:1em; }
 .issue-list .item h2{color:#6d03ff; font-size:20px;}
 
 
-.leader .menu{float: left; list-style: none; width:100%; padding:0px;}
+.leader .menu{float: left; list-style: none; width:100%; padding:0px; margin-bottom: 2em;}
 .leader .menu li{float: left; display:inline-block; margin-right:1em;}

@@ -32,7 +32,7 @@
                 id="issue-form">
                 <input type="hidden" name="projectId" value="${project.projectId}">
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">프로젝트</label>
+                    <label class="col-sm-2 col-form-label">${project.projectName}</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext"
                             name="projectTitle" value="${project.projectName}">
