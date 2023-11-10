@@ -41,7 +41,7 @@
 			transform: translateY(-1px);
 		}
 		#logoLabel {
-            font-style: bold;
+            /* font-style: bold; */
             font-size: 24px;
             padding-left: 5px;
         }
