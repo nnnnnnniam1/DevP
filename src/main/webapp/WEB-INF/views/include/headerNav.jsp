@@ -3,12 +3,7 @@
         <c:when test="${project!=null}">
             <ul class="navbar-nav flex-column mt-4">
                 <li class="nav-item">
-<<<<<<< HEAD
-                    <a href="/project/detail.do?projectId= + ${ projectId }" class="nav-link p-3 mb-2 sidebar-link link-dark" id="projectMenu">
-=======
-
                     <a href="/project/detail.do?projectId=${ project.projectId }" + class="nav-link p-3 mb-2 sidebar-link link-dark" id="projectMenu">
->>>>>>> f369b2ea7c479bc0bb216b7b16bb612fbba48031
                         <i class="bi bi-receipt-cutoff mx-3"></i>프로젝트
                     </a>
                 </li>
@@ -23,16 +18,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link p-3 mb-2 sidebar-link link-dark" id="menu4">
+                    <a href="/project/progress.do" class="nav-link p-3 mb-2 sidebar-link link-dark" id="progressMenu">
                         <i class="bi bi-bar-chart-fill mx-3"></i>진행률
                     </a>
                 </li>
                 <li>
-<<<<<<< HEAD
-                    <a href="/issue/list.do?projectId= + ${ projectId }" class="nav-link p-3 mb-2 sidebar-link link-dark" id="issueMenu">
-=======
                     <a href="/issue/list.do?projectId=${ project.projectId }" class="nav-link p-3 mb-2 sidebar-link link-dark" id="issueMenu">
->>>>>>> f369b2ea7c479bc0bb216b7b16bb612fbba48031
                         <i class="bi bi-newspaper mx-3"></i>이슈
                     </a>
                 </li>
