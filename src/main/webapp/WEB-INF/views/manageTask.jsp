@@ -61,9 +61,13 @@
     </div>
     <div class="contentsBox">
         <p class="labelWrapper m-b-1">간트차트</p>
-        <div class="wbsBox col-auto">
-            <div id="chart_div"></div>
-        </div>
+        <c:if test="${not empty taskList}">
+            <div class="wbsWrapper">
+                <div class="wbsBox col-auto">
+                    <div id="chart_div"></div>
+                </div>
+            </div>
+        </c:if>
         <c:if test="${empty taskList}">
             <div style="height:10em;"></div>
         </c:if>
