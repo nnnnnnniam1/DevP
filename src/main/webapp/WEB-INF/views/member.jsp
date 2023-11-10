@@ -7,7 +7,7 @@
 <%@ include file="/WEB-INF/views/include/headerTop.jsp"%>
 <!-- 컨텐츠 시작 -->
 <div class="container">
-<h2 class="pTitle">${project.projectName}</h2>
+<h2 class="pTitle">${project.projectName} - 멤버</h2>
 
     
     <div class="member-wrapper">
