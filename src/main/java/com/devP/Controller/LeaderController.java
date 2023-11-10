@@ -60,8 +60,8 @@ public class LeaderController {
         Map<String, String> categoryMap = new HashMap<>();
 
         categoryMap.put("1", "기획");
-        categoryMap.put("2", "디자인");
-        categoryMap.put("3", "구현");
+        categoryMap.put("2", "분석");
+        categoryMap.put("3", "디자인");
         categoryMap.put("4", "개발");
         categoryMap.put("5", "서버");
         categoryMap.put("6", "테스트");
@@ -70,6 +70,58 @@ public class LeaderController {
 
         return categoryMap;
     }
+
+    @ModelAttribute("workPackage1")
+    public Map<String, String> setWorkPackage1(Model model) {
+        Map<String, String> workPackageMap = new HashMap<>();
+            workPackageMap.put("1","기획분석");
+            workPackageMap.put("2","일정계획");
+        return workPackageMap;
+    }
+    @ModelAttribute("workPackage2")
+    public Map<String, String> setWorkPackage2(Model model) {
+        Map<String, String> workPackageMap = new HashMap<>();
+        workPackageMap.put("1","IA 정의");
+        workPackageMap.put("2","사용자 화면 기획");
+        return workPackageMap;
+    }
+    @ModelAttribute("workPackage3")
+    public Map<String, String> setWorkPackage3(Model model) {
+        Map<String, String> workPackageMap = new HashMap<>();
+        workPackageMap.put("1","디자인");
+        return workPackageMap;
+    }
+    @ModelAttribute("workPackage4")
+    public Map<String, String> setWorkPackage4(Model model) {
+        Map<String, String> workPackageMap = new HashMap<>();
+        workPackageMap.put("1","프로토타입");
+        workPackageMap.put("2","퍼블리싱");
+        workPackageMap.put("3","개발세팅");
+        workPackageMap.put("4","프런트엔드");
+        workPackageMap.put("5","백엔드");
+        return workPackageMap;
+    }
+    @ModelAttribute("workPackage5")
+    public Map<String, String> setWorkPackage5(Model model) {
+        Map<String, String> workPackageMap = new HashMap<>();
+        workPackageMap.put("1","서버");
+        return workPackageMap;
+    }
+    @ModelAttribute("workPackage6")
+    public Map<String, String> setWorkPackage6(Model model) {
+        Map<String, String> workPackageMap = new HashMap<>();
+        workPackageMap.put("1","테스트");
+        return workPackageMap;
+    }
+    @ModelAttribute("workPackage7")
+    public Map<String, String> setWorkPackage7(Model model) {
+        Map<String, String> workPackageMap = new HashMap<>();
+        workPackageMap.put("1","모니터링 및 디버깅");
+        workPackageMap.put("2","산출물 취합");
+        workPackageMap.put("3","운영이관");
+        return workPackageMap;
+    }
+    
 
     @ModelAttribute("statusMap")
     public Map<String, String> setStatusMap(Model model) {
@@ -82,6 +134,7 @@ public class LeaderController {
 
         return statusMap;
     }
+    
 
 
     @RequestMapping(value = "/detail.do", method = RequestMethod.GET)
