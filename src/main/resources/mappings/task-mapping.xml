@@ -24,7 +24,10 @@
 	</select>
 	<!--  모든사람 프로젝트 업무리스트	-->
 	<select id="getProjectTaskList" resultType="Task">
-		SELECT * FROM task WHERE projectId = #{projectId};
+		SELECT t.*, u.name as userName
+		FROM task t
+		INNER JOIN user u ON t.userId = u.id AND t.projectId = #{projectId};
+
 	</select>
 	<!--  지난 업무 개수	-->
 	<select id="getPastTaskCnt" resultType="int">
@@ -63,10 +66,15 @@
 	<update id="updateTaskLeader">
 		UPDATE task
 		SET category=#{category}, workPackage=#{workPackage}, depth=#{depth}, detail=#{detail}, userId=#{userId},
+		modify =
+			CASE
+				WHEN startdate != #{startdate} OR enddate != #{enddate} THEN modify + 1
+				ELSE modify
+			END,
 		startdate=#{startdate}, enddate=#{enddate},
 		realEnd =
 		CASE
-		WHEN status != #{status} AND #{status} = '완료' THEN NOW()
+		WHEN status != #{status} AND #{status} = '완료' THEN CURRENT_DATE()
 		ELSE NULL
 		END,
 		status=#{status},

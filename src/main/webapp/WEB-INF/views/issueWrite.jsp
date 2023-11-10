@@ -31,7 +31,6 @@
             <form method="post" class="p-3" action="/issue/write.do"
                 id="issue-form">
                 <input type="hidden" name="projectId" value="${project.projectId}">
-                <%-- <input type = "hidden" name="taskId" value = "${ taskId }"><br> --%>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">프로젝트</label>
                     <div class="col-sm-10">
@@ -66,16 +65,12 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">업무선택</label>
-                    <div class="col-sm-7">
-                        <div id="sendingEmail-container"></div>
-                        <input id="sendingEmail" type="hidden" class="form-control"
-                            name="sendingEmail">
-                    </div>
-                    <div class="col-sm-3">
-                        <select id="chooseMember" class="form-select col-sm-10">
-                            <option>선택</option>
-                            <c:forEach items="${memberList}" var="member">
-                                <option value="${member.email}">${member.userId}</option>
+                    <div class="col-sm-10">
+                        <select id="chooseTask" name="taskId" class="form-select col-sm-10">
+                            <option disabled selected>선택</option>
+                            <option value="">업무아님</option>
+                            <c:forEach items="${taskList}" var="task">
+                                <option value="${task.taskId}" ${task.taskId == taskId ? 'selected' : ''} >${task.detail}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -166,8 +161,6 @@
                     }
                 }
             });
-
-    
 </script>
 <!-- 컨텐츠 종료 -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

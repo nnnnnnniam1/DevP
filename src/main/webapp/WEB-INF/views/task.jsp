@@ -84,7 +84,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/view.do?projectId=${project.projectId}'" />
+                                            <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/view.do?projectId=${project.projectId}&taskId=${task.taskId}'" />
                                         </td>
                                     </tr>
                                 </c:forEach>
