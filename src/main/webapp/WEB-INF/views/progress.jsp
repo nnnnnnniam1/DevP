@@ -42,8 +42,7 @@
     </div>
 </div>
 </body>
-<script
-= "text/javascript">
+<script="text/javascript">
 function completeProject(projectId, projectName){
 if(confirm("["+projectName+"]프로젝트를 완료하시겠습니까?")){
 $.ajax({
