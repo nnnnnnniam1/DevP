@@ -8,6 +8,8 @@ public class ReportVO {
     private String userName;
     private String taskCount;
     private int taskPercentage;
+    private int deadlineSuccessTaskCount;
+    private String deadlineSuccessTaskCountPercentage;
     private int lateTaskCount;
 
     private String lateTaskPercentage;
@@ -18,6 +20,9 @@ public class ReportVO {
     private String issueTaskPercentage;
     private int nonIssueLateTaskCount;
     private String nonIssueLateTaskDetail;
+
+    private String reason;
+    private String deleteDate;
 
 
 
@@ -45,6 +50,18 @@ public class ReportVO {
     }
     public void setTaskPercentage(int taskPercentage) {
         this.taskPercentage = taskPercentage;
+    }
+    public int getDeadlineSuccessTaskCount() {
+        return deadlineSuccessTaskCount;
+    }
+    public void setDeadlineSuccessTaskCount(int deadlineSuccessTaskCount) {
+        this.deadlineSuccessTaskCount = deadlineSuccessTaskCount;
+    }
+    public String getDeadlineSuccessTaskCountPercentage() {
+        return deadlineSuccessTaskCountPercentage;
+    }
+    public void setDeadlineSuccessTaskCountPercentage(String deadlineSuccessTaskCountPercentage) {
+        this.deadlineSuccessTaskCountPercentage = deadlineSuccessTaskCountPercentage;
     }
     public int getLateTaskCount() {
         return lateTaskCount;
@@ -93,6 +110,11 @@ public class ReportVO {
         this.nonIssueLateTaskDetail = nonIssueLateTaskDetail;
     }
 
+    public String getReason(){return reason;}
+    public void setReason(String reason){this.reason = reason;}
+
+    public String getDeleteDate(){return deleteDate;}
+    public void setDeleteDate(String deleteDate){this.deleteDate = deleteDate;}
 
 
 }

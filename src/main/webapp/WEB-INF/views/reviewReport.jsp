@@ -13,65 +13,70 @@
 <div class="mv-100 container">
     <h2 class="pTitle">${projectName}</h2>
         <div class="contentsBox">
-            <div class="projectProgress">
-                <span class="progressLabel">프로젝트</span>
-                <div class="">${projectData.projectName}</div>
-                <span class="progressLabel">script</span>
+            <div class="">
+                <span class="pTitle">프로젝트</span>
+                <div class=""><h2 class="pTitle">${projectData.projectName}</h2></div>
+                <span class="pTitle">script</span>
                 <div class="">${projectData.script}</div>
                 <div class="projectProgress">
-                    <span class="progressLabel">기간</span>
-                    <div>계획기간 :${projectData.startDate} ~ ${projectData.endDate}</div>
-                    <div>실제기간 :${projectData.startDate} ~ ${projectData.realEnd}</div>
+                    <span class="pTitle">기간</span>
+                    <div>계획기간 : ${projectData.startDate} ~ ${projectData.endDate}</div>
+                    <div>실제기간 : ${projectData.startDate} ~ ${projectData.realEnd}</div>
                 </div>
+                <c:if test="${not empty deleteReason}">
+                    <div class="projectProgress">
+                        <span class="progressLabel">삭제사유</span>
+                        <div>${deleteReason}</div>
+                    </div>
+                </c:if>
                 <hr>
-				<div class="projectProgress">
-					<div class="member-wrapper">
-						<p class="progressLabel">멤버리뷰</p>
-						<c:forEach items="${myReview}" var="review">
-							<div class="member-item">
-								<div class="item">
-									${review.writeMemberId} : ${review.evaluation } <br>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-                <div class="projectProgress">
-                    <span class="progressLabel">업무 진행 내역</span>
-                    <div>
-                        <div id="chart_div"></canvas>
-                    </div>
-                    <div>
-                        <div>
-                            <canvas style=""id="myChart"></canvas>
-                        </div>
-                         <div>
-                             <canvas style=""id="myChart2"></canvas>
-                         </div>
-                    </div>
-                </div>
-                <div class="projectProgress">
-                    <span class="progressLabel">업무 기여도</span><br>
-                    <c:forEach items="${reportData}" var="report" varStatus="loop">
-                        <h2 class="pTitle">${report.userName}</h2>
-                        <div class="contentsBox">
-                            <div>${report.userName}님, '${project.projectName}' 프로젝트에서 ${report.taskPercentage}%업무 기여도를 보입니다.</div>
-                            <div> 그 중 '늦춰진 업무 ${report.lateTaskCount}건(${report.lateTaskPercentage})', '이슈 등록된 업무 ${report.issueTaskCount}건(${report.issueTaskPercentage})','리더가 일정을 조정한 업무 ${report.modifiedTaskCount}건(${report.modifiedTaskPercentage})' 입니다.</div>
-                                <c:choose>
-                                    <c:when test="${empty report.nonIssueLateTaskDetail}">
-                                        <div> 일정이 늦춰지는 것을 알리지 않은 업무 ${report.nonIssueLateTaskCount}건이 있습니다.</div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div> 일정이 늦춰지는 것을 알리지 않은 업무 ${report.nonIssueLateTaskCount}건(${report.nonIssueLateTaskDetail})이 있습니다.</div>
-                                    </c:otherwise>
-                                </c:choose>
+                <div class="member-wrapper">
+                    <p class="progressLabel">멤버리뷰</p>
+                    <c:forEach items="${myReview}" var="review">
+                        <div class="member-item">
+                            <div class="item">
+                                ${review.writeMemberId} : ${review.evaluation } <br>
                             </div>
+                        </div>
                     </c:forEach>
                 </div>
             </div>
         </div>
+        <div class="projectProgress">
+            <h2 class="pTitle">업무 내역</h2>
+            <div>
+                <div id="chart_div"></canvas>
+            </div>
+        </div>
+        <div class="contentsBox">
+            <h2 class="pTitle">업무 기여도</h2><br>
+            <div style="display: flex; flex-direction: row;">
+                <div>
+                    <canvas style=""id="myChart"></canvas>
+                </div>
+                <div>
+                    <canvas style=""id="myChart2"></canvas>
+                </div>
+            </div>
+            <c:forEach items="${reportData}" var="report" varStatus="loop">
+                <div class="contentsBox">
+                     <h2 class="pTitle">${report.userName}</h2>
+                    <div>${report.userName}님, '${project.projectName}' 프로젝트에서 ${report.taskPercentage}%업무 기여도를 보입니다.</div>
+                    <div> 그 중 '기한 내 완수한 업무 ${report.deadlineSuccessTaskCount}건(${report.deadlineSuccessTaskCountPercentage})','늦춰진 업무 ${report.lateTaskCount}건(${report.lateTaskPercentage})', '이슈 등록된 업무 ${report.issueTaskCount}건(${report.issueTaskPercentage})','리더가 일정을 조정한 업무 ${report.modifiedTaskCount}건(${report.modifiedTaskPercentage})' 입니다.</div>
+                    <c:choose>
+                        <c:when test="${empty report.nonIssueLateTaskDetail}">
+                            <div> 일정이 늦춰지는 것을 알리지 않은 업무 ${report.nonIssueLateTaskCount}건이 있습니다.</div>
+                        </c:when>
+                        <c:otherwise>
+                            <div> 일정이 늦춰지는 것을 알리지 않은 업무 ${report.nonIssueLateTaskCount}건(${report.nonIssueLateTaskDetail})이 있습니다.</div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </c:forEach>
+        </div>
     </div>
 </div>
+
 </body>
 <script type="text/javascript">
     var dataArray = [];
@@ -123,129 +128,6 @@
         chart.draw(data, options);
 
     }
-=======
-	<h2 class="pTitle">리뷰 리포트</h2>
-	<%--    <ul class="menu">--%>
-	<%--        <li>--%>
-	<%--            <button class="btn black" type="button" onclick="location.href='/leader/task/view.do'">일정 및 업무 수정</button>--%>
-	<%--        </li>--%>
-	<%--        <li>--%>
-	<%--            <button class="btn black" type="button" onclick="location.href='/leader/member/view.do'">멤버 추가 및 삭제</button>--%>
-	<%--        </li>--%>
-	<%--        <li>--%>
-	<%--            <button class="btn black" type="button" onclick="completeProject('${project.projectId}','${project.projectName}')">프로젝트 완료</button>--%>
-	<%--        </li>--%>
-	<%--        <li>--%>
-	<%--            <button class="btn black" type="button" onclick="location.href='/leader/project/delete/view.do?projectId=${project.projectId}'">프로젝트 삭제</button>--%>
-	<%--        </li>--%>
-	<%--    </ul>--%>
-	<div class="leaderWrapper">
-		<div class="contentsWrapper">
-
-			<%--            <table class="btnTable none">--%>
-			<%--                <tr>--%>
-			<%--                    <td>--%>
-			<%--                        <div class="leaderBtn"  onclick="location.href='/leader/task/view.do'">--%>
-			<%--                            <p class="label">일정 및 업무 수정</p>--%>
-			<%--                        </div>--%>
-			<%--                    </td>--%>
-			<%--                </tr>--%>
-			<%--                <tr>--%>
-			<%--                    <td>--%>
-			<%--                        <div class="leaderBtn"  onclick="location.href='manageMember.do'">--%>
-			<%--                            <p class="label">멤버 추가 및 삭제</p>--%>
-			<%--                        </div>--%>
-			<%--                    </td>--%>
-			<%--                </tr>--%>
-			<%--                <tr>--%>
-			<%--                    <td>--%>
-			<%--                        <div class="leaderBtn" onclick="completeProject('${project.projectId}','${project.projectName}')">--%>
-			<%--                            <p class="label">프로젝트 완료</p>--%>
-			<%--                        </div>--%>
-			<%--                    </td>--%>
-			<%--                </tr>--%>
-			<%--                <tr>--%>
-			<%--                    <td>--%>
-			<%--                        <div class="leaderBtn" onclick="location.href='/leader/project/delete/view.do?projectId=${project.projectId}'">--%>
-			<%--                            <p class="label">프로젝트 삭제</p>--%>
-			<%--                        </div>--%>
-			<%--                    </td>--%>
-			<%--                </tr>--%>
-			<%--            </table>--%>
-
-			<div class="contentsBox">
-				<div class="projectProgress">
-					<span class="progressLabel">프로젝트</span>
-					<div class="">${project.projectName}</div>
-				</div>
-				<hr>
-				<div class="projectProgress">
-					<span class="progressLabel">기간</span>
-					<%--                    <div class="">${projectData.startDate} ~ ${projectData.endDate}</div>--%>
-					<div>${project.startDate}~${project.endDate}</div>
-				</div>
-				<hr>
-				<div class="projectProgress">
-					<div class="member-wrapper">
-						<p class="progressLabel">멤버리뷰</p>
-						<c:forEach items="${myReview}" var="review">
-							<div class="member-item">
-								<div class="item">
-									${review.writeMemberId} : ${review.evaluation } <br>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="projectProgress">
-					<span class="progressLabel">업무 진행 내역</span> <img
-						src="/resources/image/wbsImage.png">
-				</div>
-				<div class="projectProgress">
-					<span class="progressLabel">업무 기여도</span><br> <img
-						src="/resources/image/업무기여도.png">
-					<div>이세진님은 '개화' 프로젝트에서 33.3% 업무 기여도를 보입니다.</div>
-					<div>그 중 '늦춰진 업무 3건(60%)', '이슈 등록된 업무 4건(80%)', '리더가 일정을 조정한
-						업무 2건(40%)' 입니다.</div>
-					<div>일정이 늦춰지는 것을 알리지 않은 업무 1건(스와이퍼 구조 해결)이 있습니다.</div>
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-</body>
-<%--<script = "text/javascript">--%>
-<script>
-	function completeProject(projectId, projectName) {
-		if (confirm("[" + projectName + "]프로젝트를 완료하시겠습니까?")) {
-			$
-					.ajax({
-						type : 'GET',
-						url : '/leader/project/complete.do',
-						data : {
-							projectId : projectId
-						},
-						success : function(response) {
-							if (response === "success") {
-								alert("완료되었습니다");
-								window.location.href = "/project/list/view.do";
-							} else {
-								alert("오류가 발생했습니다. 다시 시도해주세요");
-								window.location.href = "/leader/detail.do?projectId=${projectId}"
-							}
-
-						},
-						error : function(error) {
-							console.log("에러: " + error);
-							alert("오류가 발생했습니다. 다시 시도해주세요");
-							window.location.href = "/leader/detail.do?projectId=${projectId}"
-						}
-					});
-		}
-	}
->>>>>>> 0e0fb048d066d5df622f8abd7d5efcb4bbed09e8
 </script>
 <script>
 var member = [];

@@ -8,6 +8,8 @@
         SELECT t.userId, u.name as userName, COUNT(*) as taskCount,
             CONCAT(FORMAT(COUNT(*) * 100 /
                 (SELECT COUNT(*) FROM task WHERE projectId = #{projectId}), 1)) as taskPercentage,
+            COUNT(*) - SUM(CASE WHEN STR_TO_DATE(t.realEnd, '%Y-%m-%d') > STR_TO_DATE(t.endDate, '%Y-%m-%d') THEN 1 ELSE 0 END) as deadlineSuccessTaskCount,
+            CONCAT(FORMAT((COUNT(*) - SUM(CASE WHEN STR_TO_DATE(t.realEnd, '%Y-%m-%d') > STR_TO_DATE(t.endDate, '%Y-%m-%d') THEN 1 ELSE 0 END)) * 100 / COUNT(*), 1), '%') as deadlineSuccessTaskCountPercentage,
             SUM(CASE WHEN STR_TO_DATE(t.realEnd, '%Y-%m-%d') > STR_TO_DATE(t.endDate, '%Y-%m-%d') THEN 1 ELSE 0 END) as lateTaskCount,
             CONCAT(FORMAT(SUM(CASE WHEN STR_TO_DATE(t.realEnd, '%Y-%m-%d') > STR_TO_DATE(t.endDate, '%Y-%m-%d') THEN 1 ELSE 0 END) * 100 / COUNT(*), 1), '%') as lateTaskPercentage,
             SUM(CASE WHEN t.modify > 0 THEN 1 ELSE 0 END) as modifiedTaskCount,
@@ -18,6 +20,9 @@
             GROUP_CONCAT(CASE WHEN STR_TO_DATE(t.realEnd, '%Y-%m-%d') > STR_TO_DATE(t.endDate, '%Y-%m-%d') AND t.issue = 0 THEN t.detail END SEPARATOR ', ') as nonIssueLateTaskDetail
         FROM task t INNER JOIN user u ON t.userId = u.id
         WHERE t.projectId = #{projectId} GROUP BY t.userId;
+    </select>
+    <select id="getDeleteProjectReason" resultType="String">
+        SELECT reason FROM deleteProject WHERE projectId = #{projectId};
     </select>
 
 </mapper>
