@@ -78,8 +78,10 @@ String userId = (String) session.getAttribute("userId");
 	<div class = "row m-b-1">
 			<div class = "col-4 d-flex">
 				<div class="card w-100 task" onclick="location.href='myTask.do'">
-					<div class="card-body">	
+					<div class="card-body">
+						<div class= "d-flex">
 					    <h5 class="card-title">Todo</h5>
+					    </div>
 					    <c:forEach items="${myTask}" var="task">
 				                <div class="task-info">
 					                <small class="text-body-secondary">${task.title}</small>
@@ -93,9 +95,12 @@ String userId = (String) session.getAttribute("userId");
 					<div class = "col-6 d-flex" style="min-height: 30vh">
 						<div class="card w-100" onclick="sendGetRequest()">
 								<div class="card-body">
-									<a href="/issue/list.do?projectId=${project.projectId}" class="text-reset text-decoration-none">
-								    <h5 class="card-title">이슈</h5>
+									<div class= "d-flex">
+								    <h5 class="card-title flex-grow-1">이슈</h5>
+								    <a href="/issue/list.do?projectId=${project.projectId}" class="text-reset text-decoration-none">
+								    <i class="bi bi-plus-circle fs-3"></i>
 									</a>
+								    </div>
 								    <c:forEach items="${issueList}" var="issue" varStatus="loop">
 								    	<c:if test="${loop.index + 1 <= 5}">
 								    	<div class="item">
@@ -105,19 +110,19 @@ String userId = (String) session.getAttribute("userId");
 											</a>
 						                </div>
 								    	</c:if>
-								    	<c:if test="${loop.index == 5}">
-							    			<div class="d-flex justify-content-center">
-								    		...
-							    			</div>
-								    	</c:if>
 							        </c:forEach>
 								 </div>	
 						</div>
 					</div>
 					<div class = "col-6 d-flex">
 						<div class="card w-100">
-							<div class="card-body" onclick="location.href='/project/member/list.do'">
-							    <h5 class="card-title">멤버</h5>
+							<div class="card-body">
+									<div class= "d-flex">
+								    	<h5 class="card-title flex-grow-1">멤버</h5>
+										<a href="/project/member/list.do" class="text-reset text-decoration-none">
+									    <i class="bi bi-plus-circle fs-3"></i>
+									    </a>
+									</div>
 							    <c:forEach items="${memberList}" var="member" varStatus="loop">
 							    <c:if test="${loop.index + 1 <= 5}">
 						                <div class="item">
@@ -125,11 +130,6 @@ String userId = (String) session.getAttribute("userId");
 							                <small class="text-body-secondary tag type02"> ${member.role}</small>
 						                </div>
 						                </c:if>
-						                <c:if test="${loop.index == 5}">
-							    			<div class="d-flex justify-content-center">
-								    		...
-							    			</div>
-								    	</c:if>
 							        </c:forEach>
 							  </div>
 						</div>
