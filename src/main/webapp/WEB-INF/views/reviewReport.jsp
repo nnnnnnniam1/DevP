@@ -44,9 +44,16 @@
         </div>
         <div class="projectProgress">
             <h2 class="pTitle">업무 내역</h2>
-            <div>
-                <div id="chart_div"></canvas>
-            </div>
+            <c:if test="${not empty taskList}">
+                <div class="wbsWrapper">
+                    <div class="wbsBox">
+                        <div id="chart_div"></div>
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${empty taskList}">
+                <div style="height:10em;"></div>
+            </c:if>
         </div>
         <div class="contentsBox">
             <h2 class="pTitle">업무 기여도</h2><br>
