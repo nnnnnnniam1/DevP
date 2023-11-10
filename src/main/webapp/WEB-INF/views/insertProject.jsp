@@ -9,7 +9,7 @@
 <!-- 컨텐츠 시작 -->
 <div class="mw-100 min-vw-90 min-vh-100 container">
     <div class="mx-5">
-        <div class="main-text">새로운 프로젝트</div>
+        <h2 class="pTitle">프로젝트 추가</h2>
         <div class="ml-auto project-form">
         <form method="post" action="/project/add.do" >
             <br>
