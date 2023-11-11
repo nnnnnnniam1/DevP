@@ -6,7 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import com.devP.VO.ProjectVO;
 import com.devP.VO.TaskVO;
+import com.devP.VO.UserVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +41,18 @@ public class TaskController {
 	    public List<Map<String, Object>> getTask(){
 	    return taskService.getMyTasks();
   	}
+    //한 일 가져오기
+    @RequestMapping(value="/getDoneTask/view.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
+    public String getDoneTaskView(HttpSession session, Model model) {
+    	ProjectVO projectData = (ProjectVO) session.getAttribute("project");
+    	UserVO userData = (UserVO) session.getAttribute("user");
+		
+    	TaskVO vo = new TaskVO();
+    	vo.setProjectId(projectData.getProjectId());
+    	vo.setUserId(userData.getId());
+    	model.addAttribute("donetasklist", taskService.getMyDoneTasks(vo));
+    	return "donetask";
+    }
 
 	@RequestMapping(value="/getMyTasks.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
 	@ResponseBody

@@ -34,7 +34,7 @@ font-weight: 700;
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/task/getDoneTask/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-check-circle-fill mx-3"></i>한 일
                     </a>
                 </li>
