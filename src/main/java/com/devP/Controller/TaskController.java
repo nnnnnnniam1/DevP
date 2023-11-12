@@ -39,6 +39,7 @@ public class TaskController {
     @RequestMapping(value="/getTask.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
     @ResponseBody
 	    public List<Map<String, Object>> getTask(){
+    	
 	    return taskService.getMyTasks();
   	}
     //한 일 가져오기
@@ -51,7 +52,7 @@ public class TaskController {
     	vo.setProjectId(projectData.getProjectId());
     	vo.setUserId(userData.getId());
     	model.addAttribute("donetasklist", taskService.getMyDoneTasks(vo));
-    	return "donetask";
+    	return "doneTask";
     }
 
 	@RequestMapping(value="/getMyTasks.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
