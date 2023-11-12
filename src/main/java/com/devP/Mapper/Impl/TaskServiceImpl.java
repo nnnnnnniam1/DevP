@@ -46,8 +46,8 @@ public class TaskServiceImpl implements TaskService {
 		Map<String, String> categoryMap = new HashMap<>();
 
 		categoryMap.put("1", "기획");
-		categoryMap.put("2", "디자인");
-		categoryMap.put("3", "구현");
+		categoryMap.put("2", "분석");
+		categoryMap.put("3", "디자인");
 		categoryMap.put("4", "개발");
 		categoryMap.put("5", "서버");
 		categoryMap.put("6", "테스트");
