@@ -173,7 +173,8 @@ public class LeaderController {
     @RequestMapping(value = "/verify.do", method = RequestMethod.GET)
     public String verifyMemberLeader(MemberVO vo, @RequestParam String token) {
 //        String code = token;
-//        System.out.println(token);
+        System.out.println(token);
+        System.out.print(vo.userId);
         leaderService.updateStatusByInvitedVerify(vo, token);
 
         return "redirect:/user/login/view.do";

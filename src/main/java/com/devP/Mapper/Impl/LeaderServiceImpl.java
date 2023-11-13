@@ -78,13 +78,13 @@ public class LeaderServiceImpl implements LeaderService {
 		String project = vo.getProjectName();
 
 		String[] memberArr = members.split(",");
-		System.out.println(memberArr[0]);
+//		System.out.println(memberArr[0]);
 
 		for(int i=0; i<memberArr.length; i++) {
 			UserVO vo4= new UserVO();
 			vo4.setEmail(memberArr[i]);
 			String token = UUID.randomUUID().toString();
-			System.out.println("토근발행 = " + token);
+//			System.out.println("토근발행 = " + token);
 
 			UserVO member = userService.getUserDataEmail(vo4);
 			mailService.sendInvitedMail(leader, project, member.getName(), member.getEmail(), token);
@@ -119,10 +119,11 @@ public class LeaderServiceImpl implements LeaderService {
 	@Override
 	public int updateStatusByInvitedVerify(MemberVO vo, String token){
 		vo.setStatus(token);
-		System.out.println(vo.getStatus());
+//		System.out.println(vo.getStatus());
 		vo = getMemberByToken(vo);
 		if (vo != null){
-			updateMemberStatusByToken(vo);
+//			System.out.println(vo.userId);
+			updateMemberStatusByToken(vo.userId);
 			return 200;
 		} else {
 			return 405;
@@ -134,7 +135,7 @@ public class LeaderServiceImpl implements LeaderService {
 	public MemberVO getMemberByToken(MemberVO vo){ return memberDAO.getMemberByToken(vo); }
 
 	@Override
-	public void updateMemberStatusByToken(MemberVO vo){ memberDAO.updateMemberStatusByToken(vo); }
+	public void updateMemberStatusByToken(String userId){ memberDAO.updateMemberStatusByToken(userId); }
 
 	@Override
 	public int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model){
