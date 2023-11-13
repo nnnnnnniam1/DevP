@@ -68,26 +68,28 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${taskList}" var="task" varStatus="loop">
-                                    <input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}">
-                                    <tr>
-                                        <td>${loop.count}</td>
-                                        <td >${task.startdate}</td>
-                                        <td>${task.enddate}</td>
-                                        <td>${task.depth}</td>
-                                        <td>${task.detail}</td>
-                                        <td>
-                                            <select class="form-select" name="taskVOList[${loop.index}].status" id="statusSelect">
-                                                <c:forEach items="${statusMap}" var="status">
-                                                    <option value="${status.value}"
-                                                        <c:if test="${status.value eq task.status}"> selected</c:if>
-                                                    >${status.value}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/view.do?projectId=${project.projectId}&taskId=${task.taskId}'" />
-                                        </td>
-                                    </tr>
+                                    <c:if test="${task.status ne '완료'}">
+                                        <input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}">
+                                        <tr>
+                                            <td>${loop.count}</td>
+                                            <td >${task.startdate}</td>
+                                            <td>${task.enddate}</td>
+                                            <td>${task.depth}</td>
+                                            <td>${task.detail}</td>
+                                            <td>
+                                                <select class="form-select" name="taskVOList[${loop.index}].status" id="statusSelect">
+                                                    <c:forEach items="${statusMap}" var="status">
+                                                            <option value="${status.value}"
+                                                                <c:if test="${status.value eq task.status}"> selected</c:if>
+                                                            >${status.value}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input class="form-control" type="button" value="이슈" onclick="location.href='/issue/view.do?projectId=${project.projectId}&taskId=${task.taskId}'" />
+                                            </td>
+                                        </tr>
+                                    </c:if>
                                 </c:forEach>
                             </tbody>
                         </table>
