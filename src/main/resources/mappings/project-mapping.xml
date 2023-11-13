@@ -121,7 +121,7 @@
         SET progress = (
         SELECT
         (SUM(progress) / COUNT(*) ) as average_progress
-        FROM task
+        FROM task WHERE projectId = #{projectId}
         )
         WHERE projectId=#{projectId};
     </update>
