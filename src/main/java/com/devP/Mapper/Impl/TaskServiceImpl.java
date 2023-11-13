@@ -235,6 +235,7 @@ public class TaskServiceImpl implements TaskService {
 		ArrayList<TaskVO> taskVOList = vo.getTaskVOList();
 		for(TaskVO task : taskVOList){
 			taskDAO.updateTaskStatus(task);
+			memberDAO.updateMemberProgress(task);
 		};
 		vo.setUserId(userdata.getId());
 		memberDAO.updateMemberProgress(vo);

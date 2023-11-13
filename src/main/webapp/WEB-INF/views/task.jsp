@@ -44,7 +44,7 @@
         <div class="taskWrapper">
             <div class="taskBox">
                 <div id="">
-                    <form modelAttribute="TaskVO" name="dataForm" method="post" action="/task/modify.do">
+                    <form class="mamageTask" modelAttribute="TaskVO" name="dataForm" method="post" action="/task/modify.do">
                         <table class="table" width=500px;>
                         	<colgroup>
                                 <col style="width: 5%">
@@ -69,7 +69,6 @@
                             <tbody>
                                 <c:forEach items="${taskList}" var="task" varStatus="loop">
                                     <input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}">
-                                    <input type="hidden" name="projectId" value="${projectId}">
                                     <tr>
                                         <td>${loop.count}</td>
                                         <td >${task.startdate}</td>

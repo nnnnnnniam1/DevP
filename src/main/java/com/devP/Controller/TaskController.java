@@ -65,7 +65,7 @@ public class TaskController {
 	public String addTask(){ return "addTask"; }
 
 	@RequestMapping(value="/modify.do", method = RequestMethod.POST)
-	public String modifyTask(@ModelAttribute TaskVO vo, Model model,HttpSession session){
+	public String modifyTask(@ModelAttribute TaskVO vo, HttpSession session){
 		int result = taskService.updateTaskMember(vo, session);
 
 
