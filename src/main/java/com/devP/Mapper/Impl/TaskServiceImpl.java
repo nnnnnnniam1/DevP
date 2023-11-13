@@ -46,8 +46,8 @@ public class TaskServiceImpl implements TaskService {
 		Map<String, String> categoryMap = new HashMap<>();
 
 		categoryMap.put("1", "기획");
-		categoryMap.put("2", "디자인");
-		categoryMap.put("3", "구현");
+		categoryMap.put("2", "분석");
+		categoryMap.put("3", "디자인");
 		categoryMap.put("4", "개발");
 		categoryMap.put("5", "서버");
 		categoryMap.put("6", "테스트");
@@ -167,6 +167,25 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskVO> getMyProjectTaskList(TaskVO vo){
 		return taskDAO.getMyProjectTaskList(vo);
 	}
+	// 한 일 가져오기 서비스
+	@Override
+	public List<TaskVO> getMyDoneTasks(TaskVO vo){
+		List<TaskVO> tasklist= taskDAO.getMyProjectTaskList(vo);
+		
+		filterTasks(tasklist);
+		return tasklist;
+	}
+	//한 일 업무 필터
+	private static void filterTasks(List<TaskVO> taskList) {
+        Iterator<TaskVO> iterator = taskList.iterator();
+        while (iterator.hasNext()) {
+            TaskVO task = iterator.next();
+            if (!task.getStatus().equals("완료")) {
+                iterator.remove(); // 상태가 "완료"가 아닌 항목을 리스트에서 제거
+            }
+        }
+    }
+	
 	public int getUserTaskList(Model model){
 		UserVO userData = (UserVO) session.getAttribute("user");
 		if(userData.getId() != null) {

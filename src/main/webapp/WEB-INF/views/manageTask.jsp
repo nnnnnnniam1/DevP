@@ -39,7 +39,11 @@
                                         </c:forEach>
                                     </select>
                                 </td>
-                                <td><input class="form-control" type="text" name="workPackage" id="workPackage"></td>
+                                <td>
+                                    <select class="form-select" name="workPackage" id="workPackageSelect">
+                                        <option value="" disabled selected> 선택</option>
+                                    </select>
+                                </td>
                                 <td><input class="form-control" type="text" name="depth" id="depth"></td>
                                 <td><input class="form-control" type="text" name="detail" id="detail"></td>
                                 <td><select class="form-select" name="responsibility" id="responsibilitySelect">
@@ -61,9 +65,13 @@
     </div>
     <div class="contentsBox">
         <p class="labelWrapper m-b-1">간트차트</p>
-        <div class="wbsBox col-auto">
-            <div id="chart_div"></div>
-        </div>
+        <c:if test="${not empty taskList}">
+            <div class="wbsWrapper">
+                <div class="wbsBox col-auto">
+                    <div id="chart_div"></div>
+                </div>
+            </div>
+        </c:if>
         <c:if test="${empty taskList}">
             <div style="height:10em;"></div>
         </c:if>
@@ -89,11 +97,12 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${taskList}" var="task" varStatus="loop">
+                                    <input type="hidden" value="${loop.count}" id="taskSize" />
                                     <input type="hidden" name="taskVOList[${loop.index}].taskId" value="${task.taskId}">
                                     <input type="hidden" name="taskVOList[${loop.index}].projectId" value="${task.projectId}">
                                     <tr>
                                         <td>
-                                            <select class="form-select" name="taskVOList[${loop.index}].category">
+                                            <select class="form-select" name="taskVOList[${loop.index}].category" id="categorySelect${loop.index}">
                                                 <c:forEach items="${categoryMap}" var="category">
                                                     <option value="${category.value}"
                                                         <c:if test="${category.value eq task.category}"> selected</c:if>
@@ -101,7 +110,48 @@
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <td><input class="form-control" type="text" name="taskVOList[${loop.index}].workPackage" value="${task.workPackage}"></td>
+                                        <td>
+                                            <input type="hidden" id="workPackageSelectValue" value="${task.workPackage}">
+                                            <select class="form-select" name="taskVOList[${loop.index}].workPackage" id="workPackageSelect${loop.index}">
+                                                <c:choose>
+                                                    <c:when test="${task.category eq '기획'}">
+                                                        <c:forEach items="${workPackage1}" var="workPackage">
+                                                            <option value="${workPackage.value}" <c:if test="${workPackage.value eq task.workPackage}">selected</c:if>>${workPackage.value}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:when test="${task.category eq '분석'}">
+                                                        <c:forEach items="${workPackage2}" var="workPackage">
+                                                            <option value="${workPackage.value}" <c:if test="${workPackage.value eq task.workPackage}">selected</c:if>>${workPackage.value}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:when test="${task.category eq '디자인'}">
+                                                        <c:forEach items="${workPackage3}" var="workPackage">
+                                                            <option value="${workPackage.value}" <c:if test="${workPackage.value eq task.workPackage}">selected</c:if>>${workPackage.value}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:when test="${task.category eq '개발'}">
+                                                        <c:forEach items="${workPackage4}" var="workPackage">
+                                                            <option value="${workPackage.value}" <c:if test="${workPackage.value eq task.workPackage}">selected</c:if>>${workPackage.value}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:when test="${task.category eq '서버'}">
+                                                        <c:forEach items="${workPackage5}" var="workPackage">
+                                                            <option value="${workPackage.value}" <c:if test="${workPackage.value eq task.workPackage}">selected</c:if>>${workPackage.value}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:when test="${task.category eq '테스트'}">
+                                                        <c:forEach items="${workPackage6}" var="workPackage">
+                                                            <option value="${workPackage.value}" <c:if test="${workPackage.value eq task.workPackage}">selected</c:if>>${workPackage.value}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:when test="${task.category eq '완료'}">
+                                                        <c:forEach items="${workPackage7}" var="workPackage">
+                                                            <option value="${workPackage.value}" <c:if test="${workPackage.value eq task.workPackage}">selected</c:if>>${workPackage.value}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                </c:choose>
+                                            </select>
+                                        </td>
                                         <td><input class="form-control" type="text" name="taskVOList[${loop.index}].depth" value="${task.depth}"></td>
                                         <td><input class="form-control" type="text" name="taskVOList[${loop.index}].detail" value="${task.detail}"></td>
                                         <td><select class="form-select" name="taskVOList[${loop.index}].userId">
@@ -187,7 +237,6 @@ if(dataArray[0] !== null && dataArray.length>0){
 }
 
 function drawChart(){
-    console.log(dataArray);
 
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Task ID');
@@ -218,7 +267,7 @@ function drawChart(){
 }
 function insertTask(){
     var category = document.getElementById("categorySelect").value;
-    var workPackage = document.getElementById("workPackage").value;
+    var workPackage = document.getElementById("workPackageSelect").value;
     var depth = document.getElementById("depth").value;
     var detail = document.getElementById("detail").value;
     var responsibility = document.getElementById("responsibilitySelect").value;
@@ -256,6 +305,66 @@ function insertTask(){
         })
     }
 }
+
+
+</script>
+<script>
+var workPackage = {
+    "기획": ["기획분석", "일정계획"],
+    "분석": ["IA 정의", "사용자 화면 기획"],
+    "디자인": ["디자인"],
+    "개발": ["프로토타입", "퍼블리싱", "개발세팅", "프런트엔드", "백엔드"],
+    "서버": ["서버"],
+    "테스트": ["테스트"],
+    "완료": ["모니터링 및 디버깅", "산출물 취합", "운영이관", "프로젝트 완료"]
+}
+// 카테고리 선택 시 작업 패키지 업데이트
+function updateWorkPackages() {
+    var categorySelect = document.getElementById("categorySelect");
+    var workPackageSelect = document.getElementById("workPackageSelect");
+    var selectedCategory = categorySelect.value;
+
+    // 작업 패키지 셀렉트 박스 초기화
+    workPackageSelect.innerHTML = '<option value="" disabled selected> 선택</option>';
+
+    // 선택한 카테고리에 해당하는 작업 패키지 추가
+    if (selectedCategory in workPackage) {
+        workPackage[selectedCategory].forEach(function (workPackage) {
+            var option = document.createElement("option");
+            option.value = workPackage;
+            option.text = workPackage;
+            workPackageSelect.add(option);
+        });
+    }
+}
+document.getElementById("categorySelect").addEventListener("change", updateWorkPackages);
+updateWorkPackages();
+
+<c:forEach items="${taskList}" var="task" varStatus="loop">
+
+function modifyWorkPackages${loop.index}() {
+    var categorySelect = document.getElementById("categorySelect${loop.index}");
+    var workPackageSelect = document.getElementById("workPackageSelect${loop.index}");
+    var selectedCategory = categorySelect.value;
+
+    console.log(selectedCategory);
+    // 작업 패키지 셀렉트 박스 초기화
+    workPackageSelect.innerHTML = '<option value="" disabled selected> 선택</option>';
+
+    // 선택한 카테고리에 해당하는 작업 패키지 추가
+    if (selectedCategory in workPackage) {
+        workPackage[selectedCategory].forEach(function (workPackage) {
+            var option = document.createElement("option");
+            option.value = workPackage;
+            option.text = workPackage;
+
+            workPackageSelect.add(option);
+
+        });
+    }
+}
+document.getElementById("categorySelect${loop.index}").addEventListener("change", modifyWorkPackages${loop.index});
+</c:forEach>
 
 
 </script>

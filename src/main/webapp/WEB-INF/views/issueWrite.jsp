@@ -86,7 +86,9 @@
                         <select id="chooseMember" class="form-select col-sm-10">
                             <option>멤버 선택</option>
                             <c:forEach items="${memberList}" var="member">
+                            	<c:if test="${ user.id != member.userId }">
                                 <option value="${member.email}">${member.userId}</option>
+                                </c:if>
                             </c:forEach>
                         </select>
                     </div>

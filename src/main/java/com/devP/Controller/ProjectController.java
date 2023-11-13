@@ -47,6 +47,9 @@ public class ProjectController {
 	private LeaderService leaderService;
 
 	@Autowired
+	private LeaderController leaderController;
+
+	@Autowired
 	private MailController mailController;
 
 	@ModelAttribute("colorMap")
@@ -143,7 +146,8 @@ public class ProjectController {
 		int result = projectService.insertProject(vo, vo2, vo3, session);
 		if (result == 200) {
 			int projectId = projectService.getProjectId(vo);
-			session.setAttribute("projectId", projectId);
+			vo.setProjectId(projectId);
+			session.setAttribute("project", vo);
 			return "redirect: /project/task/add/view.do";
 		} else if (result == 405)
 			return "redirect: /project/insertProject.do";
@@ -155,10 +159,19 @@ public class ProjectController {
 		model.addAttribute("menuId", "projectMenu");
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		vo.setProjectId(projectData.getProjectId());
-		List<String> nameList = projectService.getMemberNames(vo.getProjectId());
+		List<String> memberList = projectService.getMemberNames(vo.getProjectId());
+
 		model.addAttribute("menuId", "");
 		model.addAttribute("categoryMap", taskService.setCategoryMap());
 		model.addAttribute("statusMap", taskService.setStatusMap());
+		model.addAttribute("workPackage1",leaderController.setWorkPackage1(model));
+		model.addAttribute("workPackage2",leaderController.setWorkPackage2(model));
+		model.addAttribute("workPackage3",leaderController.setWorkPackage3(model));
+		model.addAttribute("workPackage4",leaderController.setWorkPackage4(model));
+		model.addAttribute("workPackage5",leaderController.setWorkPackage5(model));
+		model.addAttribute("workPackage6",leaderController.setWorkPackage6(model));
+		model.addAttribute("workPackage7",leaderController.setWorkPackage7(model));
+		model.addAttribute("memberMap",projectService.getMemberMap(memberList));
 		int result = leaderService.getTaskDatas(vo, model, session);
 
 		if (result == 200)
@@ -258,6 +271,11 @@ public class ProjectController {
 			model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
 
 			model.addAttribute("reportData", reportDAO.getReportTaskData(projectId));
+
+			if(projectData.getStatus().equals("삭제")){
+				model.addAttribute("deleteReason",reportDAO.getDeleteProjectReason(projectId));
+			}
+
 			return "reviewReport";
 		}
 
@@ -287,7 +305,9 @@ public class ProjectController {
         model.addAttribute("taskList",taskService.getProjectTaskList(projectId));
 
         model.addAttribute("reportData", reportDAO.getReportTaskData(projectId));
-
+		if(projectData.getStatus().equals("삭제")){
+			model.addAttribute("deleteReason",reportDAO.getDeleteProjectReason(projectId));
+		}
 
 		return "reviewReport";
 	}

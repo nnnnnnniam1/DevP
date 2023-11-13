@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <c:choose>
+<style>
+.nav-link{
+font-weight: 700;
+}
+</style>
+<c:choose>
         <c:when test="${project!=null}">
             <ul class="navbar-nav flex-column mt-4">
                 <li class="nav-item">
@@ -28,7 +33,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link p-3 mb-2 sidebar-link link-dark">
+                    <a href="/task/getDoneTask/view.do" class="nav-link p-3 mb-2 sidebar-link link-dark">
                         <i class="bi bi-check-circle-fill mx-3"></i>한 일
                     </a>
                 </li>

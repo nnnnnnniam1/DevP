@@ -38,4 +38,6 @@ public interface TaskService {
 	Map<String,String> setCategoryMap();
 
 	Map<String,String> setStatusMap();
+
+	List<TaskVO> getMyDoneTasks(TaskVO vo);
 }
