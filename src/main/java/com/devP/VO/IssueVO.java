@@ -1,7 +1,5 @@
 package com.devP.VO;
 
-import java.util.Date;
-
 //VO(Value Object)
 public class IssueVO {
 	private Integer issueId;
@@ -50,7 +48,7 @@ public class IssueVO {
 	public Integer getTaskId() {
 		return taskId;
 	}
-	public void setTaskId(int taskId) {
+	public void setTaskId(Integer taskId) {
 		this.taskId = taskId;
 	}
 	public String getTitle() {
