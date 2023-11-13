@@ -26,7 +26,7 @@ public interface LeaderService {
 
     MemberVO getMemberByToken(MemberVO vo);
 
-    void updateMemberStatusByToken(MemberVO vo);
+    void updateMemberStatusByToken(String userId);
 
     int updateMemberDatas(ArrayList<MemberVO> memberVOList, Model model);
 

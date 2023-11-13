@@ -42,7 +42,7 @@
 
     <!--  프로젝트 멤버 참가 상태 변경 -->
     <update id="updateMemberStatusByToken">
-        UPDATE projectgroup SET status="1" WHERE status=#{status}
+        UPDATE projectgroup SET status="1" WHERE userId=#{userId}
     </update>
 
     <!--  프로젝트 멤버 데이터 변경 -->
