@@ -59,6 +59,7 @@ public class IssueController {
 		model.addAttribute("menuId", "issueMenu");
 		if(issue.getTaskId() == 0){issue.setTaskId(null);}
 		issueService.insertIssue(issue);
+
 		return "redirect:/issue/list.do?projectId=" + issue.getProjectId();
     }
 
