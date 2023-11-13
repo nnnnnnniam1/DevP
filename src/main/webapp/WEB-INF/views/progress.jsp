@@ -42,33 +42,5 @@
     </div>
 </div>
 </body>
-<script="text/javascript">
-function completeProject(projectId, projectName){
-if(confirm("["+projectName+"]프로젝트를 완료하시겠습니까?")){
-$.ajax({
-type: 'GET',
-url: '/leader/project/complete.do',
-data: {
-projectId: projectId
-},
-success: function(response){
-if(response === "success"){
-alert("완료되었습니다");
-window.location.href="/project/list/view.do";
-} else {
-alert("오류가 발생했습니다. 다시 시도해주세요");
-window.location.href="/leader/detail.do?projectId=${project.projectId}"
-}
-
-},
-error: function(error){
-console.log("에러: "+error);
-alert("오류가 발생했습니다. 다시 시도해주세요");
-window.location.href="/leader/detail.do?projectId=${project.projectId}"
-}
-});
-}
-}
-</script>
 <!-- 컨텐츠 종료 -->
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
