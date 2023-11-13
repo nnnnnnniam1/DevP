@@ -8,6 +8,8 @@ import com.devP.VO.TaskListVO;
 import com.devP.VO.TaskVO;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
+
 public interface TaskService {
 	List<Map<String, Object>> getMyTasks();
 
@@ -25,7 +27,7 @@ public interface TaskService {
 
 	void updateTaskLeader(TaskVO vo);
 
-	int updateTaskMember(TaskVO vo);
+	int updateTaskMember(TaskVO vo, HttpSession session);
 
 	void deleteTask(int taskId);
 

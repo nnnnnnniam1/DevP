@@ -82,7 +82,7 @@
 			CASE
 				WHEN #{status} = '대기' THEN 0
 				WHEN #{status} = '진행중' THEN 50
-				WHEN #{status} = '검토' THEN 75
+				WHEN #{status} = '검토' THEN 50
 				WHEN #{status} = '완료' THEN 100
 				ELSE progress
 			END
@@ -96,7 +96,7 @@
 			CASE
 				WHEN #{status} = '대기' THEN 0
 				WHEN #{status} = '진행중' THEN 50
-				WHEN #{status} = '검토' THEN 75
+				WHEN #{status} = '검토' THEN 50
 			ELSE progress
 			END
 		WHERE taskId = #{taskId};
