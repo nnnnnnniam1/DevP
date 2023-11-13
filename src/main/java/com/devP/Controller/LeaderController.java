@@ -1,5 +1,7 @@
 package com.devP.Controller;
 
+import com.devP.Mapper.Repository.MemberDAOMybatis;
+import com.devP.Mapper.Repository.ProjectDAOMybatis;
 import com.devP.Service.LeaderService;
 import com.devP.Service.ProjectService;
 import com.devP.Service.TaskService;
@@ -25,7 +27,10 @@ public class LeaderController {
     private UserService userService;
     @Autowired
     private LeaderService leaderService;
-
+    @Autowired
+    private MemberDAOMybatis memberDAO;
+    @Autowired
+    private ProjectDAOMybatis projectDAO;
     @Autowired
     private ProjectService projectService;
 
@@ -210,11 +215,21 @@ public class LeaderController {
     }
 
     @RequestMapping(value = "/task/add.do", method = RequestMethod.POST)
-    public String addTaskLeader(TaskVO vo) {
+    public String addTaskLeader(TaskVO vo, HttpSession session) {
+		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
         System.out.println(vo.getCategory());
         int result = leaderService.insertTask(vo);
 
         if (result == 200) {
+        	vo.setUserId(vo.getUserId());
+			vo.setProjectId(projectData.getProjectId());
+			memberDAO.updateMemberProgress(vo);
+			projectDAO.updateProgress(vo.getProjectId());
+			
+			ProjectVO projectVO = new ProjectVO();
+			projectVO.setProjectId(vo.getProjectId());
+			session.setAttribute("project", projectService.getProject(projectVO));
+        	
             return "redirect:/leader/task/view.do";
         } else {
             return "/";
