@@ -38,9 +38,9 @@ public class TaskController {
 	//업무 가져오기
     @RequestMapping(value="/getTask.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
     @ResponseBody
-	    public List<Map<String, Object>> getTask(){
+	    public List<Map<String, Object>> getTask(HttpSession session){
     	
-	    return taskService.getMyTasks();
+	    return taskService.getMyTasks(session);
   	}
     //한 일 가져오기
     @RequestMapping(value="/getDoneTask/view.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
@@ -57,7 +57,7 @@ public class TaskController {
 
 	@RequestMapping(value="/getMyTasks.do", method= RequestMethod.GET, produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public List<Map<String, Object>> getMyTask(){ return taskService.getMyAllTasks(); }
+	public List<Map<String, Object>> getMyTask(HttpSession session){ return taskService.getMyAllTasks(session); }
 
 
 	// 업무 추가 뷰
@@ -65,8 +65,8 @@ public class TaskController {
 	public String addTask(){ return "addTask"; }
 
 	@RequestMapping(value="/modify.do", method = RequestMethod.POST)
-	public String modifyTask(@ModelAttribute TaskVO vo, Model model){
-		int result = taskService.updateTaskMember(vo);
+	public String modifyTask(@ModelAttribute TaskVO vo, Model model,HttpSession session){
+		int result = taskService.updateTaskMember(vo, session);
 
 
 		return "redirect:/project/myTask.do";
