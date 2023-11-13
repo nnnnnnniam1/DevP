@@ -186,7 +186,6 @@ public class LeaderServiceImpl implements LeaderService {
 		projectVO.setProjectId(projectId);
 		session.setAttribute("project", projectService.getProject(projectVO));
 		return 200;
-
 	}
 
 	@Override
