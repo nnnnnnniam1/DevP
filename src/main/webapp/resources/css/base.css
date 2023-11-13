@@ -6,7 +6,7 @@ html, body, input, select, button, *{
 }
 a{ text-decoration:none; color:#333; }
 
-.form-control{
+.login-input{
     padding: 0.5em 0.5em;
     font-size: 1.25rem;
 }

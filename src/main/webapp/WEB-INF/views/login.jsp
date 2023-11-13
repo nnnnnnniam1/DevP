@@ -13,14 +13,14 @@
                 <h2>로그인</h2>
                 <div class="mb-3">
                     <label class="form-label">아이디</label>
-                    <input class="form-control" type="text" name="id" placeholder="아이디를 입력해주세요." value="${id}">
+                    <input class="form-control login-input" type="text" name="id" placeholder="아이디를 입력해주세요." value="${id}">
                     <label class="form-label m-t-1">비밀번호</label>
-                    <input class="form-control" type="password" name="password" placeholder="비밀번호를 입력해주세요.">
+                    <input class="form-control login-input" type="password" name="password" placeholder="비밀번호를 입력해주세요.">
                     <div class="form-check  m-t-1">
                        <input class="form-check-input" type="checkbox" name="saveId" id="remember-check" ${checked} >
                        <label for="remember-check" class="form-label saveIdLabel">아이디 저장</label>
                     </div>
-                    <input class="form-control btn main m-b-2" type="submit" value="로그인">
+                    <input class="form-control login-input btn main m-b-2" type="submit" value="로그인">
 
                     <div class="position-relative">
                     <div class="col">

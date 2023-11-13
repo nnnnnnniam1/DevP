@@ -54,13 +54,12 @@
                                 </select></td>
                                 <td><input class="form-control startDate" type="date"  name="startdate" id="startDate"/></td>
                                 <td><input class="form-control endDate" type="date"  name="enddate" id="endDate" /></td>
-                                <td><button class="btn main" onclick="insertTask()">추가</button></td>
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
+            <button class="btn main" onclick="insertTask()">추가</button>
         </div>
     </div>
     <div class="contentsBox">

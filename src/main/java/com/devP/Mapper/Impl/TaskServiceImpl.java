@@ -233,13 +233,13 @@ public class TaskServiceImpl implements TaskService {
 	public void updateTaskLeader(TaskVO vo){taskDAO.updateTaskLeader(vo);}
 
 	@Override
-	public int updateTaskMember(TaskVO vo){
+	public int updateTaskMember(TaskVO vo, HttpSession session){
+
 		ArrayList<TaskVO> taskVOList = vo.getTaskVOList();
 		for(TaskVO task : taskVOList){
 			taskDAO.updateTaskStatus(task);
+			memberDAO.updateMemberProgress(task);
 		};
-		vo.setUserId(session.getAttribute("id").toString());
-		memberDAO.updateMemberProgress(vo);
 		projectDAO.updateProgress(vo.getProjectId());
 		return 200;
 	}
