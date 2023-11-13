@@ -37,9 +37,6 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private MemberDAOMybatis memberDAO;
 
-    @Autowired
-    private HttpSession session;
-
 	@Override
 	@ModelAttribute("categoryMap")
 	public Map<String, String> setCategoryMap() {
@@ -78,7 +75,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getMyAllTasks() {
+	public List<Map<String, Object>> getMyAllTasks(HttpSession session) {
 		UserVO userData = (UserVO) session.getAttribute("user");
 		List<TaskVO> voList = new ArrayList<TaskVO>();
 		List<Map<String, Object>> resultList = new ArrayList<>();
@@ -117,7 +114,7 @@ public class TaskServiceImpl implements TaskService {
 		return resultList;
 	}
 	@Override
-	public List<Map<String, Object>> getMyTasks() {
+	public List<Map<String, Object>> getMyTasks(HttpSession session) {
 		ProjectVO projectData = (ProjectVO) session.getAttribute("project");
 		UserVO userData = (UserVO) session.getAttribute("user");
 		List<TaskVO> voList = new ArrayList<TaskVO>();
@@ -186,7 +183,7 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 	
-	public int getUserTaskList(Model model){
+	public int getUserTaskList(Model model,HttpSession session){
 		UserVO userData = (UserVO) session.getAttribute("user");
 		if(userData.getId() != null) {
 			String userId = userData.getId();
@@ -202,7 +199,7 @@ public class TaskServiceImpl implements TaskService {
 
 
 	@Override
-	public void getTaskCount(Model model) {
+	public void getTaskCount(Model model, HttpSession session) {
 		UserVO userData = (UserVO) session.getAttribute("user");
 		int progresscount = 0, completedcount = 0, pastcount = 0;
 		List<TaskVO> voList = new ArrayList<TaskVO>();
@@ -233,13 +230,15 @@ public class TaskServiceImpl implements TaskService {
 	public void updateTaskLeader(TaskVO vo){taskDAO.updateTaskLeader(vo);}
 
 	@Override
-	public int updateTaskMember(TaskVO vo, HttpSession session){
-
+	public int updateTaskMember(TaskVO vo,HttpSession session){
+		UserVO userdata = (UserVO) session.getAttribute("user");
 		ArrayList<TaskVO> taskVOList = vo.getTaskVOList();
 		for(TaskVO task : taskVOList){
 			taskDAO.updateTaskStatus(task);
 			memberDAO.updateMemberProgress(task);
 		};
+		vo.setUserId(userdata.getId());
+		memberDAO.updateMemberProgress(vo);
 		projectDAO.updateProgress(vo.getProjectId());
 		return 200;
 	}
