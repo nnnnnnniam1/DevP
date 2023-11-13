@@ -23,7 +23,7 @@
                             <div class="projectProgress">
                                 <span class="text-body-secondary ">전체진행률</span>
                                 <div class="progress">
-                                    <div style="width: ${project.memberProgress}%;" class="progress-bar" />
+                                    <div style="width: ${project.projectProgress}%;" class="progress-bar" />
                                 </div>
                             </div>
                             <div class="memberProgress">

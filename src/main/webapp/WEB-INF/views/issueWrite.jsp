@@ -68,7 +68,7 @@
                     <div class="col-sm-10">
                         <select id="chooseTask" name="taskId" class="form-select col-sm-10">
                             <option disabled selected>선택</option>
-                            <option value="">업무아님</option>
+                            <option value="0">업무아님</option>
                             <c:forEach items="${taskList}" var="task">
                                 <option value="${task.taskId}" ${task.taskId == taskId ? 'selected' : ''} >${task.detail}</option>
                             </c:forEach>
